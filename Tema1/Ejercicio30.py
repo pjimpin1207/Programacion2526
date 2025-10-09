@@ -7,3 +7,4 @@ def es_par_impar(numero):
 num = int(input("Introduce un número: "))
 resultado = es_par_impar(num)
 print(resultado)
+
