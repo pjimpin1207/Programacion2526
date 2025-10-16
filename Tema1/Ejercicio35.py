@@ -1,4 +1,6 @@
-# Programa: Login con validación de contraseña
+# Modifica el programa de login para que además del
+# nombre de usuario pida una contraseña y valide que
+# la contraseña tenga al menos 8 caracteres.
 
 usuario = input("Introduce tu nombre de usuario: ")
 contraseña = input("Introduce tu contraseña: ")
