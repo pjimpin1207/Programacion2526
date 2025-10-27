@@ -1,7 +1,7 @@
 #Actividad 2
 
 # for
-numeros = [3, 2, 6, 8, 9]
+numeros = [3, 7, 2, 8, 5]
 suma = 0
 elemento = 0
 
