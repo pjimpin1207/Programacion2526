@@ -27,8 +27,8 @@ for i in range(len(numeros) - 1, -1, -1):
     
 # Con while
 
-print("\nLos números en orden inverso (con while) son:")
+print("\nLos números en orden inverso son:")
 i = len(numeros) - 1
 while i >= 0:
     print(numeros[i])
-    i -= 1  
+    i = i - 1 

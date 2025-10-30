@@ -1,4 +1,3 @@
-# Ejercicio 5
 # Pedir al usuario que introduzca 5 números decimales y mostrarlos en el mismo orden
 
 numeros = []  # Lista vacía para guardar los números
