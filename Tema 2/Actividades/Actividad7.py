@@ -11,10 +11,10 @@ def maximo(t):
 # Pedir al usuario cuántos números desea introducir
 cantidad = int(input("¿Cuántos números enteros deseas introducir?: "))
 
-# Crear la lista vacía
+# Crear el array vacio
 numeros = []
 
-# Pedir los números y los guardamos en la lista
+# Pedir los números y los guardar en la lista
 for i in range(cantidad):
     numero = int(input("Introduce el número entero " + str(i + 1) + ": "))
     numeros.append(numero)
