@@ -17,7 +17,7 @@ inventario.insert(1, "Plátanos Frescos")
 print("Tras introducir platanos frescos en la posicion 1:", inventario)
 
 # Extraer el último producto con el pop
-producto_vendido = inventario.pop()
+producto_vendido = inventario.pop(-1)
 print("Producto vendido:", producto_vendido)
 
 # Eliminar las peraas con el remove
