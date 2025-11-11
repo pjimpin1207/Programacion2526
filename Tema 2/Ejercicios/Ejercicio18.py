@@ -33,3 +33,6 @@ print("\nResultados en el array ordenados:")
 print("Busqueda secuencial ordenada:", indiceSecuencialOrdenado)
 print("Busqueda binaria ordeanda:", indiceBinariaOrdenada)
 
+# En la primera busqueda secuencial encuentra el lugar del numero porque le da igual que el array este desordenado o ordenado
+# y no encuentra el binario porque esta desordenado
+# En la segunda busqueda despues de ordenar lo encuentra la binaria porque ya esta ordenado
