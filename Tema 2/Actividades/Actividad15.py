@@ -16,13 +16,13 @@ def buscarNumero(numero, array):
     return -1
 
 
-# Crear un array con 5 números aleatorios entre 1 y 50
+# Crear un array con 5 números aleatorios que esten entre el 1 y 50
 numeros = []
 for i in range(5):
     numeros.append(random.randint(1, 50))
 
 # Mostrar el array
-print("Array generado:", numeros)
+print("Array generado de numeros aleatorios:", numeros)
 
 # Pedir al usuario un número para buscar
 numeroUsuario = int(input("Introduce un número a buscar: "))
