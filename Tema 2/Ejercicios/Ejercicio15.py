@@ -9,13 +9,13 @@
 import random
 
 # Función para busca un número en el array
-def buscarNumero(numero, array):
+def busquedaSecuencial(numero, array):
     for i in range(len(array)):
         if array[i] == numero:
             return i
     return -1
 
-
+Comentado para poder utilizar la funcion en el ejericio 18
 # Crear un array con 5 números aleatorios que esten entre el 1 y 50
 numeros = []
 for i in range(5):
@@ -28,7 +28,7 @@ print("Array generado de numeros aleatorios:", numeros)
 numeroUsuario = int(input("Introduce un número a buscar: "))
 
 # Buscar el número con la función
-posicionNumero = buscarNumero(numeroUsuario, numeros)
-
-# Mostrar resultado
-print("Resultado devuelto por la función:", posicionNumero)
+# posicionNumero = buscarNumero(numeroUsuario, numeros)
+# 
+# # Mostrar resultado
+# print("Resultado devuelto por la función:", posicionNumero)
