@@ -23,7 +23,7 @@ def iguales(lista1, lista2):
     return True
     
     #TODO: retorna un valor boleano
-
+    
 #True (iguales)
 print(f"A == B: {iguales(lista_a, lista_b)}")
 
