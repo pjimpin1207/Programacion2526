@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>¿En qué consiste la programación? - Blog Programación</title>
+  <meta name="description" content="Descubre qué es la programación, sus etapas principales y la diferencia entre algoritmos y código con ejemplos en Java.">
+  <link rel="stylesheet" href="../../css/postsTema1.css" />
+</head>
+
+<body>
+
+  <!-- ===== CABECERA ===== -->
+  <header class="header">
+    <h1>¿En qué consiste la programación?</h1>
+    <p class="subtitle">Introducción a los conceptos básicos de programación</p>
+    <nav class="nav">
+      <a href="../../index.html">Inicio</a>
+      <a href="../Tema1/index.html">Tema 1</a>
+      <a href="../Tema2/index.html">Tema 2</a>
+    </nav>
+  </header>
+
+  <!-- ===== CONTENIDO PRINCIPAL ===== -->
+  <main class="main">
+    <article class="post">
+      <p class="meta">Publicado por <strong>pjimpin1207</strong> el <em>23 de septiembre de 2025</em></p>
+
+      <div class="post-body">
+        <p>La programación es el proceso de diseñar y crear instrucciones para que un ordenador ejecute tareas específicas. En otras palabras, es traducir soluciones a problemas en un lenguaje que la máquina pueda entender.</p>
+
+        <h2>¿En qué consiste la programación?</h2>
+        <ul>
+          <li><strong>Analizar el problema:</strong> Comprender qué se necesita resolver.</li>
+          <li><strong>Diseñar una solución:</strong> Planificar los pasos o reglas lógicas (algoritmo).</li>
+          <li><strong>Escribir el código:</strong> Usar un lenguaje de programación (Python, Java, C++, etc.) para expresar el algoritmo.</li>
+          <li><strong>Probar y depurar:</strong> Ejecutar el programa, detectar errores (<em>bugs</em>) y corregirlos.</li>
+          <li><strong>Mantener y mejorar:</strong> Actualizar el código para nuevas necesidades o mayor eficiencia.</li>
+        </ul>
+
+        <h2>Diferencia entre algoritmos y código</h2>
+        <p>La programación es el proceso de crear instrucciones para que un ordenador realice tareas. Un <strong>algoritmo</strong> es la secuencia lógica de pasos para resolver un problema, mientras que el <strong>código</strong> es la implementación de ese algoritmo en un lenguaje específico.</p>
+
+        <p>Por ejemplo, el algoritmo para preparar un té sería:</p>
+
+        <blockquote>
+          (1) Calienta agua → (2) Coloca una bolsa de té en la taza → (3) Vierte el agua → (4) Espera 3 minutos → (5) Retira la bolsa y bebe.
+        </blockquote>
+
+        <p>Y su código en Java podría verse así:</p>
+
+        <pre><code>
+// Ejemplo en Java: preparar un té
+public class Te {
+    public static void main(String[] args) {
+        calentarAgua();
+        colocarBolsa();
+        verterAgua();
+        esperar(3);
+        retirarBolsa();
+        System.out.println("¡Tu té está listo!");
+    }
+
+    static void calentarAgua() {
+        System.out.println("Calentando agua...");
+    }
+
+    static void colocarBolsa() {
+        System.out.println("Colocando la bolsa de té...");
+    }
+
+    static void verterAgua() {
+        System.out.println("Vertiendo el agua caliente...");
+    }
+
+    static void esperar(int minutos) {
+        System.out.println("Esperando " + minutos + " minutos...");
+    }
+
+    static void retirarBolsa() {
+        System.out.println("Retirando la bolsa...");
+    }
+}
+        </code></pre>
+      </div>
+    </article>
+
+    <div class="back">
+      <a href="../Tema1/index.html" class="btn">← Volver a Tema 1</a>
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <p>© 2025 Pablo Jiménez — Blog Programación</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Algoritmos y diagramas - Blog Programación</title>
+  <meta name="description" content="Ejemplos de algoritmos y diagramas de flujo: aprende a representar procesos lógicos paso a paso.">
+  <link rel="stylesheet" href="../../css/postsTema1.css">
+</head>
+
+<body>
+  <!-- ===== CABECERA ===== -->
+  <header class="header">
+    <h1>Algoritmos y diagramas</h1>
+    <p class="subtitle">Ejercicios y ejemplos prácticos de programación estructurada</p>
+    <nav class="nav">
+      <a href="../../index.html">Inicio</a>
+      <a href="../Tema1/index.html">Tema 1</a>
+      <a href="../Tema2/index.html">Tema 2</a>
+    </nav>
+  </header>
+
+  <!-- ===== CONTENIDO PRINCIPAL ===== -->
+  <main class="main">
+    <article class="post">
+      <p class="meta">Publicado por <strong>pjimpin1207</strong> el <em>23 de septiembre de 2025</em></p>
+
+      <div class="post-body">
+        <p>En este post veremos ejemplos de algoritmos y sus diagramas de flujo. Los algoritmos se expresan como pasos lógicos que luego se pueden representar gráficamente mediante diagramas.</p>
+
+        <h2>Algoritmo y diagrama para calcular el área de un círculo</h2>
+        <p>Este algoritmo solicita el radio del círculo, calcula su área y muestra el resultado final.</p>
+
+        <pre><code>
+// Algoritmo: Calcular el área de un círculo
+Inicio
+    Escribir "Introduce el valor del radio:"
+    Leer radio
+    area ← 3.1416 * radio * radio
+    Escribir "El área del círculo es: ", area
+Fin
+        </code></pre>
+
+        <p><strong>Diagrama de flujo:</strong></p>
+        <ul>
+          <li>Inicio → Leer radio → Calcular área = π * r² → Mostrar resultado → Fin</li>
+        </ul>
+
+        <h2>Algoritmo y diagrama para calcular la nota media de tres notas</h2>
+        <p>Este algoritmo pide tres notas distintas, calcula la media y muestra el resultado.</p>
+
+        <pre><code>
+// Algoritmo: Calcular la media de tres notas
+Inicio
+    Escribir "Introduce la primera nota:"
+    Leer n1
+    Escribir "Introduce la segunda nota:"
+    Leer n2
+    Escribir "Introduce la tercera nota:"
+    Leer n3
+    media ← (n1 + n2 + n3) / 3
+    Escribir "La nota media es: ", media
+Fin
+        </code></pre>
+
+        <p><strong>Diagrama de flujo:</strong></p>
+        <ul>
+          <li>Inicio → Leer n1, n2, n3 → Calcular media = (n1 + n2 + n3)/3 → Mostrar resultado → Fin</li>
+        </ul>
+
+        <h2>Algoritmo y diagrama para calcular la nota media e indicar si está aprobado o suspenso</h2>
+        <p>En este algoritmo se calcula la nota media de tres notas y se evalúa si el alumno aprueba (nota ≥ 5) o suspende.</p>
+
+        <pre><code>
+// Algoritmo: Media y resultado final
+Inicio
+    Escribir "Introduce tres notas:"
+    Leer n1, n2, n3
+    media ← (n1 + n2 + n3) / 3
+    Si media >= 5 Entonces
+        Escribir "Aprobado con media: ", media
+    Sino
+        Escribir "Suspenso con media: ", media
+    FinSi
+Fin
+        </code></pre>
+
+        <p><strong>Diagrama de flujo:</strong></p>
+        <ul>
+          <li>Inicio → Leer n1, n2, n3 → Calcular media → ¿media ≥ 5? → (Sí) “Aprobado” / (No) “Suspenso” → Fin</li>
+        </ul>
+
+        <h2>Algoritmo y diagrama para determinar si una persona es mayor de edad</h2>
+        <p>Este programa solicita la edad y muestra si la persona es mayor o menor de edad.</p>
+
+        <pre><code>
+// Algoritmo: Mayor de edad
+Inicio
+    Escribir "Introduce tu edad:"
+    Leer edad
+    Si edad >= 18 Entonces
+        Escribir "Eres mayor de edad"
+    Sino
+        Escribir "Eres menor de edad"
+    FinSi
+Fin
+        </code></pre>
+
+        <p><strong>Diagrama de flujo:</strong></p>
+        <ul>
+          <li>Inicio → Leer edad → ¿edad ≥ 18? → (Sí) “Mayor de edad” / (No) “Menor de edad” → Fin</li>
+        </ul>
+      </div>
+    </article>
+
+    <div class="back">
+      <a href="../Tema1/index.html" class="btn">← Volver a Tema 1</a>
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <p>© 2025 Pablo Jiménez — Blog Programación</p>
+  </footer>
+</body>
+</html>
