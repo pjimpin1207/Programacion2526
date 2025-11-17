@@ -23,18 +23,23 @@ for fila in m:
         print(elemento, end=" ")
 
 # recorrer y mostrar la matriz extrayendo los numeros multiplos de 2
-matrizMultiplos =  []
+matrizmultiplos =  []
 
-for fila in m:
+for i in range(len(m)):
     nuevaFila = []
-    for elemento in fila:
-        if elemento % 2 == 0:
-            nuevaFila.append(elemento)
+    for j in range(len(m[i])):
+        if m[i][j] % 2 == 0:
+            nuevaFila.append(m[i][j])
+            m[i][j] = 0
         else:
             nuevaFila.append(0)
-    matrizMultiplos.append(nuevaFila)
+    matrizmultiplos.append(nuevaFila)
 
-print()
-print("Matriz de multiplos de dos")
-for fila in matrizMultiplos:
+# mostrar resultados
+print("\nmatriz sin los multiplos de dos:")
+for fila in m:
+    print(fila)
+
+print("\nmatriz con los múltiplos de 2:")
+for fila in matrizmultiplos:
     print(fila)
