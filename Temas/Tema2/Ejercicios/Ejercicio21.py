@@ -27,16 +27,19 @@ matrizmultiplos =  []
 
 for i in range(len(m)):
     nuevaFila = []
-    for j in range(len(m[i])):
+    j = 0
+    while j < len(m[i]):
         if m[i][j] % 2 == 0:
             nuevaFila.append(m[i][j])
-            m[i][j] = 0
+            m[i].pop(j)
         else:
-            nuevaFila.append(0)
+            nuevaFila.append("")
+            j += 1
     matrizmultiplos.append(nuevaFila)
 
+
 # mostrar resultados
-print("\nmatriz sin los multiplos de dos:")
+print("matriz original SIN los múltiplos de 2:")
 for fila in m:
     print(fila)
 
