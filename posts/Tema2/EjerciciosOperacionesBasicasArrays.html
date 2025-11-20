@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Operaciones Básicas con Arrays - Tema 2</title>
+  <link rel="stylesheet" href="../../css/postsTema1.css" />
+</head>
+
+<body>
+
+  <!-- ===== CABECERA ===== -->
+  <header class="header">
+    <h1>Operaciones Básicas con Arrays</h1>
+    <p class="subtitle">Tema 2 — Listas y manipulación de datos en Python</p>
+    <nav class="nav">
+      <a href="/index.html">Inicio</a>
+      <a href="/posts/Tema1/index.html">Tema 1</a>
+      <a href="../Tema2/index.html">Tema 2</a>
+      <a href="../Tema3/index.html">Tema 3</a>
+      <a href="../Tema4/index.html">Tema 4</a>
+      <a href="../Tema5/index.html">Tema 5</a>
+      <a href="../Tema6/index.html">Tema 6</a>
+      <a href="../Tema7/index.html">Tema 7</a>
+      <a href="../Tema/index.html">Tema 8</a>
+      <a href="../Tema9/index.html">Tema 9</a>
+    </nav>
+  </header>
+
+  <!-- ===== CONTENIDO PRINCIPAL ===== -->
+  <main class="main">
+    <article class="post">
+      <p class="meta">Publicado por <strong>pjimpin1207</strong> el 20 de noviembre de 2025</p>
+      <div class="post-body">
+
+        <!-- EJERCICIO 8 -->
+        <h2>Ejercicio 8: Separar nombre y apellido</h2>
+        <p>
+          Crea un array con tu nombre y apellido y divídelo en dos arrays diferentes: uno para el nombre y otro para el apellido.
+        </p>
+
+        <h3>Solución</h3>
+        <pre><code>a = ['P','a','b','l','o','J','i','m','e','n','e','z']
+
+print(a)
+print(a[0:5])  # nombre
+print(a[5:12]) # apellido</code></pre>
+
+
+        <!-- EJERCICIO 9 -->
+        <h2>Ejercicio 9: Añadir un nuevo alumno al final del array</h2>
+        <p>Crea un array con varios alumnos. Luego pide otro por teclado y añádelo al final de la lista.</p>
+
+        <h3>Solución</h3>
+        <pre><code>alumnos = ["Pablo", "David", "Alvaro", "Adrian"]
+
+print("Lista inicial de alumnos:", alumnos)
+
+nuevo_alumno = input("Introduce un nuevo alumno: ")
+
+alumnos.append(nuevo_alumno)
+
+print("Lista final de alumnos:", alumnos)</code></pre>
+
+
+        <!-- EJERCICIO 10 -->
+        <h2>Ejercicio 10: Insertar un alumno entre dos posiciones</h2>
+        <p>A partir del array anterior, insertar un nuevo alumno entre el segundo y tercer puesto.</p>
+
+        <h3>Solución</h3>
+        <pre><code>alumnos = ["Pablo", "David", "Alvaro", "Adrian"]
+
+print("Lista inicial de alumnos:", alumnos)
+
+nuevo_alumno = input("Introduce un nuevo alumno: ")
+
+alumnos.insert(2, nuevo_alumno)
+
+print("Lista final de alumnos:", alumnos)</code></pre>
+
+
+        <!-- EJERCICIO 11 -->
+        <h2>Ejercicio 11: Unir dos aulas</h2>
+        <p>Tenemos dos aulas con tres alumnos cada una. Queremos unirlas sin modificar las listas originales.</p>
+
+        <h3>Solución</h3>
+        <pre><code>aula1 = ["pablo", "david", "alvaro"]
+aula2 = ["pepe", "jesus", "alberto"]
+aulaEntera = []
+
+print(aula1)
+print(aula2)
+
+aulaEntera.extend(aula1)
+aulaEntera.extend(aula2)
+
+print(aulaEntera)</code></pre>
+
+
+        <!-- EJERCICIO 12 -->
+        <h2>Ejercicio 12: Eliminar los números pares</h2>
+        <p>Crear una lista con los 10 primeros números y eliminar todos los pares.</p>
+
+        <h3>Solución</h3>
+        <pre><code># Crear array
+array_numeros = [1,2,3,4,5,6,7,8,9,10]
+
+print("Array original:", array_numeros)
+
+array_resultado = []
+
+for n in array_numeros:
+    if n % 2 != 0:
+        array_resultado.append(n)
+
+print("Array sin números pares:", array_resultado)</code></pre>
+
+
+        <!-- EJERCICIO 13 -->
+        <h2>Ejercicio 13: Extraer números primos</h2>
+        <p>Crear un array con los 10 primeros números, extraer los primos a una nueva lista y eliminar del original.</p>
+
+        <h3>Solución</h3>
+        <pre><code>numeros = [1,2,3,4,5,6,7,8,9,10]
+print("Primer array:", numeros)
+
+primos = []
+
+for n in numeros[:]:
+    divisor = 0
+    for i in range(1, n+1):
+        if n % i == 0:
+            divisor += 1
+    if divisor == 2:
+        primos.append(n)
+        numeros.remove(n)
+
+print("Array original:", numeros)
+print("Array de primos:", primos)</code></pre>
+
+
+        <!-- EJERCICIO 14 -->
+        <h2>Ejercicio 14: Gestión de Inventario</h2>
+        <p>Simula un inventario de una tienda y realiza operaciones de adición, unión, ventas, eliminación y reporte urgente.</p>
+
+        <h3>Solución</h3>
+        <pre><code># Inventario inicial
+inventario = ["Manzanas", "Plátanos", "Naranjas", "Peras"]
+print("Inventario inicial:", inventario)
+
+# Llegada de mercancía
+inventario.append("Uvas")
+inventario.append("Kiwi")
+
+melones = ["Melones"]
+inventario.extend(melones)
+
+# Insertar elemento
+inventario.insert(1, "Plátanos Frescos")
+print("Tras introducir plátanos frescos en la posición 1:", inventario)
+
+# Venta
+producto_vendido = inventario.pop(-1)
+print("Producto vendido:", producto_vendido)
+
+# Eliminar peras
+inventario.remove("Peras")
+print("Eliminar peras:", inventario)
+
+# Reporte urgente
+reporte_urgente = inventario[:4]
+print("Reporte urgente:", reporte_urgente)
+
+# Recorrido final
+print("\nReporte Urgente:")
+for i in range(len(reporte_urgente)):
+    print("Índice", i, ":", reporte_urgente[i])</code></pre>
+
+      </div>
+    </article>
+
+    <div class="back">
+      <a href="../Tema2/index.html" class="btn">← Volver a Tema 2</a>
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <p>© 2025 Pablo Jiménez — Blog Programación</p>
+  </footer>
+
+</body>
+</html>

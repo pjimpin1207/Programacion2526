@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ejercicio 27 - Datos sensibles con Expresiones Regulares</title>
+  <meta name="description" content="Ejercicio 27: búsqueda de datos sensibles usando expresiones regulares en Python.">
+  <link rel="stylesheet" href="../../css/postsTema1.css" />
+</head>
+
+<body>
+
+  <!-- ===== CABECERA ===== -->
+  <header class="header">
+    <h1>Ejercicio 27 - Ciberseguridad y Expresiones Regulares</h1>
+    <p class="subtitle">Encontrando datos sensibles en texto con Python</p>
+    <nav class="nav">
+      <a href="/index.html">Inicio</a>
+      <a href="/posts/Tema1/index.html">Tema 1</a>
+      <a href="../Tema2/index.html">Tema 2</a>
+      <a href="../Tema3/index.html">Tema 3</a>
+      <a href="../Tema4/index.html">Tema 4</a>
+      <a href="../Tema5/index.html">Tema 5</a>
+      <a href="../Tema6/index.html">Tema 6</a>
+      <a href="../Tema7/index.html">Tema 7</a>
+      <a href="../Tema/index.html">Tema 8</a>
+      <a href="../Tema9/index.html">Tema 9</a>
+    </nav>
+  </header>
+
+  <!-- ===== CONTENIDO PRINCIPAL ===== -->
+  <main class="main">
+    <article class="post">
+      <p class="meta">Publicado por <strong>pjimpin1207</strong> — <em>el 20 de noviembre de 2025</em></p>
+
+      <div class="post-body">
+        <h2>🧠 Enunciado</h2>
+        <blockquote>
+          ¡Somos un equipo de ciberseguridad! Nuestra misión es encontrar <strong>datos sensibles</strong> en un texto
+          grande usando solo expresiones regulares para validarlos.
+        </blockquote>
+
+        <pre><code>data = """
+Usuario: perez.juan
+Email de contacto: juan.perez@dominio.com
+Fecha de acceso: 15-09-2023
+Código de cliente: ABC123456
+Teléfono de emergencia: 601 234 567
+Archivos encontrados: a_1.txt, b_22.py, c_333.pdf, d_4444.jpg
+"""</code></pre>
+
+        <h2>💻 Código en Python</h2>
+        <pre><code>import re
+
+data = """
+Usuario: perez.juan
+Email de contacto: juan.perez@dominio.com
+Fecha de acceso: 15-09-2023
+Código de cliente: ABC123456
+Teléfono de emergencia: 601 234 567
+Archivos encontrados: a_1.txt, b_22.py, c_333.pdf, d_4444.jpg
+"""
+
+# A. Buscar todos los emails
+patron = r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+correos = re.findall(patron, data)
+print("A. Correos encontrados:", correos)
+
+# B. Buscar las fechas con formato DD-MM-AAAA
+patron = r"\d{2}-\d{2}-\d{4}"
+fechas = re.findall(patron, data)
+print("B. Fechas encontradas:", fechas)
+
+# C. Buscar código de cliente (3 mayúsculas + 6 dígitos)
+patron = r"[A-Z]{3}\d{6}"
+codigo = re.findall(patron, data)
+print("C. Código de cliente encontrado:", codigo)
+
+# D. Buscar todos los nombres de archivo que terminan en .py
+patron = r"\w+\.py"
+archivo = re.findall(patron, data)
+print("D. Archivos .py encontrados:", archivo)</code></pre>
+
+        <h2>📋 Resultados esperados</h2>
+        <pre><code>A. Correos encontrados: ['juan.perez@dominio.com']
+B. Fechas encontradas: ['15-09-2023']
+C. Código de cliente encontrado: ['ABC123456']
+D. Archivos .py encontrados: ['b_22.py']</code></pre>
+
+        <h2>📑 Tabla resumen</h2>
+
+        <div class="table-wrapper">
+          <table class="tabla-lenguajes">
+            <thead>
+              <tr>
+                <th>Tarea</th>
+                <th>Patrón RegEx</th>
+                <th>Función usada</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>A)</strong> Buscar todos los emails.</td>
+                <td><code>r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"</code></td>
+                <td><code>re.findall</code></td>
+              </tr>
+              <tr>
+                <td><strong>B)</strong> Buscar fechas <code>DD-MM-AAAA</code>.</td>
+                <td><code>r"\d{2}-\d{2}-\d{4}"</code></td>
+                <td><code>re.findall</code></td>
+              </tr>
+              <tr>
+                <td><strong>C)</strong> Código de cliente (3 mayúsculas + 6 números).</td>
+                <td><code>r"[A-Z]{3}\d{6}"</code></td>
+                <td><code>re.findall</code></td>
+              </tr>
+              <tr>
+                <td><strong>D)</strong> Archivos que terminan en <code>.py</code>.</td>
+                <td><code>r"\w+\.py"</code></td>
+                <td><code>re.findall</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </article>
+
+    <div class="back">
+      <a href="../Tema2/index.html" class="btn">← Volver a Tema 2</a>
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <p>© 2025 Pablo Jiménez — Blog Programación</p>
+  </footer>
+
+</body>
+</html>

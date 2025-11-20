@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ejercicios Básicos de Arrays - Tema 2</title>
+  <link rel="stylesheet" href="../../css/postsTema1.css" />
+</head>
+
+<body>
+
+  <!-- ===== CABECERA ===== -->
+  <header class="header">
+    <h1>Ejercicios Básicos con Arrays</h1>
+    <p class="subtitle">Tema 2 — Introducción a las listas en Python</p>
+    <nav class="nav">
+      <a href="/index.html">Inicio</a>
+      <a href="/posts/Tema1/index.html">Tema 1</a>
+      <a href="../Tema2/index.html">Tema 2</a>
+      <a href="../Tema3/index.html">Tema 3</a>
+      <a href="../Tema4/index.html">Tema 4</a>
+      <a href="../Tema5/index.html">Tema 5</a>
+      <a href="../Tema6/index.html">Tema 6</a>
+      <a href="../Tema7/index.html">Tema 7</a>
+      <a href="../Tema/index.html">Tema 8</a>
+      <a href="../Tema9/index.html">Tema 9</a>
+    </nav>
+  </header>
+
+  <!-- ===== CONTENIDO PRINCIPAL ===== -->
+  <main class="main">
+    <article class="post">
+      <p class="meta">Publicado por <strong>pjimpin1207</strong> el 20 de noviembre de 2025</p>
+
+      <div class="post-body">
+
+        <!-- EJERCICIO 2 -->
+        <h2>Ejercicio 2: Suma de los valores de un array</h2>
+        <p>Crea un array de 5 números y usa <strong>tres tipos de bucles</strong> para calcular la suma: <code>for</code>, <code>for range</code> y <code>while</code>.</p>
+
+        <h3>Solución</h3>
+        <pre><code># for
+numeros = [3, 7, 2, 8, 5]
+suma = 0
+
+for elemento in numeros:
+    suma = suma + elemento
+
+print("La suma de los números con for es:", suma)
+
+# for i in range
+numeros = [3, 7, 2, 8, 5]
+suma2 = 0
+
+for i in range(len(numeros)):
+    suma2 += numeros[i]
+
+print("La suma de for in range es:", suma2)
+
+# while
+suma3 = 0
+i = 0
+while i < len(numeros):
+    suma3 = suma3 + numeros[i]
+    i = i + 1
+
+print("La suma con while es:", suma3)</code></pre>
+
+
+        <!-- EJERCICIO 3 -->
+        <h2>Ejercicio 3: ¿Qué está pasando y cómo corregirlo?</h2>
+
+        <p>Código dado:</p>
+        <pre><code>a = [1, 2, 3, 4]
+for i in range(3):
+    print(a[i])</code></pre>
+
+        <h3>Explicación</h3>
+        <p>
+          El programa solo muestra los primeros 3 elementos porque <code>range(3)</code> genera 0, 1 y 2.  
+          Para recorrer todo el array, debe usarse <code>len(a)</code>.
+        </p>
+
+        <h3>Corrección:</h3>
+        <pre><code>for i in range(len(a)):
+    print(a[i])</code></pre>
+
+
+        <!-- EJERCICIO 4 -->
+        <h2>Ejercicio 4: Aumentar sueldos un 10%</h2>
+        <p>
+          Dada una tabla de sueldos como la de la imagen, aumentar un 10% cada valor y actualizar el array.
+        </p>
+
+        <h3>Imagen del enunciado</h3>
+        <p><em>(Inserta aquí la imagen del ejercicio 👇)</em></p>
+        <div class="image-box">
+          <!-- AÑADE AQUÍ LA IMAGEN -->
+          <!-- <img src="ruta-de-tu-imagen" alt="Tabla de empleados"> -->
+        </div>
+
+        <h3>Solución</h3>
+        <pre><code>sueldos = [1800, 1200, 2000, 1200, 900]
+
+for i in range(len(sueldos)):
+    sueldos[i] = sueldos[i] * 1.10
+
+print(sueldos)</code></pre>
+
+
+        <!-- EJERCICIO 5 -->
+        <h2>Ejercicio 5: Pedir 5 números decimales y mostrarlos</h2>
+
+        <h3>Solución</h3>
+        <pre><code># Pedir al usuario 5 números decimales y mostrarlos en el mismo orden
+
+numeros = []  # Lista vacía
+
+for i in range(5):
+    numero = float(input(f"Introduce el número decimal {i+1}: "))
+    numeros.append(numero)
+
+print("\nLos números introducidos son:")
+for n in numeros:
+    print(n)</code></pre>
+
+
+        <!-- EJERCICIO 6 -->
+        <h2>Ejercicio 6: Mostrar números en orden inverso</h2>
+        <p>Solicitar cuántos números quiere introducir el usuario, guardarlos y mostrarlos al revés.</p>
+
+        <h3>Solución</h3>
+        <pre><code># Solicitar cuántos números desea introducir
+cantidad = int(input("¿Cuántos números enteros deseas introducir?: "))
+
+numeros = []
+
+# Rellenar lista
+for i in range(cantidad):
+    numero = int(input("Introduce el número entero " + str(i + 1) + ": "))
+    numeros.append(numero)
+
+# 1. Con reversed()
+print("\nLos números en orden inverso son:")
+for n in reversed(numeros):
+    print(n)
+
+# 2. Sin reversed()
+print("\nLos números en orden inverso son:")
+for i in range(len(numeros) - 1, -1, -1):
+    print(numeros[i])
+
+# 3. Con while
+print("\nLos números en orden inverso son:")
+i = len(numeros) - 1
+while i >= 0:
+    print(numeros[i])
+    i -= 1</code></pre>
+
+
+        <!-- EJERCICIO 7 -->
+        <h2>Ejercicio 7: Función maximo(t)</h2>
+
+        <h3>Solución</h3>
+        <pre><code># Diseñar una función que devuelva el valor máximo de una lista
+
+def maximo(t):
+    maximo_valor = t[0]
+    for elemento in t[1:]:
+        if elemento > maximo_valor:
+            maximo_valor = elemento
+    return maximo_valor
+
+# Pedir números al usuario
+cantidad = int(input("¿Cuántos números enteros deseas introducir?: "))
+
+numeros = []
+for i in range(cantidad):
+    numero = int(input("Introduce el número entero " + str(i + 1) + ": "))
+    numeros.append(numero)
+
+print("\nEl valor máximo de la lista es:", maximo(numeros))</code></pre>
+
+      </div>
+    </article>
+
+    <div class="back">
+      <a href="../Tema2/index.html" class="btn">← Volver a Tema 2</a>
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <p>© 2025 Pablo Jiménez — Blog Programación</p>
+  </footer>
+</body>
+</html>
