@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resumen UD4 – Arrays y Cadenas</title>
+  <link rel="stylesheet" href="../../css/postsTema1.css">
+</head>
+
+<body>
+
+  <!-- ================= CABECERA ================= -->
+  <header class="header">
+    <h1>Resumen UD4 – Arrays y Cadenas</h1>
+    <p class="subtitle">Tema 2 — Listas, cadenas, matrices y expresiones regulares</p>
+
+    <nav class="nav">
+      <a href="/index.html">Inicio</a>
+      <a href="/posts/Tema1/index.html">Tema 1</a>
+      <a href="../Tema2/index.html">Tema 2</a>
+      <a href="../Tema3/index.html">Tema 3</a>
+      <a href="../Tema4/index.html">Tema 4</a>
+      <a href="../Tema5/index.html">Tema 5</a>
+      <a href="../Tema6/index.html">Tema 6</a>
+      <a href="../Tema7/index.html">Tema 7</a>
+      <a href="../Tema/index.html">Tema 8</a>
+      <a href="../Tema9/index.html">Tema 9</a>
+    </nav>
+  </header>
+
+
+  <!-- ================= CONTENIDO ================= -->
+  <main class="main">
+    <article class="post">
+      <p class="meta">Publicado por <strong>pjimpin1207</strong></p>
+
+      <div class="post-body">
+
+
+        <!-- ============================================
+             INTRODUCCIÓN
+        ============================================ -->
+        <h2>1. ¿Qué es una estructura de datos?</h2>
+        <p>
+          Son formas de organizar, almacenar y manipular datos de forma eficiente.  
+          En la unidad se explica que, cuando necesitamos manejar grandes cantidades de datos 
+          (como las notas de muchos estudiantes), necesitamos estructuras como arrays o listas.
+        </p>
+
+
+        <!-- ============================================
+             ARRAYS Y LISTAS
+        ============================================ -->
+        <h2>2. Arrays y Listas en Python</h2>
+        <p>
+          En Python, los arrays tradicionales se representan mediante <strong>listas</strong>, 
+          que son estructuras flexibles, dinámicas y muy potentes.
+        </p>
+
+        <h3>Declaración de listas</h3>
+        <pre><code>mi_lista = [10, 20, 30]
+lista_vacia = []
+ceros = [0] * 5</code></pre>
+
+        <h3>Acceso y modificación</h3>
+        <pre><code>mi_lista[0]       # Primer elemento
+mi_lista[-1]      # Último elemento
+mi_lista[2] = 15  # Modificar valor</code></pre>
+
+
+        <h3>Recorridos</h3>
+        <pre><code># Con índice
+for i in range(len(lista)):
+    print(lista[i])
+
+# For-each
+for elemento in lista:
+    print(elemento)</code></pre>
+
+
+        <!-- ============================================
+             MÉTODOS DE LISTAS
+        ============================================ -->
+        <h2>3. Métodos básicos de listas</h2>
+        <ul>
+          <li><code>append()</code> – Añadir al final</li>
+          <li><code>insert(pos, elem)</code> – Insertar en una posición</li>
+          <li><code>remove(valor)</code> – Eliminar por valor</li>
+          <li><code>pop(pos)</code> – Extraer elemento</li>
+          <li><code>len()</code> – Longitud</li>
+        </ul>
+
+
+        <!-- ============================================
+             SLICE
+        ============================================ -->
+        <h2>4. Slicing o División de Listas</h2>
+        <p>Permite extraer partes de una lista mediante rangos:</p>
+
+        <pre><code>lista[2:5]
+lista[:3]
+lista[::-1]   # Invertir</code></pre>
+
+
+        <!-- ============================================
+             OPERACIONES AVANZADAS
+        ============================================ -->
+        <h2>5. Operaciones avanzadas con arrays</h2>
+        <p>Incluyen búsqueda, ordenación, copia, unión, comparación y más.</p>
+
+
+        <!-- ============================================
+             BÚSQUEDA
+        ============================================ -->
+        <h2>6. Búsqueda</h2>
+
+        <h3>Búsqueda secuencial</h3>
+        <p>Recorre la lista elemento a elemento.</p>
+
+        <h3>Búsqueda binaria</h3>
+        <p>Requiere la lista ordenada y es mucho más rápida.</p>
+
+
+        <!-- ============================================
+             ORDENACIÓN
+        ============================================ -->
+        <h2>7. Ordenación</h2>
+        <pre><code>lista.sort()         # Modifica la lista
+ordenada = sorted(lista)  # Devuelve una copia ordenada</code></pre>
+
+
+        <!-- ============================================
+             COMPARACIÓN
+        ============================================ -->
+        <h2>8. Comparación de listas</h2>
+        <ul>
+          <li>Misma longitud</li>
+          <li>Mismos valores</li>
+          <li>En el mismo orden</li>
+        </ul>
+
+
+        <!-- ============================================
+             COPIA
+        ============================================ -->
+        <h2>9. Copia de listas</h2>
+
+        <pre><code>lista2 = lista.copy()
+lista3 = lista[:]</code></pre>
+
+
+        <!-- ============================================
+             MATRICES
+        ============================================ -->
+        <h2>10. Matrices (Arrays 2D)</h2>
+
+        <h3>Declaración</h3>
+        <pre><code>matriz = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]</code></pre>
+
+        <h3>Acceso</h3>
+        <pre><code>matriz[1][2]   # Devuelve 6</code></pre>
+
+        <h3>Recorrido anidado</h3>
+        <pre><code>for fila in matriz:
+    for elemento in fila:
+        print(elemento)</code></pre>
+
+
+        <!-- ============================================
+             STRINGS
+        ============================================ -->
+        <h2>11. Cadenas de texto (strings)</h2>
+
+        <p>Son inmutables, recorrribles, indexables y compatibles con slicing.</p>
+
+        <h3>Métodos importantes</h3>
+        <ul>
+          <li><code>.lower()</code></li>
+          <li><code>.upper()</code></li>
+          <li><code>.strip()</code></li>
+          <li><code>.replace()</code></li>
+          <li><code>.split()</code></li>
+          <li><code>.join()</code></li>
+        </ul>
+
+        <h3>Ejemplo slicing</h3>
+        <pre><code>cadena[::-1]   # Invertir texto</code></pre>
+
+
+        <!-- ============================================
+             F-STRINGS
+        ============================================ -->
+        <h2>12. Formateo de cadenas: f-strings</h2>
+        <pre><code>producto = "Laptop"
+precio = 850.50
+print(f"El {producto} cuesta {precio:.2f}")</code></pre>
+
+
+        <!-- ============================================
+             EXPRESIONES REGULARES
+        ============================================ -->
+        <h2>13. Expresiones Regulares (RegEx)</h2>
+
+        <h3>Funciones del módulo <code>re</code></h3>
+        <ul>
+          <li><code>re.search()</code></li>
+          <li><code>re.findall()</code></li>
+          <li><code>re.match()</code></li>
+        </ul>
+
+        <h3>Patrones comunes</h3>
+        <ul>
+          <li><code>\d</code> → dígito</li>
+          <li><code>\w</code> → carácter de palabra</li>
+          <li><code>.</code> → cualquier carácter</li>
+          <li><code>{n}</code> → cantidad exacta</li>
+        </ul>
+
+      </div>
+
+    </article>
+
+    <div class="back">
+      <a href="../Tema2/index.html" class="btn">← Volver a Tema 2</a>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 Pablo Jiménez — Blog Programación</p>
+  </footer>
+
+</body>
+</html>
