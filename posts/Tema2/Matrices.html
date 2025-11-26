@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matrices en Python - Tema 2</title>
+  <link rel="stylesheet" href="../../css/postsTema1.css">
+</head>
+
+<body>
+
+  <!-- ================= CABECERA ================= -->
+  <header class="header">
+    <h1>Matrices en Python</h1>
+    <p class="subtitle">Tema 2 — Arrays bidimensionales, recorridos y operaciones</p>
+
+    <nav class="nav">
+      <a href="../../index.html">Inicio</a>
+      <a href="../Tema2/index.html">Tema 2</a>
+    </nav>
+  </header>
+
+
+  <!-- ================= CONTENIDO ================= -->
+  <main class="main">
+    <article class="post">
+      <p class="meta">Publicado por <strong>pjimpin1207</strong></p>
+
+      <div class="post-body">
+
+
+        <!-- ===================================================
+             EJERCICIO 21
+        =================================================== -->
+        <h2>Ejercicio 21: Declaración y Acceso a Matrices</h2>
+
+        <p>Dada la siguiente matriz que representa un tablero:</p>
+
+        <pre><code>1 2 3
+4 5 6
+7 8 9</code></pre>
+
+        <p>Realiza lo siguiente:</p>
+
+        <ul>
+          <li>Declarar e inicializar la matriz.</li>
+          <li>Acceder al valor de la posición <strong>Fila 1, Columna 2</strong> (número 6).</li>
+          <li>Imprimir el elemento central (número 5).</li>
+          <li>Recorrer solo la segunda fila.</li>
+          <li>Recorrer toda la matriz con un bucle anidado.</li>
+          <li>Extraer los múltiplos de 2 en otra matriz.</li>
+        </ul>
+
+        <h3>Solución</h3>
+        <pre><code># Declarar matriz
+m = [[1, 2, 3],
+     [4, 5, 6],
+     [7, 8, 9]]
+
+# Mostrar matriz
+print("matriz completa:")
+print(m)
+
+# Fila 1, Columna 2
+print("fila 1, columna 2:", m[1][2])
+
+# Elemento central
+print("elemento central de la matriz:", m[1][1])
+
+# Recorrer solo la segunda fila
+print("Elementos de la segunda fila:")
+for elemento in m[1]:
+    print(elemento)
+
+# Bucle anidado para imprimir toda la matriz
+print("bucle anidado:")
+for fila in m:
+    print()
+    for elemento in fila:
+        print(elemento, end=" ")
+
+# Extraer múltiplos de 2 a otra matriz y eliminarlos de la original
+matrizmultiplos = []
+
+for i in range(len(m)):
+    nuevaFila = []
+    j = 0
+    while j < len(m[i]):
+        if m[i][j] % 2 == 0:
+            nuevaFila.append(m[i][j])
+            m[i].pop(j)
+        else:
+            nuevaFila.append("")
+            j += 1
+    matrizmultiplos.append(nuevaFila)
+
+print("\nmatriz sin los múltiplos de dos:")
+for fila in m:
+    print(fila)
+
+print("\nmatriz con los múltiplos de 2:")
+for fila in matrizmultiplos:
+    print(fila)</code></pre>
+
+
+
+        <!-- ===================================================
+             EJERCICIO 22
+        =================================================== -->
+        <h2>Ejercicio 22: Recorrer Matriz por Columnas</h2>
+
+        <p>Inicializa la siguiente matriz:</p>
+
+        <pre><code>A B C
+D E F
+G H I</code></pre>
+
+        <p>Imprime los elementos siguiendo el orden:</p>
+
+        <pre><code>A D G B E H C F I</code></pre>
+
+        <h3>Solución</h3>
+        <pre><code>matriz = [
+    ["A", "B", "C"],
+    ["D", "E", "F"],
+    ["G", "H", "I"]
+]
+
+# Con while
+columna = 0
+while columna < len(matriz[0]):
+    fila = 0
+    while fila < len(matriz):
+        print(matriz[fila][columna], end=" ")
+        fila += 1
+    columna += 1
+
+# Con for-each (recorre por filas)
+for fila in matriz:
+    for elemento in fila:
+        print(elemento, end=" ")</code></pre>
+
+
+
+        <!-- ===================================================
+             EJERCICIO 23
+        =================================================== -->
+        <h2>Ejercicio 23: Sumar Columna de una Matriz</h2>
+
+        <p>Dada la matriz P:</p>
+
+        <pre><code>[5.0, 10.5]
+[8.2, 15.0]
+[1.5, 3.0]</code></pre>
+
+        <p>La columna 0 son precios mayoristas y la columna 1 son precios minoristas.</p>
+
+        <p>Calcula la suma total de la columna 1.</p>
+
+        <h3>Solución</h3>
+
+        <pre><code>p = [
+    [5.0, 10.5],
+    [8.2, 15.0],
+    [1.5, 3.0]
+]
+
+suma = 0
+
+for fila in p:
+    suma += fila[1]
+
+print("Suma de los precios de minorista:", suma)</code></pre>
+
+
+
+        <!-- ===================================================
+             EJERCICIO 24
+        =================================================== -->
+        <h2>Ejercicio 24: Contar Primos en una Matriz</h2>
+
+        <p>Dada la matriz:</p>
+
+        <pre><code>10  7  3
+ 4 11 15
+17 20 23</code></pre>
+
+        <p>Escribe un algoritmo que cuente cuántos números primos contiene.</p>
+
+        <h3>Solución</h3>
+        <pre><code>matriz = [
+    [10, 7, 3],
+    [4, 11, 15],
+    [17, 20, 23]
+]
+
+def esPrimo(n):
+    if n <= 1:
+        return False
+    for i in range(2, n):
+        if n % i == 0:
+            return False
+    return True
+
+contadorPrimo = 0
+
+for fila in matriz:
+    for elemento in fila:
+        if esPrimo(elemento):
+            contadorPrimo += 1
+
+print("Cantidad de números primos:", contadorPrimo)</code></pre>
+
+      </div>
+    </article>
+
+    <div class="back">
+      <a href="../Tema2/index.html" class="btn">← Volver a Tema 2</a>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 Pablo Jiménez — Blog Programación</p>
+  </footer>
+
+</body>
+</html>

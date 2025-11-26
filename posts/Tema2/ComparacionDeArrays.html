@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comparación de Arrays - Tema 2</title>
+  <link rel="stylesheet" href="../../css/postsTema1.css">
+</head>
+
+<body>
+
+  <!-- ===== CABECERA ===== -->
+  <header class="header">
+    <h1>Comparación de Arrays</h1>
+    <p class="subtitle">Tema 2 — Comparar listas en Python y detectar diferencias</p>
+    <nav class="nav">
+      <a href="../../index.html">Inicio</a>
+      <a href="../Tema2/index.html">Tema 2</a>
+    </nav>
+  </header>
+
+  <!-- ===== CONTENIDO PRINCIPAL ===== -->
+  <main class="main">
+    <article class="post">
+
+      <p class="meta">Publicado por <strong>pjimpin1207</strong></p>
+
+      <div class="post-body">
+
+        <!-- ===================== ENUNCIADO ===================== -->
+        <h2>Ejercicio 19: Comparación de Arrays</h2>
+
+        <p>
+          El objetivo es crear un algoritmo que compare dos arrays paso a paso 
+          y determine si son iguales o no. Para ello debemos:
+        </p>
+
+        <ul>
+          <li>Crear el pseudocódigo del algoritmo</li>
+          <li>Implementarlo en Python</li>
+          <li>Probar los 4 casos típicos:</li>
+          <ul>
+            <li>✔ Son iguales</li>
+            <li>✔ Tienen diferente longitud</li>
+            <li>✔ Tienen diferentes valores</li>
+            <li>✔ Mismos valores pero en distinto orden</li>
+          </ul>
+        </ul>
+
+
+        <!-- ===================== PSEUDOCÓDIGO ===================== -->
+        <h2>Pseudocódigo del algoritmo</h2>
+
+        <pre><code>Algoritmo compararArrays(lista1, lista2)
+
+    Si longitud(lista1) ≠ longitud(lista2)
+        devolver FALSO
+
+    Para i desde 0 hasta longitud(lista1) - 1
+        Si lista1[i] ≠ lista2[i]
+            devolver FALSO
+
+    devolver VERDADERO
+FinAlgoritmo</code></pre>
+
+
+        <!-- ===================== IMPLEMENTACIÓN ===================== -->
+        <h2>Implementación en Python</h2>
+
+        <pre><code># Ejercicio 19 - Comparación de arrays
+
+lista_a = [10, 20, 30]
+lista_b = [10, 20, 30]
+lista_c = [30, 20, 10] # Mismos elementos, orden diferente
+lista_d = [10, 20]     # Longitud diferente
+
+print(f"A == B: {lista_a == lista_b}")  # True
+print(f"A == C: {lista_a == lista_c}")  # False (el orden importa)
+print(f"A == D: {lista_a == lista_d}")  # False (la longitud importa)
+
+
+# Algoritmo que dice si dos arrays son iguales
+def iguales(lista1, lista2):
+
+    # 1. Comprobar si tienen la misma longitud
+    if len(lista1) != len(lista2):
+        return False
+
+    # 2. Comparar elemento a elemento
+    for i in range(len(lista1)):
+        if lista1[i] != lista2[i]:
+            return False
+
+    # 3. Si no hay diferencias, son iguales
+    return True
+
+
+# Pruebas de los 4 casos
+print(f"A == B: {iguales(lista_a, lista_b)}")  # True (iguales)
+print(f"A == C: {iguales(lista_a, lista_c)}")  # False (orden diferente)
+print(f"A == D: {iguales(lista_a, lista_d)}")  # False (longitud diferente)
+print(f"C == B: {iguales(lista_c, lista_b)}")  # False (mismo contenido, distinto orden)</code></pre>
+
+
+        <!-- ===================== EXPLICACIÓN ===================== -->
+        <h2>Conclusiones</h2>
+
+        <ul>
+          <li><strong>Python distingue el orden de los elementos</strong>, por lo que dos listas con el mismo contenido pueden no ser iguales.</li>
+          <li><strong>La longitud es clave</strong>: si no coincide, no hace falta seguir comparando.</li>
+          <li>La comparación elemento a elemento permite controlar casos especiales.</li>
+          <li>Este algoritmo es equivalente a cómo Python compara listas internamente.</li>
+        </ul>
+
+      </div>
+
+    </article>
+
+    <div class="back">
+      <a href="../Tema2/index.html" class="btn">← Volver a Tema 2</a>
+    </div>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <p>© 2025 Pablo Jiménez — Blog Programación</p>
+  </footer>
+
+</body>
+</html>

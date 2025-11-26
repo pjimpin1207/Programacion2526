@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Strings y Formateo en Python - Tema 2</title>
+  <link rel="stylesheet" href="../../css/postsTema1.css" />
+</head>
+
+<body>
+
+  <!-- ================= CABECERA ================= -->
+  <header class="header">
+    <h1>Strings y Operaciones con Texto en Python</h1>
+    <p class="subtitle">Tema 2 — Slicing, limpieza, separación y f-strings</p>
+
+    <nav class="nav">
+      <a href="../../index.html">Inicio</a>
+      <a href="../Tema2/index.html">Tema 2</a>
+    </nav>
+  </header>
+
+  <!-- ================= CONTENIDO ================= -->
+  <main class="main">
+    <article class="post">
+      <p class="meta">Publicado por <strong>pjimpin1207</strong></p>
+
+      <div class="post-body">
+
+        <!-- =================================================
+             EJERCICIO 1 — INVERSOR DE PALABRAS
+        ================================================= -->
+        <h2>Ejercicio: Inversor de Palabras y Palíndromos</h2>
+
+        <p>Realiza un programa que:</p>
+        <ul>
+          <li>Pida una palabra al usuario.</li>
+          <li>La imprima invertida usando <code>[::-1]</code>.</li>
+          <li>Compruebe si es un palíndromo.</li>
+        </ul>
+
+        <h3>Solución</h3>
+        <pre><code>palabra = input("Introduce una palabra: ")
+invertida = palabra[::-1]
+
+print("Palabra invertida:", invertida)
+
+if palabra == invertida:
+    print("Es un palíndromo.")
+else:
+    print("No es un palíndromo.")</code></pre>
+
+
+        <!-- =================================================
+             EJERCICIO 2 — LIMPIEZA DE DATOS
+        ================================================= -->
+        <h2>Ejercicio: Limpieza de Datos con Métodos de Strings</h2>
+
+        <p>Dada la cadena:</p>
+        <pre><code>" juan.perez@dominio.com "</code></pre>
+
+        <p>Realiza:</p>
+        <ul>
+          <li><strong>A)</strong> Eliminar espacios al principio y al final.</li>
+          <li><strong>B)</strong> Convertir a mayúsculas.</li>
+          <li><strong>C)</strong> Separar el nombre y el dominio usando <code>.split("@")</code>.</li>
+        </ul>
+
+        <h3>Solución</h3>
+
+        <pre><code>email = " juan.perez@dominio.com "
+
+limpio = email.strip()
+print("Sin espacios:", limpio)
+
+mayus = limpio.upper()
+print("En mayúsculas:", mayus)
+
+partes = limpio.split("@")
+print("Nombre:", partes[0])
+print("Dominio:", partes[1])</code></pre>
+
+
+        <!-- =================================================
+             EJERCICIO 3 — ETIQUETA HTML CON F-STRINGS
+        ================================================= -->
+        <h2>Ejercicio: Crear una Etiqueta HTML usando f-strings</h2>
+
+        <p>Variables:</p>
+
+        <pre><code>clase = "titulo"
+contenido = "Mi Encabezado"</code></pre>
+
+        <p>Resultado deseado:</p>
+
+        <pre><code>&lt;h1 class="titulo"&gt;Mi Encabezado&lt;/h1&gt;</code></pre>
+
+        <h3>Solución</h3>
+
+        <pre><code>clase = "titulo"
+contenido = "Mi Encabezado"
+
+html = f'<h1 class="{clase}">{contenido}</h1>'
+print(html)</code></pre>
+
+
+        <!-- =================================================
+             EJERCICIO 26 — RECIBO CON F-STRINGS
+        ================================================= -->
+        <h2>Ejercicio 26: Generación de un Recibo con f-strings</h2>
+
+        <p>Variables iniciales:</p>
+
+        <pre><code># Variables del Producto
+producto = "Espresso Doble"
+precio_unitario = 3.50
+
+# Variables de la Transacción
+cantidad = 3
+tasa_iva = 0.16  # 16%
+
+# Variables del Cliente
+cliente_nombre = "Ana María López"
+id_transaccion = "CAF-2025-472"</code></pre>
+
+        <p>Usa f-strings para generar un recibo formateado:</p>
+
+        <h3>Solución</h3>
+
+        <pre><code>producto = "Espresso Doble"
+precio_unitario = 3.50
+
+cantidad = 3
+tasa_iva = 0.16
+
+cliente_nombre = "Ana María López"
+id_transaccion = "CAF-2025-472"
+
+subtotal = precio_unitario * cantidad
+iva = subtotal * tasa_iva
+total = subtotal + iva
+
+print("\nRECIBO DE COMPRA")
+
+print(f"Cliente: {cliente_nombre}")
+print(f"ID Transacción: {id_transaccion}")
+
+print("\nDetalles del Producto")
+print(f"Producto: {producto}")
+print(f"Precio unitario: ${precio_unitario:.2f}")
+print(f"Cantidad: {cantidad}")
+print(f"Subtotal: ${subtotal:.2f}")
+print(f"IVA (16%): ${iva:.2f}")
+print("-----------------------------")
+print(f"TOTAL A PAGAR: ${total:.2f}")</code></pre>
+
+
+      </div>
+    </article>
+
+    <div class="back">
+      <a href="../Tema2/index.html" class="btn">← Volver a Tema 2</a>
+    </div>
+  </main>
+
+
+  <footer class="footer">
+    <p>© 2025 Pablo Jiménez — Blog Programación</p>
+  </footer>
+
+</body>
+</html>
