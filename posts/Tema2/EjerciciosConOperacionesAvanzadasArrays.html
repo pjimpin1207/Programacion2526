@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Operaciones Avanzadas con Arrays - Tema 2</title>
+  <link rel="stylesheet" href="../../css/postsTema1.css" />
+</head>
+
+<body>
+
+  <!-- ===== CABECERA ===== -->
+  <header class="header">
+    <h1>Operaciones Avanzadas con Arrays</h1>
+    <p class="subtitle">Tema 2 — Búsqueda secuencial y binaria en Python</p>
+    <nav class="nav">
+      <a href="../../index.html">Inicio</a>
+      <a href="../Tema2/index.html">Tema 2</a>
+    </nav>
+  </header>
+
+  <!-- ===== CONTENIDO PRINCIPAL ===== -->
+  <main class="main">
+
+    <article class="post">
+      <p class="meta">Publicado por <strong>pjimpin1207</strong></p>
+
+      <div class="post-body">
+
+        <!-- ===== EJERCICIO 15 ===== -->
+        <h2>Ejercicio 15: Búsqueda Secuencial</h2>
+
+        <h3>Enunciado</h3>
+        <ul>
+          <li>Crea un método que reciba un número y un array y devuelva la posición donde lo ha encontrado, o -1 si no existe.</li>
+          <li>Crea un array con 5 números aleatorios entre 1 y 50.</li>
+          <li>Busca en el array un número introducido por el usuario usando ese método.</li>
+          <li>Compara el resultado con el método <code>index()</code> de Python.</li>
+        </ul>
+
+        <h3>Solución</h3>
+        <pre><code>import random
+
+# Función para buscar un número en el array
+def busquedaSecuencial(numero, array):
+    for i in range(len(array)):
+        if array[i] == numero:
+            return i
+    return -1
+
+# Crear un array con 5 números aleatorios entre 1 y 50
+numeros = []
+for i in range(5):
+    numeros.append(random.randint(1, 50))
+
+# Mostrar el array
+print("Array generado de números aleatorios:", numeros)
+
+# Pedir número al usuario
+numeroUsuario = int(input("Introduce un número a buscar: "))
+
+# (Comentado para poder usarse en el ejercicio 18)
+# posicionNumero = busquedaSecuencial(numeroUsuario, numeros)
+# print("Resultado devuelto por la función:", posicionNumero)</code></pre>
+
+
+        <!-- ===== EJERCICIO 16 ===== -->
+        <h2>Ejercicio 16: Búsqueda Binaria</h2>
+
+        <h3>Enunciado</h3>
+        <p>
+          Implementa una función de <strong>búsqueda binaria</strong>.  
+          Recuerda que este algoritmo solo funciona si el array está <strong>ordenado</strong>.
+        </p>
+
+        <h3>Solución</h3>
+        <pre><code># Ejercicio 16 - Búsqueda Binaria
+
+def busquedaBinaria(numeros, eleccion):
+    izq = 0
+    der = len(numeros) - 1
+    medio = 0
+
+    while izq <= der:
+        medio = (izq + der) // 2
+
+        if numeros[medio] == eleccion:
+            return medio
+        elif numeros[medio] < eleccion:
+            izq = medio + 1
+        else:
+            der = medio - 1
+    return -1
+
+# (Comentado para ser usado más tarde en el ejercicio 18)
+# numeros = [0,10,20,30,40,50,60,70,80,90]
+# eleccion = int(input("Elige un número múltiplo de 10: "))
+# resultado = busquedaBinaria(numeros, eleccion)
+
+# if resultado != -1:
+#     print("El número", eleccion, "está en la posición", resultado + 1)
+# else:
+#     print("Ese número no se encuentra.")</code></pre>
+
+      </div>
+    </article>
+
+    <div class="back">
+      <a href="../Tema2/index.html" class="btn">← Volver a Tema 2</a>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 Pablo Jiménez — Blog Programación</p>
+  </footer>
+
+</body>
+</html>

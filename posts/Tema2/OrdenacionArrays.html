@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ordenación y Búsquedas en Arrays - Tema 2</title>
+  <link rel="stylesheet" href="../../css/postsTema1.css">
+</head>
+
+<body>
+
+  <!-- ===== CABECERA ===== -->
+  <header class="header">
+    <h1>Ordenación y Búsquedas en Arrays</h1>
+    <p class="subtitle">Tema 2 — Ordenaciones, búsqueda secuencial y búsqueda binaria</p>
+    <nav class="nav">
+      <a href="../../index.html">Inicio</a>
+      <a href="../Tema2/index.html">Tema 2</a>
+    </nav>
+  </header>
+
+  <!-- ===== CONTENIDO PRINCIPAL ===== -->
+  <main class="main">
+
+    <article class="post">
+      <p class="meta">Publicado por <strong>pjimpin1207</strong></p>
+
+      <div class="post-body">
+
+        <!-- ===================== EJERCICIO 17 ===================== -->
+        <h2>Ejercicio 17: Ordenación Alfabética Ignorando Mayúsculas</h2>
+
+        <h3>Enunciado</h3>
+        <p>
+          Disponemos de una lista de tareas desordenadas.  
+          Queremos obtener un <strong>informe ordenado alfabéticamente</strong>, pero sin que las mayúsculas o minúsculas afecten al orden.
+        </p>
+
+        <blockquote>
+          Ejemplo: “comprar café” debe aparecer antes que “Llamar al cliente”
+        </blockquote>
+
+        <h3>Solución</h3>
+        <pre><code># Ejercicio 17 - Ordenación sin distinguir mayúsculas/minúsculas
+
+tareasDia = ["Revosar email", "llamar cliente", "comprar cafe",
+             "actualizar reporte", "planificar reunion"]
+
+# Crear lista ordenada alfabéticamente ignorando mayúsculas
+informeOrdenado = sorted(tareasDia, key=str.lower)
+
+# Imprimir lista ordenada temporal
+print("Informe ordenado alfabéticamente sin distinguir mayúsculas:")
+print(informeOrdenado)
+
+# Imprimir lista original
+print("Lista original:")
+print(tareasDia)</code></pre>
+
+        <p>
+          Con <code>sorted(lista, key=str.lower)</code> conseguimos una ordenación estable y exacta, ignorando mayúsculas.
+        </p>
+
+
+
+        <!-- ===================== EJERCICIO 18 ===================== -->
+        <h2>Ejercicio 18: Comparación entre Búsqueda Secuencial y Binaria</h2>
+
+        <h3>Enunciado</h3>
+        <p>Debes realizar los siguientes pasos:</p>
+
+        <ul>
+          <li>Crear un array de números desordenados.</li>
+          <li>Buscar un número usando búsqueda secuencial.</li>
+          <li>Buscar el mismo número usando búsqueda binaria.</li>
+          <li>Comparar ambos resultados.</li>
+          <li>Ordenar el array y repetir ambos algoritmos.</li>
+          <li>Comparar de nuevo los resultados.</li>
+        </ul>
+
+        <h3>Solución</h3>
+
+        <pre><code># Ejercicio 18 - Comparar búsqueda secuencial y búsqueda binaria
+
+# Importamos las funciones del ejercicio 15 y 16
+import Ejercicio16
+import Ejercicio15_2
+
+# Crear un array desordenado
+arrayDesordenado = [3, 15, 2, 21, 15, 66, 50, 43, 51]
+print("Array original desordenado:", arrayDesordenado)
+
+# Número a buscar
+buscar = int(input("Introduce el número que deseas buscar: "))
+
+# Buscar en el array desordenado
+indiceSecuencial = Ejercicio15_2.busquedaSecuencial(arrayDesordenado, buscar)
+indiceBinaria = Ejercicio16.busquedaBinaria(arrayDesordenado, buscar)
+
+print("\nResultados en el array desordenado:")
+print("Búsqueda secuencial:", indiceSecuencial)
+print("Búsqueda binaria:", indiceBinaria)
+
+# Ordenar el array
+arrayDesordenado.sort()
+print("\nArray ordenado:", arrayDesordenado)
+
+# Buscar de nuevo en array ordenado
+indiceSecuencialOrdenado = Ejercicio15_2.busquedaSecuencial(arrayDesordenado, buscar)
+indiceBinariaOrdenada = Ejercicio16.busquedaBinaria(arrayDesordenado, buscar)
+
+print("\nResultados en el array ordenado:")
+print("Búsqueda secuencial:", indiceSecuencialOrdenado)
+print("Búsqueda binaria:", indiceBinariaOrdenada)
+
+# Explicación final:
+# - La búsqueda secuencial funciona igual en un array ordenado o desordenado.
+# - La búsqueda binaria SOLO funciona correctamente si el array está ordenado.</code></pre>
+
+        <h3>Conclusión</h3>
+        <ul>
+          <li><strong>Búsqueda Secuencial</strong>: funciona siempre, pero es más lenta.</li>
+          <li><strong>Búsqueda Binaria</strong>: rapidísima, pero requiere un array <strong>ordenado</strong>.</li>
+        </ul>
+
+      </div>
+    </article>
+
+    <div class="back">
+      <a href="../Tema2/index.html" class="btn">← Volver a Tema 2</a>
+    </div>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <p>© 2025 Pablo Jiménez — Blog Programación</p>
+  </footer>
+
+</body>
+</html>
