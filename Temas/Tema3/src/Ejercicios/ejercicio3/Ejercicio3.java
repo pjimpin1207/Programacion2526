@@ -14,7 +14,7 @@ public class Ejercicio3 {
         int edadActual = annoActual - annoNacimiento;
         int resultado = edadActual;
 
-        System.out.println("Tienes: "+resultado);
+        System.out.println("Tienes: " +resultado);
 
     }
 }

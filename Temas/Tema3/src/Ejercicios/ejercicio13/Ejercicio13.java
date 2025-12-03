@@ -17,7 +17,7 @@ public class Ejercicio13 {
 
         // 4.
         int x = 5;
-        x += 3 * 2;   // 3*2=6 → x = x + 6 → x=11
+        x += 3 * 2;
         System.out.println("4) x += 3 * 2 → x = " + x);
 
         // 5.
