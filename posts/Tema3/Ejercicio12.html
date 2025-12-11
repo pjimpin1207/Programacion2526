@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tema 3 – Ejercicio 12</title>
+
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/postsTema1.css">
+</head>
+
+<body>
+
+<!-- ===== CABECERA ===== -->
+<header class="header">
+  <h1>Ejercicio 12 – Valor absoluto de un número</h1>
+  <p class="subtitle">Tema 3 — Uso de Math.abs y operador ternario</p>
+
+  <nav class="nav">
+    <a href="../../index.html">Inicio</a>
+    <a href="../Tema1/index.html">Tema 1</a>
+    <a href="../Tema2/index.html">Tema 2</a>
+    <a href="../Tema3/index.html">Tema 3</a>
+    <a href="../Tema4/index.html">Tema 4</a>
+    <a href="../Tema5/index.html">Tema 5</a>
+    <a href="../Tema6/index.html">Tema 6</a>
+    <a href="../Tema7/index.html">Tema 7</a>
+    <a href="../Tema8/index.html">Tema 8</a>
+    <a href="../Tema9/index.html">Tema 9</a>
+  </nav>
+</header>
+
+<!-- ===== CONTENIDO ===== -->
+<main class="main">
+  <article class="post">
+
+    <h2>Enunciado</h2>
+    <p>
+      Escribir un programa que pida un valor al usuario y muestre su  
+      <strong>valor absoluto</strong>.
+    </p>
+
+    <p>Debe hacerse de dos maneras:</p>
+
+    <ul>
+      <li>Usando <strong>Math.abs()</strong></li>
+      <li>Usando el <strong>operador ternario</strong></li>
+    </ul>
+
+    <h2>Explicación del ejercicio</h2>
+    <p>
+      El valor absoluto es el número sin signo.  
+      Por ejemplo:
+    </p>
+
+    <blockquote>
+      abs(5) = 5  
+      <br>
+      abs(-5) = 5
+    </blockquote>
+
+    <p>
+      En Java tenemos dos formas de calcularlo:
+    </p>
+
+    <h3>1️⃣ Usando Math.abs()</h3>
+    <p>
+      Es la forma más sencilla y segura:
+    </p>
+
+    <blockquote>
+      <code>Math.abs(num)</code>
+    </blockquote>
+
+    <h3>2️⃣ Usando operador ternario</h3>
+    <p>
+      Si el número es negativo, se multiplica por -1.
+    </p>
+
+    <blockquote>
+      <code>(num < 0) ? -num : num</code>
+    </blockquote>
+
+    <h2>Solución 1 – Con Math.abs()</h2>
+
+    <pre><code>
+import java.util.Scanner;
+
+public class Ejercicio12 {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Introduce un número: ");
+        int num = sc.nextInt();
+
+        int absoluto = Math.abs(num);
+
+        System.out.println("Valor absoluto (Math.abs): " + absoluto);
+    }
+}
+    </code></pre>
+
+    <h2>Solución 2 – Con operador ternario</h2>
+
+    <pre><code>
+import java.util.Scanner;
+
+public class Ejercicio12Ternario {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Introduce un número: ");
+        int num = sc.nextInt();
+
+        int absoluto = (num < 0) ? -num : num;
+
+        System.out.println("Valor absoluto (ternario): " + absoluto);
+    }
+}
+    </code></pre>
+
+    <h2>Ejemplo de ejecución</h2>
+
+    <pre><code>
+Introduce un número: -42
+Valor absoluto (Math.abs): 42
+Valor absoluto (ternario): 42
+    </code></pre>
+
+  </article>
+
+  <div class="back">
+    <a href="../Tema3/index.html" class="btn">← Volver al Tema 3</a>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>© 2025 Pablo Jiménez — Blog Programación</p>
+</footer>
+
+</body>
+</html>

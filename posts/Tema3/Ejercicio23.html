@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tema 3 – Ejercicio 23</title>
+
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/postsTema1.css">
+</head>
+
+<body>
+
+<!-- ===== CABECERA ===== -->
+<header class="header">
+  <h1>Ejercicio 23 – Repetir hasta acertar el número en rango</h1>
+  <p class="subtitle">Tema 3 — Bucle do-while y control de rangos</p>
+
+  <nav class="nav">
+    <a href="../../index.html">Inicio</a>
+    <a href="../Tema1/index.html">Tema 1</a>
+    <a href="../Tema2/index.html">Tema 2</a>
+    <a href="../Tema3/index.html">Tema 3</a>
+    <a href="../Tema4/index.html">Tema 4</a>
+    <a href="../Tema5/index.html">Tema 5</a>
+    <a href="../Tema6/index.html">Tema 6</a>
+    <a href="../Tema7/index.html">Tema 7</a>
+    <a href="../Tema8/index.html">Tema 8</a>
+    <a href="../Tema9/index.html">Tema 9</a>
+  </nav>
+</header>
+
+<!-- ===== CONTENIDO PRINCIPAL ===== -->
+<main class="main">
+  <article class="post">
+
+    <h2>Enunciado</h2>
+    <p>
+      Modificar el programa del <strong>Ejercicio 16</strong> para que no termine hasta que 
+      el usuario introduzca un número que esté dentro del rango aleatorio <strong>[a, b]</strong>.
+    </p>
+
+    <p>
+      Si el número está fuera del rango, se mostrará un mensaje de error y se volverá a pedir otro.
+    </p>
+
+    <h2>Explicación del ejercicio</h2>
+
+    <h3>📌 Generación del rango aleatorio</h3>
+    <p>
+      Se generan dos valores entre 0 y 99.  
+      Después se intercambian si fuese necesario para garantizar <strong>a ≤ b</strong>.
+    </p>
+
+    <h3>📌 Repetición obligatoria con do-while</h3>
+    <p>
+      Se utiliza un <strong>bucle do-while</strong>, que garantiza que el cuerpo del bucle 
+      se ejecuta al menos una vez:
+    </p>
+
+    <blockquote><code>do { ... } while (condición);</code></blockquote>
+
+    <p>
+      El bucle se repetirá hasta que el número introducido <strong>entre dentro del rango</strong>.
+    </p>
+
+    <h2>Solución en Java</h2>
+
+    <pre><code>
+import java.util.Scanner;
+
+public class Ejercicio23 {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        int a = (int)(Math.random() * 100);
+        int b = (int)(Math.random() * 100);
+
+        // Aseguramos a <= b
+        if (a > b) {
+            int temp = a;
+            a = b;
+            b = temp;
+        }
+
+        int numero;
+
+        // Bucle para que el número esté dentro del rango
+        do {
+            System.out.print("Introduce un número entero: ");
+            numero = sc.nextInt();
+
+            if (numero < a || numero > b) {
+                System.out.println("Fuera de rango. Inténtalo de nuevo.");
+            }
+
+        } while (numero < a || numero > b);
+
+        // Cuando sale del bucle, el número está dentro del rango
+        System.out.println("¡Correcto! El número está dentro del rango.");
+        System.out.println("a = " + a);
+        System.out.println("b = " + b);
+        System.out.println("Número introducido: " + numero);
+    }
+}
+    </code></pre>
+
+    <h2>Ejemplo de ejecución</h2>
+
+    <pre><code>
+Introduce un número entero: 150
+Fuera de rango. Inténtalo de nuevo.
+Introduce un número entero: -5
+Fuera de rango. Inténtalo de nuevo.
+Introduce un número entero: 42
+¡Correcto! El número está dentro del rango.
+a = 12
+b = 73
+Número introducido: 42
+    </code></pre>
+
+  </article>
+
+  <div class="back">
+    <a href="../Tema3/index.html" class="btn">← Volver al Tema 3</a>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>© 2025 Pablo Jiménez — Blog Programación</p>
+</footer>
+
+</body>
+</html>

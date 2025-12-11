@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tema 3 – Ejercicio 22</title>
+
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/postsTema1.css">
+</head>
+
+<body>
+
+<!-- ===== CABECERA ===== -->
+<header class="header">
+  <h1>Ejercicio 22 – Clasificación de números</h1>
+  <p class="subtitle">Tema 3 — Uso de bucles while y operadores aritméticos</p>
+
+  <nav class="nav">
+    <a href="../../index.html">Inicio</a>
+    <a href="../Tema1/index.html">Tema 1</a>
+    <a href="../Tema2/index.html">Tema 2</a>
+    <a href="../Tema3/index.html">Tema 3</a>
+    <a href="../Tema4/index.html">Tema 4</a>
+    <a href="../Tema5/index.html">Tema 5</a>
+    <a href="../Tema6/index.html">Tema 6</a>
+    <a href="../Tema7/index.html">Tema 7</a>
+    <a href="../Tema8/index.html">Tema 8</a>
+    <a href="../Tema9/index.html">Tema 9</a>
+  </nav>
+</header>
+
+<!-- ===== CONTENIDO PRINCIPAL ===== -->
+<main class="main">
+  <article class="post">
+
+    <h2>Enunciado</h2>
+    <p>
+      Diseñar un programa que solicite números enteros al usuario y, para cada uno de ellos,
+      indique:
+    </p>
+    <ul>
+      <li>Si es <strong>par o impar</strong></li>
+      <li>Si es <strong>positivo o negativo</strong></li>
+      <li>Su <strong>cuadrado</strong></li>
+    </ul>
+
+    <p>
+      El proceso se repetirá de forma indefinida hasta que el usuario introduzca el número <strong>0</strong>.
+    </p>
+
+    <h2>Explicación del ejercicio</h2>
+
+    <h3>📌 Bucle while controlado por un valor centinela</h3>
+    <p>
+      El programa usa un <strong>while</strong> que solo termina cuando el usuario introduce 0:
+    </p>
+
+    <blockquote><code>while (numero != 0)</code></blockquote>
+
+    <h3>📌 Cómo se comprueba cada propiedad</h3>
+
+    <ul>
+      <li><strong>Par o impar:</strong> usando <code>numero % 2</code></li>
+      <li><strong>Positivo o negativo:</strong> comparando con 0</li>
+      <li><strong>Cuadrado:</strong> calculando <code>numero * numero</code></li>
+    </ul>
+
+    <p>
+      Después de mostrar los resultados, se vuelve a pedir otro número.
+    </p>
+
+    <h2>Solución en Java</h2>
+
+    <pre><code>
+import java.util.Scanner;
+
+public class Ejercicio22 {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Introduce un número y 0 cuando quieras terminar: ");
+        int numero = sc.nextInt();
+
+        while (numero != 0) {
+
+            // Es par o impar
+            if (numero % 2 == 0) {
+                System.out.println("Es par");
+            } else {
+                System.out.println("Es impar");
+            }
+
+            // Es positivo o negativo
+            if (numero > 0) {
+                System.out.println("Es positivo");
+            } else {
+                System.out.println("Es negativo");
+            }
+
+            // Cuadrado del número
+            int cuadrado = numero * numero;
+            System.out.println("El cuadrado es: " + cuadrado);
+
+            System.out.print("\nIntroduce un número y 0 cuando quieras terminar: ");
+            numero = sc.nextInt();
+        }
+
+        System.out.println("Programa terminado.");
+    }
+}
+    </code></pre>
+
+    <h2>Ejemplo de ejecución</h2>
+
+    <pre><code>
+Introduce un número: 5
+Es impar
+Es positivo
+El cuadrado es: 25
+
+Introduce un número: -8
+Es par
+Es negativo
+El cuadrado es: 64
+
+Introduce un número: 0
+Programa terminado.
+    </code></pre>
+
+  </article>
+
+  <div class="back">
+    <a href="../Tema3/index.html" class="btn">← Volver al Tema 3</a>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>© 2025 Pablo Jiménez — Blog Programación</p>
+</footer>
+
+</body>
+</html>

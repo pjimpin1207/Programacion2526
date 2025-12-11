@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tema 3 – Ejercicio 31</title>
+
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/postsTema1.css">
+</head>
+
+<body>
+
+<!-- ===== CABECERA ===== -->
+<header class="header">
+  <h1>Ejercicio 31 – Función variosSaludos</h1>
+  <p class="subtitle">Tema 3 — Definición y uso de funciones con parámetros</p>
+
+  <nav class="nav">
+    <a href="../../index.html">Inicio</a>
+    <a href="../Tema1/index.html">Tema 1</a>
+    <a href="../Tema2/index.html">Tema 2</a>
+    <a href="../Tema3/index.html">Tema 3</a>
+    <a href="../Tema4/index.html">Tema 4</a>
+    <a href="../Tema5/index.html">Tema 5</a>
+    <a href="../Tema6/index.html">Tema 6</a>
+    <a href="../Tema7/index.html">Tema 7</a>
+    <a href="../Tema8/index.html">Tema 8</a>
+    <a href="../Tema9/index.html">Tema 9</a>
+  </nav>
+</header>
+
+<!-- ===== CONTENIDO PRINCIPAL ===== -->
+<main class="main">
+  <article class="post">
+
+    <h2>Enunciado</h2>
+    <p>
+      Crear una función llamada <strong>variosSaludos</strong> que reciba como parámetro un número entero <code>n</code>.  
+      La función debe imprimir la palabra <strong>“Hola”</strong> tantas veces como indique el parámetro.
+    </p>
+
+    <p>Después, en el <code>main</code> se deben realizar tres invocaciones:</p>
+
+    <ul>
+      <li>Llamar a la función con el valor literal <strong>3</strong>.</li>
+      <li>Llamarla con un valor leído por teclado.</li>
+      <li>Llamarla con el doble del valor leído.</li>
+    </ul>
+
+    <h2>Explicación del ejercicio</h2>
+
+    <h3>📌 1. Definición de función</h3>
+    <p>
+      La función se declara como <strong>static</strong> porque será llamada desde el método <code>main</code>.
+    </p>
+
+    <blockquote>
+      <code>public static void variosSaludos(int n)</code>
+    </blockquote>
+
+    <h3>📌 2. Repetición con un bucle for</h3>
+    <p>
+      Para imprimir “Hola” n veces usamos:
+    </p>
+
+    <blockquote>
+      <code>for (int i = 0; i &lt; n; i++)</code>
+    </blockquote>
+
+    <h3>📌 3. Tres llamadas distintas</h3>
+
+    <ul>
+      <li><strong>Literal:</strong> <code>variosSaludos(3)</code></li>
+      <li><strong>Por teclado:</strong> <code>variosSaludos(n)</code></li>
+      <li><strong>Doble:</strong> <code>variosSaludos(n * 2)</code></li>
+    </ul>
+
+    <h2>Solución en Java</h2>
+
+    <pre><code>
+import java.util.Scanner;
+
+public class Ejercicio31 {
+
+    // función variosSaludos
+    public static void variosSaludos(int n) {
+        for (int i = 0; i < n; i++) {
+            System.out.println("Hola");
+        }
+    }
+
+    public static void main(String[] args) {
+
+        // Invocar función con valor literal 3
+        variosSaludos(3);
+
+        // Invocar mediante variable introducida por teclado
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Introduce el número que quieres que se repita:");
+        int n = sc.nextInt();
+        variosSaludos(n);
+
+        // Invocar con el doble de ese número
+        System.out.println("El doble de veces que lo anterior:");
+        variosSaludos(n * 2);
+    }
+}
+    </code></pre>
+
+    <h2>Ejemplo de ejecución</h2>
+
+    <pre><code>
+Hola
+Hola
+Hola
+Introduce el número que quieres que se repita:
+2
+Hola
+Hola
+El doble de veces que lo anterior:
+Hola
+Hola
+Hola
+Hola
+    </code></pre>
+
+  </article>
+
+  <div class="back">
+    <a href="../Tema3/index.html" class="btn">← Volver al Tema 3</a>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>© 2025 Pablo Jiménez — Blog Programación</p>
+</footer>
+
+</body>
+</html>

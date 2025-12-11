@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tema 3 – Ejercicio 9</title>
+
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/postsTema1.css">
+</head>
+
+<body>
+
+<!-- ===== CABECERA ===== -->
+<header class="header">
+  <h1>Ejercicio 9 – ¿Puedo salir a la calle?</h1>
+  <p class="subtitle">Tema 3 — Operadores lógicos y toma de decisiones</p>
+
+  <nav class="nav">
+    <a href="../../index.html">Inicio</a>
+    <a href="../Tema1/index.html">Tema 1</a>
+    <a href="../Tema2/index.html">Tema 2</a>
+    <a href="../Tema3/index.html">Tema 3</a>
+    <a href="../Tema4/index.html">Tema 4</a>
+    <a href="../Tema5/index.html">Tema 5</a>
+    <a href="../Tema6/index.html">Tema 6</a>
+    <a href="../Tema7/index.html">Tema 7</a>
+    <a href="../Tema8/index.html">Tema 8</a>
+    <a href="../Tema9/index.html">Tema 9</a>
+  </nav>
+</header>
+
+<!-- ===== CONTENIDO ===== -->
+<main class="main">
+  <article class="post">
+
+    <h2>Enunciado</h2>
+    <p>
+      Diseñar un algoritmo que indique si podemos salir a la calle. Para ello se deben evaluar tres factores:
+    </p>
+
+    <ul>
+      <li>🌧️ Si está lloviendo.</li>
+      <li>📚 Si hemos terminado nuestras tareas.</li>
+      <li>🏛️ Si necesitamos ir a la biblioteca.</li>
+    </ul>
+
+    <p>
+      Las reglas para decidir son las siguientes:
+    </p>
+
+    <blockquote>
+      ✔ Solo podremos salir si <strong>NO llueve</strong> y <strong>hemos terminado las tareas</strong>.  
+      ✔ Sin embargo, si necesitamos ir a la biblioteca, <strong>podemos salir igualmente</strong>, ocurra lo que ocurra.
+    </blockquote>
+
+    <p>
+      El programa debe pedir estos datos al usuario mediante booleanos (true/false) y mostrar si se le permite salir.
+    </p>
+
+    <h2>Explicación del ejercicio</h2>
+    <p>
+      Se usa una combinación de operadores lógicos:
+    </p>
+
+    <ul>
+      <li><strong>!</strong> para negar (NO llueve → <code>!llueve</code>)</li>
+      <li><strong>&&</strong> para condiciones que deben cumplirse ambas</li>
+      <li><strong>||</strong> para condiciones alternativas</li>
+    </ul>
+
+    <p>
+      La condición final que determina si se puede salir es:
+    </p>
+
+    <blockquote>
+      <strong>(NO llueve AND tareas hechas) OR ir biblioteca</strong>
+    </blockquote>
+
+    <h2>Solución en Java</h2>
+
+    <pre><code>
+import java.util.Scanner;
+
+public class Ejercicio9 {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("¿Está lloviendo? (true/false): ");
+        boolean llueve = sc.nextBoolean();
+
+        System.out.print("¿Has terminado tus tareas? (true/false): ");
+        boolean tareasHechas = sc.nextBoolean();
+
+        System.out.print("¿Necesitas ir a la biblioteca? (true/false): ");
+        boolean irBiblioteca = sc.nextBoolean();
+
+        boolean puedeSalir = (!llueve && tareasHechas) || irBiblioteca;
+
+        System.out.println("¿Puedes salir a la calle? " + puedeSalir);
+    }
+}
+    </code></pre>
+
+    <h2>Ejemplos de ejecución</h2>
+
+    <pre><code>
+¿Está lloviendo? (true/false): true
+¿Has terminado tus tareas? (true/false): false
+¿Necesitas ir a la biblioteca? (true/false): true
+¿Puedes salir a la calle? true
+    </code></pre>
+
+    <pre><code>
+¿Está lloviendo? (true/false): false
+¿Has terminado tus tareas? (true/false): true
+¿Necesitas ir a la biblioteca? (true/false): false
+¿Puedes salir a la calle? true
+    </code></pre>
+
+    <pre><code>
+¿Está lloviendo? (true/false): true
+¿Has terminado tus tareas? (true/false): false
+¿Necesitas ir a la biblioteca? (true/false): false
+¿Puedes salir a la calle? false
+    </code></pre>
+
+  </article>
+
+  <div class="back">
+    <a href="../Tema3/index.html" class="btn">← Volver al Tema 3</a>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>© 2025 Pablo Jiménez — Blog Programación</p>
+</footer>
+
+</body>
+</html>

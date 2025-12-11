@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tema 3 – Programación Orientada a Objetos (Explicación Completa)</title>
+  
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/postsTema1.css">
+</head>
+
+<body>
+
+<!-- ===== CABECERA ===== -->
+<header class="header">
+  <h1>Programación Orientada a Objetos – Explicación Completa</h1>
+  <p class="subtitle">Tema 3 – Conceptos esenciales explicados con ejemplos</p>
+
+  <nav class="nav">
+    <a href="../../index.html">Inicio</a>
+    <a href="../Tema1/index.html">Tema 1</a>
+    <a href="../Tema2/index.html">Tema 2</a>
+    <a href="../Tema3/index.html">Tema 3</a>
+  </nav>
+</header>
+
+<!-- ===== CONTENIDO PRINCIPAL ===== -->
+<main class="main">
+  <article class="post">
+
+    <h2>1. ¿Qué es la Programación Orientada a Objetos (POO)?</h2>
+    <p class="meta">Publicado por <strong>pjimpin1207</strong></p>
+
+    <p>
+      La POO es un estilo de programación donde resolvemos problemas usando <strong>objetos</strong>.
+      Un objeto representa algo del mundo real: un alumno, un coche, un pedido…
+    </p>
+
+    <blockquote>
+      La idea es que el programa imite cómo funciona la vida real:  
+      objetos con características (atributos) y acciones (métodos).
+    </blockquote>
+
+    <h2>2. ¿Qué es una Clase?</h2>
+    <p>
+      Una <strong>clase</strong> es la plantilla o plano que describe cómo serán los objetos.  
+      NO es un objeto: es la receta para crear muchos de ellos.
+    </p>
+
+    <h3>Ejemplo claro:</h3>
+    <pre><code>
+class Coche {
+    String marca;
+    int velocidad;
+}
+    </code></pre>
+
+    <p>
+      La clase <strong>Coche</strong> describe que todos los coches tendrán:
+      <ul>
+        <li>una marca</li>
+        <li>una velocidad</li>
+      </ul>
+    </p>
+
+
+    <h2>3. ¿Qué es un Objeto?</h2>
+    <p>
+      Un objeto es una <strong>instancia</strong> de una clase:  
+      un "ejemplar" real creado a partir del plano.
+    </p>
+
+    <h3>Ejemplo:</h3>
+
+    <pre><code>
+Coche c1 = new Coche();   // Primer objeto
+Coche c2 = new Coche();   // Segundo objeto
+    </code></pre>
+
+    <p>
+      Ambos vienen de la clase Coche, pero pueden tener valores distintos:
+    </p>
+
+    <pre><code>
+c1.marca = "Toyota";
+c2.marca = "Ford";
+
+c1.velocidad = 120;
+c2.velocidad = 90;
+    </code></pre>
+
+    <blockquote>
+      Clase = receta  
+      Objeto = comida hecha con esa receta  
+    </blockquote>
+
+
+    <h2>4. Atributos (Estado del objeto)</h2>
+    <p>
+      Los <strong>atributos</strong> son variables dentro de la clase.
+      Guardan información del objeto.
+    </p>
+
+    <h3>Ejemplo:</h3>
+    <pre><code>
+class Persona {
+    String nombre;   // atributo
+    int edad;        // atributo
+}
+    </code></pre>
+
+    <p>
+      Si creamos dos Personas, cada una tendrá su propio <strong>nombre</strong> y <strong>edad</strong>.
+    </p>
+
+
+    <h2>5. Métodos (Acciones del objeto)</h2>
+    <p>
+      Los <strong>métodos</strong> representan acciones que el objeto puede realizar.
+    </p>
+
+    <h3>Ejemplo sencillo:</h3>
+    <pre><code>
+class Persona {
+
+    String nombre;
+
+    void saludar() {
+        System.out.println("Hola, soy " + nombre);
+    }
+}
+    </code></pre>
+
+    <h3>Uso:</h3>
+    <pre><code>
+Persona p = new Persona();
+p.nombre = "Pablo";
+p.saludar();     // Muestra: Hola, soy Pablo
+    </code></pre>
+
+
+    <h2>6. Instanciación – Crear Objetos</h2>
+    <p>
+      Instanciar significa crear un objeto usando <strong>new</strong>.
+    </p>
+
+    <pre><code>
+Persona p = new Persona();
+    </code></pre>
+
+    <p>
+      Después de crearlo, ya podemos asignar valores a sus atributos o llamar métodos.
+    </p>
+
+
+    <h2>7. Constructores</h2>
+    <p>
+      Un <strong>constructor</strong> es un método especial que se ejecuta al crear un objeto.
+      Sirve para darle valores iniciales.
+    </p>
+
+    <h3>Ejemplo explicado:</h3>
+
+    <pre><code>
+class Persona {
+
+    String nombre;
+    int edad;
+
+    // Constructor
+    Persona(String n, int e) {
+        nombre = n;
+        edad = e;
+    }
+
+    void presentarse() {
+        System.out.println("Soy " + nombre + " y tengo " + edad + " años.");
+    }
+}
+    </code></pre>
+
+    <h3>Usándolo:</h3>
+
+    <pre><code>
+Persona p1 = new Persona("Pablo", 20);
+Persona p2 = new Persona("Laura", 25);
+
+p1.presentarse();     // Soy Pablo y tengo 20 años.
+p2.presentarse();     // Soy Laura y tengo 25 años.
+    </code></pre>
+
+    <p>
+      Así evitamos tener que hacer:
+    </p>
+
+    <pre><code>
+p1.nombre = "Pablo";
+p1.edad = 20;
+    </code></pre>
+
+    <p>Mucho más limpio, seguro y profesional.</p>
+
+
+    <h2>8. Resumen General</h2>
+
+    <ul>
+      <li><strong>Clase</strong>: plantilla que define atributos y métodos.</li>
+      <li><strong>Objeto</strong>: instancia real creada desde la clase.</li>
+      <li><strong>Atributo</strong>: dato del objeto.</li>
+      <li><strong>Método</strong>: acción del objeto.</li>
+      <li><strong>Constructor</strong>: inicializa el objeto cuando se crea.</li>
+      <li><strong>Instanciar</strong> = usar <code>new</code> para crear un objeto.</li>
+    </ul>
+
+    <blockquote>
+      La POO permite escribir código más organizado, reutilizable y parecido al mundo real.
+    </blockquote>
+
+  </article>
+
+  <div class="back">
+    <a href="../Tema3/index.html" class="btn">← Volver al Tema 3</a>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>© 2025 Pablo Jiménez — Blog Programación</p>
+</footer>
+
+</body>
+</html>

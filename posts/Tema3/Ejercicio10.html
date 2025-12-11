@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tema 3 – Ejercicio 10</title>
+
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/postsTema1.css">
+</head>
+
+<body>
+
+<!-- ===== CABECERA ===== -->
+<header class="header">
+  <h1>Ejercicio 10 – Beneficio anual del frutero</h1>
+  <p class="subtitle">Tema 3 — Uso de constantes, entrada de datos y operaciones aritméticas</p>
+
+  <nav class="nav">
+    <a href="../../index.html">Inicio</a>
+    <a href="../Tema1/index.html">Tema 1</a>
+    <a href="../Tema2/index.html">Tema 2</a>
+    <a href="../Tema3/index.html">Tema 3</a>
+    <a href="../Tema4/index.html">Tema 4</a>
+    <a href="../Tema5/index.html">Tema 5</a>
+    <a href="../Tema6/index.html">Tema 6</a>
+    <a href="../Tema7/index.html">Tema 7</a>
+    <a href="../Tema8/index.html">Tema 8</a>
+    <a href="../Tema9/index.html">Tema 9</a>
+  </nav>
+</header>
+
+<!-- ===== CONTENIDO ===== -->
+<main class="main">
+  <article class="post">
+
+    <h2>Enunciado</h2>
+    <p>
+      Un frutero necesita calcular los beneficios anuales obtenidos por la venta de  
+      <strong>manzanas</strong> y <strong>peras</strong>.  
+      Para ello, debe introducir las ventas en kilos de cada semestre.
+    </p>
+
+    <p>
+      Los precios por kilo son:
+    </p>
+
+    <ul>
+      <li>🍎 Manzanas → <strong>2,35 €</strong> por kilo</li>
+      <li>🍐 Peras → <strong>1,95 €</strong> por kilo</li>
+    </ul>
+
+    <p>
+      La aplicación debe mostrar el beneficio total anual.
+    </p>
+
+    <h2>Explicación del ejercicio</h2>
+    <p>
+      Este ejercicio combina:
+    </p>
+
+    <ul>
+      <li>Lectura de valores decimales (<code>double</code>)</li>
+      <li>Uso de constantes con <code>final</code></li>
+      <li>Suma de ventas semestrales</li>
+      <li>Multiplicación por el precio por kilo</li>
+      <li>Cálculo del beneficio total</li>
+    </ul>
+
+    <h3>Cálculo realizado:</h3>
+
+    <blockquote>
+      totalManzanas = (manzanas1 + manzanas2) × precioManzana  
+      <br>
+      totalPeras = (peras1 + peras2) × precioPera  
+      <br><br>
+      beneficioTotal = totalManzanas + totalPeras
+    </blockquote>
+
+    <h2>Solución en Java</h2>
+
+    <pre><code>
+import java.util.Scanner;
+
+public class Ejercicio10 {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        final double PRECIO_MANZANA = 2.35;
+        final double PRECIO_PERA = 1.95;
+
+        System.out.print("Ventas de manzanas en el primer semestre (kg): ");
+        double manzanas1 = sc.nextDouble();
+
+        System.out.print("Ventas de manzanas en el segundo semestre en kg: ");
+        double manzanas2 = sc.nextDouble();
+
+        System.out.print("Ventas de peras en el primer semestre en kg: ");
+        double peras1 = sc.nextDouble();
+
+        System.out.print("Ventas de peras en el segundo semestre en kg: ");
+        double peras2 = sc.nextDouble();
+
+        double totalManzanas = (manzanas1 + manzanas2) * PRECIO_MANZANA;
+        double totalPeras = (peras1 + peras2) * PRECIO_PERA;
+
+        double beneficioTotal = totalManzanas + totalPeras;
+
+        System.out.println("Beneficio total anual: " + beneficioTotal + " €");
+    }
+}
+    </code></pre>
+
+    <h2>Ejemplo de ejecución</h2>
+
+    <pre><code>
+Ventas de manzanas en el primer semestre (kg): 500
+Ventas de manzanas en el segundo semestre en kg: 600
+Ventas de peras en el primer semestre en kg: 300
+Ventas de peras en el segundo semestre en kg: 350
+
+Beneficio total anual: 2682.5 €
+    </code></pre>
+
+  </article>
+
+  <div class="back">
+    <a href="../Tema3/index.html" class="btn">← Volver al Tema 3</a>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>© 2025 Pablo Jiménez — Blog Programación</p>
+</footer>
+
+</body>
+</html>

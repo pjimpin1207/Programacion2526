@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tema 3 – Ejercicio 1</title>
+
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/postsTema1.css">
+</head>
+
+<body>
+
+<!-- ===== CABECERA ===== -->
+<header class="header">
+  <h1>Ejercicio 1 – Entrada y salida de datos en Java</h1>
+  <p class="subtitle">Pedir un número al usuario y mostrarlo por consola</p>
+
+  <nav class="nav">
+    <a href="../../index.html">Inicio</a>
+    <a href="../Tema1/index.html">Tema 1</a>
+    <a href="../Tema2/index.html">Tema 2</a>
+    <a href="../Tema3/index.html">Tema 3</a>
+    <a href="../Tema4/index.html">Tema 4</a>
+    <a href="../Tema5/index.html">Tema 5</a>
+    <a href="../Tema6/index.html">Tema 6</a>
+    <a href="../Tema7/index.html">Tema 7</a>
+    <a href="../Tema8/index.html">Tema 8</a>
+    <a href="../Tema9/index.html">Tema 9</a>
+  </nav>
+</header>
+
+<!-- ===== CONTENIDO ===== -->
+<main class="main">
+  <article class="post">
+
+    <h2>Enunciado</h2>
+    <p>
+      Diseñar un programa que pida un número al usuario por teclado y a continuación lo muestre por consola.
+    </p>
+
+    <h2>Explicación del ejercicio</h2>
+    <p>
+      Para leer un número en Java utilizamos la clase <code>Scanner</code>, que permite capturar datos introducidos por el usuario
+      a través del teclado.  
+      Después, simplemente mostramos el número usando <code>System.out.println()</code>.
+    </p>
+
+    <h3>Pasos que realiza el programa:</h3>
+    <ul>
+      <li>Crea un objeto <code>Scanner</code>.</li>
+      <li>Pide al usuario que introduzca un número.</li>
+      <li>Lee el número con <code>nextInt()</code>.</li>
+      <li>Lo muestra por consola.</li>
+      <li>Cierra el escáner.</li>
+    </ul>
+
+    <h2>Solución en Java</h2>
+
+    <pre><code>
+import java.util.Scanner;
+
+public class Ejercicio1 {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);      // Crear escáner para leer por teclado
+        System.out.print("Introduzca un número: ");
+        int numero = sc.nextInt();                 // Leer número entero
+
+        System.out.println("El número es: " + numero);  // Mostrar número por consola
+    }
+}
+    </code></pre>
+
+    <h2>Resultado esperado</h2>
+    <pre><code>
+Introduzca un número: 15
+El número es: 15
+    </code></pre>
+
+  </article>
+
+  <div class="back">
+    <a href="../Tema3/index.html" class="btn">← Volver al Tema 3</a>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>© 2025 Pablo Jiménez — Blog Programación</p>
+</footer>
+
+</body>
+</html>

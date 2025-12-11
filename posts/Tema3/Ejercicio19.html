@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tema 3 – Ejercicio 19</title>
+
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/postsTema1.css">
+</head>
+
+<body>
+
+<!-- ===== CABECERA ===== -->
+<header class="header">
+  <h1>Ejercicio 19 – Ordenar tres números</h1>
+  <p class="subtitle">Tema 3 — Condicionales, comparaciones y ordenación</p>
+
+  <nav class="nav">
+    <a href="../../index.html">Inicio</a>
+    <a href="../Tema1/index.html">Tema 1</a>
+    <a href="../Tema2/index.html">Tema 2</a>
+    <a href="../Tema3/index.html">Tema 3</a>
+    <a href="../Tema4/index.html">Tema 4</a>
+    <a href="../Tema5/index.html">Tema 5</a>
+    <a href="../Tema6/index.html">Tema 6</a>
+    <a href="../Tema7/index.html">Tema 7</a>
+    <a href="../Tema8/index.html">Tema 8</a>
+    <a href="../Tema9/index.html">Tema 9</a>
+  </nav>
+</header>
+
+<!-- ===== CONTENIDO PRINCIPAL ===== -->
+<main class="main">
+  <article class="post">
+
+    <h2>Enunciado</h2>
+    <p>
+      Escribe un programa que pida tres números enteros y los muestre ordenados 
+      **de mayor a menor**.
+    </p>
+
+    <h2>Explicación del ejercicio</h2>
+
+    <p>
+      Para ordenar tres valores sin usar arrays ni la clase <code>Math</code>,
+      comparamos manualmente los números usando condicionales anidados.
+    </p>
+
+    <h3>📌 Pasos seguidos por el programa</h3>
+
+    <ol>
+      <li>Se identifica cuál de los tres es el mayor.</li>
+      <li>Dentro de cada caso, se compara a los otros dos para determinar cuál es el medio y cuál el menor.</li>
+      <li>Finalmente se muestran en el orden: <strong>mayor, medio, menor</strong>.</li>
+    </ol>
+
+    <h3>📌 Variables utilizadas</h3>
+    <ul>
+      <li><code>mayor</code></li>
+      <li><code>medio</code></li>
+      <li><code>menor</code></li>
+    </ul>
+
+    <p>Esto permite dejar claro el orden final antes de imprimirlo.</p>
+
+    <h2>Solución en Java</h2>
+
+    <pre><code>
+import java.util.Scanner;
+
+public class Ejercicio19 {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Introduce el primer número: ");
+        int numero1 = sc.nextInt();
+
+        System.out.print("Introduce el segundo número: ");
+        int numero2 = sc.nextInt();
+
+        System.out.print("Introduce el tercer número: ");
+        int numero3 = sc.nextInt();
+
+        int mayor, medio, menor;
+
+        if (numero1 >= numero2 && numero1 >= numero3) {
+            mayor = numero1;
+            if (numero2 >= numero3) {
+                medio = numero2;
+                menor = numero3;
+            } else {
+                medio = numero3;
+                menor = numero2;
+            }
+        } else if (numero2 >= numero1 && numero2 >= numero3) {
+            mayor = numero2;
+            if (numero1 >= numero3) {
+                medio = numero1;
+                menor = numero3;
+            } else {
+                medio = numero3;
+                menor = numero1;
+            }
+        } else {
+            mayor = numero3;
+            if (numero1 >= numero2) {
+                medio = numero1;
+                menor = numero2;
+            } else {
+                medio = numero2;
+                menor = numero1;
+            }
+        }
+
+        System.out.println("Orden de mayor a menor: " + mayor + ", " + medio + ", " + menor);
+    }
+}
+    </code></pre>
+
+    <h2>Ejemplos de ejecución</h2>
+
+    <pre><code>
+Introduce el primer número: 5
+Introduce el segundo número: 12
+Introduce el tercer número: 8
+Orden de mayor a menor: 12, 8, 5
+    </code></pre>
+
+    <pre><code>
+Introduce el primer número: 7
+Introduce el segundo número: 7
+Introduce el tercer número: 2
+Orden de mayor a menor: 7, 7, 2
+    </code></pre>
+
+  </article>
+
+  <div class="back">
+    <a href="../Tema3/index.html" class="btn">← Volver al Tema 3</a>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>© 2025 Pablo Jiménez — Blog Programación</p>
+</footer>
+
+</body>
+</html>

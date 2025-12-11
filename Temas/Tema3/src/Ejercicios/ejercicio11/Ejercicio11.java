@@ -16,7 +16,5 @@ public class Ejercicio11 {
         int mayor = (num1 > num2) ? num1 : num2;
 
         System.out.println("El número mayor es: " + mayor);
-
-        sc.close();
     }
 }

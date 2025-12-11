@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tema 3 – Ejercicio 20</title>
+
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/postsTema1.css">
+</head>
+
+<body>
+
+<!-- ===== CABECERA ===== -->
+<header class="header">
+  <h1>Ejercicio 20 – Clasificación de notas</h1>
+  <p class="subtitle">Tema 3 — Uso del operador switch (sentencia vs expresión)</p>
+
+  <nav class="nav">
+    <a href="../../index.html">Inicio</a>
+    <a href="../Tema1/index.html">Tema 1</a>
+    <a href="../Tema2/index.html">Tema 2</a>
+    <a href="../Tema3/index.html">Tema 3</a>
+    <a href="../Tema4/index.html">Tema 4</a>
+    <a href="../Tema5/index.html">Tema 5</a>
+    <a href="../Tema6/index.html">Tema 6</a>
+    <a href="../Tema7/index.html">Tema 7</a>
+    <a href="../Tema8/index.html">Tema 8</a>
+    <a href="../Tema9/index.html">Tema 9</a>
+  </nav>
+</header>
+
+<!-- ===== CONTENIDO PRINCIPAL ===== -->
+<main class="main">
+  <article class="post">
+
+    <h2>Enunciado</h2>
+    <p>
+      Pedir al usuario una nota entera de 0 a 10 y mostrar su calificación textual:
+    </p>
+
+    <ul>
+      <li>0–4 → <strong>Insuficiente</strong></li>
+      <li>5 → <strong>Suficiente</strong></li>
+      <li>6 → <strong>Bien</strong></li>
+      <li>7–8 → <strong>Notable</strong></li>
+      <li>9–10 → <strong>Sobresaliente</strong></li>
+    </ul>
+
+    <p>
+      Primero se debe resolver usando <strong>switch tradicional (sentencia)</strong>  
+      y luego usando la <strong>versión moderna de switch (expresión)</strong>.
+    </p>
+
+    <h2>Conceptos importantes</h2>
+
+    <h3>📌 Switch sentencia (versión clásica)</h3>
+    <p>
+      Requiere usar <code>break</code> para evitar que el programa ejecute varios casos.
+    </p>
+
+    <h3>📌 Switch expresión (Java 14+)</h3>
+    <p>
+      Devuelve directamente un valor y permite usar el operador <code>→</code>.
+      Es más limpio y más seguro.
+    </p>
+
+    <h2>Solución en Java — Switch tradicional</h2>
+
+    <pre><code>
+import java.util.Scanner;
+
+public class Ejercicio20 {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Introduce una nota (0-10): ");
+        int nota = sc.nextInt();
+
+        switch (nota) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+                System.out.println("Insuficiente");
+                break;
+            case 5:
+                System.out.println("Suficiente");
+                break;
+            case 6:
+                System.out.println("Bien");
+                break;
+            case 7:
+            case 8:
+                System.out.println("Notable");
+                break;
+            case 9:
+            case 10:
+                System.out.println("Sobresaliente");
+                break;
+            default:
+                System.out.println("Nota no válida");
+        }
+    }
+}
+    </code></pre>
+
+    <h2>Solución con switch expresión (más moderno)</h2>
+
+    <pre><code>
+String resultado = switch (nota) {
+    case 0, 1, 2, 3, 4 -> "Insuficiente";
+    case 5 -> "Suficiente";
+    case 6 -> "Bien";
+    case 7, 8 -> "Notable";
+    case 9, 10 -> "Sobresaliente";
+    default -> "Nota no válida";
+};
+
+System.out.println(resultado);
+    </code></pre>
+
+    <h2>Ejemplos de ejecución</h2>
+
+    <pre><code>
+Introduce una nota (0-10): 8
+Notable
+    </code></pre>
+
+    <pre><code>
+Introduce una nota (0-10): 3
+Insuficiente
+    </code></pre>
+
+    <pre><code>
+Introduce una nota (0-10): 11
+Nota no válida
+    </code></pre>
+
+  </article>
+
+  <div class="back">
+    <a href="../Tema3/index.html" class="btn">← Volver al Tema 3</a>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>© 2025 Pablo Jiménez — Blog Programación</p>
+</footer>
+
+</body>
+</html>

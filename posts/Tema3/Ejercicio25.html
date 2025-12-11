@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tema 3 – Ejercicio 25</title>
+
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/postsTema1.css">
+</head>
+
+<body>
+
+<!-- ===== CABECERA ===== -->
+<header class="header">
+  <h1>Ejercicio 25 – Juego de sumas aleatorias</h1>
+  <p class="subtitle">Tema 3 — Bucle do-while, Math.random() y contadores</p>
+
+  <nav class="nav">
+    <a href="../../index.html">Inicio</a>
+    <a href="../Tema1/index.html">Tema 1</a>
+    <a href="../Tema2/index.html">Tema 2</a>
+    <a href="../Tema3/index.html">Tema 3</a>
+    <a href="../Tema4/index.html">Tema 4</a>
+    <a href="../Tema5/index.html">Tema 5</a>
+    <a href="../Tema6/index.html">Tema 6</a>
+    <a href="../Tema7/index.html">Tema 7</a>
+    <a href="../Tema8/index.html">Tema 8</a>
+    <a href="../Tema9/index.html">Tema 9</a>
+  </nav>
+</header>
+
+<!-- ===== CONTENIDO PRINCIPAL ===== -->
+<main class="main">
+  <article class="post">
+
+    <h2>Enunciado</h2>
+    <p>
+      Crear un juego en el que el usuario deberá resolver sumas de dos números aleatorios 
+      (entre 1 y 100).  
+    </p>
+
+    <ul>
+      <li>Mientras la respuesta sea correcta, el juego continúa.</li>
+      <li>Cuando falle, el programa termina.</li>
+      <li>Al final debe mostrar cuántas operaciones resolvió correctamente.</li>
+    </ul>
+
+    <h2>Explicación del ejercicio</h2>
+
+    <h3>📌 1. Generación de números aleatorios</h3>
+    <p>
+      Cada número se genera así:
+    </p>
+
+    <blockquote><code>(int)(Math.random() * 100) + 1</code></blockquote>
+
+    <p>
+      Esto crea valores entre 1 y 100, ambos incluidos.
+    </p>
+
+    <h3>📌 2. Uso del bucle do-while</h3>
+    <p>
+      Se utiliza porque queremos que el juego muestre al menos una operación antes de comprobar 
+      si continúa o no:
+    </p>
+
+    <blockquote><code>do { ... } while (respuesta == solucionCorrecta);</code></blockquote>
+
+    <h3>📌 3. Contador de aciertos</h3>
+    <p>
+      Cada vez que el usuario acierta, el contador aumenta:
+    </p>
+
+    <blockquote><code>aciertos++;</code></blockquote>
+
+    <h2>Solución en Java</h2>
+
+    <pre><code>
+import java.util.Scanner;
+
+public class Ejercicio25 {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int aciertos = 0;
+        int respuesta;
+        int numero1, numero2, solucionCorrecta;
+
+        do {
+            numero1 = (int)(Math.random() * 100) + 1;
+            numero2 = (int)(Math.random() * 100) + 1;
+
+            solucionCorrecta = numero1 + numero2;
+
+            System.out.print("¿Cuánto es " + numero1 + " + " + numero2 + "? ");
+            respuesta = sc.nextInt();
+
+            if (respuesta == solucionCorrecta) {
+                aciertos++;
+                System.out.println("¡Correcto!\n");
+            } else {
+                System.out.println("\nIncorrecto. La solución era: " + solucionCorrecta);
+            }
+
+        } while (respuesta == solucionCorrecta);
+
+        System.out.println("Operaciones correctas realizadas: " + aciertos);
+    }
+}
+    </code></pre>
+
+    <h2>Ejemplo de ejecución</h2>
+
+    <pre><code>
+¿Cuánto es 12 + 7? 19
+¡Correcto!
+
+¿Cuánto es 43 + 21? 64
+¡Correcto!
+
+¿Cuánto es 9 + 15? 30
+Incorrecto. La solución era: 24
+
+Operaciones correctas realizadas: 2
+    </code></pre>
+
+  </article>
+
+  <div class="back">
+    <a href="../Tema3/index.html" class="btn">← Volver al Tema 3</a>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>© 2025 Pablo Jiménez — Blog Programación</p>
+</footer>
+
+</body>
+</html>

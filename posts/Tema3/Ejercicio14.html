@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tema 3 – Ejercicio 14</title>
+
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/postsTema1.css">
+</head>
+
+<body>
+
+<!-- ===== CABECERA ===== -->
+<header class="header">
+  <h1>Ejercicio 14 – Cálculo de la nota media</h1>
+  <p class="subtitle">Tema 3 — Casting, operaciones aritméticas y medias académicas</p>
+
+  <nav class="nav">
+    <a href="../../index.html">Inicio</a>
+    <a href="../Tema1/index.html">Tema 1</a>
+    <a href="../Tema2/index.html">Tema 2</a>
+    <a href="../Tema3/index.html">Tema 3</a>
+    <a href="../Tema4/index.html">Tema 4</a>
+    <a href="../Tema5/index.html">Tema 5</a>
+    <a href="../Tema6/index.html">Tema 6</a>
+    <a href="../Tema7/index.html">Tema 7</a>
+    <a href="../Tema8/index.html">Tema 8</a>
+    <a href="../Tema9/index.html">Tema 9</a>
+  </nav>
+</header>
+
+<!-- ===== CONTENIDO ===== -->
+<main class="main">
+  <article class="post">
+
+    <h2>Enunciado</h2>
+    <p>
+      Escribe un programa que solicite al usuario las notas del primer, segundo y tercer trimestre.  
+      El programa debe mostrar:
+    </p>
+
+    <ul>
+      <li>📘 <strong>La nota media con decimales</strong> (como aparece en el expediente académico).</li>
+      <li>📗 <strong>La media solo con la parte entera</strong> (como se muestra en el boletín de calificaciones).</li>
+    </ul>
+
+    <h2>Explicación del ejercicio</h2>
+
+    <p>El programa realiza dos operaciones:</p>
+
+    <h3>1️⃣ Media con decimales</h3>
+    <p>
+      Se calcula normalmente:
+    </p>
+    <blockquote>
+      media = (n1 + n2 + n3) / 3
+    </blockquote>
+
+    <p>
+      Este valor representa la media oficial usada en el expediente académico.
+    </p>
+
+    <h3>2️⃣ Media sin decimales (solo parte entera)</h3>
+    <p>
+      Se obtiene mediante un <strong>casting</strong> a <code>int</code>, que elimina los decimales sin redondear:
+    </p>
+
+    <blockquote>
+      <code>(int) media</code>
+    </blockquote>
+
+    <p>
+      Esta es la media utilizada en muchos boletines tradicionales.
+    </p>
+
+    <h2>Solución en Java</h2>
+
+    <pre><code>
+import java.util.Scanner;
+
+public class Ejercicio14 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Introduce la nota del primer trimestre");
+        double notaPrimerTrimestre = sc.nextDouble();
+
+        System.out.println("Introduce la nota del segundo trimestre");
+        double notaSegundoTrimestre = sc.nextDouble();
+
+        System.out.println("Introduce la nota del tercer trimestre");
+        double notaTercerTrimestre = sc.nextDouble();
+
+        double calcularMediaDecimales =
+                (notaPrimerTrimestre + notaSegundoTrimestre + notaTercerTrimestre) / 3;
+
+        System.out.println("La media del curso es: " + calcularMediaDecimales);
+
+        int calcularMediaEnteros = (int) calcularMediaDecimales;
+        System.out.println("La media del curso sin decimales es: " + calcularMediaEnteros);
+    }
+}
+    </code></pre>
+
+    <h2>Ejemplo de ejecución</h2>
+    <pre><code>
+Introduce la nota del primer trimestre: 7
+Introduce la nota del segundo trimestre: 8
+Introduce la nota del tercer trimestre: 6
+
+La media del curso es: 7.0
+La media del curso sin decimales es: 7
+    </code></pre>
+
+  </article>
+
+  <div class="back">
+    <a href="../Tema3/index.html" class="btn">← Volver al Tema 3</a>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>© 2025 Pablo Jiménez — Blog Programación</p>
+</footer>
+
+</body>
+</html>

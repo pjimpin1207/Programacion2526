@@ -10,6 +10,5 @@ public class Ejercicio2 {
         int edad = sc.nextInt();
         int edadSiguiente = edad + 1;
         System.out.println("El año que viene vas a tener: " + edadSiguiente + " años");
-        sc.close();
     }
 }

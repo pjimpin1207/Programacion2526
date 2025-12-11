@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tema 3 – Ejercicio 24</title>
+
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/postsTema1.css">
+</head>
+
+<body>
+
+<!-- ===== CABECERA ===== -->
+<header class="header">
+  <h1>Ejercicio 24 – Edad máxima y mínima</h1>
+  <p class="subtitle">Tema 3 — Lectura repetitiva con valor centinela (-1)</p>
+
+  <nav class="nav">
+    <a href="../../index.html">Inicio</a>
+    <a href="../Tema1/index.html">Tema 1</a>
+    <a href="../Tema2/index.html">Tema 2</a>
+    <a href="../Tema3/index.html">Tema 3</a>
+    <a href="../Tema4/index.html">Tema 4</a>
+    <a href="../Tema5/index.html">Tema 5</a>
+    <a href="../Tema6/index.html">Tema 6</a>
+    <a href="../Tema7/index.html">Tema 7</a>
+    <a href="../Tema8/index.html">Tema 8</a>
+    <a href="../Tema9/index.html">Tema 9</a>
+  </nav>
+</header>
+
+<!-- ===== CONTENIDO PRINCIPAL ===== -->
+<main class="main">
+  <article class="post">
+
+    <h2>Enunciado</h2>
+    <p>
+      Diseñar una aplicación que permita introducir edades de alumnos una a una.
+      Cuando el usuario escriba <strong>-1</strong>, el programa finalizará y mostrará:
+    </p>
+    <ul>
+      <li>La edad máxima registrada</li>
+      <li>La edad mínima registrada</li>
+    </ul>
+
+    <h2>Explicación del ejercicio</h2>
+
+    <h3>📌 1. Uso de un valor centinela</h3>
+    <p>
+      El número <strong>-1</strong> se usa como señal para detener la lectura del bucle.
+      Es un valor que nunca será una edad real, por lo que es seguro utilizarlo para finalizar.
+    </p>
+
+    <h3>📌 2. Inicialización correcta de máximos y mínimos</h3>
+    <p>Usamos:</p>
+
+    <ul>
+      <li><code>Integer.MIN_VALUE</code> como valor inicial del máximo</li>
+      <li><code>Integer.MAX_VALUE</code> como valor inicial del mínimo</li>
+    </ul>
+
+    <p>
+      Así garantizamos que cualquier edad válida actualizará dichos valores.
+    </p>
+
+    <h3>📌 3. Actualización dentro del bucle</h3>
+    <p>
+      Cada vez que se lee una edad, se compara con la máxima y mínima vistas hasta ese momento.
+    </p>
+
+    <h2>Solución en Java</h2>
+
+    <pre><code>
+import java.util.Scanner;
+
+public class Ejercicio24 {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int edad;
+        int edadMaxima = Integer.MIN_VALUE;
+        int edadMinima = Integer.MAX_VALUE;
+
+        System.out.print("Introduce las edades (utiliza -1 para terminar): ");
+        edad = sc.nextInt();
+
+        while (edad != -1) {
+
+            // Actualizar máxima
+            if (edad > edadMaxima) {
+                edadMaxima = edad;
+            }
+
+            // Actualizar mínima
+            if (edad < edadMinima) {
+                edadMinima = edad;
+            }
+
+            // Volver a pedir edad
+            System.out.print("Introduce una edad (-1 para terminar): ");
+            edad = sc.nextInt();
+        }
+
+        System.out.println("\nEdad máxima: " + edadMaxima);
+        System.out.println("Edad mínima: " + edadMinima);
+    }
+}
+    </code></pre>
+
+    <h2>Ejemplo de ejecución</h2>
+
+    <pre><code>
+Introduce las edades (utiliza -1 para terminar): 18
+Introduce una edad (-1 para terminar): 22
+Introduce una edad (-1 para terminar): 16
+Introduce una edad (-1 para terminar): -1
+
+Edad máxima: 22
+Edad mínima: 16
+    </code></pre>
+
+  </article>
+
+  <div class="back">
+    <a href="../Tema3/index.html" class="btn">← Volver al Tema 3</a>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>© 2025 Pablo Jiménez — Blog Programación</p>
+</footer>
+
+</body>
+</html>

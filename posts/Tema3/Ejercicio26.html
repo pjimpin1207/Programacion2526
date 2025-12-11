@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tema 3 – Ejercicio 26</title>
+
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/postsTema1.css">
+</head>
+
+<body>
+
+<!-- ===== CABECERA ===== -->
+<header class="header">
+  <h1>Ejercicio 26 – Aplicación ECO</h1>
+  <p class="subtitle">Tema 3 — Uso del bucle for para repetir acciones</p>
+
+  <nav class="nav">
+    <a href="../../index.html">Inicio</a>
+    <a href="../Tema1/index.html">Tema 1</a>
+    <a href="../Tema2/index.html">Tema 2</a>
+    <a href="../Tema3/index.html">Tema 3</a>
+    <a href="../Tema4/index.html">Tema 4</a>
+    <a href="../Tema5/index.html">Tema 5</a>
+    <a href="../Tema6/index.html">Tema 6</a>
+    <a href="../Tema7/index.html">Tema 7</a>
+    <a href="../Tema8/index.html">Tema 8</a>
+    <a href="../Tema9/index.html">Tema 9</a>
+  </nav>
+</header>
+
+<!-- ===== CONTENIDO PRINCIPAL ===== -->
+<main class="main">
+  <article class="post">
+
+    <h2>Enunciado</h2>
+    <p>
+      Crear una aplicación llamada <strong>Eco</strong> que pida al usuario un número entero
+      y muestre en pantalla la palabra:
+    </p>
+
+    <blockquote><strong>Eco...</strong></blockquote>
+
+    <p>
+      repetida tantas veces como indique el número introducido.
+    </p>
+
+    <h2>Explicación del ejercicio</h2>
+
+    <h3>📌 Uso del bucle for</h3>
+    <p>
+      El ejercicio utiliza un <strong>bucle for</strong> porque conocemos de antemano
+      cuántas veces debe repetirse la acción.
+    </p>
+
+    <blockquote>
+      <code>for (int i = 0; i &lt; numeroIntroducido; i++)</code>
+    </blockquote>
+
+    <p>
+      En cada iteración del bucle se imprime la palabra <strong>"Eco..."</strong>.
+    </p>
+
+    <h2>Solución en Java</h2>
+
+    <pre><code>
+import java.util.Scanner;
+
+public class Ejercicio26 {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Introduce un número: ");
+        int numeroIntroducido = sc.nextInt();
+
+        for (int i = 0; i < numeroIntroducido; i++) {
+            System.out.println("Eco...");
+        }
+    }
+}
+    </code></pre>
+
+    <h2>Ejemplo de ejecución</h2>
+
+    <pre><code>
+Introduce un número: 3
+Eco...
+Eco...
+Eco...
+    </code></pre>
+
+  </article>
+
+  <div class="back">
+    <a href="../Tema3/index.html" class="btn">← Volver al Tema 3</a>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>© 2025 Pablo Jiménez — Blog Programación</p>
+</footer>
+
+</body>
+</html>

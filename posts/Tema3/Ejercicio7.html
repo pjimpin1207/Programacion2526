@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tema 3 – Ejercicio 7</title>
+
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/postsTema1.css">
+</head>
+
+<body>
+
+<!-- ===== CABECERA ===== -->
+<header class="header">
+  <h1>Ejercicio 7 – ¿Eres mayor de edad?</h1>
+  <p class="subtitle">Tema 3 — Uso de booleanos y expresiones lógicas</p>
+
+  <nav class="nav">
+    <a href="../../index.html">Inicio</a>
+    <a href="../Tema1/index.html">Tema 1</a>
+    <a href="../Tema2/index.html">Tema 2</a>
+    <a href="../Tema3/index.html">Tema 3</a>
+    <a href="../Tema4/index.html">Tema 4</a>
+    <a href="../Tema5/index.html">Tema 5</a>
+    <a href="../Tema6/index.html">Tema 6</a>
+    <a href="../Tema7/index.html">Tema 7</a>
+    <a href="../Tema8/index.html">Tema 8</a>
+    <a href="../Tema9/index.html">Tema 9</a>
+  </nav>
+</header>
+
+<!-- ===== CONTENIDO ===== -->
+<main class="main">
+  <article class="post">
+
+    <h2>Enunciado</h2>
+    <p>
+      Realizar una aplicación que solicite al usuario su edad y le indique  
+      si es mayor de edad utilizando un literal booleano: <strong>true</strong> o <strong>false</strong>.
+    </p>
+
+    <h2>Explicación del ejercicio</h2>
+    <p>
+      Un valor booleano solo puede ser:
+    </p>
+    <ul>
+      <li><strong>true</strong> → verdadero</li>
+      <li><strong>false</strong> → falso</li>
+    </ul>
+
+    <p>
+      En este ejercicio se evalúa si la edad introducida por el usuario es  
+      mayor o igual a 18 usando una expresión lógica:
+    </p>
+
+    <blockquote>
+      <code>edad >= 18</code> devolverá <strong>true</strong> si la edad es 18 o más  
+      y <strong>false</strong> si es menor.
+    </blockquote>
+
+    <h2>Solución en Java</h2>
+
+    <pre><code>
+import java.util.Scanner;
+
+public class Ejercicio7 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Introduce tu edad:");
+        int edad = sc.nextInt();
+
+        boolean mayorMenorEdad = edad >= 18;   // Expresión lógica
+
+        System.out.println("¿Eres mayor de edad? " + mayorMenorEdad);
+    }
+}
+    </code></pre>
+
+    <h2>Resultado esperado</h2>
+
+    <pre><code>
+Introduce tu edad:
+17
+¿Eres mayor de edad? false
+    </code></pre>
+
+    <pre><code>
+Introduce tu edad:
+21
+¿Eres mayor de edad? true
+    </code></pre>
+
+  </article>
+
+  <div class="back">
+    <a href="../Tema3/index.html" class="btn">← Volver al Tema 3</a>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>© 2025 Pablo Jiménez — Blog Programación</p>
+</footer>
+
+</body>
+</html>

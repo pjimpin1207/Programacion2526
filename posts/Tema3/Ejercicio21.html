@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tema 3 – Ejercicio 21</title>
+
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/postsTema1.css">
+</head>
+
+<body>
+
+<!-- ===== CABECERA ===== -->
+<header class="header">
+  <h1>Ejercicio 21 – Número de días del mes</h1>
+  <p class="subtitle">Tema 3 — Uso de switch para clasificar meses del año</p>
+
+  <nav class="nav">
+    <a href="../../index.html">Inicio</a>
+    <a href="../Tema1/index.html">Tema 1</a>
+    <a href="../Tema2/index.html">Tema 2</a>
+    <a href="../Tema3/index.html">Tema 3</a>
+    <a href="../Tema4/index.html">Tema 4</a>
+    <a href="../Tema5/index.html">Tema 5</a>
+    <a href="../Tema6/index.html">Tema 6</a>
+    <a href="../Tema7/index.html">Tema 7</a>
+    <a href="../Tema8/index.html">Tema 8</a>
+    <a href="../Tema9/index.html">Tema 9</a>
+  </nav>
+</header>
+
+<!-- ===== CONTENIDO PRINCIPAL ===== -->
+<main class="main">
+  <article class="post">
+
+    <h2>Enunciado</h2>
+    <p>
+      Pedir al usuario el número del mes (entre 1 y 12) y mostrar cuántos días tiene 
+      dicho mes.  
+    </p>
+
+    <h2>Explicación del ejercicio</h2>
+    <p>
+      Para resolver este ejercicio se utiliza una estructura 
+      <strong>switch con agrupación de casos</strong>, ya que varios meses comparten el mismo 
+      número de días.
+    </p>
+
+    <h3>📌 Clasificación por días</h3>
+
+    <ul>
+      <li><strong>31 días:</strong> Enero, Marzo, Mayo, Julio, Agosto, Octubre, Diciembre</li>
+      <li><strong>30 días:</strong> Abril, Junio, Septiembre, Noviembre</li>
+      <li><strong>Febrero:</strong> 28 días (29 en años bisiestos)</li>
+    </ul>
+
+    <p>
+      Si el usuario introduce un valor fuera del rango 1–12, se muestra un mensaje de error.
+    </p>
+
+    <h2>Solución en Java</h2>
+
+    <pre><code>
+import java.util.Scanner;
+
+public class Ejercicio21 {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Introduce el número del mes (1-12): ");
+        int mes = sc.nextInt();
+
+        switch (mes) {
+            // meses con 31 días
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12:
+                System.out.println("Este mes tiene 31 días.");
+                break;
+
+            // meses con 30 días
+            case 4:
+            case 6:
+            case 9:
+            case 11:
+                System.out.println("Este mes tiene 30 días.");
+                break;
+
+            // febrero
+            case 2:
+                System.out.println("Este mes tiene 28 días (29 si es año bisiesto).");
+                break;
+
+            default:
+                System.out.println("Mes no válido.");
+        }
+    }
+}
+    </code></pre>
+
+    <h2>Ejemplos de ejecución</h2>
+
+    <pre><code>
+Introduce el número del mes (1-12): 7
+Este mes tiene 31 días.
+    </code></pre>
+
+    <pre><code>
+Introduce el número del mes (1-12): 2
+Este mes tiene 28 días (29 si es año bisiesto).
+    </code></pre>
+
+    <pre><code>
+Introduce el número del mes (1-12): 15
+Mes no válido.
+    </code></pre>
+
+  </article>
+
+  <div class="back">
+    <a href="../Tema3/index.html" class="btn">← Volver al Tema 3</a>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>© 2025 Pablo Jiménez — Blog Programación</p>
+</footer>
+
+</body>
+</html>

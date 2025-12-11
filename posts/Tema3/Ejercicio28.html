@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tema 3 – Ejercicio 28</title>
+
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/postsTema1.css">
+</head>
+
+<body>
+
+<!-- ===== CABECERA ===== -->
+<header class="header">
+  <h1>Ejercicio 28 – Cálculo del factorial</h1>
+  <p class="subtitle">Tema 3 — Bucles descendentes y operaciones acumulativas</p>
+
+  <nav class="nav">
+    <a href="../../index.html">Inicio</a>
+    <a href="../Tema1/index.html">Tema 1</a>
+    <a href="../Tema2/index.html">Tema 2</a>
+    <a href="../Tema3/index.html">Tema 3</a>
+    <a href="../Tema4/index.html">Tema 4</a>
+    <a href="../Tema5/index.html">Tema 5</a>
+    <a href="../Tema6/index.html">Tema 6</a>
+    <a href="../Tema7/index.html">Tema 7</a>
+    <a href="../Tema8/index.html">Tema 8</a>
+    <a href="../Tema9/index.html">Tema 9</a>
+  </nav>
+</header>
+
+<!-- ===== CONTENIDO PRINCIPAL ===== -->
+<main class="main">
+  <article class="post">
+
+    <h2>Enunciado</h2>
+    <p>
+      Pedir al usuario un número entero y calcular su <strong>factorial</strong>.  
+      El factorial de un número n se representa como n! y equivale a:
+    </p>
+
+    <blockquote>
+      n × (n−1) × (n−2) × … × 2 × 1
+    </blockquote>
+
+    <p>
+      Ejemplo:  
+      <strong>5! = 5 × 4 × 3 × 2 × 1 = 120</strong>
+    </p>
+
+    <h2>Explicación del ejercicio</h2>
+
+    <h3>📌 Qué es el factorial</h3>
+    <p>
+      Es una operación que multiplica todos los números enteros desde n hasta 1.
+      Se usa en matemáticas, combinatoria, probabilidades, etc.
+    </p>
+
+    <h3>📌 Bucle descendente</h3>
+    <p>
+      Para calcularlo, recorremos desde el número introducido hasta 1:
+    </p>
+
+    <blockquote><code>for (int i = numero; i >= 1; i--)</code></blockquote>
+
+    <p>
+      En cada iteración multiplicamos el acumulador <code>factorial</code> por el valor actual <code>i</code>.
+    </p>
+
+    <h3>📌 ¿Por qué factorial empieza valiendo 1?</h3>
+    <p>
+      Porque es el <strong>elemento neutro de la multiplicación</strong>.  
+      Si empezara en 0, todo el resultado sería 0.
+    </p>
+
+    <h2>Solución en Java</h2>
+
+    <pre><code>
+import java.util.Scanner;
+
+public class Ejercicio28 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Introduce un numero");
+        int numero = sc.nextInt();
+
+        int factorial = 1;
+
+        for (int i = numero; i >= 1; i--) {
+            factorial = factorial * i;
+        }
+
+        System.out.println("El factorial de " + numero + " es: " + factorial);
+    }
+}
+    </code></pre>
+
+    <h2>Ejemplos de ejecución</h2>
+
+    <pre><code>
+Introduce un número: 5
+El factorial de 5 es: 120
+    </code></pre>
+
+    <pre><code>
+Introduce un número: 3
+El factorial de 3 es: 6
+    </code></pre>
+
+  </article>
+
+  <div class="back">
+    <a href="../Tema3/index.html" class="btn">← Volver al Tema 3</a>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>© 2025 Pablo Jiménez — Blog Programación</p>
+</footer>
+
+</body>
+</html>

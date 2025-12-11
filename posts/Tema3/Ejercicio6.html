@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tema 3 – Ejercicio 6</title>
+
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/postsTema1.css">
+</head>
+
+<body>
+
+<!-- ===== CABECERA ===== -->
+<header class="header">
+  <h1>Ejercicio 6 – Longitud y área de una circunferencia</h1>
+  <p class="subtitle">Tema 3 — Uso de constantes, entrada de datos y operaciones matemáticas</p>
+
+  <nav class="nav">
+    <a href="../../index.html">Inicio</a>
+    <a href="../Tema1/index.html">Tema 1</a>
+    <a href="../Tema2/index.html">Tema 2</a>
+    <a href="../Tema3/index.html">Tema 3</a>
+    <a href="../Tema4/index.html">Tema 4</a>
+    <a href="../Tema5/index.html">Tema 5</a>
+    <a href="../Tema6/index.html">Tema 6</a>
+    <a href="../Tema7/index.html">Tema 7</a>
+    <a href="../Tema8/index.html">Tema 8</a>
+    <a href="../Tema9/index.html">Tema 9</a>
+  </nav>
+</header>
+
+<!-- ===== CONTENIDO ===== -->
+<main class="main">
+  <article class="post">
+
+    <h2>Enunciado</h2>
+    <p>
+      Diseñar una aplicación que calcule la <strong>longitud</strong> y el <strong>área</strong> de una circunferencia.
+      El usuario debe introducir el radio, que puede contener decimales.
+    </p>
+
+    <p>Recordamos las fórmulas:</p>
+
+    <blockquote>
+      Longitud = 2 · π · radio <br>
+      Área = π · radio²
+    </blockquote>
+
+    <p>
+      Se pide resolverlo de dos formas:
+    </p>
+    <ul>
+      <li>📌 Declarando PI como constante.</li>
+      <li>📌 Utilizando la clase <code>Math</code> de Java.</li>
+    </ul>
+
+    <h2>Explicación del ejercicio</h2>
+    <p>
+      Este ejercicio permite practicar:
+    </p>
+
+    <ul>
+      <li>Entrada de datos con <code>Scanner</code></li>
+      <li>Uso de variables <code>double</code> para decimales</li>
+      <li>Cálculos matemáticos</li>
+      <li>Uso de constantes o de la clase <code>Math</code></li>
+    </ul>
+
+    <h2>Solución 1 – Usando una constante PI</h2>
+
+    <pre><code>
+import java.util.Scanner;
+
+public class Ejercicio6 {
+    public static void main(String[] args) {
+        double PI = 3.14;       // Declaración de la constante
+
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Introduce el radio: ");
+        double radio = sc.nextDouble();
+
+        double longitud = 2 * PI * radio;
+        double area = PI * radio * radio;
+
+        System.out.println("Longitud = " + longitud);
+        System.out.println("Área = " + area);
+    }
+}
+    </code></pre>
+
+    <h2>Solución 2 – Usando la clase Math</h2>
+
+    <pre><code>
+import java.util.Scanner;
+
+public class Ejercicio6Math {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Introduce el radio: ");
+        double radio = sc.nextDouble();
+
+        double longitud = 2 * Math.PI * radio;        // Math.PI -> π exacto
+        double area = Math.PI * Math.pow(radio, 2);   // pow(base, exponente)
+
+        System.out.println("Longitud = " + longitud);
+        System.out.println("Área = " + area);
+    }
+}
+    </code></pre>
+
+    <h2>Comparación entre ambas soluciones</h2>
+
+    <ul>
+      <li>Usar <strong>Math.PI</strong> es más preciso que usar 3.14.</li>
+      <li>Usar <strong>Math.pow()</strong> hace más clara la operación radio².</li>
+      <li>Ambas soluciones son correctas para el examen.</li>
+    </ul>
+
+    <h2>Ejemplo de salida esperada</h2>
+
+    <pre><code>
+Introduce el radio: 5
+Longitud = 31.400000000000002
+Área = 78.5
+    </code></pre>
+
+  </article>
+
+  <div class="back">
+    <a href="../Tema3/index.html" class="btn">← Volver al Tema 3</a>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>© 2025 Pablo Jiménez — Blog Programación</p>
+</footer>
+
+</body>
+</html>

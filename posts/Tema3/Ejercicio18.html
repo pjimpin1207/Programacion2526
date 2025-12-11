@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tema 3 – Ejercicio 18</title>
+
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/postsTema1.css">
+</head>
+
+<body>
+
+<!-- ===== CABECERA ===== -->
+<header class="header">
+  <h1>Ejercicio 18 – Número casi-cero</h1>
+  <p class="subtitle">Tema 3 — Operadores lógicos, Math.abs() y rangos numéricos</p>
+
+  <nav class="nav">
+    <a href="../../index.html">Inicio</a>
+    <a href="../Tema1/index.html">Tema 1</a>
+    <a href="../Tema2/index.html">Tema 2</a>
+    <a href="../Tema3/index.html">Tema 3</a>
+    <a href="../Tema4/index.html">Tema 4</a>
+    <a href="../Tema5/index.html">Tema 5</a>
+    <a href="../Tema6/index.html">Tema 6</a>
+    <a href="../Tema7/index.html">Tema 7</a>
+    <a href="../Tema8/index.html">Tema 8</a>
+    <a href="../Tema9/index.html">Tema 9</a>
+  </nav>
+</header>
+
+<!-- ===== CONTENIDO PRINCIPAL ===== -->
+<main class="main">
+  <article class="post">
+
+    <h2>Enunciado</h2>
+    <p>
+      Implementar un programa que pida un número decimal por teclado e indique si es un 
+      <strong>número casi-cero</strong>, es decir, un número (positivo o negativo) cuya distancia 
+      a 0 es menor que 1 unidad.  
+    </p>
+
+    <p>Condiciones importantes:</p>
+    <ul>
+      <li>El número debe cumplir: <strong>|n| &lt; 1</strong></li>
+      <li>El 0 <strong>NO</strong> se considera un número casi-cero</li>
+    </ul>
+
+    <p>Ejemplos válidos:</p>
+    <ul>
+      <li>0,3 → casi-cero</li>
+      <li>−0,99 → casi-cero</li>
+      <li>0,123 → casi-cero</li>
+    </ul>
+
+    <p>No válidos:</p>
+    <ul>
+      <li>12,3 → no</li>
+      <li>0 → no</li>
+      <li>−1 → no</li>
+    </ul>
+
+    <h2>Explicación del ejercicio</h2>
+
+    <h3>📌 1️⃣ Calcular la distancia a cero</h3>
+    <p>
+      Usamos la función:
+    </p>
+
+    <blockquote><code>Math.abs(numero)</code></blockquote>
+
+    <p>
+      Esto nos da el valor absoluto (distancia a 0).  
+      Para ser casi-cero debe cumplirse:
+    </p>
+
+    <blockquote><code>Math.abs(numero) &lt; 1</code></blockquote>
+
+    <h3>📌 2️⃣ El número 0 está excluido</h3>
+    <p>
+      Aunque cumpla la condición anterior, el enunciado exige descartarlo:
+    </p>
+
+    <blockquote><code>numero != 0</code></blockquote>
+
+    <h3>📌 3️⃣ Condición final</h3>
+
+    <blockquote>
+      <code>(numero != 0) && (Math.abs(numero) &lt; 1)</code>
+    </blockquote>
+
+    <h2>Solución en Java</h2>
+
+    <pre><code>
+import java.util.Scanner;
+
+public class Ejercicio18 {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Introduce un número decimal: ");
+        double numero = sc.nextDouble();
+
+        if (numero != 0 && Math.abs(numero) < 1) {
+            System.out.println("Es un número casi-cero.");
+        } else {
+            System.out.println("No es un número casi-cero.");
+        }
+    }
+}
+    </code></pre>
+
+    <h2>Ejemplo de ejecución</h2>
+
+    <pre><code>
+Introduce un número decimal: 0.5
+Es un número casi-cero.
+    </code></pre>
+
+    <pre><code>
+Introduce un número decimal: -0.87
+Es un número casi-cero.
+    </code></pre>
+
+    <pre><code>
+Introduce un número decimal: 0
+No es un número casi-cero.
+    </code></pre>
+
+  </article>
+
+  <div class="back">
+    <a href="../Tema3/index.html" class="btn">← Volver al Tema 3</a>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>© 2025 Pablo Jiménez — Blog Programación</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tema 3 – Ejercicio 33</title>
+
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/postsTema1.css">
+</head>
+
+<body>
+
+<!-- ===== CABECERA ===== -->
+<header class="header">
+  <h1>Ejercicio 33 – Sobrecarga de funciones</h1>
+  <p class="subtitle">Tema 3 — Máximo de dos y tres números</p>
+
+  <nav class="nav">
+    <a href="../../index.html">Inicio</a>
+    <a href="../Tema1/index.html">Tema 1</a>
+    <a href="../Tema2/index.html">Tema 2</a>
+    <a href="../Tema3/index.html">Tema 3</a>
+    <a href="../Tema4/index.html">Tema 4</a>
+    <a href="../Tema5/index.html">Tema 5</a>
+    <a href="../Tema6/index.html">Tema 6</a>
+    <a href="../Tema7/index.html">Tema 7</a>
+    <a href="../Tema8/index.html">Tema 8</a>
+    <a href="../Tema9/index.html">Tema 9</a>
+  </nav>
+</header>
+
+<!-- ===== CONTENIDO PRINCIPAL ===== -->
+<main class="main">
+  <article class="post">
+
+    <h2>Enunciado</h2>
+    <p>
+      Repetir el ejercicio anterior, calculando ahora el <strong>máximo de tres números enteros</strong>.
+      Para ello se debe <strong>sobrecargar la función</strong> <code>maximo</code>, manteniendo ambas versiones en el mismo archivo.
+    </p>
+
+    <p>
+      De forma opcional, se puede implementar la versión de 3 números utilizando la versión de 2 números.
+    </p>
+
+    <h2>📘 ¿Qué es la sobrecarga de funciones?</h2>
+    <p>
+      La sobrecarga consiste en definir <strong>varios métodos con el mismo nombre</strong> pero con diferente número o tipo de parámetros.
+    </p>
+
+    <blockquote>
+      Esto permite reutilizar el mismo nombre de función para operaciones similares.
+    </blockquote>
+
+    <h2>Versión básica — Máximo de 2 y 3 números</h2>
+
+<pre><code>
+public class Ejercicio33 {
+
+    // Función maximo (dos números)
+    public static int maximo(int a, int b) {
+        int maximo;
+
+        if (a > b) {
+            maximo = a;
+        } else {
+            maximo = b;
+        }
+        return maximo;
+    }
+
+    // Función maximo sobrecargada (tres números)
+    public static int maximo(int a, int b, int c) {
+        if (a >= b && a >= c) {
+            return a;
+        } else if (b >= a && b >= c) {
+            return b;
+        } else {
+            return c;
+        }
+    }
+
+    public static void main(String[] args) {
+        int num1 = 15;
+        int num2 = 20;
+        int num3 = 10;
+
+        // Uso de la función de dos parámetros
+        int resultado = maximo(num1, num2);
+        System.out.println(resultado);
+
+        // Uso de la función sobrecargada
+        int resultadoSobrecarga = maximo(num1, num2, num3);
+        System.out.println(resultadoSobrecarga);
+
+        System.out.println("\nEl valor máximo de los tres números introducidos es: " + resultadoSobrecarga);
+    }
+}
+</code></pre>
+
+<h2>🟦 Ampliación — Usar la función de 2 números dentro de la de 3</h2>
+<p>
+  Esta versión es más elegante: la función de 3 parámetros reutiliza la de 2 parámetros.
+  Se trata de una técnica muy común para evitar repetir código.
+</p>
+
+<pre><code>
+public class Ejercicio33_Ampliacion {
+
+    // Función base (máximo entre dos números)
+    public static int maximo(int a, int b) {
+        int maximo;
+
+        if (a > b) {
+            maximo = a;
+        } else {
+            maximo = b;
+        }
+        return maximo;
+    }
+
+    // Función sobrecargada (máximo de tres números)
+    public static int maximo(int a, int b, int c) {
+        int maximo_a_y_b = maximo(a, b);
+        return maximo(maximo_a_y_b, c);
+    }
+
+    public static void main(String[] args) {
+        int num1 = 45;
+        int num2 = 12;
+        int num3 = 78;
+
+        int resultado = maximo(num1, num2, num3);
+
+        System.out.println("\nEl valor máximo de los tres números introducidos (" +
+                            num1 + ", " + num2 + ", " + num3 + ") es: " + resultado);
+    }
+}
+</code></pre>
+
+<h2>Salida esperada (ejemplo)</h2>
+
+<pre><code>
+20
+20
+El valor máximo de los tres números introducidos es: 20
+
+El valor máximo de los tres números introducidos (45, 12, 78) es: 78
+</code></pre>
+
+  </article>
+
+  <div class="back">
+    <a href="../Tema3/index.html" class="btn">← Volver al Tema 3</a>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>© 2025 Pablo Jiménez — Blog Programación</p>
+</footer>
+
+</body>
+</html>
