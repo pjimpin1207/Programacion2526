@@ -10,7 +10,7 @@ package Ejercicios.ejercicio4;
     }
 
     // Metodo estatico
-    public static void mostrarTotalObjetos() {
+    static void mostrarTotalObjetos() {
         System.out.println("Número total de objetos creados hasta el momento: " + totalObjetos);
     }
 }
