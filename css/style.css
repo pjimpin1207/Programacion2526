@@ -11,19 +11,19 @@
   /* Blue-ish */
   --hue-bg: 220;
 
-  /* Light Theme Defaults */
-  --color-bg: hsl(var(--hue-bg), 20%, 97%);
-  --color-surface: hsl(var(--hue-bg), 20%, 100%);
-  --color-surface-glass: hsla(var(--hue-bg), 20%, 100%, 0.8);
+  /* Dark Theme Defaults (Permanent) */
+  --color-bg: hsl(var(--hue-bg), 20%, 6%);
+  --color-surface: hsl(var(--hue-bg), 20%, 10%);
+  --color-surface-glass: hsla(var(--hue-bg), 20%, 10%, 0.8);
 
-  --color-text-main: hsl(var(--hue-bg), 40%, 10%);
-  --color-text-muted: hsl(var(--hue-bg), 20%, 40%);
+  --color-text-main: hsl(var(--hue-bg), 20%, 96%);
+  --color-text-muted: hsl(var(--hue-bg), 10%, 70%);
 
   --color-brand: hsl(var(--hue-brand), 90%, 54%);
   /* #1e90ff equivalentish but more vibrant */
   --color-brand-glow: hsla(var(--hue-brand), 90%, 54%, 0.3);
 
-  --color-border: hsl(var(--hue-bg), 20%, 90%);
+  --color-border: hsl(var(--hue-bg), 20%, 18%);
 
   /* Dimensions & Spacing */
   --max-width: 1200px;
@@ -34,18 +34,6 @@
   /* Animation */
   --transition-fast: 0.2s ease;
   --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* --- DARK THEME OVERRIDES --- */
-[data-theme="dark"] {
-  --color-bg: hsl(var(--hue-bg), 20%, 6%);
-  --color-surface: hsl(var(--hue-bg), 20%, 10%);
-  --color-surface-glass: hsla(var(--hue-bg), 20%, 10%, 0.8);
-
-  --color-text-main: hsl(var(--hue-bg), 20%, 96%);
-  --color-text-muted: hsl(var(--hue-bg), 10%, 70%);
-
-  --color-border: hsl(var(--hue-bg), 20%, 18%);
 }
 
 /* --- RESET & BASE --- */
@@ -155,25 +143,6 @@ img {
   width: 100%;
 }
 
-/* Theme Toggle Button */
-.theme-toggle {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--color-text-main);
-  font-size: 1.2rem;
-  padding: 0.5rem;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color var(--transition-fast);
-}
-
-.theme-toggle:hover {
-  background-color: var(--color-border);
-}
-
 /* --- HERO PROFILE SECTION --- */
 .profile-card {
   display: grid;
@@ -226,6 +195,7 @@ img {
   letter-spacing: -0.04em;
   background: linear-gradient(to right, var(--color-text-main), var(--color-text-muted));
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -530,6 +500,7 @@ img {
   margin-bottom: 1rem;
   background: linear-gradient(to right, var(--color-text-main), var(--color-text-muted));
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: -0.03em;
   text-align: center;
@@ -695,6 +666,7 @@ img {
   background: linear-gradient(to right, var(--color-text-main), var(--color-text-muted));
   -webkit-background-clip: text;
   background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   width: fit-content;
   margin-left: auto;
@@ -737,4 +709,485 @@ img {
   color: var(--color-brand);
   font-family: 'Outfit', sans-serif;
   font-weight: 700;
+}
+
+/* --- NEON THEME & NEW LAYOUT (From Index) --- */
+
+:root {
+  /* Neon Green Theme Optimized */
+  --bg-dark: #050505; /* Blacker background for better green contrast */
+  --surface-dark: #0f1011; 
+  --border-dark: #222;
+  
+  --brand-primary: #0EE860; /* New Neon Green */
+  --brand-glow: rgba(14, 232, 96, 0.4);
+  
+  /* Mapping old vars to new system to ensure compatibility */
+  --accent-purple: #0EE860; /* Override purple with green */
+  --accent-pink: #0EE860;   /* Override pink with green */
+  
+  --text-main: #ffffff;
+  --text-muted: #888;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: 'Outfit', sans-serif; /* Matching the bold font */
+  overflow-x: hidden;
+}
+
+/* BACKGROUND GLOWS */
+body::before {
+  content: '';
+  position: absolute;
+  top: -10%;
+  left: 10%;
+  width: 500px;
+  height: 500px;
+  background: var(--accent-purple);
+  filter: blur(150px);
+  opacity: 0.15;
+  z-index: -1;
+  pointer-events: none;
+}
+
+body::after {
+  content: '';
+  position: absolute;
+  top: 20%;
+  right: -10%;
+  width: 400px;
+  height: 400px;
+  background: var(--accent-pink);
+  filter: blur(150px);
+  opacity: 0.1;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* --- LAYOUT CONTAINERS --- */
+
+/* 1. Full Width Wrapper for Hero */
+.hero-full-wrapper {
+    width: 100%;
+    padding: 1.5rem 3rem; /* Balanced Padding */
+    box-sizing: border-box;
+}
+
+/* 2. Content below - Now also Full Width */
+.dashboard-container {
+  width: 100%;
+  max-width: none;
+  padding: 0 3rem 4rem; /* Match hero padding */
+  box-sizing: border-box;
+}
+
+/* --- SECTION 1: HERO ROW --- */
+.hero-row {
+  display: grid;
+  grid-template-columns: 35% 65%; /* Dynamic Ratio */
+  gap: 1.5rem;
+  width: 100%; /* Force full width */
+  margin-bottom: 2rem;
+}
+
+/* CARD COMMON */
+.dark-card {
+  background-color: var(--surface-dark);
+  border: 1px solid var(--border-dark);
+  border-radius: 24px;
+  padding: 2.5rem; /* Increased padding */
+  position: relative;
+}
+
+/* BRAND CARD (Left) */
+.brand-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  border-left: 6px solid var(--accent-purple); /* Thicker accent */
+  min-width: 0; /* Prevent overflow issues */
+}
+
+.brand-title {
+  font-size: 4rem; /* Larger font since we have more space */
+  line-height: 0.95;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  white-space: nowrap; /* Force single line if possible or controlled break */
+}
+
+.brand-subtitle {
+    color: var(--accent-purple);
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+/* PROFILE CARD (Right) */
+.intro-card {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.avatar-frame {
+  width: 140px;
+  height: 140px;
+  border-radius: 24px;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 2px solid var(--border-dark);
+}
+
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.intro-content {
+  flex: 1;
+}
+
+.intro-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.intro-desc {
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+  max-width: 500px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn-dark {
+  padding: 0.6rem 1.2rem;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-outline {
+  border: 1px solid var(--border-dark);
+  color: var(--text-muted);
+  background: transparent;
+}
+
+.btn-outline:hover {
+    border-color: var(--text-main);
+    color: var(--text-main);
+    background: rgba(255,255,255,0.05);
+}
+
+.btn-filled {
+  background: #27272a;
+  color: white;
+  border: 1px solid transparent;
+}
+
+.btn-filled:hover {
+    background: #3f3f46;
+}
+
+.stat-badge {
+  background: rgba(139, 92, 246, 0.1);
+  color: var(--accent-purple);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  padding: 1rem;
+  border-radius: 16px;
+  text-align: center;
+  min-width: 80px;
+}
+
+.stat-val {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.stat-lbl {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+/* --- SECTION 2: TOPICS BAR --- */
+.topics-bar {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem 2rem;
+  margin-bottom: 3rem;
+}
+
+.topics-label {
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-right: 1rem;
+}
+
+.topic-pill {
+    background: #18181b;
+    border: 1px solid var(--border-dark);
+    padding: 0.5rem 1.2rem;
+    border-radius: 50px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: 0.2s;
+}
+
+.topic-pill:hover, .topic-pill.active {
+    border-color: var(--accent-purple);
+    background: rgba(139, 92, 246, 0.1);
+    color: white;
+}
+
+/* --- SECTION 3: CONTENT HEADER --- */
+.content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.section-headline {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+.search-pill {
+    background: var(--surface-dark);
+    border: 1px solid var(--border-dark);
+    border-radius: 50px;
+    padding: 0.8rem 1.5rem;
+    width: 300px;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.search-pill input {
+    background: transparent;
+    border: none;
+    color: white;
+    width: 100%;
+    outline: none;
+}
+
+/* --- SECTION 4: GRID --- */
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.post-card {
+  background: var(--surface-dark);
+  border: 1px solid var(--border-dark);
+  border-radius: 20px;
+  padding: 2rem;
+  transition: 0.3s;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.post-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-purple);
+}
+
+.post-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.post-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  flex-grow: 1;
+}
+
+.post-link {
+    color: var(--accent-pink);
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-top: auto;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .hero-row {
+        grid-template-columns: 1fr;
+    }
+    .intro-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    .topics-bar {
+        flex-wrap: wrap;
+    }
+    .content-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    .search-pill {
+        width: 100%;
+    }
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+    }
+}
+
+/* FOOTER PREMIUM */
+.site-footer {
+    border-top: 1px solid var(--border-dark);
+    background: #050505; /* Deep dark */
+    padding: 4rem 2rem;
+    margin-top: 4rem;
+}
+.footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.footer-brand h3 { 
+    font-size: 1.5rem; 
+    color: #fff; 
+    margin-bottom: 0.5rem; 
+    background: linear-gradient(90deg, #fff, var(--brand-primary));
+    -webkit-background-clip: text;
+  background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.footer-brand p { color: var(--text-muted); font-size: 0.9rem; }
+
+.footer-links { display: flex; gap: 1.5rem; }
+
+.footer-btn {
+    padding: 0.8rem 1.5rem;
+    border: 1px solid var(--border-dark);
+    border-radius: 12px;
+    color: #fff;
+    background: var(--surface-dark);
+    font-weight: 600;
+    transition: 0.3s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.footer-btn:hover {
+    border-color: var(--brand-primary);
+    color: var(--brand-primary);
+    box-shadow: 0 0 20px var(--brand-glow);
+    transform: translateY(-3px);
+}
+
+/* =========================================
+   V2 GLOBAL STYLES - NEON GREEN THEME
+   ========================================= */
+
+/* Override brand color to Neon Green */
+:root {
+    --color-brand: #0EE860;
+    --color-brand-glow: rgba(14, 232, 96, 0.3);
+}
+
+/* Floating Header for all pages */
+.header {
+    max-width: 900px;
+    margin: 20px auto 0;
+    border-radius: 50px;
+    top: 20px;
+    background: rgba(15, 16, 17, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0 2rem;
+    justify-content: space-between;
+}
+
+/* Green nav accents */
+.brand-logo { color: #0EE860 !important; }
+.nav a::after { background: #0EE860 !important; }
+.nav a.active { color: #fff !important; }
+
+/* Hide theme toggle button */
+.theme-toggle { display: none; }
+
+/* Hide back to home link */
+.back-link { display: none; }
+
+/* Post content styling */
+.post-content {
+    background: #0A0A0A;
+    border: 1px solid #1A1A1A;
+}
+
+.post-content h1 {
+    background: linear-gradient(to right, #fff, #0EE860);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.post-body h2::after {
+    background: #0EE860;
+}
+
+.post-body code {
+    color: #0EE860;
+}
+
+.post-body ul li::marker {
+    color: #0EE860;
+}
+
+.post-body blockquote {
+    border-left-color: #0EE860;
+}
+
+/* Card link color */
+.card-link { color: #0EE860; }
+
+/* Subsection titles */
+.subsection-title { 
+    color: #0EE860 !important; 
+    font-size: 1.5rem; 
+    border-bottom: 2px solid #0EE860; 
+    padding-bottom: 0.5rem; 
+    margin-bottom: 1.5rem; 
 }

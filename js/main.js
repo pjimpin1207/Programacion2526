@@ -4,10 +4,20 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  initTheme();
+
   initSearch();
   initTypewriter();
+  initPostCounter();
 });
+
+/* --- DYNAMIC POST COUNTER --- */
+function initPostCounter() {
+  const counterEl = document.querySelector('.stat-val');
+  const posts = document.querySelectorAll('.post-card');
+  if (counterEl && posts.length > 0) {
+    counterEl.textContent = posts.length;
+  }
+}
 
 /* --- TYPEWRITER EFFECT --- */
 function initTypewriter() {
@@ -56,38 +66,7 @@ function initTypewriter() {
   typeLoop();
 }
 
-/* --- THEME TOGGLE --- */
-function initTheme() {
-  const toggleBtn = document.getElementById('theme-toggle');
-  if (!toggleBtn) return;
-  const iconSpan = toggleBtn.querySelector('.icon');
 
-  // Check persisted preference
-  const savedTheme = localStorage.getItem('theme');
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-  // Since we default to dark now in HTML, align UI
-  if (savedTheme === 'light') {
-    document.documentElement.setAttribute('data-theme', 'light');
-    updateIcon(false);
-  } else {
-    document.documentElement.setAttribute('data-theme', 'dark');
-    updateIcon(true);
-  }
-
-  toggleBtn.addEventListener('click', () => {
-    const currentTheme = document.documentElement.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    updateIcon(newTheme === 'dark');
-  });
-
-  function updateIcon(isDark) {
-    if (iconSpan) iconSpan.textContent = isDark ? '🌙' : '☀️';
-  }
-}
 
 /* --- SEARCH FUNCTIONALITY --- */
 function initSearch() {

@@ -22,10 +22,26 @@
             <a href="../Tema4/index.html" class="active">Tema 4</a>
             <a href="../Tema5/index.html">Tema 5</a>
         </nav>
-        <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema">
-            <span class="icon">🌙</span>
-        </button>
+
     </header>
+
+    <!-- V2 DESIGN -->
+    <style>
+        .header { max-width: 900px; margin: 20px auto 0; border-radius: 50px; top: 20px; background: rgba(15, 16, 17, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); padding: 0 2rem; justify-content: space-between; }
+        body { background-color: #050505; background-image: radial-gradient(circle at 50% 0%, rgba(14, 232, 96, 0.15), transparent 60%); }
+        .topic-hero { background: transparent; border: none; padding: 3rem 1rem 1.5rem; }
+        .topic-title { font-size: 3rem; letter-spacing: -1px; margin-bottom: 0.3rem; text-shadow: 0 0 30px rgba(14, 232, 96, 0.3); }
+        .topic-desc { font-size: 1rem; opacity: 0.7; max-width: 500px; margin: 0 auto; }
+        .topic-badge { display: none; }
+        .card { background: #0A0A0A; border: 1px solid #1A1A1A; border-radius: 16px; padding: 2rem; }
+        .card:hover { transform: translateY(-5px); border-color: #0EE860; box-shadow: 0 10px 40px -10px rgba(14, 232, 96, 0.1); }
+        .card h3 { font-size: 1.4rem; margin-bottom: 1rem; }
+        .card-link { color: #0EE860; text-transform: uppercase; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.5px; }
+        .subsection-title { color: #0EE860 !important; font-size: 1.5rem; border-bottom: 2px solid #0EE860; padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
+        .brand-logo { color: #0EE860 !important; }
+        .nav a::after { background: #0EE860 !important; }
+        .nav a.active { color: #fff !important; }
+    </style>
 
     <!-- ===== MAIN CONTENT ===== -->
     <main class="main-wrapper">
@@ -33,21 +49,14 @@
         <!-- ===== TOPIC HERO ===== -->
         <section class="topic-hero">
             <div class="topic-hero-content">
-                <span class="topic-badge">Explora el Tema</span>
-                <h1 class="topic-title">Tema 4 – Clases y Objetos</h1>
-                <p class="topic-desc">Programación Orientada a Objetos: clases, instancias, métodos y atributos.</p>
+                <h1 class="topic-title">TEMA 4</h1>
+                <p class="topic-desc">Clases y Objetos</p>
             </div>
         </section>
 
         <!-- ===== POSTS GRID ===== -->
         <section class="latest-posts">
-            <div class="action-bar">
-                <h2 class="section-title">Contenidos del Tema</h2>
-                <div class="search-wrapper">
-                    <span class="search-icon">🔍</span>
-                    <input type="text" id="search-input" class="search-input" placeholder="Buscar en este tema...">
-                </div>
-            </div>
+
 
             <!-- Resumen Section -->
             <div class="section-group">
@@ -102,27 +111,33 @@
             </p>
         </section>
 
-        <div class="back-link">
-            <a href="../../index.html" class="card-link">← Volver al Inicio</a>
-        </div>
+
 
     </main>
 
     <!-- ===== FOOTER ===== -->
-    <footer class="footer">
-    <p>© 2025 Pablo Jiménez</p>
-    <div class="footer-links" style="margin-top: 10px;">
-        <a href="../Tema1/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 1</a> |
-        <a href="../Tema2/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 2</a> |
-        <a href="../Tema3/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 3</a> |
-        <a href="../Tema4/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 4</a> |
-        <a href="../Tema5/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 5</a>
-    </div>
-</footer>
+    <footer class="site-footer">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div class="brand-logo" style="margin-bottom: 0.5rem;">PJP</div>
+          <h3>Pablo Jiménez</h3>
+          <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        </div>
+        <div class="footer-links">
+          <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+            GitHub
+          </a>
+          <a href="https://pjimpin1207.github.io/BlogProgramacionPrueba/" target="_blank" class="footer-btn">
+            Blog DIWEB
+          </a>
+        </div>
+      </div>
+    </footer>
 
     <script src="../../js/main.js"></script>
 
 </body>
 
 </html>
+
 
