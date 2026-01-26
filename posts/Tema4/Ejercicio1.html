@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tema 4 – Ejercicio 1 | Pablo.dev</title>
+  <meta name="description" content="Ejercicio 1 del Tema 4: creación de clases, constructores, objetos y uso del depurador en Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <div class="brand-logo">PJP</div>
+    <nav class="nav">
+      <a href="../../index.html">Inicio</a>
+      <a href="../Tema1/index.html">Tema 1</a>
+      <a href="../Tema2/index.html">Tema 2</a>
+      <a href="../Tema3/index.html">Tema 3</a>
+      <a href="../Tema4/index.html" class="active">Tema 4</a>
+      <a href="../Tema5/index.html">Tema 5</a>
+    </nav>
+    <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema">
+      <span class="icon">🌙</span>
+    </button>
+  </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 4 • Clases y Objetos</div>
+      <h1>Tema 4 – Ejercicio 1</h1>
+
+      <div class="post-body">
+
+        <h2>📌 Enunciado</h2>
+        <p>
+          Crea un paquete llamado <strong>ejercicio1</strong>.
+          Crea la clase <strong>Persona</strong> correspondiente al modelo dado por el diagrama.
+        </p>
+        <p>
+          El método <code>cumplirAños</code> debe incrementar en uno la edad, mientras que
+          <code>crecer</code> debe aumentar la estatura según el incremento indicado.
+        </p>
+        <p>
+          Crea una clase principal llamada <strong>Ciudad</strong> para modelar una ciudad ficticia.
+          En el método principal se crearán varias instancias de la clase <strong>Persona</strong>
+          y se mostrará su información por pantalla.
+        </p>
+
+        <h2>📦 Paquete</h2>
+        <pre><code>package Ejercicios.ejercicio1;</code></pre>
+
+        <h2>👤 Clase Persona</h2>
+        <p>
+          La clase <strong>Persona</strong> contiene los atributos nombre, edad y estatura.
+          Se han creado varios constructores para cumplir los requisitos del ejercicio.
+        </p>
+
+        <pre><code class="language-java">package Ejercicios.ejercicio1;
+
+public class Persona {
+
+    String nombre;
+    int edad;
+    float estatura;
+
+    // Constructor sin parámetros
+    public Persona() {
+        nombre = "anónimo";
+        edad = 18;
+        estatura = 1.70f;
+    }
+
+    // Constructor que incluye solo el nombre
+    public Persona(String nombre) {
+        this.nombre = nombre;
+        edad = 18;
+        estatura = 1.70f;
+    }
+
+    // Constructor con todos los parámetros
+    public Persona(String nombre, int edad, float estatura) {
+        this.nombre = nombre;
+        this.edad = edad;
+        this.estatura = estatura;
+    }
+
+    // Constructor con apellido
+    public Persona(String nombre, String apellido, int edad, float estatura) {
+        this(nombre + " " + apellido, edad, estatura);
+    }
+
+    @Override
+    public String toString() {
+        return "Persona: Nombre = " + nombre +
+               ", edad = " + edad +
+               ", estatura = " + estatura;
+    }
+}</code></pre>
+
+        <h3>🔍 Observaciones</h3>
+        <ul>
+          <li>Al imprimir un objeto sin sobrescribir <code>toString()</code>, se mostraría la referencia.</li>
+          <li>Al sobrescribir <code>toString()</code>, se imprime el contenido del objeto.</li>
+          <li>En el depurador se pueden ver los cambios de los atributos en tiempo real.</li>
+        </ul>
+
+        <h2>🏙️ Clase Ciudad (Clase principal)</h2>
+        <p>
+          En esta clase se crean distintos objetos de tipo <strong>Persona</strong> usando
+          los diferentes constructores solicitados en el ejercicio.
+        </p>
+
+        <pre><code class="language-java">package Ejercicios.ejercicio1;
+
+public class Ciudad {
+
+    public static void main(String[] args) {
+
+        Persona persona1 = new Persona("Pablo", 21, 1.80f);
+        persona1.nombre = "Pablo";
+        persona1.edad = 21;
+
+        Persona persona2 = new Persona("Francisco", 22, 1.60f);
+        persona2.nombre = "Francisco";
+        persona2.edad = 22;
+
+        Persona persona3 = new Persona("Javier", 20, 1.90f);
+        persona3.nombre = "Javier";
+        persona3.edad = 20;
+
+        // Constructor por defecto
+        Persona pepe = new Persona();
+        Persona paco = new Persona();
+
+        // Constructor con todos los parámetros
+        Persona ana = new Persona("Ana", 25, 1.65f);
+        Persona luis = new Persona("Luis", 30, 1.80f);
+
+        // Constructor con nombre y apellido
+        Persona juan = new Persona("Juan", "Pérez", 22, 1.75f);
+
+        System.out.println(juan);
+
+        System.out.println(pepe);
+        System.out.println(paco);
+
+        System.out.println(persona1);
+        System.out.println(persona2);
+        System.out.println(persona3);
+
+        System.out.println();
+
+        System.out.println("Hola soy " + persona1.nombre + " y tengo " + persona1.edad + " años.");
+        System.out.println("Hola soy " + persona2.nombre + " y tengo " + persona2.edad + " años.");
+        System.out.println("Hola soy " + persona3.nombre + " y tengo " + persona3.edad + " años.");
+    }
+}</code></pre>
+
+        <h2>✅ Conclusión</h2>
+        <ul>
+          <li>Se han creado varios constructores sobrecargados.</li>
+          <li>Se ha comprobado el uso del constructor por defecto.</li>
+          <li>Se ha sobrescrito <code>toString()</code> para mostrar el contenido del objeto.</li>
+          <li>Se ha trabajado con objetos y depuración en tiempo real.</li>
+        </ul>
+
+      </div>
+
+      <div class="back-link">
+        <a href="./index.html" class="card-link">← Volver al Tema 4</a>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <p>© 2025 Pablo Jiménez</p>
+    <div class="footer-links" style="margin-top: 10px;">
+        <a href="../Tema1/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 1</a> |
+        <a href="../Tema2/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 2</a> |
+        <a href="../Tema3/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 3</a> |
+        <a href="../Tema4/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 4</a> |
+        <a href="../Tema5/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 5</a>
+    </div>
+</footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>
+

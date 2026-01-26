@@ -1,60 +1,129 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="light">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tema 1 - Blog Programación</title>
-  <meta name="description" content="Ejercicios y contenidos del Tema 1 de Programación: algoritmos, programación, diagramas y Python.">
-  <link rel="stylesheet" href="../../css/tema1.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tema 1 - Blog Programación</title>
+    <meta name="description" content="Ejercicios y contenidos del Tema 1 de Programación: algoritmos, programación, diagramas y Python.">
+    <link rel="stylesheet" href="../../css/style.css">
 </head>
+
 <body>
-  <!-- ===== CABECERA ===== -->
-  <header class="header">
-    <h1>Blog Programacion</h1>
-    <p class="subtitle">Ejercicios y contenidos del Tema 1</p>
-    <nav class="nav">
-      <a href="/index.html">Inicio</a>
-      <a href="../Tema1/index.html">Tema 1</a>
-      <a href="../Tema2/index.html">Tema 2</a>
-    </nav>
-  </header>
 
-  <!-- ===== CONTENIDO PRINCIPAL ===== -->
-  <main class="main">
-    <section class="tema-section">
-      <h2>Ejercicios del Tema 1</h2>
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <div class="brand-logo">PJP</div>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../Tema1/index.html" class="active">Tema 1</a>
+            <a href="../Tema2/index.html">Tema 2</a>
+            <a href="../Tema3/index.html">Tema 3</a>
+            <a href="../Tema4/index.html">Tema 4</a>
+            <a href="../Tema5/index.html">Tema 5</a>
+        </nav>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema">
+            <span class="icon">🌙</span>
+        </button>
+    </header>
 
-      <div class="grid">
-        <article class="card">
-          <h3>Clasificación de los lenguajes</h3>
-          <p>Tipos y niveles de lenguajes de programación: bajo nivel, alto nivel y sus características.</p>
-          <a href="./ClasificacionLenguajes.html" class="btn">Leer más</a>
-        </article>
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-wrapper">
 
-        <article class="card">
-          <h3>¿En qué consiste la programación?</h3>
-          <p>La programación es el proceso de diseñar y crear instrucciones para que un ordenador ejecute tareas específicas.</p>
-          <a href="./EnQueConsisteLaProgramacion.html" class="btn">Leer más</a>
-        </article>
+        <!-- ===== TOPIC HERO ===== -->
+        <section class="topic-hero">
+            <div class="topic-hero-content">
+                <span class="topic-badge">Explora el Tema</span>
+                <h1 class="topic-title">Tema 1 – Blog Programación</h1>
+                <p class="topic-desc">Ejercicios y contenidos del Tema 1 de Programación: algoritmos, programación, diagramas y Python.</p>
+            </div>
+        </section>
 
-        <article class="card">
-          <h3>Algoritmos y diagramas</h3>
-          <p>Aprende a estructurar algoritmos y representarlos visualmente mediante diagramas de flujo.</p>
-          <a href="./AlgoritmosYDiagramas.html" class="btn">Leer más</a>
-        </article>
+        <!-- ===== POSTS GRID ===== -->
+        <section class="latest-posts">
+            <div class="action-bar">
+                <h2 class="section-title">Contenidos del Tema</h2>
+                <div class="search-wrapper">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="search-input" class="search-input" placeholder="Buscar en este tema...">
+                </div>
+            </div>
 
-        <article class="card">
-          <h3>Programas básicos con Python</h3>
-          <p>Ejercicios introductorios con Python: variables, bucles, condicionales y funciones básicas.</p>
-          <a href="./ProgramasBasicosPython.html" class="btn">Leer más</a>
-        </article>
-      </div>
-    </section>
-  </main>
+            <!-- Resumen Section -->
+            <div class="section-group">
+                <h3 class="subsection-title">Resumen del Tema</h3>
+                <div class="grid" id="resumen-grid">
+                    <article class="card">
+                        <h3>Clasificación de los lenguajes</h3>
+                        <p>Tipos y niveles de lenguajes de programación: bajo nivel, alto nivel y sus características.</p>
+                        <a href="./ClasificacionLenguajes.html" class="card-link">Leer más</a>
+                    </article>
 
-  <!-- ===== FOOTER ===== -->
-  <footer class="footer">
-    <p>© 2025 Pablo Jiménez — Blog Programación</p>
-  </footer>
+                    <article class="card">
+                        <h3>¿En qué consiste la programación?</h3>
+                        <p>La programación es el proceso de diseñar y crear instrucciones para que un ordenador ejecute tareas específicas.</p>
+                        <a href="./EnQueConsisteLaProgramacion.html" class="card-link">Leer más</a>
+                    </article>
+
+                    <article class="card">
+                        <h3>Algoritmos y diagramas</h3>
+                        <p>Aprende a estructurar algoritmos y representarlos visualmente mediante diagramas de flujo.</p>
+                        <a href="./AlgoritmosYDiagramas.html" class="card-link">Leer más</a>
+                    </article>
+                </div>
+            </div>
+
+            <!-- Ejercicios Section -->
+            <div class="section-group">
+                <h3 class="subsection-title">Ejercicios del Tema</h3>
+                <div class="grid" id="ejercicios-grid">
+                    <article class="card">
+                        <h3>Programas básicos con Python</h3>
+                        <p>Ejercicios introductorios con Python: variables, bucles, condicionales y funciones básicas.</p>
+                        <a href="./ProgramasBasicosPython.html" class="card-link">Leer más</a>
+                    </article>
+                </div>
+            </div>
+
+            <!-- Proyecto Section -->
+            <div class="section-group">
+                <h3 class="subsection-title">Proyecto del Tema</h3>
+                <div class="grid" id="proyecto-grid">
+                    <!-- Project cards will go here -->
+                    <p class="placeholder-text" style="grid-column: 1 / -1; color: var(--color-text-muted); font-style: italic;">
+                        Próximamente: Proyecto integrador del tema.
+                    </p>
+                </div>
+            </div>
+
+            <!-- No Results Message -->
+            <p id="no-results"
+                style="display: none; text-align: center; margin-top: 2rem; color: var(--color-text-muted);">
+                No se encontraron posts en este tema.
+            </p>
+        </section>
+
+        <div class="back-link">
+            <a href="../../index.html" class="card-link">← Volver al Inicio</a>
+        </div>
+
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+    <p>© 2025 Pablo Jiménez</p>
+    <div class="footer-links" style="margin-top: 10px;">
+        <a href="../Tema1/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 1</a> |
+        <a href="../Tema2/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 2</a> |
+        <a href="../Tema3/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 3</a> |
+        <a href="../Tema4/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 4</a> |
+        <a href="../Tema5/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 5</a>
+    </div>
+</footer>
+
+    <script src="../../js/main.js"></script>
+
 </body>
+
 </html>
+

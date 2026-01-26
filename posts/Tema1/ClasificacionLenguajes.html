@@ -1,33 +1,38 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="light">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Clasificación de los lenguajes - Blog Programación</title>
-  <meta name="description" content="Comparativa y clasificación de los principales lenguajes de programación: propósito, tipo, ventajas y desventajas.">
-  <link rel="stylesheet" href="../../css/postsTema1.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clasificación de los lenguajes - Blog Programación</title>
+    <meta name="description" content="Comparativa y clasificación de los principales lenguajes de programación: propósito, tipo, ventajas y desventajas.">
+    <link rel="stylesheet" href="../../css/style.css">
 </head>
+
 <body>
 
-  <!-- ===== CABECERA ===== -->
-  <header class="header">
-    <h1>Clasificación de los lenguajes</h1>
-    <p class="subtitle">Comparativa de los principales lenguajes de programación</p>
-    <nav class="nav">
-      <a href="../../index.html">Inicio</a>
-      <a href="../Tema1/index.html">Tema 1</a>
-      <a href="../Tema2/index.html">Tema 2</a>
-    </nav>
-  </header>
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <div class="brand-logo">PJP</div>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../Tema1/index.html">Tema 1</a>
+            <a href="../Tema2/index.html">Tema 2</a>
+            <a href="../Tema3/index.html">Tema 3</a>
+        </nav>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema">
+            <span class="icon">🌙</span>
+        </button>
+    </header>
 
-  <!-- ===== CONTENIDO PRINCIPAL ===== -->
-  <main class="main">
-    <article class="post">
-      <p class="meta">Publicado por <strong>Pablo Jiménez</strong> el <em>23 de septiembre de 2025</em></p>
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-wrapper">
+        <article class="post-content">
+            <h1>Clasificación de los lenguajes</h1>
+            <p class="meta">Publicado por <strong>Pablo Jiménez</strong> el <em>23 de septiembre de 2025</em></p>
 
-      <div class="post-body">
-
-        <p>Los lenguajes de programación se pueden clasificar según su propósito, tipo, uso principal y paradigma. A continuación, se muestra una tabla comparativa con las principales características de algunos de los lenguajes más utilizados hoy en día.</p>
+            <div class="post-body">
+                <p>Los lenguajes de programación se pueden clasificar según su propósito, tipo, uso principal y paradigma. A continuación, se muestra una tabla comparativa con las principales características de algunos de los lenguajes más utilizados hoy en día.</p>
 
         <div class="table-wrapper">
           <table class="tabla-lenguajes">
@@ -58,7 +63,7 @@
               <tr><td>Bash / PowerShell</td><td>Automatización</td><td>Interpretado</td><td>Administración de sistemas</td><td>Multiplataforma</td><td>Imperativo</td><td>Facilidad de uso</td><td>Seguridad</td></tr>
             </tbody>
           </table>
-        </div>
+        
 
         <section class="conclusion">
           <h2>¿Cuál lenguaje escogería para aprender?</h2>
@@ -71,18 +76,29 @@
             <li>Portabilidad y versatilidad.</li>
           </ul>
         </section>
-      </div>
-    </article>
+            </div>
+        </article>
 
-    <div class="back">
-      <a href="../Tema1/index.html" class="btn">← Volver a Tema 1</a>
+        <div class="back-link">
+            <a href="../../index.html" class="card-link">← Volver al Inicio</a>
+        </div>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+    <p>© 2025 Pablo Jiménez</p>
+    <div class="footer-links" style="margin-top: 10px;">
+        <a href="../Tema1/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 1</a> |
+        <a href="../Tema2/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 2</a> |
+        <a href="../Tema3/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 3</a> |
+        <a href="../Tema4/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 4</a> |
+        <a href="../Tema5/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 5</a>
     </div>
-  </main>
+</footer>
 
-  <!-- ===== FOOTER ===== -->
-  <footer class="footer">
-    <p>© 2025 Pablo Jiménez — Blog Programación</p>
-  </footer>
+    <script src="../../js/main.js"></script>
 
 </body>
+
 </html>
+

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tema 4 – Ejercicio 2 | Pablo.dev</title>
+  <meta name="description" content="Ejercicio 2 del Tema 4: uso de enumerados en Java y ampliación de la clase Persona con el atributo Sexo.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <div class="brand-logo">PJP</div>
+    <nav class="nav">
+      <a href="../../index.html">Inicio</a>
+      <a href="../Tema1/index.html">Tema 1</a>
+      <a href="../Tema2/index.html">Tema 2</a>
+      <a href="../Tema3/index.html">Tema 3</a>
+      <a href="../Tema4/index.html" class="active">Tema 4</a>
+      <a href="../Tema5/index.html">Tema 5</a>
+    </nav>
+    <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema">
+      <span class="icon">🌙</span>
+    </button>
+  </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 4 • Clases y Objetos</div>
+      <h1>Tema 4 – Ejercicio 2</h1>
+
+      <div class="post-body">
+
+        <h2>📌 Enunciado</h2>
+        <p>
+          Crea un nuevo paquete llamado <strong>ejercicio2</strong>.
+        </p>
+        <p>
+          Crea un enumerado llamado <strong>Sexo</strong> para añadir un nuevo atributo
+          en la clase <strong>Persona</strong> que indique si una persona es Hombre o Mujer.
+        </p>
+        <ul>
+          <li>Crea una nueva clase para el enumerado.</li>
+          <li>Añade un nuevo atributo a la clase Persona del ejercicio anterior.</li>
+          <li>Comprueba si es necesario importar el enumerado.</li>
+          <li>Indica qué sexo tienen por defecto las personas creadas en la ciudad.</li>
+          <li>Modifica alguna persona para establecer su sexo.</li>
+          <li>Añade un nuevo constructor que incluya el sexo.</li>
+        </ul>
+
+        <h2>📦 Paquete</h2>
+        <pre><code>package Ejercicios.ejercicio2;</code></pre>
+
+        <h2>🔢 Enumerado Sexo</h2>
+        <p>
+          Se crea un enumerado llamado <strong>Sexo</strong> para representar los valores
+          posibles del atributo sexo de una persona.
+        </p>
+
+        <pre><code class="language-java">package Ejercicios.ejercicio2;
+
+public enum Sexo {
+    HOMBRE,
+    MUJER,
+}</code></pre>
+
+        <p>
+          Al estar el enumerado en el mismo paquete, <strong>no es necesario importarlo</strong>
+          dentro de la clase Persona.
+        </p>
+
+        <h2>👤 Clase Persona (con atributo Sexo)</h2>
+        <p>
+          Se añade el atributo <code>Sexo sexo</code> a la clase Persona y se modifican
+          los constructores para asignar un sexo por defecto o uno indicado.
+        </p>
+
+        <pre><code class="language-java">package Ejercicios.ejercicio2;
+
+public class Persona {
+
+    String nombre;
+    int edad;
+    float estatura;
+    Sexo sexo;
+
+    // Constructor sin parámetros
+    public Persona() {
+        nombre = "anónimo";
+        edad = 18;
+        estatura = 1.70f;
+        sexo = Sexo.HOMBRE;
+    }
+
+    // Constructor que incluye solo el nombre
+    public Persona(String nombre) {
+        this.nombre = nombre;
+        edad = 18;
+        estatura = 1.70f;
+        sexo = Sexo.MUJER;
+    }
+
+    // Constructor con todos los parámetros (sin sexo)
+    public Persona(String nombre, int edad, float estatura) {
+        this.nombre = nombre;
+        this.edad = edad;
+        this.estatura = estatura;
+        sexo = Sexo.HOMBRE;
+    }
+
+    // Constructor con apellido
+    public Persona(String nombre, String apellido, int edad, float estatura) {
+        this(nombre + " " + apellido, edad, estatura);
+    }
+
+    // Constructor con sexo
+    public Persona(String nombre, int edad, float estatura, Sexo sexo) {
+        this.nombre = nombre;
+        this.edad = edad;
+        this.estatura = estatura;
+        this.sexo = sexo;
+    }
+
+    // Constructor nombre + apellido + sexo
+    public Persona(String nombre, String apellido, int edad, float estatura, Sexo sexo) {
+        this(nombre + " " + apellido, edad, estatura, sexo);
+    }
+
+    @Override
+    public String toString() {
+        return "Persona [nombre=" + nombre +
+               ", edad=" + edad +
+               ", estatura=" + estatura +
+               ", sexo=" + sexo + "]";
+    }
+}</code></pre>
+
+        <h3>🔍 Observaciones</h3>
+        <ul>
+          <li>El sexo por defecto depende del constructor utilizado.</li>
+          <li>El enumerado mejora la legibilidad y evita valores incorrectos.</li>
+          <li>No es necesario usar <code>import</code> al estar en el mismo paquete.</li>
+        </ul>
+
+        <h2>🏙️ Clase Ciudad</h2>
+        <p>
+          En la clase principal se crean personas usando distintos constructores
+          y se muestra su información por pantalla.
+        </p>
+
+        <pre><code class="language-java">package Ejercicios.ejercicio2;
+
+public class Ciudad {
+
+    public static void main(String[] args) {
+
+        Persona pepe = new Persona();
+        Persona paco = new Persona("Paco");
+
+        Persona ana = new Persona("Ana", 22, 1.65f, Sexo.MUJER);
+        Persona juan = new Persona("Juan", "Pérez", 30, 1.80f, Sexo.HOMBRE);
+
+        System.out.println(pepe);
+        System.out.println(paco);
+        System.out.println(ana);
+        System.out.println(juan);
+    }
+}</code></pre>
+
+        <h2>✅ Conclusión</h2>
+        <ul>
+          <li>Se ha creado y utilizado un enumerado.</li>
+          <li>Se ha ampliado la clase Persona con un nuevo atributo.</li>
+          <li>Se han sobrecargado constructores para incluir el sexo.</li>
+          <li>Se ha comprobado el valor por defecto del nuevo atributo.</li>
+        </ul>
+
+      </div>
+
+      <div class="back-link">
+        <a href="./index.html" class="card-link">← Volver al Tema 4</a>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <p>© 2025 Pablo Jiménez</p>
+    <div class="footer-links" style="margin-top: 10px;">
+        <a href="../Tema1/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 1</a> |
+        <a href="../Tema2/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 2</a> |
+        <a href="../Tema3/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 3</a> |
+        <a href="../Tema4/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 4</a> |
+        <a href="../Tema5/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 5</a>
+    </div>
+</footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>
+

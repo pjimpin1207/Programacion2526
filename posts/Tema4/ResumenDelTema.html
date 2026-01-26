@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resumen Tema 4: Clases y Objetos | Pablo.dev</title>
+  <meta name="description" content="Resumen completo de la Unidad 4: Clases, Objetos, Métodos, Constructores y Enumerados en Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <div class="brand-logo">PJP</div>
+    <nav class="nav">
+      <a href="../../index.html">Inicio</a>
+      <a href="../Tema1/index.html">Tema 1</a>
+      <a href="../Tema2/index.html">Tema 2</a>
+      <a href="../Tema3/index.html">Tema 3</a>
+      <a href="../Tema4/index.html" class="active">Tema 4</a>
+      <a href="../Tema5/index.html">Tema 5</a>
+    </nav>
+    <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema">
+      <span class="icon">🌙</span>
+    </button>
+  </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 4 • Clases y Objetos</div>
+      <h1>Resumen del Tema 4: Clases y Objetos</h1>
+
+      <div class="post-body">
+        <p>En esta unidad nos adentramos en la <strong>Programación Orientada a Objetos (POO)</strong>, un paradigma que trata de modelar el mundo real mediante código, agrupando datos y comportamiento en entidades llamadas objetos.</p>
+
+        <h2>1. Conceptos Básicos: Clase vs Objeto</h2>
+        <p>La diferencia fundamental que debemos entender es:</p>
+        <ul>
+          <li><strong>Clase (Class):</strong> Es la plantilla, el molde o el plano. Define qué propiedades y comportamientos tendrán los objetos. Por ejemplo, la clase <code>Vaca</code>.</li>
+          <li><strong>Objeto (Object):</strong> Es la instancia concreta creada a partir de esa clase. Es la entidad "viva" en la memoria del programa. Por ejemplo, una vaca específica llamada "Lola" con manchas negras.</li>
+        </ul>
+
+        <blockquote>
+            La clase es el tipo de dato abstracto, y el objeto es la variable que almacena un valor de ese tipo.
+        </blockquote>
+
+        <h2>2. Definición de una Clase</h2>
+        <p>Una clase se compone de dos tipos de miembros principales:</p>
+        <ul>
+          <li><strong>Atributos (Datos):</strong> Variables que almacenan el estado del objeto. Suelen ser sustantivos (ej: <code>nombre</code>, <code>edad</code>).</li>
+          <li><strong>Métodos (Comportamiento):</strong> Funciones que definen lo que el objeto puede hacer. Suelen contener verbos (ej: <code>saludar()</code>, <code>comer()</code>).</li>
+        </ul>
+
+        <h3>Sintaxis básica</h3>
+        <pre><code class="language-java">[visibilidad] class NombreClase {
+    // Atributos
+    tipo nombreAtributo;
+
+    // Constructores
+    NombreClase() { ... }
+
+    // Métodos
+    tipoDevuelto nombreMetodo() { ... }
+}</code></pre>
+
+        <h3>Atributos</h3>
+        <p>Se declaran al principio de la clase. Es recomendable usar la convención <em>lowerCamelCase</em>. Pueden tener modificadores como:</p>
+        <ul>
+            <li><strong>static:</strong> Atributos de clase, compartidos por todos los objetos.</li>
+            <li><strong>final:</strong> Constantes, su valor no puede cambiar una vez asignado.</li>
+            <li><strong>private:</strong> Visibilidad recomendada para encapsular los datos.</li>
+        </ul>
+
+        <h3>Métodos</h3>
+        <p>Implementan la lógica. Pueden acceder a los atributos de la clase directamente.</p>
+
+        <h2>3. Creación y Uso de Objetos</h2>
+        <p>Para crear un objeto (instanciar) utilizamos el operador <code>new</code>.</p>
+        <pre><code class="language-java">// Declaración de la referencia
+Persona p; 
+
+// Instanciación (reserva de memoria e inicialización)
+p = new Persona(); 
+
+// Acceso a miembros con el operador punto (.)
+p.nombre = "Pepa";
+p.edad = 18;</code></pre>
+
+        <h3>Referencias y null</h3>
+        <p>Las variables de tipo objeto son <strong>referencias</strong> a una dirección de memoria. Si no apuntan a ningún objeto, su valor es <code>null</code>. Intentar acceder a un miembro de una variable <code>null</code> provoca una excepción <code>NullPointerException</code>.</p>
+        <p>Si asignamos un objeto a otra variable (<code>p2 = p1</code>), ambas variables apuntarán al <strong>mismo objeto</strong> en memoria.</p>
+
+        <h2>4. Constructores</h2>
+        <p>Son métodos especiales que se ejecutan automáticamente al crear un objeto con <code>new</code>. Su objetivo es inicializar los atributos.</p>
+        <ul>
+            <li>Tienen el <strong>mismo nombre</strong> que la clase.</li>
+            <li><strong>No tienen tipo de retorno</strong> (ni siquiera <code>void</code>).</li>
+            <li>Si no definimos ninguno, Java crea un <strong>constructor por defecto</strong> (sin parámetros) invisible.</li>
+            <li>Si definimos alguno con parámetros, el constructor por defecto desaparece (a menos que lo escribamos explícitamente).</li>
+        </ul>
+
+        <pre><code class="language-java">public class Persona {
+    String nombre;
+
+    // Constructor con parámetros
+    public Persona(String nombre) {
+        this.nombre = nombre;
+    }
+}
+
+// Uso
+Persona p = new Persona("Claudia");</code></pre>
+
+        <h3>La palabra clave 'this'</h3>
+        <p><code>this</code> hace referencia al objeto actual. Se usa para:</p>
+        <ol>
+            <li>Diferenciar atributos de variables locales (parámetros) cuando tienen el mismo nombre (ej: <code>this.nombre = nombre</code>).</li>
+            <li>Llamar a otro constructor de la misma clase usando <code>this(...)</code>. <strong>Nota:</strong> Esta llamada debe ser la primera línea del constructor.</li>
+        </ol>
+
+        <h2>5. Enumerados (Enums)</h2>
+        <p>Son tipos de datos especiales que restringen una variable a tener uno de los valores de una lista predefinida.</p>
+        <pre><code class="language-java">enum DiaDeLaSemana {
+    LUNES, MARTES, MIERCOLES, JUEVES, VIERNES, SABADO, DOMINGO
+}
+
+// Uso
+DiaDeLaSemana hoy = DiaDeLaSemana.MIERCOLES;</code></pre>
+
+      </div>
+
+      <div class="back-link">
+        <a href="./index.html" class="card-link">← Volver al Tema 4</a>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <p>© 2025 Pablo Jiménez</p>
+    <div class="footer-links" style="margin-top: 10px;">
+        <a href="../Tema1/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 1</a> |
+        <a href="../Tema2/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 2</a> |
+        <a href="../Tema3/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 3</a> |
+        <a href="../Tema4/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 4</a> |
+        <a href="../Tema5/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 5</a>
+    </div>
+</footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>
+

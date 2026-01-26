@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tema 4 – Ejercicio 3 | Pablo.dev</title>
+  <meta name="description" content="Ejercicio 3 del Tema 4: gestión de vehículos en un concesionario usando clases, objetos y enumerados en Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <div class="brand-logo">PJP</div>
+    <nav class="nav">
+      <a href="../../index.html">Inicio</a>
+      <a href="../Tema1/index.html">Tema 1</a>
+      <a href="../Tema2/index.html">Tema 2</a>
+      <a href="../Tema3/index.html">Tema 3</a>
+      <a href="../Tema4/index.html" class="active">Tema 4</a>
+      <a href="../Tema5/index.html">Tema 5</a>
+    </nav>
+    <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema">
+      <span class="icon">🌙</span>
+    </button>
+  </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 4 • Clases y Objetos</div>
+      <h1>Tema 4 – Ejercicio 3</h1>
+
+      <div class="post-body">
+
+        <h2>📌 Enunciado</h2>
+        <p>
+          Se desea desarrollar una pequeña aplicación en Java para gestionar los vehículos
+          de un concesionario.
+        </p>
+        <p>
+          Cada vehículo tendrá unas características básicas y pertenecerá a un tipo concreto
+          (turismo, motocicleta o camión).
+        </p>
+        <p>
+          El programa debe hacer uso de clases, objetos y enumerados, aplicando correctamente
+          los principios básicos de la programación orientada a objetos.
+        </p>
+
+        <h2>📦 Paquete</h2>
+        <pre><code>package Ejercicios.ejercicio3;</code></pre>
+
+        <h2>🔢 Enumerado TipoVehiculo</h2>
+        <p>
+          Se crea un enumerado para definir los distintos tipos de vehículos que puede haber
+          en el concesionario.
+        </p>
+
+        <pre><code class="language-java">package Ejercicios.ejercicio3;
+
+public enum TipoVehiculo {
+    TURISMO,
+    MOTOCICLETA,
+    CAMION
+}</code></pre>
+
+        <h2>🚗 Clase Vehiculo</h2>
+        <p>
+          La clase <strong>Vehiculo</strong> representa un vehículo del concesionario.
+          Contiene información básica como marca, modelo, año y tipo de vehículo.
+        </p>
+
+        <pre><code class="language-java">package Ejercicios.ejercicio3;
+
+public class Vehiculo {
+
+    String marca;
+    String modelo;
+    int anio;
+    TipoVehiculo tipo;
+
+    public Vehiculo(String marca, String modelo, int anio, TipoVehiculo tipo) {
+        this.marca = marca;
+        this.modelo = modelo;
+        this.anio = anio;
+        this.tipo = tipo;
+    }
+
+    @Override
+    public String toString() {
+        return "Vehículo [marca=" + marca +
+               ", modelo=" + modelo +
+               ", año=" + anio +
+               ", tipo=" + tipo + "]";
+    }
+}</code></pre>
+
+        <h3>🔍 Detalles importantes</h3>
+        <ul>
+          <li>Se utiliza un enumerado para evitar valores incorrectos en el tipo de vehículo.</li>
+          <li>El método <code>toString()</code> permite mostrar la información del vehículo fácilmente.</li>
+          <li>Se aplican principios básicos de encapsulación y diseño orientado a objetos.</li>
+        </ul>
+
+        <h2>🏢 Clase Concesionario</h2>
+        <p>
+          La clase principal crea varios vehículos y los muestra por consola,
+          simulando la gestión de un concesionario.
+        </p>
+
+        <pre><code class="language-java">package Ejercicios.ejercicio3;
+
+public class Concesionario {
+
+    public static void main(String[] args) {
+
+        Vehiculo v1 = new Vehiculo("Toyota", "Corolla", 2020, TipoVehiculo.TURISMO);
+        Vehiculo v2 = new Vehiculo("Yamaha", "MT-07", 2022, TipoVehiculo.MOTOCICLETA);
+        Vehiculo v3 = new Vehiculo("Volvo", "FH", 2019, TipoVehiculo.CAMION);
+
+        System.out.println(v1);
+        System.out.println(v2);
+        System.out.println(v3);
+    }
+}</code></pre>
+
+        <h2>✅ Conclusión</h2>
+        <ul>
+          <li>Se han creado clases y objetos para representar vehículos.</li>
+          <li>Se ha utilizado un enumerado para clasificar los tipos de vehículos.</li>
+          <li>Se ha aplicado programación orientada a objetos de forma correcta.</li>
+          <li>El programa permite gestionar y mostrar información de un concesionario.</li>
+        </ul>
+
+      </div>
+
+      <div class="back-link">
+        <a href="./index.html" class="card-link">← Volver al Tema 4</a>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <p>© 2025 Pablo Jiménez</p>
+    <div class="footer-links" style="margin-top: 10px;">
+        <a href="../Tema1/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 1</a> |
+        <a href="../Tema2/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 2</a> |
+        <a href="../Tema3/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 3</a> |
+        <a href="../Tema4/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 4</a> |
+        <a href="../Tema5/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 5</a>
+    </div>
+</footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>
+

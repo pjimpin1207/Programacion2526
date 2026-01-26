@@ -1,33 +1,38 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="light">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>¿En qué consiste la programación? - Blog Programación</title>
-  <meta name="description" content="Descubre qué es la programación, sus etapas principales y la diferencia entre algoritmos y código con ejemplos en Java.">
-  <link rel="stylesheet" href="../../css/postsTema1.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿En qué consiste la programación? - Blog Programación</title>
+    <meta name="description" content="Descubre qué es la programación, sus etapas principales y la diferencia entre algoritmos y código con ejemplos en Java.">
+    <link rel="stylesheet" href="../../css/style.css">
 </head>
 
 <body>
 
-  <!-- ===== CABECERA ===== -->
-  <header class="header">
-    <h1>¿En qué consiste la programación?</h1>
-    <p class="subtitle">Introducción a los conceptos básicos de programación</p>
-    <nav class="nav">
-      <a href="../../index.html">Inicio</a>
-      <a href="../Tema1/index.html">Tema 1</a>
-      <a href="../Tema2/index.html">Tema 2</a>
-    </nav>
-  </header>
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <div class="brand-logo">PJP</div>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../Tema1/index.html">Tema 1</a>
+            <a href="../Tema2/index.html">Tema 2</a>
+            <a href="../Tema3/index.html">Tema 3</a>
+        </nav>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema">
+            <span class="icon">🌙</span>
+        </button>
+    </header>
 
-  <!-- ===== CONTENIDO PRINCIPAL ===== -->
-  <main class="main">
-    <article class="post">
-      <p class="meta">Publicado por <strong>pjimpin1207</strong> el <em>23 de septiembre de 2025</em></p>
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-wrapper">
+        <article class="post-content">
+            <h1>¿En qué consiste la programación?</h1>
+            <p class="meta">Publicado por <strong>pjimpin1207</strong> el <em>23 de septiembre de 2025</em></p>
 
-      <div class="post-body">
-        <p>La programación es el proceso de diseñar y crear instrucciones para que un ordenador ejecute tareas específicas. En otras palabras, es traducir soluciones a problemas en un lenguaje que la máquina pueda entender.</p>
+            <div class="post-body">
+                <p>La programación es el proceso de diseñar y crear instrucciones para que un ordenador ejecute tareas específicas. En otras palabras, es traducir soluciones a problemas en un lenguaje que la máquina pueda entender.</p>
 
         <h2>¿En qué consiste la programación?</h2>
         <ul>
@@ -82,18 +87,29 @@ public class Te {
     }
 }
         </code></pre>
-      </div>
-    </article>
+            </div>
+        </article>
 
-    <div class="back">
-      <a href="../Tema1/index.html" class="btn">← Volver a Tema 1</a>
+        <div class="back-link">
+            <a href="../../index.html" class="card-link">← Volver al Inicio</a>
+        </div>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+    <p>© 2025 Pablo Jiménez</p>
+    <div class="footer-links" style="margin-top: 10px;">
+        <a href="../Tema1/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 1</a> |
+        <a href="../Tema2/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 2</a> |
+        <a href="../Tema3/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 3</a> |
+        <a href="../Tema4/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 4</a> |
+        <a href="../Tema5/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 5</a>
     </div>
-  </main>
+</footer>
 
-  <!-- ===== FOOTER ===== -->
-  <footer class="footer">
-    <p>© 2025 Pablo Jiménez — Blog Programación</p>
-  </footer>
+    <script src="../../js/main.js"></script>
 
 </body>
+
 </html>
+

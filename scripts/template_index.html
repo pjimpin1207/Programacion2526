@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tema 3 – Ejercicio 5</title>
-    <meta name="description" content="">
+    <title>{{TITLE}}</title>
+    <meta name="description" content="{{DESCRIPTION}}">
     <link rel="stylesheet" href="../../css/style.css">
 </head>
 
@@ -27,69 +27,41 @@
 
     <!-- ===== MAIN CONTENT ===== -->
     <main class="main-wrapper">
-        <article class="post-content">
-            <h1>Ejercicio 5 – Media aritmética de dos notas</h1>
-            <p class="meta">Publicado por pjimpin1207</p>
 
-            <div class="post-body">
-                <h2>Enunciado</h2>
-    <p>
-      Crear una aplicación que calcule la <strong>media aritmética</strong> de dos notas enteras.  
-      Se debe tener en cuenta que la media puede contener decimales.
-    </p>
-
-    <h2>Explicación del ejercicio</h2>
-    <p>
-      Aunque las notas pueden ser enteras, la media puede ser decimal, por lo que debemos trabajar con
-      el tipo <code>double</code>.  
-      La fórmula es:
-    </p>
-
-    <blockquote>
-      <strong>media = (nota1 + nota2) / 2</strong>
-    </blockquote>
-
-    <p>
-      En este ejercicio no se piden los valores al usuario, sino que se asignan directamente para demostrar
-      el cálculo de la media.
-    </p>
-
-    <h3>Conceptos aplicados:</h3>
-    <ul>
-      <li>Tipos de datos decimales (<code>double</code>)</li>
-      <li>Operaciones aritméticas</li>
-      <li>Impresión por consola</li>
-    </ul>
-
-    <h2>Solución en Java</h2>
-
-    <pre><code>
-public class Ejercicio5 {
-    public static void main(String[] args) {
-
-        double nota1 = 8.77;
-        double nota2 = 7.67;
-
-        double media = (nota1 + nota2) / 2;
-
-        System.out.println("La media de las notas es: " + media);
-    }
-}
-    </code></pre>
-
-    <h2>Resultado esperado</h2>
-
-    <pre><code>
-La media de las notas es: 8.22
-    </code></pre>
-
-    <p>(El valor puede variar ligeramente según redondeos.)</p>
+        <!-- ===== TOPIC HERO ===== -->
+        <section class="topic-hero">
+            <div class="topic-hero-content">
+                <span class="topic-badge">Explora el Tema</span>
+                <h1 class="topic-title">{{HEADER_TITLE}}</h1>
+                <p class="topic-desc">{{DESCRIPTION}}</p>
             </div>
-        </article>
+        </section>
+
+        <!-- ===== POSTS GRID ===== -->
+        <section class="latest-posts">
+            <div class="action-bar">
+                <h2 class="section-title">Artículos y Ejercicios</h2>
+                <div class="search-wrapper">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="search-input" class="search-input" placeholder="Buscar en este tema...">
+                </div>
+            </div>
+
+            <div class="grid" id="posts-grid">
+                {{GRID_CONTENT}}
+            </div>
+
+            <!-- No Results Message -->
+            <p id="no-results"
+                style="display: none; text-align: center; margin-top: 2rem; color: var(--color-text-muted);">
+                No se encontraron posts en este tema.
+            </p>
+        </section>
 
         <div class="back-link">
             <a href="../../index.html" class="card-link">← Volver al Inicio</a>
         </div>
+
     </main>
 
     <!-- ===== FOOTER ===== -->
@@ -109,4 +81,3 @@ La media de las notas es: 8.22
 </body>
 
 </html>
-

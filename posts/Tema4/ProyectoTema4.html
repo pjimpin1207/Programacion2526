@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tema 4 – Proyecto Biblioteca | Pablo.dev</title>
+  <meta name="description" content="Proyecto del Tema 4: sistema de gestión de reservas de una biblioteca usando Java, POO y enumerados.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <div class="brand-logo">PJP</div>
+    <nav class="nav">
+      <a href="../../index.html">Inicio</a>
+      <a href="../Tema1/index.html">Tema 1</a>
+      <a href="../Tema2/index.html">Tema 2</a>
+      <a href="../Tema3/index.html">Tema 3</a>
+      <a href="../Tema4/index.html" class="active">Tema 4</a>
+      <a href="../Tema5/index.html">Tema 5</a>
+    </nav>
+    <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema">
+      <span class="icon">🌙</span>
+    </button>
+  </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 4 • Clases y Objetos</div>
+      <h1>Proyecto Tema 4 – Sistema de Gestión de Reservas</h1>
+
+      <div class="post-body">
+
+        <h2>📌 Contexto</h2>
+        <p>
+          Una biblioteca municipal quiere digitalizar la gestión de sus libros y préstamos.
+          Para ello se desarrolla una aplicación sencilla en Java basada en programación
+          orientada a objetos, utilizando clases, objetos y enumerados.
+        </p>
+
+        <h2>🎯 Objetivos del proyecto</h2>
+        <ul>
+          <li>Aplicar los conceptos de programación orientada a objetos.</li>
+          <li>Utilizar enumerados para representar estados.</li>
+          <li>Trabajar con referencias entre objetos.</li>
+          <li>Comprobar cómo los cambios en un objeto afectan a otros.</li>
+        </ul>
+
+        <h2>📦 Enumerado EstadoPrestamo</h2>
+        <p>
+          El enumerado <strong>EstadoPrestamo</strong> representa el estado en el que puede
+          encontrarse un libro dentro del sistema.
+        </p>
+
+        <pre><code class="language-java">package Proyecto;
+
+public enum EstadoPrestamo {
+    DISPONIBLE,
+    PRESTADO,
+    RETRASADO
+}</code></pre>
+
+        <h2>📘 Clase Libro</h2>
+        <p>
+          La clase <strong>Libro</strong> representa un libro de la biblioteca.
+          Sus atributos son privados y solo se accede a ellos mediante métodos.
+        </p>
+
+        <pre><code class="language-java">package Proyecto;
+
+public class Libro {
+
+    private String isbn;
+    private String titulo;
+    private String autor;
+    private int annoPublicacion;
+    private EstadoPrestamo estado;
+
+    // Constructor
+    public Libro(String isbn, String titulo, String autor, int annoPublicacion, EstadoPrestamo estado) {
+        this.isbn = isbn;
+        this.titulo = titulo;
+        this.autor = autor;
+        this.annoPublicacion = annoPublicacion;
+        this.estado = estado;
+    }
+
+    public void mostrarInformacion() {
+        System.out.println("ISBN: " + isbn);
+        System.out.println("Título: " + titulo);
+        System.out.println("Autor: " + autor);
+        System.out.println("Año de publicación: " + annoPublicacion);
+        System.out.println("Estado: " + estado);
+    }
+
+    public boolean esAntiguo() {
+        return (2024 - annoPublicacion) > 20;
+    }
+
+    public void cambiarEstado(EstadoPrestamo nuevoEstado) {
+        this.estado = nuevoEstado;
+    }
+
+    public EstadoPrestamo getEstado() {
+        return estado;
+    }
+}</code></pre>
+
+        <h3>🔍 Aspectos destacados</h3>
+        <ul>
+          <li>Uso de atributos privados (encapsulación).</li>
+          <li>Método para cambiar el estado del libro.</li>
+          <li>Método para comprobar si el libro es antiguo.</li>
+        </ul>
+
+        <h2>👤 Clase Usuario</h2>
+        <p>
+          Representa a un usuario de la biblioteca que puede realizar préstamos.
+        </p>
+
+        <pre><code class="language-java">package Proyecto;
+
+public class Usuario {
+
+    private String dni;
+    private String nombre;
+    private int edad;
+
+    public Usuario(String dni, String nombre, int edad) {
+        this.dni = dni;
+        this.nombre = nombre;
+        this.edad = edad;
+    }
+
+    public void mostrarDatos() {
+        System.out.println("DNI: " + dni);
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Edad: " + edad);
+    }
+}</code></pre>
+
+        <h2>📄 Clase Prestamo</h2>
+        <p>
+          La clase <strong>Prestamo</strong> relaciona un libro con un usuario.
+          Al crear un préstamo, el estado del libro cambia automáticamente a <em>PRESTADO</em>.
+        </p>
+
+        <pre><code class="language-java">package Proyecto;
+
+public class Prestamo {
+
+    private Libro libro;
+    private Usuario usuario;
+    private int diasPrestamo;
+
+    public Prestamo(Libro libro, Usuario usuario, int diasPrestamo) {
+        this.libro = libro;
+        this.usuario = usuario;
+        this.diasPrestamo = diasPrestamo;
+        libro.cambiarEstado(EstadoPrestamo.PRESTADO);
+    }
+
+    public void mostrarDetalle() {
+        System.out.println("DETALLE DEL PRÉSTAMO");
+        libro.mostrarInformacion();
+        System.out.println("Usuario:");
+        usuario.mostrarDatos();
+        System.out.println("Días de préstamo: " + diasPrestamo);
+    }
+
+    public void marcarRetraso() {
+        libro.cambiarEstado(EstadoPrestamo.RETRASADO);
+    }
+}</code></pre>
+
+        <h2>▶️ Clase Main</h2>
+        <p>
+          En la clase principal se crean los libros, los usuarios y los préstamos,
+          comprobando cómo el cambio de estado del libro se refleja en todas sus referencias.
+        </p>
+
+        <pre><code class="language-java">package Proyecto;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Libro libro1 = new Libro("111", "El Quijote", "Cervantes", 1605, EstadoPrestamo.DISPONIBLE);
+        Usuario usuario1 = new Usuario("12345678A", "Angustias", 58);
+
+        System.out.println("ESTADO INICIAL");
+        libro1.mostrarInformacion();
+
+        Prestamo prestamo1 = new Prestamo(libro1, usuario1, 15);
+
+        System.out.println("\nDESPUÉS DEL PRÉSTAMO");
+        libro1.mostrarInformacion();
+
+        System.out.println();
+        prestamo1.mostrarDetalle();
+
+        prestamo1.marcarRetraso();
+
+        System.out.println("\nDESPUÉS DE MARCAR RETRASO");
+        libro1.mostrarInformacion();
+    }
+}</code></pre>
+
+        <h2>✅ Conclusiones</h2>
+        <ul>
+          <li>Se ha trabajado correctamente con clases, objetos y enumerados.</li>
+          <li>Se comprueba el uso de referencias entre objetos.</li>
+          <li>El estado del libro cambia automáticamente según el préstamo.</li>
+          <li>El proyecto simula un sistema real de gestión bibliotecaria.</li>
+        </ul>
+
+      </div>
+
+      <div class="back-link">
+        <a href="./index.html" class="card-link">← Volver al Tema 4</a>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <p>© 2025 Pablo Jiménez</p>
+    <div class="footer-links" style="margin-top: 10px;">
+        <a href="../Tema1/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 1</a> |
+        <a href="../Tema2/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 2</a> |
+        <a href="../Tema3/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 3</a> |
+        <a href="../Tema4/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 4</a> |
+        <a href="../Tema5/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 5</a>
+    </div>
+</footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>
+

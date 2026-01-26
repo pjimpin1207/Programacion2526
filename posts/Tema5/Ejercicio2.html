@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tema 5 – Ejercicio 2 | Pablo.dev</title>
+  <meta name="description" content="Ejercicio 2 del Tema 5: encapsulación, getters y setters con validaciones en la clase Persona en Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <div class="brand-logo">PJP</div>
+    <nav class="nav">
+      <a href="../../index.html">Inicio</a>
+      <a href="../Tema1/index.html">Tema 1</a>
+      <a href="../Tema2/index.html">Tema 2</a>
+      <a href="../Tema3/index.html">Tema 3</a>
+      <a href="../Tema4/index.html">Tema 4</a>
+      <a href="../Tema5/index.html" class="active">Tema 5</a>
+    </nav>
+    <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema">
+      <span class="icon">🌙</span>
+    </button>
+  </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 5 • Principios de la POO</div>
+      <h1>Tema 5 – Ejercicio 2</h1>
+
+      <div class="post-body">
+
+        <h2>Encapsulación y validación de datos en la clase Persona</h2>
+
+        <h3>📄 Enunciado</h3>
+        <p>
+          Copia la clase <strong>Persona</strong> del tema anterior y amplíala con los siguientes requisitos:
+        </p>
+
+        <ul>
+          <li>Establecer todos los atributos como visibles solo desde la propia clase.</li>
+          <li>Intentar modificar el nombre desde la clase <strong>Ciudad</strong>.</li>
+          <li>Permitir que los atributos solo sean accesibles mediante <strong>getters y setters</strong>.</li>
+          <li>Generar los métodos get y set para todos los atributos.</li>
+          <li>Añadir validaciones dentro de los setters.</li>
+        </ul>
+
+        <h3>🧠 Conceptos clave</h3>
+        <ul>
+          <li><strong>Encapsulación:</strong> protección de los atributos usando <code>private</code>.</li>
+          <li><strong>Getters y setters:</strong> acceso controlado a los datos.</li>
+          <li><strong>Validación:</strong> evitar valores incorrectos en los atributos.</li>
+          <li><strong>Reutilización de código:</strong> uso de setters dentro de los constructores.</li>
+        </ul>
+
+        <h3>✅ Solución – Clase Persona</h3>
+
+        <pre><code class="language-java">package Ejercicios.ejercicio2;
+
+import Humano.Sexo;
+
+public class Persona {
+
+    // Atributos privados
+    private String nombre;
+    private int edad;
+    private float estatura;
+    private Sexo sexo;
+
+    // Constructor sin parámetros
+    public Persona() {
+        this.nombre = "anónimo";
+        this.edad = 18;
+        this.estatura = 1.70f;
+        this.sexo = Sexo.HOMBRE;
+    }
+
+    // Constructor con nombre
+    public Persona(String nombre) {
+        setNombre(nombre);
+        this.edad = 18;
+        this.estatura = 1.70f;
+        this.sexo = Sexo.MUJER;
+    }
+
+    // Constructor con todos los parámetros (sin sexo)
+    public Persona(String nombre, int edad, float estatura) {
+        setNombre(nombre);
+        setEdad(edad);
+        setEstatura(estatura);
+        this.sexo = Sexo.HOMBRE;
+    }
+
+    // Constructor con apellido
+    public Persona(String nombre, String apellido, int edad, float estatura) {
+        this(nombre + " " + apellido, edad, estatura);
+    }
+
+    // Constructor con sexo
+    public Persona(String nombre, int edad, float estatura, Sexo sexo) {
+        setNombre(nombre);
+        setEdad(edad);
+        setEstatura(estatura);
+        setSexo(sexo);
+    }
+
+    // GETTERS
+    public String getNombre() {
+        return nombre;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public float getEstatura() {
+        return estatura;
+    }
+
+    public Sexo getSexo() {
+        return sexo;
+    }
+
+    // SETTERS con validaciones
+    public void setNombre(String nombre) {
+        if (nombre != null && nombre.length() > 0) {
+            this.nombre = nombre;
+        }
+    }
+
+    public void setEdad(int edad) {
+        if (edad >= 0) {
+            this.edad = edad;
+        }
+    }
+
+    public void setEstatura(float estatura) {
+        if (estatura > 0) {
+            this.estatura = estatura;
+        }
+    }
+
+    public void setSexo(Sexo sexo) {
+        if (sexo != null) {
+            this.sexo = sexo;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Persona [nombre=" + nombre +
+                ", edad=" + edad +
+                ", estatura=" + estatura +
+                ", sexo=" + sexo + "]";
+    }
+}</code></pre>
+
+        <h3>🔍 Explicación detallada</h3>
+        <ul>
+          <li>
+            Todos los atributos son <strong>private</strong>, por lo que no se pueden modificar directamente desde otras clases.
+          </li>
+          <li>
+            El acceso a los datos se realiza exclusivamente mediante métodos <code>get</code> y <code>set</code>.
+          </li>
+          <li>
+            Los setters incluyen validaciones para evitar valores inválidos como nombres vacíos, edades negativas o estaturas incorrectas.
+          </li>
+          <li>
+            Los constructores utilizan los setters para asegurar que las validaciones se apliquen desde la creación del objeto.
+          </li>
+        </ul>
+
+        <h3>🏁 Conclusión</h3>
+        <p>
+          Este ejercicio demuestra la importancia de la encapsulación en Java,
+          permitiendo controlar el acceso a los atributos y garantizando la coherencia
+          de los datos mediante validaciones.
+        </p>
+
+      </div>
+
+      <div class="back-link">
+        <a href="./index.html" class="card-link">← Volver al Tema 5</a>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <p>© 2025 Pablo Jiménez</p>
+    <div class="footer-links" style="margin-top: 10px;">
+        <a href="../Tema1/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 1</a> |
+        <a href="../Tema2/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 2</a> |
+        <a href="../Tema3/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 3</a> |
+        <a href="../Tema4/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 4</a> |
+        <a href="../Tema5/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 5</a>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

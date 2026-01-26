@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tema 5 – Ejercicio 1 | Pablo.dev</title>
+  <meta name="description" content="Ejercicio 1 del Tema 5: implementación de una clase CuentaBancaria en Java con encapsulación y métodos básicos.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <div class="brand-logo">PJP</div>
+    <nav class="nav">
+      <a href="../../index.html">Inicio</a>
+      <a href="../Tema1/index.html">Tema 1</a>
+      <a href="../Tema2/index.html">Tema 2</a>
+      <a href="../Tema3/index.html">Tema 3</a>
+      <a href="../Tema4/index.html">Tema 4</a>
+      <a href="../Tema5/index.html" class="active">Tema 5</a>
+    </nav>
+    <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema">
+      <span class="icon">🌙</span>
+    </button>
+  </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 5 • Principios de la POO</div>
+      <h1>Tema 5 – Ejercicio 1</h1>
+
+      <div class="post-body">
+
+        <h2>Clase CuentaBancaria</h2>
+
+        <h3>📄 Enunciado</h3>
+        <p>
+          Cree una clase <strong>CuentaBancaria</strong> que cumpla los siguientes requisitos:
+        </p>
+
+        <ul>
+          <li>Atributos privados:
+            <ul>
+              <li>titular</li>
+              <li>saldo</li>
+            </ul>
+          </li>
+          <li>Métodos públicos:
+            <ul>
+              <li><code>getTitular()</code></li>
+              <li><code>getSaldo()</code></li>
+              <li><code>ingresar(double cantidad)</code> (solo si es positiva)</li>
+              <li><code>retirar(double cantidad)</code> (solo si hay saldo suficiente)</li>
+            </ul>
+          </li>
+        </ul>
+
+        <h3>🧠 Conceptos aplicados</h3>
+        <ul>
+          <li>Encapsulación mediante atributos privados.</li>
+          <li>Uso de getters para acceder a los datos.</li>
+          <li>Validaciones en los métodos de negocio.</li>
+          <li>Programación orientada a objetos.</li>
+        </ul>
+
+        <h3>✅ Solución</h3>
+
+        <pre><code class="language-java">package Ejercicios.ejercicio1;
+
+public class CuentaBancaria {
+
+    // Atributos privados
+    private String titular;
+    private double saldo;
+
+    // Constructor
+    public CuentaBancaria(String titular, double saldoInicial) {
+        this.titular = titular;
+        this.saldo = saldoInicial;
+    }
+
+    // Getter del titular
+    public String getTitular() {
+        return titular;
+    }
+
+    // Getter del saldo
+    public double getSaldo() {
+        return saldo;
+    }
+
+    // Ingresar dinero solo si es positivo
+    public void ingresar(double cantidad) {
+        if (cantidad > 0) {
+            saldo += cantidad;
+        }
+    }
+
+    // Retirar dinero si hay saldo suficiente
+    public void retirar(double cantidad) {
+        if (cantidad > 0 && cantidad <= saldo) {
+            saldo -= cantidad;
+        }
+    }
+}</code></pre>
+
+        <h3>🔍 Explicación</h3>
+        <ul>
+          <li>
+            Los atributos <strong>titular</strong> y <strong>saldo</strong> son privados para proteger la información.
+          </li>
+          <li>
+            El método <code>ingresar</code> solo permite añadir dinero si la cantidad es mayor que 0.
+          </li>
+          <li>
+            El método <code>retirar</code> comprueba que exista saldo suficiente antes de realizar la operación.
+          </li>
+          <li>
+            El acceso al saldo se realiza exclusivamente mediante el getter <code>getSaldo()</code>.
+          </li>
+        </ul>
+
+        <h3>🏁 Conclusión</h3>
+        <p>
+          Este ejercicio refuerza el uso de la encapsulación y el control de acceso a los datos,
+          aplicando buenas prácticas en el diseño de clases en Java.
+        </p>
+
+      </div>
+
+      <div class="back-link">
+        <a href="./index.html" class="card-link">← Volver al Tema 5</a>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <p>© 2025 Pablo Jiménez</p>
+    <div class="footer-links" style="margin-top: 10px;">
+        <a href="../Tema1/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 1</a> |
+        <a href="../Tema2/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 2</a> |
+        <a href="../Tema3/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 3</a> |
+        <a href="../Tema4/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 4</a> |
+        <a href="../Tema5/index.html" style="margin: 0 5px; color: var(--color-primary);">Tema 5</a>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

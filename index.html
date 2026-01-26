@@ -1,88 +1,803 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="dark">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blog Programación - Inicio</title>
-  <meta name="description"
-    content="Blog Programación: aprende sobre programación.">
+  <title>Pablo Jiménez | Portfolio de Desarrollo</title>
+  <meta name="description" content="Portfolio de Pablo Jiménez. Estudiante de Desarrollo de Aplicaciones Web (DAW). Java, Spring, Web Development.">
   <link rel="stylesheet" href="./css/style.css">
+
+  <!-- REFERENCE DESIGN STYLES -->
+  <style>
+    :root {
+      /* Neon Green Theme Optimized */
+      --bg-dark: #050505; /* Blacker background for better green contrast */
+      --surface-dark: #0f1011; 
+      --border-dark: #222;
+      
+      --brand-primary: #0EE860; /* New Neon Green */
+      --brand-glow: rgba(14, 232, 96, 0.4);
+      
+      /* Mapping old vars to new system to ensure compatibility */
+      --accent-purple: #0EE860; /* Override purple with green */
+      --accent-pink: #0EE860;   /* Override pink with green */
+      
+      --text-main: #ffffff;
+      --text-muted: #888;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Outfit', sans-serif; /* Matching the bold font */
+      overflow-x: hidden;
+    }
+
+    /* Remove default light theme overrides for this specific design if needed */
+    
+    /* BACKGROUND GLOWS */
+    body::before {
+      content: '';
+      position: absolute;
+      top: -10%;
+      left: 10%;
+      width: 500px;
+      height: 500px;
+      background: var(--accent-purple);
+      filter: blur(150px);
+      opacity: 0.15;
+      z-index: -1;
+    }
+    
+    body::after {
+      content: '';
+      position: absolute;
+      top: 20%;
+      right: -10%;
+      width: 400px;
+      height: 400px;
+      background: var(--accent-pink);
+      filter: blur(150px);
+      opacity: 0.1;
+      z-index: -1;
+    }
+
+    /* --- LAYOUT CONTAINERS --- */
+    
+    /* 1. Full Width Wrapper for Hero */
+    .hero-full-wrapper {
+        width: 100%;
+        padding: 1.5rem 3rem; /* Balanced Padding */
+        box-sizing: border-box;
+    }
+
+    /* 2. Content below - Now also Full Width */
+    .dashboard-container {
+      width: 100%;
+      max-width: none;
+      padding: 0 3rem 4rem; /* Match hero padding */
+      box-sizing: border-box;
+    }
+
+    /* --- SECTION 1: HERO ROW --- */
+    .hero-row {
+      display: grid;
+      grid-template-columns: 35% 65%; /* Dynamic Ratio */
+      gap: 1.5rem;
+      width: 100%; /* Force full width */
+      margin-bottom: 2rem;
+    }
+
+    /* CARD COMMON */
+    .dark-card {
+      background-color: var(--surface-dark);
+      border: 1px solid var(--border-dark);
+      border-radius: 24px;
+      padding: 2.5rem; /* Increased padding */
+      position: relative;
+    }
+
+    /* BRAND CARD (Left) */
+    .brand-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+      border-left: 6px solid var(--accent-purple); /* Thicker accent */
+      min-width: 0; /* Prevent overflow issues */
+    }
+
+    .brand-title {
+      font-size: 4rem; /* Larger font since we have more space */
+      line-height: 0.95;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      white-space: nowrap; /* Force single line if possible or controlled break */
+    }
+    
+    .brand-subtitle {
+        color: var(--accent-purple);
+        font-weight: 700;
+        font-size: 1rem;
+    }
+
+    /* PROFILE CARD (Right) */
+    .intro-card {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .avatar-frame {
+      width: 140px;
+      height: 140px;
+      border-radius: 24px;
+      overflow: hidden;
+      flex-shrink: 0;
+      border: 2px solid var(--border-dark);
+    }
+    
+    .avatar-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .intro-content {
+      flex: 1;
+    }
+
+    .intro-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .intro-desc {
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+      max-width: 500px;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .btn-dark {
+      padding: 0.6rem 1.2rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-outline {
+      border: 1px solid var(--border-dark);
+      color: var(--text-muted);
+      background: transparent;
+    }
+    
+    .btn-outline:hover {
+        border-color: var(--text-main);
+        color: var(--text-main);
+        background: rgba(255,255,255,0.05);
+    }
+
+    .btn-filled {
+      background: #27272a;
+      color: white;
+      border: 1px solid transparent;
+    }
+    
+    .btn-filled:hover {
+        background: #3f3f46;
+    }
+
+    .stat-badge {
+      background: rgba(139, 92, 246, 0.1);
+      color: var(--accent-purple);
+      border: 1px solid rgba(139, 92, 246, 0.2);
+      padding: 1rem;
+      border-radius: 16px;
+      text-align: center;
+      min-width: 80px;
+    }
+    
+    .stat-val {
+        display: block;
+        font-size: 1.5rem;
+        font-weight: 800;
+    }
+    
+    .stat-lbl {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+    }
+
+    /* --- SECTION 2: TOPICS BAR --- */
+    .topics-bar {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 1.5rem 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .topics-label {
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-right: 1rem;
+    }
+    
+    .topic-pill {
+        background: #18181b;
+        border: 1px solid var(--border-dark);
+        padding: 0.5rem 1.2rem;
+        border-radius: 50px;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: 0.2s;
+    }
+    
+    .topic-pill:hover, .topic-pill.active {
+        border-color: var(--accent-purple);
+        background: rgba(139, 92, 246, 0.1);
+        color: white;
+    }
+
+    /* --- SECTION 3: CONTENT HEADER --- */
+    .content-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    
+    .section-headline {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--text-muted);
+    }
+    
+    .search-pill {
+        background: var(--surface-dark);
+        border: 1px solid var(--border-dark);
+        border-radius: 50px;
+        padding: 0.8rem 1.5rem;
+        width: 300px;
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .search-pill input {
+        background: transparent;
+        border: none;
+        color: white;
+        width: 100%;
+        outline: none;
+    }
+
+    /* --- SECTION 4: GRID --- */
+    .posts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .post-card {
+      background: var(--surface-dark);
+      border: 1px solid var(--border-dark);
+      border-radius: 20px;
+      padding: 2rem;
+      transition: 0.3s;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    
+    .post-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--accent-purple);
+    }
+
+    .post-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 0.5rem;
+    }
+    
+    .post-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      flex-grow: 1;
+    }
+    
+    .post-link {
+        color: var(--accent-pink);
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-top: auto;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+        .hero-row {
+            grid-template-columns: 1fr;
+        }
+        .intro-card {
+            flex-direction: column;
+            text-align: center;
+        }
+        .topics-bar {
+            flex-wrap: wrap;
+        }
+        .content-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+        .search-pill {
+            width: 100%;
+        }
+        .footer-content {
+            flex-direction: column;
+            text-align: center;
+            gap: 2rem;
+        }
+    }
+
+    /* FOOTER PREMIUM */
+    .site-footer {
+        border-top: 1px solid var(--border-dark);
+        background: #050505; /* Deep dark */
+        padding: 4rem 2rem;
+        margin-top: 4rem;
+    }
+    .footer-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .footer-brand h3 { 
+        font-size: 1.5rem; 
+        color: #fff; 
+        margin-bottom: 0.5rem; 
+        background: linear-gradient(90deg, #fff, var(--brand-primary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .footer-brand p { color: var(--text-muted); font-size: 0.9rem; }
+    
+    .footer-links { display: flex; gap: 1.5rem; }
+    
+    .footer-btn {
+        padding: 0.8rem 1.5rem;
+        border: 1px solid var(--border-dark);
+        border-radius: 12px;
+        color: #fff;
+        background: var(--surface-dark);
+        font-weight: 600;
+        transition: 0.3s;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    .footer-btn:hover {
+        border-color: var(--brand-primary);
+        color: var(--brand-primary);
+        box-shadow: 0 0 20px var(--brand-glow);
+        transform: translateY(-3px);
+    }
+  </style>
+
 </head>
 
 <body>
 
-  <!-- ===== CABECERA ===== -->
-  <header class="header">
-    <h1>Blog Programación</h1>
-    <p class="subtitle">Descubre mis proyectos, posts y aprendizajes sobre Programación</p>
-    <nav class="nav">
-      <a href="./index.html">Inicio</a>
-      <a href="./posts/Tema1/index.html">Tema 1</a>
-      <a href="./posts/Tema2/index.html">Tema 2</a>
-      <a href="./posts/Tema3/index.html">Tema 3</a>
-    </nav>
-  </header>
+  <!-- HERO SECTION (FULL WIDTH) -->
+  <section class="hero-full-wrapper">
+    <div class="hero-row">
+       
+       <!-- LEFT: Brand Card -->
+       <div class="dark-card brand-card">
+           <h1 class="brand-title">BLOG<br>PROGRAMACIÓN</h1>
+           <span class="brand-subtitle">Pablo Jiménez</span>
+       </div>
 
-  <!-- ===== CONTENIDO PRINCIPAL ===== -->
-  <main class="main">
+       <!-- RIGHT: Intro/Profile Card -->
+       <div class="dark-card intro-card">
+           <div class="avatar-frame">
+               <img src="./assets/images/foto-perfil.jpg" alt="Avatar" class="avatar-img">
+           </div>
+           
+           <div class="intro-content">
+               <h2 class="intro-title">
+                   <span id="looping-typewriter"></span><span class="cursor-blink">|</span>
+               </h2>
+               <p class="intro-desc">
+                   Soy estudiante de Desarrollo de Aplicaciones Web (DAW). En este blog comparto mis aprendizajes, proyectos y recursos sobre programación.
+               </p>
+               
+               <div class="action-buttons">
+                   <a href="https://github.com/pjimpin1207" target="_blank" class="btn-dark btn-outline">GitHub ↗</a>
+                   <a href="https://pjimpin1207.github.io/DIWEB/" class="btn-dark btn-filled">Blog DIWEB</a>
+               </div>
+           </div>
 
-    <!-- ===== PRESENTACIÓN PERSONAL ===== -->
-    <section class="profile-card">
-      <img src="./assets/images/foto-perfil.jpg" alt="Foto de perfil de Pablo" class="profile-img">
-      <div class="profile-info">
-        <h2>¡Hola! Soy Pablo 👋</h2>
-        <p>
-          Soy estudiante de <strong>Desarrollo de Aplicaciones Web (DAW)</strong>, con especial interés en el diseño
-          front-end, la programación y la creación de aplicaciones modernas, accesibles y funcionales.
-          En este blog comparto mis aprendizajes, proyectos y recursos sobre desarrollo web.
-        </p>
-        <a href="https://github.com/pjimpin1207" target="_blank" rel="noopener noreferrer" class="btn github-btn">
-          💻 Visita mi GitHub
-        </a>
-      </div>
-    </section>
+           <!-- Posts Counter Badge -->
+           <div class="stat-badge">
+               <span class="stat-val">5</span>
+               <span class="stat-lbl">Posts</span>
+           </div>
+       </div>
+    </div>
+  </section>
 
-    <!-- ===== ÚLTIMAS PUBLICACIONES ===== -->
-    <section class="latest-posts">
-      <h2>Últimas Publicaciones</h2>
+  <!-- MAIN CONTAINER (Centered Content) -->
+  <div class="dashboard-container">
 
-
-      <div class="grid">
+    <!-- TOPICS BAR -->
+    <section class="dark-card topics-bar">
+        <span class="topics-label">Temas</span>
         
-        <article class="card">
-          <h3>¿En qué consiste la programación?</h3>
-          <p>Descubre qué es la programación, sus fases principales y la diferencia entre algoritmos y código.</p>
-          <a href="./posts/Tema1/EnQueConsisteLaProgramacion.html" class="btn">Leer más</a>
-        </article>
-
-        <article class="card">
-          <h3>Algoritmos y diagramas</h3>
-          <p>Ejemplos de algoritmos y diagramas de flujo paso a paso.</p>
-          <a href="./posts/Tema1/AlgoritmosYDiagramas.html" class="btn">Leer más</a>
-        </article>
-
-        <article class="card">
-          <h3>Clasificación de los lenguajes de programación</h3>
-          <p>Clasificación y comparativa de los distintos lenguajes.</p>
-          <a href="./posts/Tema1/ClasificacionLenguajes.html" class="btn">Leer más</a>
-        </article>
-
-        <article class="card">
-          <h3>Programas básicos con Python</h3>
-          <p>Ejercicios básicos para aprender a programar en Python.</p>
-          <a href="./posts/Tema1/ProgramasBasicosPython.html" class="btn">Leer más</a>
-        </article>
-      </div>
+        <a href="./posts/Tema1/index.html" class="topic-pill">
+            <span>📚</span> Tema 1
+        </a>
+        <a href="./posts/Tema2/index.html" class="topic-pill">
+            <span>💻</span> Tema 2
+        </a>
+        <a href="./posts/Tema3/index.html" class="topic-pill">
+            <span>⚛️</span> Tema 3
+        </a>
+        <a href="./posts/Tema4/index.html" class="topic-pill">
+            <span>☕</span> Tema 4
+        </a>
+        <a href="./posts/Tema5/index.html" class="topic-pill">
+             <span>🚀</span> Tema 5
+        </a>
     </section>
 
-  </main>
+    <!-- CONTENT HEADER -->
+    <div class="content-header" id="posts">
+        <h2 class="section-headline">Últimas publicaciones</h2>
+        <div class="search-pill">
+            <span>🔍</span>
+            <input type="text" id="search-input" placeholder="Buscar artículo...">
+        </div>
+    </div>
 
-  <!-- ===== FOOTER ===== -->
-  <footer class="footer">
-    <p>© 2025 Pablo Jiménez — Blog Programación</p>
+    <!-- POSTS GRID -->
+    <div class="posts-grid" id="posts-grid">
+
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 3 - Tema 5</h3>
+          <p class='post-desc'>Contenido relacionado con Ejercicio 3 del Tema5</p>
+          <a href='./posts/Tema5/Ejercicio3.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 2 - Tema 5</h3>
+          <p class='post-desc'>Ejercicio 2 del Tema 5: encapsulación, getters y setters con validaciones en la clase Persona en Java.</p>
+          <a href='./posts/Tema5/Ejercicio2.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 1 - Tema 5</h3>
+          <p class='post-desc'>Ejercicio 1 del Tema 5: implementación de una clase CuentaBancaria en Java con encapsulación y métodos básicos.</p>
+          <a href='./posts/Tema5/Ejercicio1.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Proyecto Tema 4</h3>
+          <p class='post-desc'>Proyecto del Tema 4: sistema de gestión de reservas de una biblioteca usando Java, POO y enumerados.</p>
+          <a href='./posts/Tema4/ProyectoTema4.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Resumen del Tema - Tema 4</h3>
+          <p class='post-desc'>Resumen completo de la Unidad 4: Clases, Objetos, Métodos, Constructores y Enumerados en Java.</p>
+          <a href='./posts/Tema4/ResumenDelTema.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 3 - Tema 4</h3>
+          <p class='post-desc'>Ejercicio 3 del Tema 4: gestión de vehículos en un concesionario usando clases, objetos y enumerados en Java.</p>
+          <a href='./posts/Tema4/Ejercicio3.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 2 - Tema 4</h3>
+          <p class='post-desc'>Ejercicio 2 del Tema 4: uso de enumerados en Java y ampliación de la clase Persona con el atributo Sexo.</p>
+          <a href='./posts/Tema4/Ejercicio2.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 1 - Tema 4</h3>
+          <p class='post-desc'>Ejercicio 1 del Tema 4: creación de clases, constructores, objetos y uso del depurador en Java.</p>
+          <a href='./posts/Tema4/Ejercicio1.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Resumen Tema 3</h3>
+          <p class='post-desc'>1. ¿Qué es la Programación Orientada a Objetos (POO)?</p>
+          <a href='./posts/Tema3/ResumenTema3.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 34 - Tema 3</h3>
+          <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
+          <a href='./posts/Tema3/Ejercicio34.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 33 - Tema 3</h3>
+          <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
+          <a href='./posts/Tema3/Ejercicio33.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 32 - Tema 3</h3>
+          <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
+          <a href='./posts/Tema3/Ejercicio32.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 31 - Tema 3</h3>
+          <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
+          <a href='./posts/Tema3/Ejercicio31.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 30 - Tema 3</h3>
+          <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
+          <a href='./posts/Tema3/Ejercicio30.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 29 - Tema 3</h3>
+          <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
+          <a href='./posts/Tema3/Ejercicio29.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 28 - Tema 3</h3>
+          <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
+          <a href='./posts/Tema3/Ejercicio28.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 27 - Tema 3</h3>
+          <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
+          <a href='./posts/Tema3/Ejercicio27.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 26 - Tema 3</h3>
+          <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
+          <a href='./posts/Tema3/Ejercicio26.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 25 - Tema 3</h3>
+          <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
+          <a href='./posts/Tema3/Ejercicio25.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 24 - Tema 3</h3>
+          <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
+          <a href='./posts/Tema3/Ejercicio24.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 23 - Tema 3</h3>
+          <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
+          <a href='./posts/Tema3/Ejercicio23.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 22 - Tema 3</h3>
+          <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
+          <a href='./posts/Tema3/Ejercicio22.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 21 - Tema 3</h3>
+          <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
+          <a href='./posts/Tema3/Ejercicio21.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 20 - Tema 3</h3>
+          <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
+          <a href='./posts/Tema3/Ejercicio20.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 19 - Tema 3</h3>
+          <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
+          <a href='./posts/Tema3/Ejercicio19.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 18 - Tema 3</h3>
+          <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
+          <a href='./posts/Tema3/Ejercicio18.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 17 - Tema 3</h3>
+          <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
+          <a href='./posts/Tema3/Ejercicio17.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 16 - Tema 3</h3>
+          <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
+          <a href='./posts/Tema3/Ejercicio16.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 15 - Tema 3</h3>
+          <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
+          <a href='./posts/Tema3/Ejercicio15.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 14 - Tema 3</h3>
+          <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
+          <a href='./posts/Tema3/Ejercicio14.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 13 - Tema 3</h3>
+          <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
+          <a href='./posts/Tema3/Ejercicio13.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 12 - Tema 3</h3>
+          <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
+          <a href='./posts/Tema3/Ejercicio12.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 11 - Tema 3</h3>
+          <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
+          <a href='./posts/Tema3/Ejercicio11.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 10 - Tema 3</h3>
+          <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
+          <a href='./posts/Tema3/Ejercicio10.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 9 - Tema 3</h3>
+          <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
+          <a href='./posts/Tema3/Ejercicio9.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 8 - Tema 3</h3>
+          <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
+          <a href='./posts/Tema3/Ejercicio8.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 7 - Tema 3</h3>
+          <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
+          <a href='./posts/Tema3/Ejercicio7.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 6 - Tema 3</h3>
+          <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
+          <a href='./posts/Tema3/Ejercicio6.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 5 - Tema 3</h3>
+          <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
+          <a href='./posts/Tema3/Ejercicio5.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 4 - Tema 3</h3>
+          <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
+          <a href='./posts/Tema3/Ejercicio4.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 3 - Tema 3</h3>
+          <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
+          <a href='./posts/Tema3/Ejercicio3.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 2 - Tema 3</h3>
+          <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
+          <a href='./posts/Tema3/Ejercicio2.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 1 - Tema 3</h3>
+          <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
+          <a href='./posts/Tema3/Ejercicio1.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Resumen del Tema - Tema 2</h3>
+          <p class='post-desc'>1. ¿Qué es una estructura de datos?</p>
+          <a href='./posts/Tema2/ResumenDelTema.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicio 27 - Tema 2</h3>
+          <p class='post-desc'>Ejercicio 27: búsqueda de datos sensibles usando expresiones regulares en Python.</p>
+          <a href='./posts/Tema2/Ejercicio27.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicios Con Operaciones Avanzadas Arrays - Tema 2</h3>
+          <p class='post-desc'>Ejercicio 15: Búsqueda Secuencial</p>
+          <a href='./posts/Tema2/EjerciciosConOperacionesAvanzadasArrays.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Comparacion De Arrays - Tema 2</h3>
+          <p class='post-desc'>Ejercicio 19: Comparación de Arrays</p>
+          <a href='./posts/Tema2/ComparacionDeArrays.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicios Basicos Arrays - Tema 2</h3>
+          <p class='post-desc'>Ejercicio 2: Suma de los valores de un array</p>
+          <a href='./posts/Tema2/EjerciciosBasicosArrays.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Matrices - Tema 2</h3>
+          <p class='post-desc'>Ejercicio 21: Declaración y Acceso a Matrices</p>
+          <a href='./posts/Tema2/Matrices.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ejercicios Operaciones Basicas Arrays - Tema 2</h3>
+          <p class='post-desc'>Ejercicio 8: Separar nombre y apellido</p>
+          <a href='./posts/Tema2/EjerciciosOperacionesBasicasArrays.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>String YFormateo - Tema 2</h3>
+          <p class='post-desc'>Ejercicio: Inversor de Palabras y Palíndromos</p>
+          <a href='./posts/Tema2/StringYFormateo.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Ordenacion Arrays - Tema 2</h3>
+          <p class='post-desc'>Ejercicio 17: Ordenación Alfabética Ignorando Mayúsculas</p>
+          <a href='./posts/Tema2/OrdenacionArrays.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Clasificacion Lenguajes - Tema 1</h3>
+          <p class='post-desc'>Comparativa y clasificación de los principales lenguajes de programación: propósito, tipo, ventajas y desventajas.</p>
+          <a href='./posts/Tema1/ClasificacionLenguajes.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Algoritmos Y Diagramas - Tema 1</h3>
+          <p class='post-desc'>Ejemplos de algoritmos y diagramas de flujo: aprende a representar procesos lógicos paso a paso.</p>
+          <a href='./posts/Tema1/AlgoritmosYDiagramas.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>Programas Basicos Python - Tema 1</h3>
+          <p class='post-desc'>Colección de programas básicos en Python para practicar fundamentos de programación, condicionales y bucles.</p>
+          <a href='./posts/Tema1/ProgramasBasicosPython.html' class='post-link'>Leer más →</a>
+        </article>
+        <article class='post-card'>
+          <h3 class='post-title'>En Que Consiste La Programacion - Tema 1</h3>
+          <p class='post-desc'>Descubre qué es la programación, sus etapas principales y la diferencia entre algoritmos y código con ejemplos en Java.</p>
+          <a href='./posts/Tema1/EnQueConsisteLaProgramacion.html' class='post-link'>Leer más →</a>
+        </article>
+
+    </div>
+
+  </div> <!-- End Dashboard Container -->
+
+  <!-- Premium Footer -->
+  <footer class="site-footer">
+      <div class="footer-content">
+          <div class="footer-brand">
+              <h3>Pablo Jiménez</h3>
+              <p>Desarrollo de Aplicaciones Web (DAW)</p>
+              <p>© 2025 Blog Programación</p>
+          </div>
+          <div class="footer-links">
+              <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+                  <span>GitHub ↗</span>
+              </a>
+              <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+                  <span>Blog DIWEB ↗</span>
+              </a>
+          </div>
+      </div>
   </footer>
 
+  <script src="./js/main.js"></script>
 </body>
-
 </html>
