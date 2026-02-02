@@ -27,20 +27,91 @@
 
     <!-- V2 DESIGN -->
     <style>
-        .header { max-width: 900px; margin: 20px auto 0; border-radius: 50px; top: 20px; background: rgba(15, 16, 17, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); padding: 0 2rem; justify-content: space-between; }
-        body { background-color: #050505; background-image: radial-gradient(circle at 50% 0%, rgba(14, 232, 96, 0.15), transparent 60%); }
-        .topic-hero { background: transparent; border: none; padding: 3rem 1rem 1.5rem; }
-        .topic-title { font-size: 3rem; letter-spacing: -1px; margin-bottom: 0.3rem; text-shadow: 0 0 30px rgba(14, 232, 96, 0.3); }
-        .topic-desc { font-size: 1rem; opacity: 0.7; max-width: 500px; margin: 0 auto; }
-        .topic-badge { display: none; }
-        .card { background: #0A0A0A; border: 1px solid #1A1A1A; border-radius: 16px; padding: 2rem; }
-        .card:hover { transform: translateY(-5px); border-color: #0EE860; box-shadow: 0 10px 40px -10px rgba(14, 232, 96, 0.1); }
-        .card h3 { font-size: 1.4rem; margin-bottom: 1rem; }
-        .card-link { color: #0EE860; text-transform: uppercase; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.5px; }
-        .subsection-title { color: #0EE860 !important; font-size: 1.5rem; border-bottom: 2px solid #0EE860; padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
-        .brand-logo { color: #0EE860 !important; }
-        .nav a::after { background: #0EE860 !important; }
-        .nav a.active { color: #fff !important; }
+        .header {
+            max-width: 900px;
+            margin: 20px auto 0;
+            border-radius: 50px;
+            top: 20px;
+            background: rgba(15, 16, 17, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0 2rem;
+            justify-content: space-between;
+        }
+
+        body {
+            background-color: #050505;
+            background-image: radial-gradient(circle at 50% 0%, rgba(14, 232, 96, 0.15), transparent 60%);
+        }
+
+        .topic-hero {
+            background: transparent;
+            border: none;
+            padding: 3rem 1rem 1.5rem;
+        }
+
+        .topic-title {
+            font-size: 3rem;
+            letter-spacing: -1px;
+            margin-bottom: 0.3rem;
+            text-shadow: 0 0 30px rgba(14, 232, 96, 0.3);
+        }
+
+        .topic-desc {
+            font-size: 1rem;
+            opacity: 0.7;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .topic-badge {
+            display: none;
+        }
+
+        .card {
+            background: #0A0A0A;
+            border: 1px solid #1A1A1A;
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #0EE860;
+            box-shadow: 0 10px 40px -10px rgba(14, 232, 96, 0.1);
+        }
+
+        .card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-link {
+            color: #0EE860;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .subsection-title {
+            color: #0EE860 !important;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #0EE860;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .brand-logo {
+            color: #0EE860 !important;
+        }
+
+        .nav a::after {
+            background: #0EE860 !important;
+        }
+
+        .nav a.active {
+            color: #fff !important;
+        }
     </style>
 
     <!-- ===== MAIN CONTENT ===== -->
@@ -62,9 +133,11 @@
             <div class="section-group">
                 <h3 class="subsection-title">Resumen del Tema</h3>
                 <div class="grid" id="resumen-grid">
-                    <p class="placeholder-text" style="grid-column: 1 / -1; color: var(--color-text-muted); font-style: italic;">
-                        Próximamente...
-                    </p>
+                    <article class="card">
+                        <h3>Resumen: POO Avanzada</h3>
+                        <p>Encapsulación, visibilidad, herencia, paquetes y el modificador static.</p>
+                        <a href="./ResumenDelTema5.html" class="card-link">Leer más</a>
+                    </article>
                 </div>
             </div>
 
@@ -83,6 +156,18 @@
                         <p>Uso de getters, setters y validaciones en la clase Persona.</p>
                         <a href="./Ejercicio2.html" class="card-link">Leer más</a>
                     </article>
+
+                    <article class="card">
+                        <h3>Ejercicio 4: Atributos y Métodos Estáticos</h3>
+                        <p>Uso de static en Java con la clase ContadorObjetos.</p>
+                        <a href="./Ejercicio4.html" class="card-link">Leer más</a>
+                    </article>
+
+                    <article class="card">
+                        <h3>Ejercicio 6: Clases del JDK</h3>
+                        <p>Investigación sobre Object, String, Math y Random.</p>
+                        <a href="./Ejercicio6.html" class="card-link">Leer más</a>
+                    </article>
                 </div>
             </div>
 
@@ -90,7 +175,8 @@
             <div class="section-group">
                 <h3 class="subsection-title">Proyecto del Tema</h3>
                 <div class="grid" id="proyecto-grid">
-                    <p class="placeholder-text" style="grid-column: 1 / -1; color: var(--color-text-muted); font-style: italic;">
+                    <p class="placeholder-text"
+                        style="grid-column: 1 / -1; color: var(--color-text-muted); font-style: italic;">
                         Próximamente...
                     </p>
                 </div>
@@ -108,31 +194,28 @@
     </main>
 
     <!-- ===== FOOTER ===== -->
-      <!-- Premium Footer -->
     <!-- Premium Footer -->
-  <footer class="site-footer">
-      <div class="footer-content">
-          <div class="footer-brand">
-              <h3>Pablo Jiménez</h3>
-              <p>Desarrollo de Aplicaciones Web (DAW)</p>
-              <p>© 2025 Blog Programación</p>
-          </div>
-          <div class="footer-links">
-              <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
-                  <span>GitHub ↗</span>
-              </a>
-              <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
-                  <span>Blog DIWEB ↗</span>
-              </a>
-          </div>
-      </div>
-  </footer>
+    <!-- Premium Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>Pablo Jiménez</h3>
+                <p>Desarrollo de Aplicaciones Web (DAW)</p>
+                <p>© 2025 Blog Programación</p>
+            </div>
+            <div class="footer-links">
+                <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+                    <span>GitHub ↗</span>
+                </a>
+                <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+                    <span>Blog DIWEB ↗</span>
+                </a>
+            </div>
+        </div>
+    </footer>
 
     <script src="../../js/main.js"></script>
 
 </body>
 
 </html>
-
-
-

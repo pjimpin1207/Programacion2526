@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tema 5 – Ejercicio 4 | Pablo.dev</title>
+  <meta name="description"
+    content="Ejercicio 4: uso de atributos y métodos estáticos en Java con la clase ContadorObjetos.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <div class="brand-logo">PJP</div>
+    <nav class="nav">
+      <a href="../../index.html">Inicio</a>
+      <a href="../Tema1/index.html">Tema 1</a>
+      <a href="../Tema2/index.html">Tema 2</a>
+      <a href="../Tema3/index.html">Tema 3</a>
+      <a href="../Tema4/index.html">Tema 4</a>
+      <a href="../Tema5/index.html" class="active">Tema 5</a>
+    </nav>
+    <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema">
+      <span class="icon">🌙</span>
+    </button>
+  </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 5 • Principios de la POO</div>
+      <h1>Tema 5 – Ejercicio 4</h1>
+
+      <div class="post-body">
+
+        <h2>Uso de atributos y métodos estáticos en Java</h2>
+
+        <h3>📄 Enunciado</h3>
+        <p>
+          Vamos a implementar una clase llamada <strong>ContadorObjetos</strong> que tenga
+          un atributo estático para llevar la cuenta del número total de objetos creados.
+        </p>
+
+        <p>
+          Además, tendrá un método estático para mostrar cuántos objetos se han creado
+          hasta el momento.
+        </p>
+
+        <h3>📌 Requisitos</h3>
+        <ul>
+          <li>Crear la clase <code>ContadorObjetos</code>.</li>
+          <li>Definir un atributo estático <code>totalObjetos</code> inicializado a 0.</li>
+          <li>Incrementar el contador cada vez que se crea un objeto.</li>
+          <li>Crear un método estático que muestre el total de objetos creados.</li>
+          <li>Desde otra clase, crear varios objetos y mostrar el contador.</li>
+        </ul>
+
+        <h3>✅ Clase ContadorObjetos</h3>
+
+        <pre><code class="language-java">package Ejercicios.ejercicio4;
+
+class ContadorObjetos {
+
+    // Atributo estático
+    private static int totalObjetos = 0;
+
+    // Constructor
+    public ContadorObjetos() {
+        totalObjetos++;
+    }
+
+    // Método estático
+    static void mostrarTotalObjetos() {
+        System.out.println(
+            "Número total de objetos creados hasta el momento: " + totalObjetos
+        );
+    }
+}</code></pre>
+
+        <h3>✅ Clase Main</h3>
+
+        <pre><code class="language-java">package Ejercicios.ejercicio4;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        // Mostrar total inicial
+        ContadorObjetos.mostrarTotalObjetos();
+
+        // Crear objetos
+        ContadorObjetos obj1 = new ContadorObjetos();
+        ContadorObjetos obj2 = new ContadorObjetos();
+        ContadorObjetos obj3 = new ContadorObjetos();
+
+        // Utilizar el método estático
+        ContadorObjetos.mostrarTotalObjetos();
+    }
+}</code></pre>
+
+        <h3>🧠 Explicación</h3>
+        <p>
+          El atributo <code>totalObjetos</code> es <strong>estático</strong>, lo que significa
+          que pertenece a la clase y no a cada objeto individual.
+        </p>
+
+        <p>
+          Cada vez que se crea una nueva instancia de <code>ContadorObjetos</code>, el
+          constructor incrementa el valor del contador compartido por todos los objetos.
+        </p>
+
+        <p>
+          El método <code>mostrarTotalObjetos()</code> también es estático, por lo que puede
+          llamarse directamente desde la clase sin necesidad de crear un objeto.
+        </p>
+
+        <h3>❓ Preguntas de reflexión</h3>
+
+        <h4>¿Qué diferencia hay entre un atributo/método estático y uno no estático?</h4>
+        <p>
+          Un atributo o método <strong>estático</strong> pertenece a la clase y es compartido
+          por todas las instancias.
+          Un atributo o método <strong>no estático</strong> pertenece a cada objeto de forma
+          independiente.
+        </p>
+
+        <h4>¿Qué pasaría si totalObjetos no fuera estático?</h4>
+        <p>
+          Cada objeto tendría su propio contador, por lo que no se podría llevar la cuenta
+          total de objetos creados. El valor siempre sería independiente en cada instancia.
+        </p>
+
+        <h4>¿Por qué podemos llamar al método mostrarTotalObjetos sin crear una instancia?</h4>
+        <p>
+          Porque es un método estático. Los métodos estáticos pertenecen a la clase y se
+          pueden invocar directamente usando el nombre de la clase.
+        </p>
+
+        <h3>🏁 Conclusión</h3>
+        <p>
+          Este ejercicio muestra cómo los atributos y métodos estáticos permiten compartir
+          información común entre todos los objetos de una clase, siendo muy útiles para
+          contadores, configuraciones globales o utilidades generales.
+        </p>
+
+      </div>
+
+      <div class="back-link">
+        <a href="./index.html" class="card-link">← Volver al Tema 5</a>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>© 2025 Blog Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub ↗</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB ↗</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>
