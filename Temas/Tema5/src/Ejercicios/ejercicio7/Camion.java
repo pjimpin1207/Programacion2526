@@ -1,6 +1,5 @@
 package Ejercicios.ejercicio7;
 
-
 public class Camion extends Vehiculo {
     private double capacidadCarga;
 

@@ -10,7 +10,7 @@ public class Alumno extends Persona {
 
     // Constructor completo usando super()
     public Alumno(String nombre, int edad, String ciclo) {
-        super(nombre, edad); // Reutilizamos el constructor de Persona
+        super(nombre, edad);
         this.ciclo = ciclo;
     }
 
