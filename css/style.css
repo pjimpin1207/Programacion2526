@@ -1199,19 +1199,15 @@ pre {
     color: #d4d4d4;
     padding: 2.5rem 1rem 1rem 1rem;
     border-radius: 8px;
-    /* Removed overflow-x: auto so we don't need horizontal scroll */
+    overflow-x: auto;
 }
 .numbered-code {
     display: block;
     font-family: monospace;
     line-height: 1.5;
 }
-.code-line {
-    display: flex;
-}
 .line-number {
     display: inline-block;
-    flex-shrink: 0;
     width: 2.5em;
     user-select: none;
     color: #858585;
@@ -1221,10 +1217,7 @@ pre {
     padding-right: 0.5em;
 }
 .line-content {
-    flex-grow: 1;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    word-break: break-word;
+    white-space: pre;
 }
 .copy-btn {
     position: absolute;

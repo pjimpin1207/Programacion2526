@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es" data-theme="light">
 
 <head>
@@ -389,65 +389,6 @@ reutilizables y fáciles de ampliar.
     </footer>
 
     <script src="../../js/main.js"></script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const codeBlocks = document.querySelectorAll("pre code");
-
-            codeBlocks.forEach(function (codeBlock) {
-                // Get the raw text to copy (ignoring HTML tags we are about to add)
-                const rawCode = codeBlock.textContent;
-
-                // Split by newlines for numbering
-                let lines = rawCode.split('\n');
-                
-                // Remove first line if it's completely empty to avoid leading empty line number
-                if (lines[0].trim() === '') {
-                    lines.shift();
-                }
-
-                // Remove last line if it's completely empty to avoid trailing empty line number
-                if (lines.length > 0 && lines[lines.length - 1].trim() === '') {
-                    lines.pop();
-                }
-
-                let numberedCode = '';
-                // Use innerText directly inside a text node or safely encode
-                lines.forEach((line, index) => {
-                    // Escape HTML characters to avoid rendering issues
-                    let escapedLine = line.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-                    // Ensure empty lines keep their height
-                    if (escapedLine.length === 0) escapedLine = ' ';
-                    numberedCode += `<div class="code-line"><span class="line-number">${index + 1}</span><span class="line-content">${escapedLine}</span></div>\n`;
-                });
-
-                codeBlock.innerHTML = numberedCode;
-                codeBlock.classList.add("numbered-code");
-
-                // Add copy button
-                const pre = codeBlock.parentElement;
-                
-                const copyBtn = document.createElement("button");
-                copyBtn.className = "copy-btn";
-                copyBtn.innerText = "Copiar";
-
-                copyBtn.addEventListener("click", function () {
-                    navigator.clipboard.writeText(rawCode).then(() => {
-                        copyBtn.innerText = "¡Copiado!";
-                        copyBtn.style.background = "#2e7d32";
-                        setTimeout(() => { 
-                            copyBtn.innerText = "Copiar"; 
-                            copyBtn.style.background = "#4caf50";
-                        }, 2000);
-                    }).catch(err => {
-                        console.error("Error al copiar texto: ", err);
-                    });
-                });
-
-                pre.appendChild(copyBtn);
-            });
-        });
-    </script>
 </body>
 
 </html>
