@@ -1191,3 +1191,57 @@ body::after {
     padding-bottom: 0.5rem; 
     margin-bottom: 1.5rem; 
 }
+
+/* --- CODE BLOCKS & COPY BUTTON --- */
+pre {
+    position: relative;
+    background: #1e1e1e;
+    color: #d4d4d4;
+    padding: 2.5rem 1rem 1rem 1rem;
+    border-radius: 8px;
+    /* Removed overflow-x: auto so we don't need horizontal scroll */
+}
+.numbered-code {
+    display: block;
+    font-family: monospace;
+    line-height: 1.5;
+}
+.code-line {
+    display: flex;
+}
+.line-number {
+    display: inline-block;
+    flex-shrink: 0;
+    width: 2.5em;
+    user-select: none;
+    color: #858585;
+    text-align: right;
+    margin-right: 1em;
+    border-right: 1px solid #404040;
+    padding-right: 0.5em;
+}
+.line-content {
+    flex-grow: 1;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+.copy-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: #4caf50;
+    color: white;
+    border: none;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+.copy-btn:hover {
+    opacity: 1;
+    background: #45a049;
+}
