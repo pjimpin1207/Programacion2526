@@ -12,29 +12,36 @@
 <body>
 
     <!-- ===== HEADER ===== -->
-    <header class="header">
-        <div class="brand-logo">PJP</div>
+            <header class="header">
+        <a href="../../index.html" class="brand-logo">programación</a>
         <nav class="nav">
             <a href="../../index.html">Inicio</a>
-            <a href="../Tema1/index.html">Tema 1</a>
-            <a href="../Tema2/index.html">Tema 2</a>
-            <a href="../Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
         </nav>
-        <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema">
-            <span class="icon">🌙</span>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
         </button>
     </header>
 
     <!-- ===== MAIN CONTENT ===== -->
     <main class="main-wrapper">
         <article class="post-content">
-            <h1>Ejercicio 22 – Clasificación de números</h1>
+            <h1>Ejercicio 22 – clasificación de números</h1>
             <p class="meta">Publicado por pjimpin1207</p>
 
             <div class="post-body">
                 <h2>Enunciado</h2>
     <p>
-      Diseñar un programa que solicite números enteros al usuario y, para cada uno de ellos,
+      Diseñar un programa qué solicite números enteros al usuario y, para cada uno de ellos,
       indique:
     </p>
     <ul>
@@ -44,17 +51,17 @@
     </ul>
 
     <p>
-      El proceso se repetirá de forma indefinida hasta que el usuario introduzca el número <strong>0</strong>.
+      El proceso se repetirá de forma indefinida hasta qué el usuario introduzca el número <strong>0</strong>.
     </p>
 
     <h2>Explicación del ejercicio</h2>
 
     <h3>📌 Bucle while controlado por un valor centinela</h3>
     <p>
-      El programa usa un <strong>while</strong> que solo termina cuando el usuario introduce 0:
+      El programa usa un <strong>while</strong> qué solo termina cuando el usuario introduce 0:
     </p>
 
-    <blockquote><code>while (numero != 0)</code></blockquote>
+    <blockqué (numero != 0)</code></blockquote>
 
     <h3>📌 Cómo se comprueba cada propiedad</h3>
 
@@ -77,7 +84,7 @@ public class Ejercicio22 {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        System.out.print("Introduce un número y 0 cuando quieras terminar: ");
+        System.out.print("Introduce un número y 0 cuando qué terminar: ");
         int numero = sc.nextInt();
 
         while (numero != 0) {
@@ -100,7 +107,7 @@ public class Ejercicio22 {
             int cuadrado = numero * numero;
             System.out.println("El cuadrado es: " + cuadrado);
 
-            System.out.print("\nIntroduce un número y 0 cuando quieras terminar: ");
+            System.out.print("\nIntroduce un número y 0 cuando qué terminar: ");
             numero = sc.nextInt();
         }
 
@@ -136,22 +143,22 @@ Programa terminado.
     <!-- ===== FOOTER ===== -->
       <!-- Premium Footer -->
     <!-- Premium Footer -->
-  <footer class="site-footer">
-      <div class="footer-content">
-          <div class="footer-brand">
-              <h3>Pablo Jiménez</h3>
-              <p>Desarrollo de Aplicaciones Web (DAW)</p>
-              <p>© 2025 Blog Programación</p>
-          </div>
-          <div class="footer-links">
-              <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
-                  <span>GitHub ↗</span>
-              </a>
-              <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
-                  <span>Blog DIWEB ↗</span>
-              </a>
-          </div>
+    <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 ProgramaciÃ³n</p>
       </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
   </footer>
 
     <script src="../../js/main.js"></script>

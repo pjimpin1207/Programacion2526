@@ -4,12 +4,34 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-
+  initThemeToggle();
   initSearch();
   initTypewriter();
   initPostCounter();
   initCodeBlocks();
 });
+
+/* --- THEME TOGGLE LOGIC --- */
+// Quick synchronous run to prevent FOUC where possible
+(function immediateThemeLoad() {
+  const storedTheme = localStorage.getItem('theme');
+  const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const currentTheme = storedTheme ? storedTheme : (systemPrefersDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', currentTheme);
+})();
+
+function initThemeToggle() {
+  const btn = document.getElementById('theme-toggle');
+  if (!btn) return;
+  
+  btn.addEventListener('click', () => {
+    let currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+  });
+}
+
 
 /* --- DYNAMIC POST COUNTER --- */
 function initPostCounter() {
@@ -138,6 +160,20 @@ function initCodeBlocks() {
     // Add copy button
     const pre = codeBlock.parentElement;
 
+    // Wrap pre in relative container to position copy button
+    if (pre.parentElement.classList.contains("code-wrapper")) return;
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "code-wrapper";
+    wrapper.style.position = "relative";
+    wrapper.style.margin = "2rem 0";
+    
+    // Reset pre margin since wrapper handles it
+    pre.style.margin = "0";
+
+    pre.parentNode.insertBefore(wrapper, pre);
+    wrapper.appendChild(pre);
+
     const copyBtn = document.createElement("button");
     copyBtn.className = "copy-btn";
     copyBtn.innerText = "Copiar";
@@ -148,13 +184,13 @@ function initCodeBlocks() {
         copyBtn.style.background = "#2e7d32";
         setTimeout(() => {
           copyBtn.innerText = "Copiar";
-          copyBtn.style.background = "#4caf50";
+          copyBtn.style.background = ""; // Restore via CSS
         }, 2000);
       }).catch(err => {
         console.error("Error al copiar texto: ", err);
       });
     });
 
-    pre.appendChild(copyBtn);
+    wrapper.appendChild(copyBtn);
   });
 }

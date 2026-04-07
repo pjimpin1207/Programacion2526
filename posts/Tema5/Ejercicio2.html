@@ -5,27 +5,32 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tema 5 – Ejercicio 2 | Pablo.dev</title>
-  <meta name="description" content="Ejercicio 2 del Tema 5: encapsulación, getters y setters con validaciones en la clase Persona en Java.">
+  <meta name="description" content="Ejercicio 2 del Tema 5: Encapsulación, getters y setters con validaciones en la clase Persona en Java.">
   <link rel="stylesheet" href="../../css/style.css">
 </head>
 
 <body>
 
   <!-- ===== HEADER ===== -->
-  <header class="header">
-    <div class="brand-logo">PJP</div>
-    <nav class="nav">
-      <a href="../../index.html">Inicio</a>
-      <a href="../Tema1/index.html">Tema 1</a>
-      <a href="../Tema2/index.html">Tema 2</a>
-      <a href="../Tema3/index.html">Tema 3</a>
-      <a href="../Tema4/index.html">Tema 4</a>
-      <a href="../Tema5/index.html" class="active">Tema 5</a>
-    </nav>
-    <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema">
-      <span class="icon">🌙</span>
-    </button>
-  </header>
+          <header class="header">
+        <a href="../../index.html" class="brand-logo">programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
 
   <!-- ===== MAIN CONTENT ===== -->
   <main class="main-wrapper">
@@ -46,14 +51,14 @@
         <ul>
           <li>Establecer todos los atributos como visibles solo desde la propia clase.</li>
           <li>Intentar modificar el nombre desde la clase <strong>Ciudad</strong>.</li>
-          <li>Permitir que los atributos solo sean accesibles mediante <strong>getters y setters</strong>.</li>
+          <li>Permitir qué los atributos solo sean accesibles mediante <strong>getters y setters</strong>.</li>
           <li>Generar los métodos get y set para todos los atributos.</li>
           <li>Añadir validaciones dentro de los setters.</li>
         </ul>
 
         <h3>🧠 Conceptos clave</h3>
         <ul>
-          <li><strong>Encapsulación:</strong> protección de los atributos usando <code>private</code>.</li>
+          <li><strong>Encapsulacióng> protección de los atributos usando <code>private</code>.</li>
           <li><strong>Getters y setters:</strong> acceso controlado a los datos.</li>
           <li><strong>Validación:</strong> evitar valores incorrectos en los atributos.</li>
           <li><strong>Reutilización de código:</strong> uso de setters dentro de los constructores.</li>
@@ -164,7 +169,7 @@ public class Persona {
         <h3>🔍 Explicación detallada</h3>
         <ul>
           <li>
-            Todos los atributos son <strong>private</strong>, por lo que no se pueden modificar directamente desde otras clases.
+            Todos los atributos son <strong>private</strong>, por lo qué no se pueden modificar directamente desde otras clases.
           </li>
           <li>
             El acceso a los datos se realiza exclusivamente mediante métodos <code>get</code> y <code>set</code>.
@@ -173,13 +178,13 @@ public class Persona {
             Los setters incluyen validaciones para evitar valores inválidos como nombres vacíos, edades negativas o estaturas incorrectas.
           </li>
           <li>
-            Los constructores utilizan los setters para asegurar que las validaciones se apliquen desde la creación del objeto.
+            Los constructores utilizan los setters para asegurar qué las validaciones se apliqué desde la creación del objeto.
           </li>
         </ul>
 
         <h3>🏁 Conclusión</h3>
         <p>
-          Este ejercicio demuestra la importancia de la encapsulación en Java,
+          Este ejercicio demuestra la importancia de la Encapsulación en Java,
           permitiendo controlar el acceso a los atributos y garantizando la coherencia
           de los datos mediante validaciones.
         </p>
@@ -196,22 +201,22 @@ public class Persona {
   <!-- ===== FOOTER ===== -->
     <!-- Premium Footer -->
     <!-- Premium Footer -->
-  <footer class="site-footer">
-      <div class="footer-content">
-          <div class="footer-brand">
-              <h3>Pablo Jiménez</h3>
-              <p>Desarrollo de Aplicaciones Web (DAW)</p>
-              <p>© 2025 Blog Programación</p>
-          </div>
-          <div class="footer-links">
-              <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
-                  <span>GitHub ↗</span>
-              </a>
-              <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
-                  <span>Blog DIWEB ↗</span>
-              </a>
-          </div>
+    <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 ProgramaciÃ³n</p>
       </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
   </footer>
 
   <script src="../../js/main.js"></script>

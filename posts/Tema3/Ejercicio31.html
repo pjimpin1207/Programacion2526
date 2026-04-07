@@ -12,16 +12,23 @@
 <body>
 
     <!-- ===== HEADER ===== -->
-    <header class="header">
-        <div class="brand-logo">PJP</div>
+            <header class="header">
+        <a href="../../index.html" class="brand-logo">programación</a>
         <nav class="nav">
             <a href="../../index.html">Inicio</a>
-            <a href="../Tema1/index.html">Tema 1</a>
-            <a href="../Tema2/index.html">Tema 2</a>
-            <a href="../Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
         </nav>
-        <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema">
-            <span class="icon">🌙</span>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
         </button>
     </header>
 
@@ -34,8 +41,8 @@
             <div class="post-body">
                 <h2>Enunciado</h2>
     <p>
-      Crear una función llamada <strong>variosSaludos</strong> que reciba como parámetro un número entero <code>n</code>.  
-      La función debe imprimir la palabra <strong>“Hola”</strong> tantas veces como indique el parámetro.
+      Crear una función llamada <strong>variosSaludos</strong> qué reciba como parámetro un número entero <code>n</code>.  
+      La función debe imprimir la palabra <strong>“Hola”</strong> tantas veces como indiqué el parámetro.
     </p>
 
     <p>Después, en el <code>main</code> se deben realizar tres invocaciones:</p>
@@ -50,7 +57,7 @@
 
     <h3>📌 1. Definición de función</h3>
     <p>
-      La función se declara como <strong>static</strong> porque será llamada desde el método <code>main</code>.
+      La función se declara como <strong>static</strong> porqué será llamada desde el método <code>main</code>.
     </p>
 
     <blockquote>
@@ -95,12 +102,12 @@ public class Ejercicio31 {
 
         // Invocar mediante variable introducida por teclado
         Scanner sc = new Scanner(System.in);
-        System.out.println("Introduce el número que quieres que se repita:");
+        System.out.println("Introduce el número qué qué qué se repita:");
         int n = sc.nextInt();
         variosSaludos(n);
 
         // Invocar con el doble de ese número
-        System.out.println("El doble de veces que lo anterior:");
+        System.out.println("El doble de veces qué lo anterior:");
         variosSaludos(n * 2);
     }
 }
@@ -112,11 +119,11 @@ public class Ejercicio31 {
 Hola
 Hola
 Hola
-Introduce el número que quieres que se repita:
+Introduce el número qué qué qué se repita:
 2
 Hola
 Hola
-El doble de veces que lo anterior:
+El doble de veces qué lo anterior:
 Hola
 Hola
 Hola
@@ -133,22 +140,22 @@ Hola
     <!-- ===== FOOTER ===== -->
       <!-- Premium Footer -->
     <!-- Premium Footer -->
-  <footer class="site-footer">
-      <div class="footer-content">
-          <div class="footer-brand">
-              <h3>Pablo Jiménez</h3>
-              <p>Desarrollo de Aplicaciones Web (DAW)</p>
-              <p>© 2025 Blog Programación</p>
-          </div>
-          <div class="footer-links">
-              <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
-                  <span>GitHub ↗</span>
-              </a>
-              <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
-                  <span>Blog DIWEB ↗</span>
-              </a>
-          </div>
+    <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 ProgramaciÃ³n</p>
       </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
   </footer>
 
     <script src="../../js/main.js"></script>

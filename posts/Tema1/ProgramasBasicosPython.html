@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Programas básicos con Python - Blog Programación</title>
+    <title>Programas básicos con Python - programación</title>
     <meta name="description" content="Colección de programas básicos en Python para practicar fundamentos de programación, condicionales y bucles.">
     <link rel="stylesheet" href="../../css/style.css">
 </head>
@@ -12,16 +12,23 @@
 <body>
 
     <!-- ===== HEADER ===== -->
-    <header class="header">
-        <div class="brand-logo">PJP</div>
+            <header class="header">
+        <a href="../../index.html" class="brand-logo">programación</a>
         <nav class="nav">
             <a href="../../index.html">Inicio</a>
-            <a href="../Tema1/index.html">Tema 1</a>
-            <a href="../Tema2/index.html">Tema 2</a>
-            <a href="../Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
         </nav>
-        <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema">
-            <span class="icon">🌙</span>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
         </button>
     </header>
 
@@ -37,34 +44,34 @@
           ideales para practicar los fundamentos del lenguaje y entender la lógica de programación paso a paso.
         </p>
 
-        <h2>1. Programa que pide tu nombre y saluda</h2>
-        <p><strong>Código:</strong></p>
+        <h2>1. Programa qué pide tu nombre y saluda</h2>
+        <p><strong>código:</strong></p>
         <pre><code>nombre = input("Introduce tu nombre: ")
 print("Hola " + nombre)</code></pre>
-        <p><strong>Ejecución:</strong></p>
+        <p><strong>ejecucióng></p>
         <pre><code>Introduce tu nombre: Pablo
 Hola Pablo</code></pre>
 
-        <h2>2. Programa que muestra "Hola nombre" directamente</h2>
-        <p><strong>Código:</strong></p>
+        <h2>2. Programa qué muestra "Hola nombre" directamente</h2>
+        <p><strong>código:</strong></p>
         <pre><code>nombre = "Pablo"
 print("Hola " + nombre + "!")</code></pre>
-        <p><strong>Ejecución:</strong></p>
+        <p><strong>ejecucióng></p>
         <pre><code>Hola Pablo!</code></pre>
 
         <h2>3. Suma de dos números introducidos por teclado</h2>
-        <p><strong>Código:</strong></p>
+        <p><strong>código:</strong></p>
         <pre><code>num1 = int(input("Introduce el primer número: "))
 num2 = int(input("Introduce el segundo número: "))
 suma = num1 + num2
 print("La suma es:", suma)</code></pre>
-        <p><strong>Ejecución:</strong></p>
+        <p><strong>ejecucióng></p>
         <pre><code>Introduce el primer número: 5
 Introduce el segundo número: 8
 La suma es: 13</code></pre>
 
         <h2>4. Verificación de usuario</h2>
-        <p><strong>Código:</strong></p>
+        <p><strong>código:</strong></p>
         <pre><code>usuario_correcto = "admin"
 usuario = input("Introduce tu usuario: ")
 
@@ -72,12 +79,12 @@ if usuario == usuario_correcto:
     print("Bienvenido,", usuario)
 else:
     print("Error de inicio de sesión")</code></pre>
-        <p><strong>Ejecución:</strong></p>
+        <p><strong>ejecucióng></p>
         <pre><code>Introduce tu usuario: admin
 Bienvenido, admin</code></pre>
 
         <h2>5. Mayor o menor (y comprobar si son iguales)</h2>
-        <p><strong>Código:</strong></p>
+        <p><strong>código:</strong></p>
         <pre><code>a = int(input("Introduce el primer número: "))
 b = int(input("Introduce el segundo número: "))
 
@@ -87,25 +94,25 @@ elif b > a:
     print("El mayor es:", b)
 else:
     print("Son iguales")</code></pre>
-        <p><strong>Ejecución:</strong></p>
+        <p><strong>ejecucióng></p>
         <pre><code>Introduce el primer número: 7
 Introduce el segundo número: 7
 Son iguales</code></pre>
 
         <h2>6. Número par o impar</h2>
-        <p><strong>Código:</strong></p>
+        <p><strong>código:</strong></p>
         <pre><code>num = int(input("Introduce un número: "))
 
 if num % 2 == 0:
     print("El número es par")
 else:
     print("El número es impar")</code></pre>
-        <p><strong>Ejecución:</strong></p>
+        <p><strong>ejecucióng></p>
         <pre><code>Introduce un número: 6
 El número es par</code></pre>
 
         <h2>7. Operaciones básicas (suma, resta, multiplicación, división)</h2>
-        <p><strong>Código:</strong></p>
+        <p><strong>código:</strong></p>
         <pre><code>a = int(input("Introduce el primer número: "))
 b = int(input("Introduce el segundo número: "))
 
@@ -113,7 +120,7 @@ print("Suma:", a + b)
 print("Resta:", a - b)
 print("Multiplicación:", a * b)
 print("División:", a / b)</code></pre>
-        <p><strong>Ejecución:</strong></p>
+        <p><strong>ejecucióng></p>
         <pre><code>Introduce el primer número: 6
 Introduce el segundo número: 3
 Suma: 9
@@ -122,31 +129,31 @@ Multiplicación: 18
 División: 2.0</code></pre>
 
         <h2>8. Año bisiesto</h2>
-        <p><strong>Código:</strong></p>
+        <p><strong>código:</strong></p>
         <pre><code>anio = int(input("Introduce un año: "))
 
 if (anio % 4 == 0 and anio % 100 != 0) or (anio % 400 == 0):
     print("El año es bisiesto")
 else:
     print("El año no es bisiesto")</code></pre>
-        <p><strong>Ejecución:</strong></p>
+        <p><strong>ejecucióng></p>
         <pre><code>Introduce un año: 2024
 El año es bisiesto</code></pre>
 
         <h2>9. Calcular nota</h2>
-        <p><strong>Código:</strong></p>
+        <p><strong>código:</strong></p>
         <pre><code>nota = float(input("Introduce tu nota: "))
 
 if nota >= 5:
     print("Aprobado")
 else:
     print("Suspenso")</code></pre>
-        <p><strong>Ejecución:</strong></p>
+        <p><strong>ejecucióng></p>
         <pre><code>Introduce tu nota: 6.5
 Aprobado</code></pre>
 
         <h2>10. Calculadora básica</h2>
-        <p><strong>Código:</strong></p>
+        <p><strong>código:</strong></p>
         <pre><code>a = float(input("Introduce el primer número: "))
 b = float(input("Introduce el segundo número: "))
 
@@ -163,14 +170,14 @@ elif op == "/":
     print("Resultado:", a / b)
 else:
     print("Operación no válida")</code></pre>
-        <p><strong>Ejecución:</strong></p>
+        <p><strong>ejecucióng></p>
         <pre><code>Introduce el primer número: 8
 Introduce el segundo número: 2
 Selecciona una operación: *
 Resultado: 16</code></pre>
 
         <h2>11. Tipo de triángulo</h2>
-        <p><strong>Código:</strong></p>
+        <p><strong>código:</strong></p>
         <pre><code>a = int(input("Introduce el lado A: "))
 b = int(input("Introduce el lado B: "))
 c = int(input("Introduce el lado C: "))
@@ -181,17 +188,17 @@ elif a == b or b == c or a == c:
     print("Triángulo isósceles")
 else:
     print("Triángulo escaleno")</code></pre>
-        <p><strong>Ejecución:</strong></p>
+        <p><strong>ejecucióng></p>
         <pre><code>Introduce el lado A: 5
 Introduce el lado B: 5
 Introduce el lado C: 8
 Triángulo isósceles</code></pre>
 
         <h2>12. 100 líneas de "Hola Mundo"</h2>
-        <p><strong>Código:</strong></p>
+        <p><strong>código:</strong></p>
         <pre><code>for i in range(1, 101):
     print("Hola Mundo", i)</code></pre>
-        <p><strong>Ejecución:</strong></p>
+        <p><strong>ejecucióng></p>
         <pre><code>Hola Mundo 1
 Hola Mundo 2
 ...
@@ -207,22 +214,22 @@ Hola Mundo 100</code></pre>
     <!-- ===== FOOTER ===== -->
       <!-- Premium Footer -->
     <!-- Premium Footer -->
-  <footer class="site-footer">
-      <div class="footer-content">
-          <div class="footer-brand">
-              <h3>Pablo Jiménez</h3>
-              <p>Desarrollo de Aplicaciones Web (DAW)</p>
-              <p>© 2025 Blog Programación</p>
-          </div>
-          <div class="footer-links">
-              <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
-                  <span>GitHub ↗</span>
-              </a>
-              <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
-                  <span>Blog DIWEB ↗</span>
-              </a>
-          </div>
+    <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 ProgramaciÃ³n</p>
       </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
   </footer>
 
     <script src="../../js/main.js"></script>

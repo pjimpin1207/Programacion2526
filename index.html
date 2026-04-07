@@ -1,11 +1,11 @@
-<!DOCTYPE html>
-<html lang="es" data-theme="dark">
+﻿<!DOCTYPE html>
+<html lang="es" data-theme="light">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blog Programación</title>
-  <meta name="description" content="Blog de Programación.">
+  <title>programación</title>
+  <meta name="description" content="Blog de programación.">
   <link rel="stylesheet" href="./css/style.css">
 
   <!-- REFERENCE DESIGN STYLES -->
@@ -14,77 +14,52 @@
 </head>
 
 <body>
+        <header class="header">
+        <a href="./index.html" class="brand-logo">programación</a>
+        <nav class="nav">
+            <a href="./index.html">Inicio</a>
+            <a href="./posts/Tema1/index.html">Tema 1</a>
+            <a href="./posts/Tema2/index.html">Tema 2</a>
+            <a href="./posts/Tema3/index.html">Tema 3</a>
+            <a href="./posts/Tema4/index.html">Tema 4</a>
+            <a href="./posts/Tema5/index.html">Tema 5</a>
+            <a href="./posts/Tema6/index.html">Tema 6</a>
+            <a href="./posts/Tema7/index.html">Tema 7</a>
+            <a href="./posts/Tema8/index.html">Tema 8</a>
+            <a href="./posts/Tema9/index.html">Tema 9</a>
+            <a href="./posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
 
-  <!-- HERO SECTION (FULL WIDTH) -->
-  <section class="hero-full-wrapper">
-    <div class="hero-row">
-
-      <!-- LEFT: Brand Card -->
-      <div class="dark-card brand-card">
-        <h1 class="brand-title">BLOG<br>PROGRAMACIÓN</h1>
-        <span class="brand-subtitle">Pablo Jiménez</span>
-      </div>
-
-      <!-- RIGHT: Intro/Profile Card -->
-      <div class="dark-card intro-card">
+        <div class="dashboard-container">
+    
+    <!-- PRESENTATION SECTION -->
+    <section class="presentation-section">
+      <div class="presentation-card">
         <div class="avatar-frame">
-          <img src="./assets/images/foto-perfil.jpg" alt="Avatar" class="avatar-img">
+          <img src="./assets/images/foto-perfil.jpg" alt="Pablo Jiménez" class="avatar-img">
         </div>
-
-        <div class="intro-content">
-          <h2 class="intro-title">
-            <span id="looping-typewriter"></span><span class="cursor-blink">|</span>
-          </h2>
-          <p class="intro-desc">
-            Soy estudiante de Desarrollo de Aplicaciones Web (DAW). En este blog comparto mis aprendizajes, proyectos y
-            recursos sobre programación.
+        <div class="presentation-info">
+          <h1 class="presentation-title">Pablo Jiménez</h1>
+          <p class="presentation-desc">
+            Estudiante de Desarrollo de Aplicaciones Web (DAW). En este blog comparto mis aprendizajes, proyectos y recursos sobre programación.
           </p>
-
-          <div class="action-buttons">
-            <a href="https://github.com/pjimpin1207" target="_blank" class="btn-dark btn-outline">GitHub ↗</a>
-            <a href="https://pjimpin1207.github.io/DIWEB/" class="btn-dark btn-filled">Blog DIWEB</a>
+          <div class="presentation-links">
+            <a href="https://github.com/pjimpin1207" target="_blank" class="btn-link">GitHub ↗</a>
+            <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="btn-link">Blog DIWEB ↗</a>
           </div>
         </div>
-
-        <!-- Posts Counter Badge -->
-        <div class="stat-badge">
-          <span class="stat-val">56</span>
-          <span class="stat-lbl">Posts</span>
-        </div>
       </div>
-    </div>
-  </section>
-
-  <!-- MAIN CONTAINER (Centered Content) -->
-  <div class="dashboard-container">
-
-    <!-- TOPICS BAR -->
-    <section class="dark-card topics-bar">
-      <span class="topics-label">Temas</span>
-
-      <a href="./posts/Tema1/index.html" class="topic-pill">
-        <span>📚</span> Tema 1
-      </a>
-      <a href="./posts/Tema2/index.html" class="topic-pill">
-        <span>💻</span> Tema 2
-      </a>
-      <a href="./posts/Tema3/index.html" class="topic-pill">
-        <span>⚛️</span> Tema 3
-      </a>
-      <a href="./posts/Tema4/index.html" class="topic-pill">
-        <span>☕</span> Tema 4
-      </a>
-      <a href="./posts/Tema5/index.html" class="topic-pill">
-        <span>🚀</span> Tema 5
-      </a>
     </section>
 
     <!-- CONTENT HEADER -->
     <div class="content-header" id="posts">
-      <h2 class="section-headline">Últimas publicaciones</h2>
+      <h2 Últimas publicaciones</h2>
       <div class="search-pill">
-        <span>🔍</span>
-        <input type="text" id="search-input" placeholder="Buscar artículo...">
+        <span>🔍</span><input type="text" id="search-input" placeholder="Buscar artículo...">
       </div>
     </div>
 
@@ -93,313 +68,313 @@
 
       <article class='post-card'>
         <h3 class='post-title'>Resumen Tema 5</h3>
-        <p class='post-desc'>Principios de la POO: Encapsulación, visibilidad, herencia, paquetes y modificador static.
-        </p>
-        <a href='./posts/Tema5/ResumenDelTema5.html' class='post-link'>Leer más →</a>
+        <p class='post-desc'>Principios de la POO: Encapsulación, visibilidad, herencia, paqué y modificador static.</p>
+        <a href='./posts/Tema5/ResumenDelTema5.html' class='post-link'>Leer más &#8594;</a>
       </article>
 
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 6 - Tema 5</h3>
-        <p class='post-desc'>Investigación de clases del JDK: Object, String, Math y Random.</p>
-        <a href='./posts/Tema5/Ejercicio6.html' class='post-link'>Leer más →</a>
+        <p class='post-desc'>investigación de clases del JDK: Object, String, Math y Random.</p>
+        <a href='./posts/Tema5/Ejercicio6.html' class='post-link'>Leer más &#8594;</a>
       </article>
 
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 4 - Tema 5</h3>
         <p class='post-desc'>Uso de atributos y métodos estáticos (static) con la clase ContadorObjetos.</p>
-        <a href='./posts/Tema5/Ejercicio4.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema5/Ejercicio4.html' class='post-link'>Leer más &#8594;</a>
       </article>
 
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 3 - Tema 5</h3>
         <p class='post-desc'>Contenido relacionado con Ejercicio 3 del Tema5</p>
-        <a href='./posts/Tema5/Ejercicio3.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema5/Ejercicio3.html' class='post-link'>Leer más &#8594;</a>
       </article>
+
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 2 - Tema 5</h3>
-        <p class='post-desc'>Ejercicio 2 del Tema 5: encapsulación, getters y setters con validaciones en la clase
+        <p class='post-desc'>Ejercicio 2 del Tema 5: Encapsulación, getters y setters con validaciones en la clase
           Persona en Java.</p>
-        <a href='./posts/Tema5/Ejercicio2.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema5/Ejercicio2.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 1 - Tema 5</h3>
         <p class='post-desc'>Ejercicio 1 del Tema 5: implementación de una clase CuentaBancaria en Java con
-          encapsulación y métodos básicos.</p>
-        <a href='./posts/Tema5/Ejercicio1.html' class='post-link'>Leer más →</a>
+          Encapsulación y métodos básicos.</p>
+        <a href='./posts/Tema5/Ejercicio1.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Proyecto Tema 4</h3>
         <p class='post-desc'>Proyecto del Tema 4: sistema de gestión de reservas de una biblioteca usando Java, POO y
           enumerados.</p>
-        <a href='./posts/Tema4/ProyectoTema4.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema4/ProyectoTema4.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Resumen del Tema - Tema 4</h3>
-        <p class='post-desc'>Resumen completo de la Unidad 4: Clases, Objetos, Métodos, Constructores y Enumerados en
+        <p class='post-desc'>Resumen completo de la Unidad 4: Clases, Objetos, métodos, Constructores y Enumerados en
           Java.</p>
-        <a href='./posts/Tema4/ResumenDelTema.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema4/ResumenDelTema.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 3 - Tema 4</h3>
         <p class='post-desc'>Ejercicio 3 del Tema 4: gestión de vehículos en un concesionario usando clases, objetos y
           enumerados en Java.</p>
-        <a href='./posts/Tema4/Ejercicio3.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema4/Ejercicio3.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 2 - Tema 4</h3>
         <p class='post-desc'>Ejercicio 2 del Tema 4: uso de enumerados en Java y ampliación de la clase Persona con el
           atributo Sexo.</p>
-        <a href='./posts/Tema4/Ejercicio2.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema4/Ejercicio2.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 1 - Tema 4</h3>
         <p class='post-desc'>Ejercicio 1 del Tema 4: creación de clases, constructores, objetos y uso del depurador en
           Java.</p>
-        <a href='./posts/Tema4/Ejercicio1.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema4/Ejercicio1.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Resumen Tema 3</h3>
-        <p class='post-desc'>1. ¿Qué es la Programación Orientada a Objetos (POO)?</p>
-        <a href='./posts/Tema3/ResumenTema3.html' class='post-link'>Leer más →</a>
+        <p class='post-desc'>1. ¿qué es la programación Orientada a Objetos (POO)?</p>
+        <a href='./posts/Tema3/ResumenTema3.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 34 - Tema 3</h3>
         <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
-        <a href='./posts/Tema3/Ejercicio34.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema3/Ejercicio34.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 33 - Tema 3</h3>
         <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
-        <a href='./posts/Tema3/Ejercicio33.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema3/Ejercicio33.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 32 - Tema 3</h3>
         <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
-        <a href='./posts/Tema3/Ejercicio32.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema3/Ejercicio32.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 31 - Tema 3</h3>
         <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
-        <a href='./posts/Tema3/Ejercicio31.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema3/Ejercicio31.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 30 - Tema 3</h3>
         <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
-        <a href='./posts/Tema3/Ejercicio30.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema3/Ejercicio30.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 29 - Tema 3</h3>
         <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
-        <a href='./posts/Tema3/Ejercicio29.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema3/Ejercicio29.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 28 - Tema 3</h3>
         <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
-        <a href='./posts/Tema3/Ejercicio28.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema3/Ejercicio28.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 27 - Tema 3</h3>
         <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
-        <a href='./posts/Tema3/Ejercicio27.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema3/Ejercicio27.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 26 - Tema 3</h3>
         <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
-        <a href='./posts/Tema3/Ejercicio26.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema3/Ejercicio26.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 25 - Tema 3</h3>
         <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
-        <a href='./posts/Tema3/Ejercicio25.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema3/Ejercicio25.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 24 - Tema 3</h3>
         <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
-        <a href='./posts/Tema3/Ejercicio24.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema3/Ejercicio24.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 23 - Tema 3</h3>
         <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
-        <a href='./posts/Tema3/Ejercicio23.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema3/Ejercicio23.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 22 - Tema 3</h3>
         <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
-        <a href='./posts/Tema3/Ejercicio22.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema3/Ejercicio22.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 21 - Tema 3</h3>
         <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
-        <a href='./posts/Tema3/Ejercicio21.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema3/Ejercicio21.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 20 - Tema 3</h3>
         <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
-        <a href='./posts/Tema3/Ejercicio20.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema3/Ejercicio20.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 19 - Tema 3</h3>
         <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
-        <a href='./posts/Tema3/Ejercicio19.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema3/Ejercicio19.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 18 - Tema 3</h3>
         <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
-        <a href='./posts/Tema3/Ejercicio18.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema3/Ejercicio18.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 17 - Tema 3</h3>
         <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
-        <a href='./posts/Tema3/Ejercicio17.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema3/Ejercicio17.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 16 - Tema 3</h3>
         <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
-        <a href='./posts/Tema3/Ejercicio16.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema3/Ejercicio16.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 15 - Tema 3</h3>
         <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
-        <a href='./posts/Tema3/Ejercicio15.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema3/Ejercicio15.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 14 - Tema 3</h3>
         <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
-        <a href='./posts/Tema3/Ejercicio14.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema3/Ejercicio14.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 13 - Tema 3</h3>
         <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
-        <a href='./posts/Tema3/Ejercicio13.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema3/Ejercicio13.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 12 - Tema 3</h3>
         <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
-        <a href='./posts/Tema3/Ejercicio12.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema3/Ejercicio12.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 11 - Tema 3</h3>
         <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
-        <a href='./posts/Tema3/Ejercicio11.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema3/Ejercicio11.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 10 - Tema 3</h3>
         <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
-        <a href='./posts/Tema3/Ejercicio10.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema3/Ejercicio10.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 9 - Tema 3</h3>
         <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
-        <a href='./posts/Tema3/Ejercicio9.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema3/Ejercicio9.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 8 - Tema 3</h3>
         <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
-        <a href='./posts/Tema3/Ejercicio8.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema3/Ejercicio8.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 7 - Tema 3</h3>
         <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
-        <a href='./posts/Tema3/Ejercicio7.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema3/Ejercicio7.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 6 - Tema 3</h3>
         <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
-        <a href='./posts/Tema3/Ejercicio6.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema3/Ejercicio6.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 5 - Tema 3</h3>
         <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
-        <a href='./posts/Tema3/Ejercicio5.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema3/Ejercicio5.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 4 - Tema 3</h3>
         <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
-        <a href='./posts/Tema3/Ejercicio4.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema3/Ejercicio4.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 3 - Tema 3</h3>
         <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
-        <a href='./posts/Tema3/Ejercicio3.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema3/Ejercicio3.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 2 - Tema 3</h3>
         <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
-        <a href='./posts/Tema3/Ejercicio2.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema3/Ejercicio2.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 1 - Tema 3</h3>
         <p class='post-desc'>Enunciado del ejercicio sobre arrays y estructuras de control.</p>
-        <a href='./posts/Tema3/Ejercicio1.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema3/Ejercicio1.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Resumen del Tema - Tema 2</h3>
-        <p class='post-desc'>1. ¿Qué es una estructura de datos?</p>
-        <a href='./posts/Tema2/ResumenDelTema.html' class='post-link'>Leer más →</a>
+        <p class='post-desc'>1. ¿qué es una estructura de datos?</p>
+        <a href='./posts/Tema2/ResumenDelTema.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicio 27 - Tema 2</h3>
-        <p class='post-desc'>Ejercicio 27: búsqueda de datos sensibles usando expresiones regulares en Python.</p>
-        <a href='./posts/Tema2/Ejercicio27.html' class='post-link'>Leer más →</a>
+        <p class='post-desc'>Ejercicio 27: búsqué de datos sensibles usando expresiones regulares en Python.</p>
+        <a href='./posts/Tema2/Ejercicio27.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicios Con Operaciones Avanzadas Arrays - Tema 2</h3>
-        <p class='post-desc'>Ejercicio 15: Búsqueda Secuencial</p>
-        <a href='./posts/Tema2/EjerciciosConOperacionesAvanzadasArrays.html' class='post-link'>Leer más →</a>
+        <p class='post-desc'>Ejercicio 15: búsqué Secuencial</p>
+        <a href='./posts/Tema2/EjerciciosConOperacionesAvanzadasArrays.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
-        <h3 class='post-title'>Comparacion De Arrays - Tema 2</h3>
+        <h3 class='post-title'>Comparación De Arrays - Tema 2</h3>
         <p class='post-desc'>Ejercicio 19: Comparación de Arrays</p>
-        <a href='./posts/Tema2/ComparacionDeArrays.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema2/ComparaciónDeArrays.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
-        <h3 class='post-title'>Ejercicios Basicos Arrays - Tema 2</h3>
+        <h3 class='post-title'>Ejercicios básicos Arrays - Tema 2</h3>
         <p class='post-desc'>Ejercicio 2: Suma de los valores de un array</p>
-        <a href='./posts/Tema2/EjerciciosBasicosArrays.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema2/EjerciciosbásicosArrays.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Matrices - Tema 2</h3>
         <p class='post-desc'>Ejercicio 21: Declaración y Acceso a Matrices</p>
-        <a href='./posts/Tema2/Matrices.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema2/Matrices.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Ejercicios Operaciones Basicas Arrays - Tema 2</h3>
         <p class='post-desc'>Ejercicio 8: Separar nombre y apellido</p>
-        <a href='./posts/Tema2/EjerciciosOperacionesBasicasArrays.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema2/EjerciciosOperacionesBasicasArrays.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>String YFormateo - Tema 2</h3>
         <p class='post-desc'>Ejercicio: Inversor de Palabras y Palíndromos</p>
-        <a href='./posts/Tema2/StringYFormateo.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema2/StringYFormateo.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
-        <h3 class='post-title'>Ordenacion Arrays - Tema 2</h3>
+        <h3 class='post-title'>Ordenación Arrays - Tema 2</h3>
         <p class='post-desc'>Ejercicio 17: Ordenación Alfabética Ignorando Mayúsculas</p>
-        <a href='./posts/Tema2/OrdenacionArrays.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema2/OrdenaciónArrays.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
-        <h3 class='post-title'>Clasificacion Lenguajes - Tema 1</h3>
+        <h3 class='post-title'>clasificación Lenguajes - Tema 1</h3>
         <p class='post-desc'>Comparativa y clasificación de los principales lenguajes de programación: propósito, tipo,
           ventajas y desventajas.</p>
-        <a href='./posts/Tema1/ClasificacionLenguajes.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema1/clasificaciónguajes.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
         <h3 class='post-title'>Algoritmos Y Diagramas - Tema 1</h3>
         <p class='post-desc'>Ejemplos de algoritmos y diagramas de flujo: aprende a representar procesos lógicos paso a
           paso.</p>
-        <a href='./posts/Tema1/AlgoritmosYDiagramas.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema1/AlgoritmosYDiagramas.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
-        <h3 class='post-title'>Programas Basicos Python - Tema 1</h3>
+        <h3 class='post-title'>Programas básicos Python - Tema 1</h3>
         <p class='post-desc'>Colección de programas básicos en Python para practicar fundamentos de programación,
           condicionales y bucles.</p>
-        <a href='./posts/Tema1/ProgramasBasicosPython.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema1/ProgramasbásicosPython.html' class='post-link'>Leer más &#8594;</a>
       </article>
       <article class='post-card'>
-        <h3 class='post-title'>En Que Consiste La Programacion - Tema 1</h3>
+        <h3 class='post-title'>En qué Consiste La programación - Tema 1</h3>
         <p class='post-desc'>Descubre qué es la programación, sus etapas principales y la diferencia entre algoritmos y
           código con ejemplos en Java.</p>
-        <a href='./posts/Tema1/EnQueConsisteLaProgramacion.html' class='post-link'>Leer más →</a>
+        <a href='./posts/Tema1/Enqué class='post-link'>Leer más &#8594;</a>
       </article>
 
     </div>
@@ -407,19 +382,19 @@
   </div> <!-- End Dashboard Container -->
 
   <!-- Premium Footer -->
-  <footer class="site-footer">
+    <footer class="site-footer">
     <div class="footer-content">
       <div class="footer-brand">
         <h3>Pablo Jiménez</h3>
         <p>Desarrollo de Aplicaciones Web (DAW)</p>
-        <p>© 2025 Blog Programación</p>
+        <p>&#169; 2025 ProgramaciÃ³n</p>
       </div>
       <div class="footer-links">
         <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
-          <span>GitHub ↗</span>
+          <span>GitHub &#8599;</span>
         </a>
         <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
-          <span>Blog DIWEB ↗</span>
+          <span>Blog DIWEB &#8599;</span>
         </a>
       </div>
     </div>

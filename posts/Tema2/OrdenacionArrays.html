@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ordenación y Búsquedas en Arrays - Tema 2</title>
+    <title>Ordenación y búsqué en Arrays - Tema 2</title>
     <meta name="description" content="">
     <link rel="stylesheet" href="../../css/style.css">
 </head>
@@ -12,23 +12,30 @@
 <body>
 
     <!-- ===== HEADER ===== -->
-    <header class="header">
-        <div class="brand-logo">PJP</div>
+            <header class="header">
+        <a href="../../index.html" class="brand-logo">programación</a>
         <nav class="nav">
             <a href="../../index.html">Inicio</a>
-            <a href="../Tema1/index.html">Tema 1</a>
-            <a href="../Tema2/index.html">Tema 2</a>
-            <a href="../Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
         </nav>
-        <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema">
-            <span class="icon">🌙</span>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
         </button>
     </header>
 
     <!-- ===== MAIN CONTENT ===== -->
     <main class="main-wrapper">
         <article class="post-content">
-            <h1>Ordenación y Búsquedas en Arrays</h1>
+            <h1>Ordenación y búsqué en Arrays</h1>
             <p class="meta">Publicado por <strong>pjimpin1207</strong></p>
 
             <div class="post-body">
@@ -38,24 +45,24 @@
         <h3>Enunciado</h3>
         <p>
           Disponemos de una lista de tareas desordenadas.  
-          Queremos obtener un <strong>informe ordenado alfabéticamente</strong>, pero sin que las mayúsculas o minúsculas afecten al orden.
+          qué obtener un <strong>informe ordenado Alfabéticamente</strong>, pero sin qué las Mayúsculas o minúsculas afecten al orden.
         </p>
 
         <blockquote>
-          Ejemplo: “comprar café” debe aparecer antes que “Llamar al cliente”
+          Ejemplo: “comprar café” debe aparecer antes qué “Llamar al cliente”
         </blockquote>
 
         <h3>Solución</h3>
-        <pre><code># Ejercicio 17 - Ordenación sin distinguir mayúsculas/minúsculas
+        <pre><code># Ejercicio 17 - Ordenación sin distinguir Mayúsculas
 
 tareasDia = ["Revosar email", "llamar cliente", "comprar cafe",
              "actualizar reporte", "planificar reunion"]
 
-# Crear lista ordenada alfabéticamente ignorando mayúsculas
+# Crear lista ordenada Alfabéticamente ignorando Mayúsculas
 informeOrdenado = sorted(tareasDia, key=str.lower)
 
 # Imprimir lista ordenada temporal
-print("Informe ordenado alfabéticamente sin distinguir mayúsculas:")
+print("Informe ordenado Alfabéticamente sin distinguir Mayúsculas:")
 print(informeOrdenado)
 
 # Imprimir lista original
@@ -63,21 +70,21 @@ print("Lista original:")
 print(tareasDia)</code></pre>
 
         <p>
-          Con <code>sorted(lista, key=str.lower)</code> conseguimos una ordenación estable y exacta, ignorando mayúsculas.
+          Con <code>sorted(lista, key=str.lower)</code> conseguimos una Ordenación estable y exacta, ignorando Mayúsculas.
         </p>
 
 
 
         <!-- ===================== EJERCICIO 18 ===================== -->
-        <h2>Ejercicio 18: Comparación entre Búsqueda Secuencial y Binaria</h2>
+        <h2>Ejercicio 18: Comparación entre búsqué Secuencial y Binaria</h2>
 
         <h3>Enunciado</h3>
         <p>Debes realizar los siguientes pasos:</p>
 
         <ul>
           <li>Crear un array de números desordenados.</li>
-          <li>Buscar un número usando búsqueda secuencial.</li>
-          <li>Buscar el mismo número usando búsqueda binaria.</li>
+          <li>Buscar un número usando búsqué secuencial.</li>
+          <li>Buscar el mismo número usando búsqué binaria.</li>
           <li>Comparar ambos resultados.</li>
           <li>Ordenar el array y repetir ambos algoritmos.</li>
           <li>Comparar de nuevo los resultados.</li>
@@ -85,7 +92,7 @@ print(tareasDia)</code></pre>
 
         <h3>Solución</h3>
 
-        <pre><code># Ejercicio 18 - Comparar búsqueda secuencial y búsqueda binaria
+        <pre><code># Ejercicio 18 - Comparar búsqué secuencial y búsqué binaria
 
 # Importamos las funciones del ejercicio 15 y 16
 import Ejercicio16
@@ -96,36 +103,36 @@ arrayDesordenado = [3, 15, 2, 21, 15, 66, 50, 43, 51]
 print("Array original desordenado:", arrayDesordenado)
 
 # Número a buscar
-buscar = int(input("Introduce el número que deseas buscar: "))
+buscar = int(input("Introduce el número qué deseas buscar: "))
 
 # Buscar en el array desordenado
-indiceSecuencial = Ejercicio15_2.busquedaSecuencial(arrayDesordenado, buscar)
-indiceBinaria = Ejercicio16.busquedaBinaria(arrayDesordenado, buscar)
+indiceSecuencial = Ejercicio15_2.búsqué buscar)
+indiceBinaria = Ejercicio16.búsqué buscar)
 
 print("\nResultados en el array desordenado:")
-print("Búsqueda secuencial:", indiceSecuencial)
-print("Búsqueda binaria:", indiceBinaria)
+print("búsqué secuencial:", indiceSecuencial)
+print("búsqué binaria:", indiceBinaria)
 
 # Ordenar el array
 arrayDesordenado.sort()
 print("\nArray ordenado:", arrayDesordenado)
 
 # Buscar de nuevo en array ordenado
-indiceSecuencialOrdenado = Ejercicio15_2.busquedaSecuencial(arrayDesordenado, buscar)
-indiceBinariaOrdenada = Ejercicio16.busquedaBinaria(arrayDesordenado, buscar)
+indiceSecuencialOrdenado = Ejercicio15_2.búsqué buscar)
+indiceBinariaOrdenada = Ejercicio16.búsqué buscar)
 
 print("\nResultados en el array ordenado:")
-print("Búsqueda secuencial:", indiceSecuencialOrdenado)
-print("Búsqueda binaria:", indiceBinariaOrdenada)
+print("búsqué secuencial:", indiceSecuencialOrdenado)
+print("búsqué binaria:", indiceBinariaOrdenada)
 
 # Explicación final:
-# - La búsqueda secuencial funciona igual en un array ordenado o desordenado.
-# - La búsqueda binaria SOLO funciona correctamente si el array está ordenado.</code></pre>
+# - La búsqué secuencial funciona igual en un array ordenado o desordenado.
+# - La búsqué binaria SOLO funciona correctamente si el array está ordenado.</code></pre>
 
         <h3>Conclusión</h3>
         <ul>
-          <li><strong>Búsqueda Secuencial</strong>: funciona siempre, pero es más lenta.</li>
-          <li><strong>Búsqueda Binaria</strong>: rapidísima, pero requiere un array <strong>ordenado</strong>.</li>
+          <li><strong>búsqué Secuencial</strong>: funciona siempre, pero es más lenta.</li>
+          <li><strong>búsqué Binaria</strong>: rapidísima, pero requé un array <strong>ordenado</strong>.</li>
         </ul>
             </div>
         </article>
@@ -138,22 +145,22 @@ print("Búsqueda binaria:", indiceBinariaOrdenada)
     <!-- ===== FOOTER ===== -->
       <!-- Premium Footer -->
     <!-- Premium Footer -->
-  <footer class="site-footer">
-      <div class="footer-content">
-          <div class="footer-brand">
-              <h3>Pablo Jiménez</h3>
-              <p>Desarrollo de Aplicaciones Web (DAW)</p>
-              <p>© 2025 Blog Programación</p>
-          </div>
-          <div class="footer-links">
-              <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
-                  <span>GitHub ↗</span>
-              </a>
-              <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
-                  <span>Blog DIWEB ↗</span>
-              </a>
-          </div>
+    <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 ProgramaciÃ³n</p>
       </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
   </footer>
 
     <script src="../../js/main.js"></script>

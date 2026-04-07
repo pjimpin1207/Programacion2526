@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es" data-theme="light">
 
 <head>
@@ -13,20 +13,25 @@
 <body>
 
   <!-- ===== HEADER ===== -->
-  <header class="header">
-    <div class="brand-logo">PJP</div>
-    <nav class="nav">
-      <a href="../../index.html">Inicio</a>
-      <a href="../Tema1/index.html">Tema 1</a>
-      <a href="../Tema2/index.html">Tema 2</a>
-      <a href="../Tema3/index.html">Tema 3</a>
-      <a href="../Tema4/index.html">Tema 4</a>
-      <a href="../Tema5/index.html" class="active">Tema 5</a>
-    </nav>
-    <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema">
-      <span class="icon">🌙</span>
-    </button>
-  </header>
+          <header class="header">
+        <a href="../../index.html" class="brand-logo">programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
 
   <!-- ===== MAIN CONTENT ===== -->
   <main class="main-wrapper">
@@ -41,7 +46,7 @@
 
         <h3>📄 Enunciado</h3>
         <p>
-          Vamos a implementar una clase llamada <strong>ContadorObjetos</strong> que tenga
+          Vamos a implementar una clase llamada <strong>ContadorObjetos</strong> qué tenga
           un atributo estático para llevar la cuenta del número total de objetos creados.
         </p>
 
@@ -54,8 +59,8 @@
         <ul>
           <li>Crear la clase <code>ContadorObjetos</code>.</li>
           <li>Definir un atributo estático <code>totalObjetos</code> inicializado a 0.</li>
-          <li>Incrementar el contador cada vez que se crea un objeto.</li>
-          <li>Crear un método estático que muestre el total de objetos creados.</li>
+          <li>Incrementar el contador cada vez qué se crea un objeto.</li>
+          <li>Crear un método estático qué muestre el total de objetos creados.</li>
           <li>Desde otra clase, crear varios objetos y mostrar el contador.</li>
         </ul>
 
@@ -104,23 +109,23 @@ public class Main {
 
         <h3>🧠 Explicación</h3>
         <p>
-          El atributo <code>totalObjetos</code> es <strong>estático</strong>, lo que significa
-          que pertenece a la clase y no a cada objeto individual.
+          El atributo <code>totalObjetos</code> es <strong>estático</strong>, lo qué significa
+          qué pertenece a la clase y no a cada objeto individual.
         </p>
 
         <p>
-          Cada vez que se crea una nueva instancia de <code>ContadorObjetos</code>, el
+          Cada vez qué se crea una nueva instancia de <code>ContadorObjetos</code>, el
           constructor incrementa el valor del contador compartido por todos los objetos.
         </p>
 
         <p>
-          El método <code>mostrarTotalObjetos()</code> también es estático, por lo que puede
+          El método <code>mostrarTotalObjetos()</code> también es estático, por lo qué puede
           llamarse directamente desde la clase sin necesidad de crear un objeto.
         </p>
 
         <h3>❓ Preguntas de reflexión</h3>
 
-        <h4>¿Qué diferencia hay entre un atributo/método estático y uno no estático?</h4>
+        <h4>¿qué diferencia hay entre un atributo/método estático y uno no estático?</h4>
         <p>
           Un atributo o método <strong>estático</strong> pertenece a la clase y es compartido
           por todas las instancias.
@@ -128,15 +133,15 @@ public class Main {
           independiente.
         </p>
 
-        <h4>¿Qué pasaría si totalObjetos no fuera estático?</h4>
+        <h4>¿qué pasaría si totalObjetos no fuera estático?</h4>
         <p>
-          Cada objeto tendría su propio contador, por lo que no se podría llevar la cuenta
+          Cada objeto tendría su propio contador, por lo qué no se podría llevar la cuenta
           total de objetos creados. El valor siempre sería independiente en cada instancia.
         </p>
 
         <h4>¿Por qué podemos llamar al método mostrarTotalObjetos sin crear una instancia?</h4>
         <p>
-          Porque es un método estático. Los métodos estáticos pertenecen a la clase y se
+          ¿qué es un método estático. Los métodos estáticos pertenecen a la clase y se
           pueden invocar directamente usando el nombre de la clase.
         </p>
 
@@ -157,19 +162,19 @@ public class Main {
   </main>
 
   <!-- ===== FOOTER ===== -->
-  <footer class="site-footer">
+    <footer class="site-footer">
     <div class="footer-content">
       <div class="footer-brand">
         <h3>Pablo Jiménez</h3>
         <p>Desarrollo de Aplicaciones Web (DAW)</p>
-        <p>© 2025 Blog Programación</p>
+        <p>&#169; 2025 ProgramaciÃ³n</p>
       </div>
       <div class="footer-links">
         <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
-          <span>GitHub ↗</span>
+          <span>GitHub &#8599;</span>
         </a>
         <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
-          <span>Blog DIWEB ↗</span>
+          <span>Blog DIWEB &#8599;</span>
         </a>
       </div>
     </div>
