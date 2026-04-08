@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resumen Tema 7: Excepciones</title>
+  <meta name="description" content="Resumen completo de la Unidad 7: Control y manejo de Excepciones en Java, jerarquía, try-catch, propagación y buenas prácticas.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html" class="active">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Tema 7 • Resumen del Tema Excepciones</div>
+      <h1>Resumen del Tema 7: Control y Manejo de Excepciones</h1>
+
+      <div class="post-body">
+        <p>En el desarrollo de software, es inevitable que ocurran errores. Una <strong>excepción</strong> es un evento producido durante la ejecución de un programa que altera el flujo normal de las instrucciones. Antes, los programadores tenían que devolver tediosos códigos de error (como "-1" o "404") en cada método; hoy en día, Java nos ofrece un sistema robusto orientado a objetos para capturar y manejar estos problemas.</p>
+
+        <h2>1. Jerarquía de Excepciones</h2>
+        <p>En Java, todos los errores y excepciones derivan de la clase base <code>java.lang.Object</code>, pasando por <code>Throwable</code>, la cual se divide en dos grandes ramas:</p>
+        <ul>
+          <li><strong>Error (Irrecuperables):</strong> Son errores graves del entorno o de la Máquina Virtual de Java (JVM) que no debemos intentar gestionar en nuestro código. Ejemplos: <code>StackOverflowError</code> o <code>OutOfMemoryError</code>.</li>
+          <li><strong>Exception (Recuperables):</strong> Son los problemas derivados de nuestro código o del uso de la aplicación, y son los que sí debemos capturar y gestionar.</li>
+        </ul>
+
+        <h2>2. Excepciones: Checked vs Unchecked</h2>
+        <p>Dentro de la rama <code>Exception</code>, encontramos dos clasificaciones vitales a la hora de programar:</p>
+
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 2rem;">
+            <thead>
+                <tr style="background-color: var(--accent-glow); text-align: left;">
+                    <th style="padding: 1rem; border-bottom: 2px solid var(--accent-color);">Checked (Verificadas)</th>
+                    <th style="padding: 1rem; border-bottom: 2px solid var(--accent-color);">Unchecked (No Verificadas)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Dependen del uso del programa (ej: el usuario introduce mal la ruta de un archivo).</td>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Son errores de programación nuestros (ej: acceder a un índice de array que no existe).</td>
+                </tr>
+                <tr>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">El compilador <strong>obliga</strong> a gestionarlas (capturarlas o propagarlas).</td>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Java las lanza automáticamente. No estamos obligados a gestionarlas mediante código, <strong>debemos arreglar el bug</strong>.</td>
+                </tr>
+                <tr>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Heredan de <code>Exception</code>.<br>Ej: <code>IOException</code>, <code>FileNotFoundException</code>.</td>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Heredan de <code>RuntimeException</code>.<br>Ej: <code>NullPointerException</code>, <code>ArithmeticException</code>.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>3. Manejo de Excepciones: Try, Catch, Finally</h2>
+        <p>Cuando un bloque de código es susceptible de generar una excepción, podemos rodearlo con una estructura <code>try-catch</code>. Esto evita que el programa se cuelgue bruscamente.</p>
+        
+        <ul>
+            <li><code>try</code>: Contiene el código que puede fallar.</li>
+            <li><code>catch</code>: Captura la excepción específica y define cómo actuar ante ella. Se pueden encadenar varios.</li>
+            <li><code>finally</code>: (Opcional) Código que se ejecutará <strong>siempre</strong>, haya ocurrido un error o no. Es ideal para cerrar conexiones o liberar recursos.</li>
+        </ul>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">System.out.println("COMIENZO PROGRAMA DIVISIÓN");
+try {
+    int dividendo = 5;
+    int divisor = 0;
+    // Esto lanzará ArithmeticException
+    System.out.println("Resultado: " + (dividendo / divisor));
+    
+} catch (ArithmeticException ex) {
+    System.out.println("Error: Imposible dividir por 0.");
+    
+} finally {
+    System.out.println("Operación finalizada.");
+}
+System.out.println("FIN PROGRAMA");</code></pre>
+        </div>
+
+        <h2>4. Propagación y Lanzamiento (Throws y Throw)</h2>
+        <p>A veces, el método donde ocurre el error no es el responsable de decidir qué hacer. En esos casos, podemos <strong>propagar</strong> la excepción hacia el método que lo invocó utilizando <code>throws</code> en la firma del método.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">// El método "avisa" de que puede lanzar esta excepción
+private static int division(int dividendo, int divisor) throws ArithmeticException {
+    return dividendo / divisor;
+}</code></pre>
+        </div>
+
+        <p>Además, podemos <strong>lanzar manualmente</strong> una excepción cuando se incumpla una regla de negocio utilizando la palabra <code>throw</code>:</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">public void setEdad(int edad) {
+    if (edad < 0) {
+        throw new IllegalArgumentException("La edad no puede ser negativa.");
+    }
+    this.edad = edad;
+}</code></pre>
+        </div>
+
+        <h2>5. Excepciones Personalizadas</h2>
+        <p>Podemos crear nuestras propias excepciones ad-hoc para hacer nuestro código más semántico. Basta con crear una clase que herede de <code>Exception</code> (si queremos que sea Checked) o de <code>RuntimeException</code> / <code>IllegalArgumentException</code> (si queremos que sea Unchecked).</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">public class ExcepcionEdadInvalida extends IllegalArgumentException {
+    public ExcepcionEdadInvalida(String mensaje) {
+        super(mensaje);
+    }
+}</code></pre>
+        </div>
+
+        <h2>6. Buenas Prácticas y Aserciones</h2>
+        <ul>
+            <li><strong>Nunca ocultar excepciones:</strong> Evita hacer un bloque <code>catch</code> vacío. Si ignoras el error, será muy difícil depurar el programa después.</li>
+            <li><strong>Capturar lo antes posible:</strong> Atrapa la excepción en el nivel más bajo posible para poder recomponer la ejecución del programa rápidamente.</li>
+            <li><strong>Sé específico:</strong> Evita capturar la clase genérica <code>Exception</code>, captura las excepciones concretas (como <code>IOException</code>).</li>
+            <li><strong>Aserciones (assert):</strong> Sirven para comprobar condiciones durante la etapa de desarrollo (por ejemplo: <code>assert x > 0 : "El valor debe ser positivo";</code>). No deben usarse en producción como sustitutos del control de errores normal.</li>
+        </ul>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../index.html" class="card-link">← Volver al Inicio</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

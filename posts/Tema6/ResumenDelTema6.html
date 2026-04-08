@@ -1,1 +1,208 @@
-﻿
+﻿<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resumen Tema 6: Interfaces</title>
+  <meta name="description" content="Resumen completo de la Unidad 6: Interfaces en Java, polimorfismo, herencia múltiple y buenas prácticas.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html" class="active">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Tema 6 • Resumen del tema Interfaces</div>
+      <h1>Resumen del Tema 6: Interfaces en Java</h1>
+
+      <div class="post-body">
+        <p>En este tema abordamos las <strong>Interfaces</strong>, un mecanismo fundamental en Java para definir contratos, favorecer el polimorfismo y mejorar el diseño modular de nuestras aplicaciones.</p>
+
+        <h2>1. ¿Qué es una Interfaz?</h2>
+        <p>Una interfaz es una plantilla que define un conjunto de métodos abstractos y constantes. Representa otra forma de lograr la abstracción en la Programación Orientada a Objetos. Sus características principales son:</p>
+        <ul>
+          <li><strong>Métodos abstractos:</strong> Se declaran sin cuerpo y deben ser implementados obligatoriamente por las clases. (No es necesario poner la palabra <code>abstract</code>).</li>
+          <li><strong>Constantes:</strong> Son implícitamente <code>public</code>, <code>static</code> y <code>final</code>.</li>
+          <li><strong>Instanciación:</strong> Una interfaz <strong>no</strong> puede ser instanciada directamente.</li>
+          <li><strong>Herencia múltiple:</strong> A diferencia de las clases, una clase puede implementar <strong>varias</strong> interfaces a la vez.</li>
+          <li><strong>Novedades (Desde Java 8):</strong> Las interfaces pueden tener métodos por defecto (<code>default</code>) y métodos estáticos con implementación.</li>
+        </ul>
+
+        <h2>2. Interfaces vs Clases Abstractas</h2>
+        <p>Aunque ambas logran abstracción, tienen diferencias clave en su propósito y reglas de uso:</p>
+
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 2rem;">
+            <thead>
+                <tr style="background-color: var(--accent-glow); text-align: left;">
+                    <th style="padding: 1rem; border-bottom: 2px solid var(--accent-color);">Característica</th>
+                    <th style="padding: 1rem; border-bottom: 2px solid var(--accent-color);">Interfaz</th>
+                    <th style="padding: 1rem; border-bottom: 2px solid var(--accent-color);">Clase Abstracta</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);"><strong>Métodos</strong></td>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Solo abstractos (hasta Java 7). Desde Java 8, también <code>default</code> y <code>static</code>.</td>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Abstractos y concretos.</td>
+                </tr>
+                <tr>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);"><strong>Herencia</strong></td>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Herencia múltiple (una clase implementa varias interfaces).</td>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Herencia simple (una clase solo extiende de otra).</td>
+                </tr>
+                <tr>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);"><strong>Modificadores</strong></td>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);"><code>public</code> o <code>default</code> (package).</td>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Puede tener cualquier modificador.</td>
+                </tr>
+                <tr>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);"><strong>Usos</strong></td>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Clases no muy relacionadas a las que queremos añadir funcionalidades comunes.</td>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Clases muy relacionadas entre sí.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>3. Sintaxis y Ejemplo Completo</h2>
+        <p>Para definir una interfaz utilizamos la palabra reservada <code>interface</code>. Veamos un ejemplo con la interfaz <code>Vehiculo</code> y su implementación en la clase <code>Coche</code>.</p>
+
+        <h3>La Interfaz</h3>
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">public interface Vehiculo {
+    // Atributo (constante)
+    int VELOCIDAD_MAXIMA = 120;
+
+    // Métodos abstractos
+    void acelerar(int cantidad);
+    void frenar(int cantidad);
+
+    // Método default (Java 8+)
+    default void mostrarVelocidadMaxima() {
+        System.out.println("Velocidad máxima: " + VELOCIDAD_MAXIMA);
+    }
+
+    // Método estático
+    static void informacionGeneral() {
+        System.out.println("Los vehículos permiten desplazarse.");
+    }
+}</code></pre>
+        </div>
+
+        <h3>La Implementación</h3>
+        <p>Usamos la palabra clave <code>implements</code> y sobrescribimos (<code>@Override</code>) los métodos abstractos.</p>
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">public class Coche implements Vehiculo {
+    private int velocidadActual;
+
+    @Override
+    public void acelerar(int cantidad) {
+        velocidadActual += cantidad;
+        if (velocidadActual > VELOCIDAD_MAXIMA) {
+            velocidadActual = VELOCIDAD_MAXIMA;
+        }
+    }
+
+    @Override
+    public void frenar(int cantidad) {
+        velocidadActual -= cantidad;
+        if (velocidadActual < 0) {
+            velocidadActual = 0;
+        }
+    }
+
+    public void mostrarEstado() {
+        System.out.println("Velocidad actual: " + velocidadActual);
+    }
+}</code></pre>
+        </div>
+
+        <h2>4. Herencia e Interfaces Juntas</h2>
+        <p>En Java, una clase puede heredar de una superclase (usando <code>extends</code>) y al mismo tiempo implementar una o varias interfaces (usando <code>implements</code>). El orden es estricto: primero se extiende y luego se implementa.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">class Perro extends Animal implements Corredor, Nadador {
+    // Implementación de métodos abstractos de Animal
+    // Implementación de métodos abstractos de Corredor y Nadador
+}</code></pre>
+        </div>
+
+        <h2>5. Buenas Prácticas y Polimorfismo</h2>
+        <p>Una regla de oro en el diseño orientado a objetos es: <strong>Se declara con Interfaces y se instancia con Clases</strong>. Esto favorece un código mucho más flexible.</p>
+
+        <blockquote>
+            Animal mascota = new Perro();<br>
+            Así se favorece un código más flexible gracias al polimorfismo.
+        </blockquote>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">public class Main {
+    public static void main(String[] args) {
+        Animal a;
+        
+        a = new Perro();
+        a.hacerSonido(); // Imprime: Guau
+        
+        a = new Gato();
+        a.hacerSonido(); // Imprime: Miau
+    }
+}</code></pre>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../index.html" class="card-link">← Volver al Inicio</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 5: Excepciones Personalizadas</title>
+  <meta name="description" content="Solución al Ejercicio 5 del Tema 7: Cómo crear y utilizar excepciones personalizadas en Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html" class="active">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Tema 7 • Ejercicios</div>
+      <h1>Ejercicio 5: Creación de Excepciones Personalizadas</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>Partiendo del ejercicio anterior (introducción de números en una lista), vamos a profesionalizar el manejo de errores creando nuestra propia excepción.</p>
+        
+        <p><strong>Pasos a seguir:</strong></p>
+        <ol>
+            <li>Crear una clase llamada <code>NumeroRepetido</code> que herede de <code>IllegalArgumentException</code>.</li>
+            <li>Crear un constructor con parámetros que reutilice el código del padre (<code>super</code>).</li>
+            <li>Modificar la lógica para lanzar esta nueva excepción en lugar de la genérica cuando un número ya exista en la lista.</li>
+        </ol>
+
+        <h2>Solución</h2>
+        <p>Para resolver este ejercicio, dividiremos el código en dos ficheros: la definición de nuestra excepción y la lógica del programa principal.</p>
+
+        <h3>1. Definición de la Excepción Personalizada</h3>
+        <p>Al heredar de <code>IllegalArgumentException</code>, nuestra excepción será de tipo <strong>Unchecked</strong>. Reutilizamos el constructor del padre para poder pasarle un mensaje descriptivo.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema7.Ejercicios.ejercicio5;
+
+// Paso 1 y 2: Heredar de la clase adecuada y crear el constructor
+public class NumeroRepetido extends IllegalArgumentException {
+    public NumeroRepetido(String mensaje) {
+        super(mensaje);
+    }
+}</code></pre>
+        </div>
+
+        <h3>2. Implementación en el Programa Principal</h3>
+        <p>En esta clase, lanzamos <code>NumeroRepetido</code> cuando detectamos el duplicado y la capturamos específicamente en el <code>main</code>.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema7.Ejercicios.ejercicio5;
+
+import java.util.Scanner;
+
+public class Ejercicio5 {
+    public static void main(String[] args) {
+        try {
+            agregarNumeros();
+        } catch (NumeroRepetido e) {
+            // Imprimimos la traza y el mensaje personalizado
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        } finally {
+            // Este bloque se ejecuta siempre
+            System.out.println("Bloque finally ejecutado: Limpieza de recursos...");
+        }
+        System.out.println("Fin de la ejecución del programa.");
+    }
+
+    private static void agregarNumeros() {
+        int[] lista = {0, 12, 20, 13, 40};
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Introduce un número: ");
+        int numero = scanner.nextInt();
+
+        // Paso 3: Lanzar nuestra excepción personalizada
+        if (estaEnLista(lista, numero)) {
+            throw new NumeroRepetido("Error: El número " + numero + " ya está en la lista.");
+        }
+
+        System.out.println("El número no estaba repetido. Lista actual:");
+        for (int e : lista) {
+            System.out.println(e);
+        }
+        
+        scanner.close();
+    }
+
+    private static boolean estaEnLista(int[] lista, int numero) {
+        for (int e : lista) {
+            if (e == numero) return true;
+        }
+        return false;
+    }
+}</code></pre>
+        </div>
+
+        <h3>Nota sobre el bloque finally</h3>
+        <p>Como se observa en el código, el bloque <code>finally</code> nos asegura que ciertas instrucciones (como cerrar conexiones o mostrar mensajes de cierre) se ejecuten independientemente de si el número estaba repetido o no.</p>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../index.html" class="card-link">← Volver al Inicio</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

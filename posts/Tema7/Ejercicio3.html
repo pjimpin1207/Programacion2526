@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 3: Lanzamiento Manual de Excepciones</title>
+  <meta name="description" content="Solución al Ejercicio 3 del Tema 7: Cómo lanzar excepciones manualmente usando la palabra reservada throw en Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html" class="active">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Tema 7 • Ejercicios</div>
+      <h1>Ejercicio 3: Lanzar excepciones manualmente (throw)</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>Lanzar una excepción manualmente cuando se intenta meter una edad menor que 0 a una persona.</p>
+
+        <h2>Solución</h2>
+        <p>En este ejercicio practicamos el <strong>lanzamiento explícito</strong> de excepciones. En lugar de esperar a que Java detecte un error interno, somos nosotros quienes definimos una regla de negocio (la edad no puede ser negativa) y utilizamos la palabra reservada <code>throw</code> para interrumpir el flujo si dicha regla se incumple.</p>
+
+        <p>Utilizamos <code>IllegalArgumentException</code> ya que es la excepción estándar de Java perfecta para indicar que a un método se le ha pasado un argumento inapropiado o incorrecto.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema7.Ejercicios.ejercicio3;
+
+public class Ejercicio3 {
+    private String nombre;
+    private int edad;
+
+    public void setEdad(int edad) {
+        // Comprobamos la regla de negocio
+        if (edad < 0) {
+            // Lanzamos la excepción manualmente con un mensaje descriptivo
+            throw new IllegalArgumentException("La edad no puede ser negativa: " + edad);
+        }
+        
+        // Si todo es correcto, asignamos el valor
+        this.edad = edad;
+    }
+}</code></pre>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../index.html" class="card-link">← Volver al Inicio</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

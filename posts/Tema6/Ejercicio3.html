@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 3: Jerarquía de Vehículos</title>
+  <meta name="description" content="Solución al Ejercicio 3 del Tema 6: Implementación de un diagrama de clases de vehículos usando herencia, interfaces y enumerados en Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html" class="active">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Tema 6 • Ejercicios del Tema</div>
+      <h1>Ejercicio 3: Jerarquía de Vehículos</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>Implementa el siguiente diagrama de clases:</p>
+
+        <div style="text-align: center; margin: 2rem 0;">
+            <img src="../../assets/images/DiagramaEjercicio3Tema6.png" alt="Diagrama de clases del Ejercicio 3" style="max-width: 100%; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border-color);">
+        </div>
+
+        <h2>Solución Propuesta</h2>
+        <p>Para esta solución, estructuraremos el código empezando por los tipos básicos (el enumerado y la interfaz), luego crearemos la clase abstracta principal y, por último, las clases concretas y el programa ejecutable.</p>
+
+        <h3>1. Enumerado e Interfaz</h3>
+        <p>Definimos los tipos de combustible disponibles y el contrato para el mantenimiento.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema6.Ejercicios.ejercicio3;
+
+public enum FuelType {
+    GASOLINE, DIESEL, ELECTRIC, HYBRID
+}</code></pre>
+        </div>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema6.Ejercicios.ejercicio3;
+
+public interface Maintenance {
+    String nextMaintenanceDate();
+}</code></pre>
+        </div>
+
+        <h3>2. Clase Abstracta Base (Vehicle)</h3>
+        <p>Esta clase agrupa los atributos comunes, maneja un contador estático de vehículos instanciados y sobrescribe métodos de la clase <code>Object</code> como <code>toString</code> y <code>equals</code>.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema6.Ejercicios.ejercicio3;
+
+public abstract class Vehicle implements Maintenance {
+    private String licensePlate;
+    private String brand;
+    private int year;
+    private FuelType fuelType;
+    private static int vehicleCount = 0;
+
+    public Vehicle(String licensePlate, String brand, int year, FuelType fuelType) {
+        this.licensePlate = licensePlate;
+        this.brand = brand;
+        this.year = year;
+        this.fuelType = fuelType;
+        vehicleCount++;
+    }
+
+    // metodo abstracto
+    public abstract double calculateSpeed();
+
+    public String getVehicleInfo() {
+        return brand + " (" + licensePlate + ")";
+    }
+    
+    // metodo para obtener el total
+    public static int getTotalVehicles() {
+        return vehicleCount;
+    }
+
+    // getters y setters
+    public String getLicensePlate() {
+        return licensePlate;
+    }
+    public String getBrand() {
+        return brand;
+    }
+
+    // sobreescribir
+    @Override
+    public String nextMaintenanceDate() {
+        return String.valueOf(year);
+    }
+
+    @Override
+    public String toString() {
+        return "Vehicle: " + brand + ", Plate: " + licensePlate;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        else {
+            if (this.licensePlate.equals(((Vehicle) obj).licensePlate))
+                return true;
+            else
+                return false;
+        }
+    }
+}</code></pre>
+        </div>
+
+        <h3>3. Clases Derivadas (Car y Motorcycle)</h3>
+        <p>Implementan los métodos abstractos de su clase padre y añaden sus atributos específicos (número de puertas o si tiene sidecar).</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema6.Ejercicios.ejercicio3;
+
+public class Car extends Vehicle {
+    private int numberOfDoors;
+
+    public Car(String lp, String b, int y, FuelType ft, int doors) {
+        super(lp, b, y, ft);
+        this.numberOfDoors = doors;
+    }
+
+    @Override
+    public double calculateSpeed() {
+        return 120.0;
+    }
+
+    @Override
+    public String nextMaintenanceDate() {
+        return "2024-12-01";
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", Doors: " + numberOfDoors;
+    }
+}</code></pre>
+        </div>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema6.Ejercicios.ejercicio3;
+
+public class Motorcycle extends Vehicle {
+    private boolean hasSidecar;
+
+    public Motorcycle(String lp, String b, int y, FuelType ft, boolean sidecar) {
+        super(lp, b, y, ft);
+        this.hasSidecar = sidecar;
+    }
+
+    @Override
+    public double calculateSpeed() {
+        return 90.0;
+    }
+
+    @Override
+    public String nextMaintenanceDate() {
+        return "2024-10-15";
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", Has Sidecar: " + hasSidecar;
+    }
+}</code></pre>
+        </div>
+
+        <h3>4. Clase Principal (Main)</h3>
+        <p>Probamos nuestro sistema creando una colección de vehículos, iterando sobre ellos y comprobando el contador estático total.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema6.Ejercicios.ejercicio3;
+
+import java.util.ArrayList;
+
+public class Main {
+    public static void main(String[] args) {
+        // crear array
+        ArrayList<Vehicle> numerovehiculos = new ArrayList<>();
+
+        // crear vehiculos
+        numerovehiculos.add(new Car("1111-AAA", "Seat", 2023, FuelType.DIESEL, 5));
+        numerovehiculos.add(new Motorcycle("2222-BBB", "Honda", 2024, FuelType.GASOLINE, true));
+        numerovehiculos.add(new Car("3333-CCC", "Toyota", 2025, FuelType.DIESEL, 5));
+        numerovehiculos.add(new Car("444-DDD)", "Nissan", 2023, FuelType.HYBRID, 5));
+
+        // recorrer el array
+        System.out.println("lista de vehiculos");
+        for (Vehicle v : numerovehiculos) {
+            System.out.println(v.getVehicleInfo());
+        }
+
+        // get total vehiculos
+        int total = Vehicle.getTotalVehicles();
+        System.out.println("Total de vehiculos: " + total);
+    }
+}</code></pre>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../index.html" class="card-link">← Volver al Inicio</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

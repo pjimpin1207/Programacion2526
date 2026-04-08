@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 2: Sistema de animales</title>
+  <meta name="description" content="Solución al Ejercicio 2 del Tema 6: Sistema de animales usando polimorfismo, interfaces y colecciones en Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html" class="active">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Tema 6 • Ejercicios del Tema</div>
+      <h1>Ejercicio 2: Sistema de animales</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p><strong>Actividad:</strong> Sistema de animales (polimorfismo + interfaces + colecciones)</p>
+        
+        <h3>Contexto</h3>
+        <p>Se quiere desarrollar un pequeño sistema que gestione distintos tipos de animales en una granja/zoológico. Todos los animales deben poder emitir un sonido, pero cada uno lo hará de forma diferente.</p>
+
+        <ul>
+            <li><strong>Parte 1 – Interfaz (obligatoria):</strong> Define la interfaz <code>Animal</code> con el método <code>void hacerSonido();</code>.</li>
+            <li><strong>Parte 2 – Implementaciones (obligatoria):</strong> Crea al menos 3 clases (Perro, Gato, Vaca) que implementen la interfaz y muestren un sonido distinto.</li>
+            <li><strong>Parte 3 – Uso de polimorfismo (obligatoria):</strong> En el Main, crea un ArrayList de tipo <code>Animal</code>, añade distintos animales, recórrelo y ejecuta <code>hacerSonido()</code>.</li>
+            <li><strong>Parte 4 – Herencia (ampliación media):</strong> Crea una clase abstracta <code>AnimalBase</code> que implemente <code>Animal</code>, contenga el atributo <code>nombre</code> y un método para mostrarlo. Modifica las clases para que extiendan de ella.</li>
+            <li><strong>Parte 5 – Método adicional (ampliación media):</strong> Añade a la interfaz el método <code>void comer();</code> e impleméntalo en cada clase.</li>
+            <li><strong>Parte 6 – Comportamiento adicional (ampliación avanzada):</strong> En el Main, haz que cada animal muestre su nombre, coma y haga su sonido.</li>
+            <li><strong>Parte 7 – Reto (ampliación alta):</strong> Crea una interfaz <code>Volador</code> con el método <code>volar()</code>. Crea la clase <code>Pajaro</code> que implemente tanto <code>Animal</code> como <code>Volador</code>. En el Main, detecta si un animal vuela usando <code>instanceof</code>.</li>
+        </ul>
+
+        ---
+
+        <h2>Solución Completa</h2>
+        <p>A continuación se presenta la solución integrando todas las partes y ampliaciones requeridas, organizadas lógicamente desde las interfaces hasta el programa principal.</p>
+
+        <h3>1. Interfaces</h3>
+        <p>Definimos los contratos que deberán cumplir nuestras clases.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema6.Ejercicios.ejercicio2;
+
+public interface Animal {
+    void hacerSonido();
+    void comer();
+}</code></pre>
+        </div>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema6.Ejercicios.ejercicio2;
+
+public interface Volador {
+    void volar();
+}</code></pre>
+        </div>
+
+        <h3>2. Clase Abstracta</h3>
+        <p>Esta clase provee la base común (el nombre) para todos los animales, evitando repetir código en cada subclase.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema6.Ejercicios.ejercicio2;
+
+public abstract class AnimalBase implements Animal {
+    protected String nombre;
+
+    public AnimalBase(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void mostrarNombre() {
+        System.out.println("Nombre: " + nombre);
+    }
+}</code></pre>
+        </div>
+
+        <h3>3. Clases de Animales</h3>
+        <p>Cada clase concreta hereda de <code>AnimalBase</code> y define su propio comportamiento al comer y hacer sonido. El pájaro, además, implementa la interfaz <code>Volador</code>.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema6.Ejercicios.ejercicio2;
+
+public class Perro extends AnimalBase implements Animal {
+    public Perro(String nombre) {
+        super(nombre);
+    }
+
+    @Override
+    public void hacerSonido() {
+        System.out.println("El perro hace guau");
+    }
+
+    @Override
+    public void comer() {
+        System.out.println("El perro esta comiendo");
+    }
+}</code></pre>
+        </div>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema6.Ejercicios.ejercicio2;
+
+public class Gato extends AnimalBase implements Animal {
+    public Gato(String nombre) {
+        super(nombre);
+    }
+
+    @Override
+    public void hacerSonido() {
+        System.out.println("El gato hace miau");
+    }
+
+    @Override
+    public void comer() {
+        System.out.println("El gato esta comiendo");
+    }
+}</code></pre>
+        </div>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema6.Ejercicios.ejercicio2;
+
+public class Vaca extends AnimalBase implements Animal {
+    public Vaca(String nombre) {
+        super(nombre);
+    }
+
+    @Override
+    public void hacerSonido() {
+        System.out.println("La vaca hace muuu");
+    }
+
+    @Override
+    public void comer() {
+        System.out.println("La vaca esta comiendo");
+    }
+}</code></pre>
+        </div>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema6.Ejercicios.ejercicio2;
+
+public class Pajaro extends AnimalBase implements Volador {
+    public Pajaro(String nombre) {
+        super(nombre);
+    }
+
+    @Override
+    public void hacerSonido() {
+        System.out.println("El pajaro hace pío pío");
+    }
+
+    @Override
+    public void comer() {
+        System.out.println("El pajaro esta comiendo");
+    }
+
+    @Override
+    public void volar() {
+        System.out.println("Pajaro volando");
+    }
+}</code></pre>
+        </div>
+
+        <h3>4. Clase Principal (Main)</h3>
+        <p>Aquí combinamos el uso de colecciones y polimorfismo. Recorremos todos los animales de forma genérica y comprobamos capacidades específicas mediante <code>instanceof</code>.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema6.Ejercicios.ejercicio2;
+
+import java.util.ArrayList;
+
+public class Main {
+    public static void main(String[] args) {
+        ArrayList<AnimalBase> animales = new ArrayList<>();
+
+        animales.add(new Perro("Perro1"));
+        animales.add(new Gato("Gato1"));
+        animales.add(new Vaca("Vaca1"));
+        animales.add(new Pajaro("Pajaro1"));
+
+        for (AnimalBase a : animales) {
+            a.mostrarNombre();
+            a.hacerSonido();
+            a.comer();
+
+            // Reto: Comprobación de la interfaz Volador
+            if (a instanceof Volador) {
+                ((Volador) a).volar();
+            }
+            
+            System.out.println("--------------------");
+        }
+    }
+}</code></pre>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../index.html" class="card-link">← Volver al Inicio</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

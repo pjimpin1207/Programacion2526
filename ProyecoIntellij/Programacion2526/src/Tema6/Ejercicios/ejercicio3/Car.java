@@ -4,13 +4,13 @@ public class Car extends Vehicle {
     private int numberOfDoors;
 
     public Car(String lp, String b, int y, FuelType ft, int doors) {
-        super(lp, b, y, ft); // Llamada al padre [cite: 846]
+        super(lp, b, y, ft);
         this.numberOfDoors = doors;
     }
 
     @Override
     public double calculateSpeed() {
-        return 120.0; // Ejemplo de velocidad
+        return 120.0;
     }
 
     @Override

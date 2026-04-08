@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 4: Lanzamiento y Propagación</title>
+  <meta name="description" content="Solución al Ejercicio 4 del Tema 7: Lanzamiento manual (throw) y propagación (throws) de excepciones en Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html" class="active">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Tema 7 • Ejercicios</div>
+      <h1>Ejercicio 4: Lanzamiento y Propagación</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>Realiza un método que introduzca números enteros en una lista. Invoca este método desde un <code>main</code>.</p>
+        <p>A continuación programa que se lance una excepción cuando al método se le pasa un número que ya está contenido en la lista. Deberá construirse la excepción con un mensaje descriptivo.</p>
+        <p>Después, adapta la firma del método para indicar que este método puede propagar la excepción que hemos lanzado.</p>
+        <p>Finalmente, captura la excepción dentro del <code>main</code>, imprimiendo la traza y el mensaje que lleva dicha excepción.</p>
+
+        <h2>Solución</h2>
+        <p>En este ejercicio ponemos en práctica dos conceptos clave de la gestión de errores en Java: <strong>lanzar</strong> (<code>throw</code>) una excepción manualmente cuando se incumple una regla de nuestro programa (números repetidos) y <strong>propagarla</strong> (<code>throws</code>) para que sea el método principal quien se encargue de gestionarla con un bloque <code>try-catch</code>.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema7.Ejercicios.ejercicio4;
+
+import java.util.Scanner;
+
+public class Ejercicio4 {
+    public static void main(String[] args) {
+        try {
+            agregarNumeros();
+        } catch (IllegalArgumentException e) {
+            // Se captura la excepción propagada y se muestra su mensaje
+            System.out.println(e.getMessage());
+        }
+    }
+
+    // El método avisa en su firma (throws) que puede lanzar esta excepción
+    private static void agregarNumeros() throws IllegalArgumentException {
+        int[] lista = new int[5];
+        lista[0] = 0;
+        lista[1] = 12;
+        lista[2] = 20;
+        lista[3] = 13;
+        lista[4] = 40;
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Introduce un número para comprobar si está en la lista: ");
+        int numero = scanner.nextInt();
+
+        // Lanzamiento manual de la excepción si el número ya existe
+        if (estaEnLista(lista, numero)) {
+            throw new IllegalArgumentException("El numero ya esta en la lista");
+        }
+
+        System.out.println("Lista de números:");
+        for (int e : lista) {
+            System.out.println(e);
+        }
+        
+        scanner.close(); // Buena práctica: cerrar el scanner
+    }
+
+    // Método auxiliar para comprobar repeticiones
+    private static boolean estaEnLista(int[] lista, int numero) {
+        for (int e : lista) {
+            if (e == numero) {
+                return true;
+            }
+        }
+        return false;
+    }
+}</code></pre>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../index.html" class="card-link">← Volver al Inicio</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

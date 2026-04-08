@@ -9,7 +9,7 @@ public class Main {
             a.hacerSonido();
             a.moverse();
 
-            // Comprobamos interfaces usando instanceof (UD 5)
+            // Comprobamos interfaces usando instanceof
             if (a instanceof Corredor) { ((Corredor) a).correr(); }
             if (a instanceof Volador) { ((Volador) a).volar(); }
             if (a instanceof Nadador) { ((Nadador) a).nadar(); }
