@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 1: Listas básicas con ArrayList - Programación</title>
+  <meta name="description" content="Solución al Ejercicio 1 del Tema 8: Manipulación de listas en Java usando la interfaz List y la clase ArrayList.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html" class="active">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 8 • Ejercicios</div>
+      <h1>Ejercicio 1: Listas básicas (ArrayList)</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>En esta actividad practicaremos las operaciones fundamentales con la interfaz <code>List</code> y la implementación <code>ArrayList</code> en Java. Los requisitos son:</p>
+        
+        <ul>
+            <li>Crear una lista inicialmente nula y luego instanciarla como <code>ArrayList</code>.</li>
+            <li>Añadir objetos de tipo <code>Persona</code>.</li>
+            <li>Obtener elementos específicos (primero y último).</li>
+            <li>Modificar y eliminar elementos por su índice.</li>
+            <li>Recorrer la colección mediante bucles clásicos.</li>
+            <li>Utilizar métodos de utilidad como <code>contains()</code>, <code>clear()</code> e <code>isEmpty()</code>.</li>
+        </ul>
+
+        <p>Para entender mejor cómo funciona un <strong>ArrayList</strong> internamente (como un array dinámico que crece según se necesita), observa el siguiente diagrama:</p>
+
+        <h2>Solución</h2>
+        <p>Para resolver este ejercicio, primero definimos la clase <code>Persona</code> con sus atributos encapsulados y el método <code>toString()</code> sobrescrito para facilitar la visualización de los datos.</p>
+
+        <h3>1. Clase Persona</h3>
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema8.Ejercicios.Ejercicio1;
+
+public class Persona {
+    private String nombre;
+    private int edad;
+
+    public Persona(String nombre, int edad) {
+        this.nombre = nombre;
+        this.edad = edad;
+    }
+
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
+    public int getEdad() { return edad; }
+    public void setEdad(int edad) { this.edad = edad; }
+
+    @Override
+    public String toString() {
+        return "Persona{nombre='" + nombre + "', edad=" + edad + "}";
+    }
+}</code></pre>
+        </div>
+
+        <h3>2. Clase Principal (Ejercicio 1)</h3>
+        <p>En la clase principal ejecutamos la lógica solicitada, haciendo uso de los métodos de la interfaz <code>List</code>.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema8.Ejercicios.Ejercicio1;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Ejercicio1 {
+    public static void main(String[] args) {
+        // 1. Crear una lista sin ninguna referencia (nula)
+        List&lt;Persona&gt; lista = null;
+        System.out.println("Lista inicial: " + lista);
+
+        // 2. Asignarle una nueva instancia de ArrayList
+        lista = new ArrayList&lt;&gt;();
+        System.out.println("Lista tras instanciar: " + lista);
+
+        // 3. Añadir 3 personas
+        lista.add(new Persona("Ana", 25));
+        lista.add(new Persona("David", 20));
+        lista.add(new Persona("Juan", 34));
+        System.out.println("Lista con personas: " + lista);
+
+        // 4. Obtener la última persona (Java 21+)
+        System.out.println("Última persona: " + lista.getLast());
+
+        // 5. Modificar el nombre de la primera persona
+        lista.getFirst().setNombre("Manuel");
+        System.out.println("Tras modificar nombre: " + lista);
+
+        // 6. Eliminar la persona de la posición central
+        // En este caso, con 3 elementos, la posición central es el índice 1
+        lista.remove(1);
+        System.out.println("Tras eliminar posición central: " + lista);
+
+        // 7. Recorrer la lista con un for clásico
+        System.out.println("Nombres en la lista:");
+        for (int i = 0; i < lista.size(); i++) {
+            System.out.println("- " + lista.get(i).getNombre());
+        }
+
+        // 8. Comprobar si contiene a una nueva persona
+        Persona nuevaPersona = new Persona("Carlos", 50);
+        lista.add(nuevaPersona);
+        System.out.println("¿Contiene a Carlos? " + lista.contains(nuevaPersona));
+
+        // 9. Vaciar y confirmar
+        lista.clear();
+        System.out.println("¿Está vacía la lista? " + lista.isEmpty());
+    }
+}</code></pre>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../posts/Tema8/index.html" class="card-link">← Volver al Tema 8</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

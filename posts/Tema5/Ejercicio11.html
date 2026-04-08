@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 11: Sobrescritura de métodos toString y equals | Programación</title>
+  <meta name="description" content="Solución al Ejercicio 11 del Tema 5: Implementación de la clase Libro, sobrescritura de toString() y equals() en Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html" class="active">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 5 • Programación Orientada a Objetos</div>
+      <h1>Ejercicio 11: Sobrescritura de métodos (toString y equals)</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>Crea una clase <strong>Libro</strong> con los siguientes atributos:</p>
+        <ul>
+            <li><code>titulo</code> (String)</li>
+            <li><code>autor</code> (String)</li>
+            <li><code>isbn</code> (String)</li>
+            <li><code>anioPublicacion</code> (int)</li>
+        </ul>
+
+        <h3>Tareas a realizar:</h3>
+        <ol>
+            <li>Implementar el constructor de la clase que inicialice todos los atributos.</li>
+            <li>Sobrescribir el método <code>toString()</code> para que devuelva la representación: <em>"Título: [titulo], Autor: [autor], ISBN: [isbn], Año: [anioPublicacion]"</em>.</li>
+            <li>Sobrescribir el método <code>equals()</code> para que dos libros se consideren iguales si tienen el mismo ISBN.</li>
+            <li>En el <code>main()</code>, crear varios objetos Libro, imprimirlos y verificar el funcionamiento del método <code>equals()</code>.</li>
+        </ol>
+
+        ---
+
+        <h2>Solución Propuesta</h2>
+        <p>Para este ejercicio es fundamental entender que el método <code>equals()</code> por defecto compara referencias de memoria. Al sobrescribirlo, permitimos que la lógica de nuestra aplicación decida cuándo dos objetos son "lógicamente iguales" (en este caso, por su ISBN).</p>
+
+        <h3>1. Clase Libro</h3>
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema5.Ejercicios.ejercicio11;
+
+import java.util.Objects;
+
+public class Libro {
+    private String titulo;
+    private String autor;
+    private String isbn;
+    private int anioPublicacion;
+
+    // Constructor
+    public Libro(String titulo, String autor, String isbn, int anioPublicacion) {
+        this.titulo = titulo;
+        this.autor = autor;
+        this.isbn = isbn;
+        this.anioPublicacion = anioPublicacion;
+    }
+
+    // Sobrescribir el método toString()
+    @Override
+    public String toString() {
+        return "Título: " + titulo + ", Autor: " + autor + ", ISBN: " + isbn + ", Año de publicación: " + anioPublicacion;
+    }
+
+    // Sobrescribir el método equals() para comparar por ISBN
+    @Override
+    public boolean equals(Object obj) {
+        // Comprobar si es exactamente el mismo objeto en memoria
+        if (this == obj) {
+            return true;
+        }
+        // Comprobar si el objeto pasado es nulo o si no es de la clase Libro
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        // Hacer el casting a Libro y comparar los ISBN
+        Libro libro = (Libro) obj;
+        return Objects.equals(this.isbn, libro.isbn);
+    }
+}</code></pre>
+        </div>
+
+        <h3>2. Clase Principal (Main)</h3>
+        <p>En el programa principal probamos cómo la sobrescritura afecta al comportamiento de nuestras impresiones y comparaciones.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema5.Ejercicios.ejercicio11;
+
+public class Main {
+    public static void main(String[] args) {
+        // Creamos tres objetos Libro. Dos de ellos tendrán el mismo ISBN para probar el equals()
+        Libro libro1 = new Libro("El Quijote", "Miguel de Cervantes", "111-222-333", 1605);
+        Libro libro2 = new Libro("1984", "George Orwell", "999-888-777", 1949);
+        Libro libro3 = new Libro("El Quijote (Edición Especial)", "Miguel de Cervantes", "111-222-333", 2015);
+
+        // Imprime cada libro (esto usa automáticamente el método toString sobrescrito)
+        System.out.println("--- Lista de Libros ---");
+        System.out.println(libro1);
+        System.out.println(libro2);
+        System.out.println(libro3);
+        System.out.println();
+
+        // Compara libros usando equals()
+        System.out.println("--- Comparaciones ---");
+
+        // Compara dos libros con el MISMO ISBN (debe devolver true)
+        System.out.println("¿Libro 1 y Libro 3 son iguales? (Mismo ISBN): " + libro1.equals(libro3));
+
+        // Compara dos libros con DISTINTO ISBN (debe devolver false)
+        System.out.println("¿Libro 1 y Libro 2 son iguales? (Distinto ISBN): " + libro1.equals(libro2));
+    }
+}</code></pre>
+        </div>
+
+        <blockquote>
+            Nota: Al sobrescribir <code>equals()</code>, es una buena práctica sobrescribir también <code>hashCode()</code> para mantener la consistencia si planeas usar estos objetos en colecciones como HashSet o HashMap.
+        </blockquote>
+
+      </div>
+
+      <div class="back-link">
+        <a href="./index.html" class="card-link">← Volver al Tema 5</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

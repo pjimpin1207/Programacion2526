@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initTypewriter();
   initPostCounter();
   initCodeBlocks();
+  initActiveNav();
 });
 
 /* --- THEME TOGGLE LOGIC --- */
@@ -32,6 +33,38 @@ function initThemeToggle() {
   });
 }
 
+function initActiveNav() {
+  const currentPath = window.location.pathname.toLowerCase();
+  const navLinks = document.querySelectorAll('.nav a');
+  
+  let foundActiveTema = false;
+  
+  // First pass: check for topics
+  navLinks.forEach(link => {
+    // Remove default active class if any
+    link.classList.remove('active');
+    
+    const href = link.getAttribute('href').toLowerCase();
+    const temaMatch = href.match(/tema(\d+)/);
+    if (temaMatch) {
+      const temaFolder = `/tema${temaMatch[1]}/`;
+      if (currentPath.includes(temaFolder) || currentPath.endsWith(temaFolder.slice(0, -1))) {
+        link.classList.add('active');
+        foundActiveTema = true;
+      }
+    }
+  });
+  
+  // Second pass: if no topic active, and path ends with index.html or is root, mark Inicio
+  if (!foundActiveTema) {
+    navLinks.forEach(link => {
+      const text = link.textContent.trim().toLowerCase();
+      if (text === 'inicio') {
+        link.classList.add('active');
+      }
+    });
+  }
+}
 
 /* --- DYNAMIC POST COUNTER --- */
 function initPostCounter() {

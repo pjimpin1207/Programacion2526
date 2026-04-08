@@ -356,6 +356,14 @@ a:hover { color: var(--accent-color); }
   border-color: var(--accent-color);
 }
 
+/* --- COMPONENTES ADICIONALES --- */
+.back-link {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+}
+
 /* --- FOOTER --- */
 .site-footer {
   border-top: 1px solid var(--border-color);

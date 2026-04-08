@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 8: Polimorfismo y Gestión de Empleados - Blog Programación</title>
+  <meta name="description" content="Solución al Ejercicio 8 del Tema 5: Aplicación de herencia y polimorfismo para un sistema de gestión de empleados en Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html" class="active">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 5 • Ejercicios</div>
+      <h1>Ejercicio 8: Gestión de Empleados y Polimorfismo</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>El objetivo de este ejercicio es desarrollar un pequeño sistema de <strong>gestión de empleados</strong> utilizando los pilares de la Programación Orientada a Objetos. Todos los empleados comparten comportamientos comunes, pero cada tipo calcula su salario de forma distinta.</p>
+
+        <h3>Requisitos</h3>
+        <ul>
+            <li><strong>Clase base Empleado:</strong> Debe contener el atributo <code>nombre</code> y el método <code>public double calcularSalario()</code> (que devuelve 0 en la base).</li>
+            <li><strong>Clases hijas:</strong> 
+                <ul>
+                    <li><code>EmpleadoFijo</code>: Atributo <code>salarioMensual</code>. Sobrescribe el cálculo devolviendo dicho salario.</li>
+                    <li><code>EmpleadoPorHoras</code>: Atributos <code>horasTrabajadas</code> y <code>precioHora</code>. Sobrescribe el cálculo devolviendo el producto de ambos.</li>
+                </ul>
+            </li>
+            <li><strong>Programa principal:</strong> En la clase <code>Main</code>, crear una colección de empleados, añadir instancias de cada tipo y mostrar su información recorriendo la lista.</li>
+        </ul>
+
+        <h3>Restricciones</h3>
+        <blockquote>
+            No se permite el uso de <code>instanceof</code>, ni estructuras <code>if</code> o <code>switch</code> para distinguir los tipos de empleados. El comportamiento debe resolverse exclusivamente mediante <strong>polimorfismo</strong> desde una referencia de tipo <code>Empleado</code>.
+        </blockquote>
+
+        ---
+
+        <h2>Solución Propuesta</h2>
+        <p>A continuación se presenta la implementación completa incluyendo la ampliación opcional: el tipo <code>EmpleadoComision</code>, el uso de <code>toString()</code> y la aplicación de una subida salarial común.</p>
+
+        <h3>1. Jerarquía de Clases</h3>
+        <p>Definimos la clase base y sus especializaciones. Es fundamental que <code>aumentarSalario</code> esté presente en la clase base para poder invocarlo de forma polimórfica.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema5.Ejercicios.ejercicio8;
+
+// Clase base Empleado
+class Empleado {
+    private String nombre;
+
+    public Empleado(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public double calcularSalario() {
+        return 0.0;
+    }
+
+    // Método para subir salario común (establece el contrato)
+    public void aumentarSalario(double porcentaje) {
+        // Implementación genérica o vacía según el diseño
+    }
+
+    // Uso de toString para formatear la salida
+    @Override
+    public String toString() {
+        return String.format("Nombre: %s - Salario: %.2f", nombre, calcularSalario());
+    }
+}
+
+// Empleado con salario mensual fijo
+class EmpleadoFijo extends Empleado {
+    private double salarioMensual;
+
+    public EmpleadoFijo(String nombre, double salarioMensual) {
+        super(nombre);
+        this.salarioMensual = salarioMensual;
+    }
+
+    @Override
+    public double calcularSalario() {
+        return salarioMensual;
+    }
+
+    @Override
+    public void aumentarSalario(double porcentaje) {
+        this.salarioMensual += this.salarioMensual * (porcentaje / 100);
+    }
+}
+
+// Empleado por horas
+class EmpleadoPorHoras extends Empleado {
+    private int horasTrabajadas;
+    private double precioHora;
+
+    public EmpleadoPorHoras(String nombre, int horasTrabajadas, double precioHora) {
+        super(nombre);
+        this.horasTrabajadas = horasTrabajadas;
+        this.precioHora = precioHora;
+    }
+
+    @Override
+    public double calcularSalario() {
+        return horasTrabajadas * precioHora;
+    }
+
+    @Override
+    public void aumentarSalario(double porcentaje) {
+        this.precioHora += this.precioHora * (porcentaje / 100);
+    }
+}
+
+// Empleado a comisión (Ampliación)
+class EmpleadoComision extends Empleado {
+    private double ventasTotales;
+    private double porcentajeComision;
+
+    public EmpleadoComision(String nombre, double ventasTotales, double porcentajeComision) {
+        super(nombre);
+        this.ventasTotales = ventasTotales;
+        this.porcentajeComision = porcentajeComision;
+    }
+
+    @Override
+    public double calcularSalario() {
+        return ventasTotales * porcentajeComision;
+    }
+
+    @Override
+    public void aumentarSalario(double porcentaje) {
+        this.porcentajeComision += this.porcentajeComision * (porcentaje / 100);
+    }
+}</code></pre>
+        </div>
+
+        <h3>2. Clase Main</h3>
+        <p>En el programa principal, tratamos a todos los objetos de forma genérica a través de la clase <code>Empleado</code>.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema5.Ejercicios.ejercicio8;
+
+import java.util.ArrayList;
+
+public class Main {
+    public static void main(String[] args) {
+        // Crear colección de empleados
+        ArrayList&lt;Empleado&gt; listaEmpleados = new ArrayList&lt;&gt;();
+
+        // Añadir diferentes tipos de empleados
+        listaEmpleados.add(new EmpleadoFijo("Ana García", 2000.0));
+        listaEmpleados.add(new EmpleadoPorHoras("Luis Pérez", 40, 15.5));
+        listaEmpleados.add(new EmpleadoComision("Sofia Martinez", 50000.0, 0.05));
+
+        System.out.println("--- Listado de nóminas inicial ---");
+        imprimirNominas(listaEmpleados);
+
+        System.out.println("\nAplicando una subida salarial del 10%...");
+        for (Empleado e : listaEmpleados) {
+            e.aumentarSalario(10);
+        }
+
+        imprimirNominas(listaEmpleados);
+    }
+
+    // Método polimórfico para recorrer y mostrar información
+    public static void imprimirNominas(ArrayList&lt;Empleado&gt; empleados) {
+        for (Empleado emp : empleados) {
+            System.out.println(emp.toString());
+        }
+    }
+}</code></pre>
+        </div>
+
+        <h2>Pregunta de Reflexión</h2>
+        <p><strong>¿Por qué este diseño sigue funcionando aunque se añadan nuevos tipos de empleados sin modificar el main?</strong></p>
+        <p>Este diseño sigue funcionando gracias al <strong>Polimorfismo</strong> y al cumplimiento del <em>Principio de Abierto/Cerrado</em>. El método <code>main</code> está programado para trabajar con la abstracción <code>Empleado</code>. Java utiliza la <strong>ligadura dinámica</strong> (late binding) para determinar en tiempo de ejecución qué implementación específica de <code>calcularSalario</code> o <code>aumentarSalario</code> debe llamar según el objeto real almacenado en la referencia. Esto permite extender el sistema con nuevas clases sin alterar la lógica de control ya existente.</p>
+
+      </div>
+
+      <div class="back-link">
+        <a href="./index.html" class="card-link">← Volver al Tema 5</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>
