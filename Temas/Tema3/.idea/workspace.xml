@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="6b5233a5-ec2e-4ee6-ae3e-ac4ea9e90d7e" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/Ejercicios/ejercicio32/Ejercicio32.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/Ejercicios/ejercicio7/Ejercicio7.java" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="36I0U1K2F7i3Ze3vW6aKDaZy8yZ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Ejemplo2.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Ejercicio14.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Ejercicio15.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Ejercicio17.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Ejercicio22.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Ejercicio24.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Ejercicio25.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Ejercicio26.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Ejercicio27.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Ejercicio28.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Ejercicio29.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Ejercicio3.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Ejercicio31.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Ejercicio32.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Ejercicio33.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Ejercicio33_Ampliacion.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Ejercicio4.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Ejercicio5.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Ejercicio6.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Ejercicio6Math.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Ejercicio7.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Ejercicio8.executor&quot;: &quot;Run&quot;,
+    &quot;Notification.DisplayName-DoNotAsk-vcs.roots.invalid&quot;: &quot;Invalid VCS root mapping&quot;,
+    &quot;Notification.DoNotAsk-vcs.roots.invalid&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/16_1DAW_Alum/Documents/Programacion2526/Temas/Tema3&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.appearance&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager" selected="Application.Ejercicio33_Ampliacion">
+    <configuration name="Ejercicio29" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Ejercicios.ejercicio29.Ejercicio29" />
+      <module name="Tema3" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Ejercicios.ejercicio29.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Ejercicio31" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Ejercicios.ejercicio31.Ejercicio31" />
+      <module name="Tema3" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Ejercicios.ejercicio31.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Ejercicio32" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Ejercicios.ejercicio32.Ejercicio32" />
+      <module name="Tema3" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Ejercicios.ejercicio32.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Ejercicio33" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Ejercicios.ejercicio33.Ejercicio33" />
+      <module name="Tema3" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Ejercicios.ejercicio33.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Ejercicio33_Ampliacion" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Ejercicios.ejercicio33.Ejercicio33_Ampliacion" />
+      <module name="Tema3" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Ejercicios.ejercicio33.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Ejercicio33_Ampliacion" />
+        <item itemvalue="Application.Ejercicio33" />
+        <item itemvalue="Application.Ejercicio32" />
+        <item itemvalue="Application.Ejercicio31" />
+        <item itemvalue="Application.Ejercicio29" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.28238.7" />
+        <option value="bundled-js-predefined-d6986cc7102b-a71380e98a7c-JavaScript-IU-252.28238.7" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6b5233a5-ec2e-4ee6-ae3e-ac4ea9e90d7e" name="Changes" comment="" />
+      <created>1764678982002</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1764678982002</updated>
+      <workItem from="1764678986022" duration="4826000" />
+      <workItem from="1764754784179" duration="269000" />
+      <workItem from="1764755067719" duration="6019000" />
+      <workItem from="1764834245287" duration="6350000" />
+      <workItem from="1765282135865" duration="5699000" />
+      <workItem from="1765440382471" duration="4293000" />
+      <workItem from="1767860480304" duration="170000" />
+      <workItem from="1767861079552" duration="18000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

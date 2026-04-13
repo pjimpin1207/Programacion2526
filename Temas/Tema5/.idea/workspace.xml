@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="38d8d4d7-0c95-4d75-b686-803317b2108e" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;pjimpin1207&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/pjimpin1207/Programacion2526.git&quot;,
+    &quot;accountId&quot;: &quot;6d2b2c16-09e8-46cc-a755-6a1f14b9b9c9&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="38WNU3Ao5wxRBVv36qrGZVkB0D3" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Aplicación.Calculadora.executor&quot;: &quot;Run&quot;,
+    &quot;Aplicación.ComparacionParametros.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Ejemplos.ejemplo1.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Ejercicios.ejercicio8.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.EjerciciosRefuerzo.ejercicio1.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager" selected="Aplicación.ComparacionParametros">
+    <configuration name="Calculadora" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Ejercicios.ejercicio13.Calculadora" />
+      <module name="Tema5" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Ejercicios.ejercicio13.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ComparacionParametros" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Ejercicios.Ejercicio15.ComparacionParametros" />
+      <module name="Tema5" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Ejercicios.Ejercicio15.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EjerciciosRefuerzo.ejercicio1.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="EjerciciosRefuerzo.ejercicio1.Main" />
+      <module name="Tema5" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="EjerciciosRefuerzo.ejercicio1.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Ejercicios.ejercicio8.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Ejercicios.ejercicio8.Main" />
+      <module name="Tema5" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Ejercicios.ejercicio8.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Ejercicios.ejercicio4.Main" />
+      <module name="Tema5" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Ejercicios.ejercicio4.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Aplicación.ComparacionParametros" />
+        <item itemvalue="Aplicación.Calculadora" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.28539.33" />
+        <option value="bundled-js-predefined-d6986cc7102b-a71380e98a7c-JavaScript-IU-252.28539.33" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="38d8d4d7-0c95-4d75-b686-803317b2108e" name="Changes" comment="" />
+      <created>1768911380172</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1768911380172</updated>
+      <workItem from="1768911381503" duration="3883000" />
+      <workItem from="1768988514389" duration="76000" />
+      <workItem from="1768995242533" duration="1178000" />
+      <workItem from="1768996440878" duration="38000" />
+      <workItem from="1768996499976" duration="307000" />
+      <workItem from="1769067466276" duration="4769000" />
+      <workItem from="1770120684642" duration="3210000" />
+      <workItem from="1772018869227" duration="53000" />
+      <workItem from="1773055872649" duration="4113000" />
+      <workItem from="1773144999393" duration="1942000" />
+      <workItem from="1773150869507" duration="241000" />
+      <workItem from="1773222528699" duration="5258000" />
+      <workItem from="1773229978154" duration="21000" />
+      <workItem from="1773230012035" duration="403000" />
+      <workItem from="1773659976014" duration="5453000" />
+      <workItem from="1773749431654" duration="43000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
