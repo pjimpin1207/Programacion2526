@@ -1,6 +1,7 @@
 package Tema5.Ejercicios.ejercicio2;
 
-import Humano.Sexo;
+
+import Tema5.Humano.Sexo;
 
 public class Persona {
 

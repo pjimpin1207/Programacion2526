@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 3: Gestión de nombres con ArrayList</title>
+  <meta name="description" content="Solución al Ejercicio 3 del Tema 8: Gestión de una lista de nombres utilizando ArrayList y métodos de la interfaz List en Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html" class="active">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 8 • Ejercicios</div>
+      <h1>Ejercicio 3: Gestión de una lista de nombres con ArrayList</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>En este ejercicio vamos a desarrollar un pequeño sistema interactivo para gestionar una lista de cadenas de texto (nombres) utilizando <code>ArrayList</code> y la entrada de datos por teclado.</p>
+        
+        <h3>Requisitos:</h3>
+        <ul>
+            <li><strong>Crear la lista:</strong> Declarar una variable <code>List&lt;String&gt;</code> e instanciarla como <code>ArrayList</code> con 5 nombres iniciales.</li>
+            <li><strong>Mostrar nombres:</strong> Implementar el recorrido de la lista utilizando un bucle <strong>for-each</strong>.</li>
+            <li><strong>Interactividad:</strong> Solicitar al usuario un nombre para añadirlo a la colección.</li>
+            <li><strong>Eliminación lógica:</strong> Solicitar un nombre para eliminarlo. Si el nombre existe, se borra; si no, se muestra un mensaje de error.</li>
+            <li><strong>Estadísticas:</strong> Mostrar el número total de elementos usando el método <code>size()</code>.</li>
+        </ul>
+
+        <h2>Solución Propuesta</h2>
+        <p>A continuación se muestra el código completo. Es importante destacar el uso de tipos genéricos <code>&lt;String&gt;</code> para asegurar que nuestra lista solo contenga cadenas de texto, evitando errores de tipo en tiempo de ejecución[cite: 2781, 2782].</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema8.Ejercicios.ejercicio3;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Ejercicio3 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // 1. Declarar e inicializar la lista con tipos genéricos
+        List&lt;String&gt; listaNombres = new ArrayList&lt;&gt;();
+
+        // 2. Añadir nombres iniciales
+        listaNombres.add("Fran");
+        listaNombres.add("Ana");
+        listaNombres.add("Luis");
+        listaNombres.add("Marta");
+        listaNombres.add("Pepe");
+
+        // 3. Mostrar la lista usando un bucle for-each
+        System.out.println("Nombres en la lista actual:");
+        for (String nombre : listaNombres) {
+            System.out.println("- " + nombre);
+        }
+
+        // 4. Añadir un nuevo nombre solicitado al usuario
+        System.out.print("\nIntroduce un nuevo nombre: ");
+        String nuevoNombre = sc.nextLine();
+        listaNombres.add(nuevoNombre);
+        System.out.println(nuevoNombre + " se ha añadido correctamente.");
+
+        // 5. Eliminar un nombre específico
+        System.out.print("\n¿Qué nombre quieres borrar?: ");
+        String borrarNombre = sc.nextLine();
+
+        // El método remove(Object) devuelve true si el elemento existía y fue eliminado
+        if (listaNombres.remove(borrarNombre)) {
+            System.out.println("Se ha borrado correctamente a: " + borrarNombre);
+        } else {
+            System.out.println("Error: El nombre " + borrarNombre + " no se encuentra en la lista.");
+        }
+
+        // 6. Mostrar el total de elementos
+        System.out.println("\nActualmente hay un total de " + listaNombres.size() + " nombres en la lista.");
+        
+        sc.close();
+    }
+}</code></pre>
+        </div>
+
+        <h3>Conceptos clave aplicados</h3>
+        <ul>
+            <li><strong>Tipos Genéricos:</strong> El uso de <code>&lt;String&gt;</code> indica que la colección solo aceptará objetos de ese tipo, proporcionando seguridad tipográfica[cite: 2781].</li>
+            <li><strong>Bucle For-Each:</strong> Es la forma más limpia y eficiente de recorrer colecciones cuando no necesitamos manipular el índice directamente[cite: 2746].</li>
+            <li><strong>Método remove:</strong> Al pasarle un objeto (String), busca la primera ocurrencia y la elimina. Es sensible a mayúsculas y minúsculas.</li>
+        </ul>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../index.html" class="card-link">← Volver al Inicio</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

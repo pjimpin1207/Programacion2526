@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 4: Envoltorios y Procesador de Calificaciones</title>
+  <meta name="description" content="Solución al Ejercicio 4 del Tema 8: Uso de clases envoltorio (Double), parsing de Strings y filtrado de colecciones en Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html" class="active">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 8 • Ejercicios</div>
+      <h1>Ejercicio 4: Envoltorios (Wrappers) - Procesador de Calificaciones</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>El objetivo de este ejercicio es trabajar con la conversión de tipos y las clases envoltorio (<strong>Wrappers</strong>) en Java. Crearemos un programa que gestione notas académicas a partir de una fuente de datos en formato texto.</p>
+        
+        <h3>Tareas a realizar:</h3>
+        <ul>
+            <li><strong>Conversión (Parsing):</strong> Transformar un array de <code>String</code> a una lista <code>ArrayList&lt;Double&gt;</code> usando <code>Double.valueOf()</code>.</li>
+            <li><strong>Cálculo (Unboxing):</strong> Calcular la nota media. Observaremos cómo Java extrae automáticamente el valor primitivo para operar.</li>
+            <li><strong>Filtrado:</strong> Crear una lista secundaria para almacenar únicamente las notas que representen un aprobado (≥ 5.0).</li>
+        </ul>
+
+        ---
+
+        <h2>Solución</h2>
+        <p>En la implementación, aprovechamos el <strong>Autoboxing</strong> para añadir elementos a la lista y el <strong>Unboxing</strong> para realizar operaciones aritméticas de forma transparente.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema8.Ejercicios.ejercicio4;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Ejercicio4 {
+    public static void main(String[] args) {
+
+        // 1. Crear la lista usando la clase envoltorio Double
+        List&lt;Double&gt; notas = new ArrayList&lt;&gt;();
+
+        // Datos de entrada simulados en formato String
+        String[] notasEntrada = {"7.5", "4.2", "9.0", "3.8", "6.5"};
+
+        // 2. Conversión (Parsing) y carga de la lista
+        for (String notaTexto : notasEntrada) {
+            // Convertimos el String a objeto Double
+            Double notaDouble = Double.valueOf(notaTexto);
+            notas.add(notaDouble);
+        }
+        System.out.println("Lista de notas cargada: " + notas);
+
+        // 3. Cálculo de la media (Unboxing automático)
+        double suma = 0;
+        for (Double n : notas) {
+            suma += n; // Aquí ocurre el unboxing: Double -> double
+        }
+        double media = suma / notas.size();
+        System.out.println("La nota media es: " + media);
+
+        // 4. Filtrado de aprobados
+        List&lt;Double&gt; aprobados = new ArrayList&lt;&gt;();
+        for (Double n : notas) {
+            if (n >= 5.0) {
+                aprobados.add(n);
+            }
+        }
+
+        // Resultados finales
+        System.out.println("Lista de aprobados (>= 5.0): " + aprobados);
+        System.out.println("Total de alumnos aprobados: " + aprobados.size());
+    }
+}</code></pre>
+        </div>
+
+        <h2>Conceptos Teóricos Aplicados</h2>
+        <p>Este ejercicio ilustra tres pilares fundamentales del manejo de datos en Java:</p>
+        
+        <ol>
+            <li><strong>Wrappers (Double):</strong> Las colecciones de Java (como <code>ArrayList</code>) no pueden almacenar tipos primitivos directamente. Por ello, usamos <code>Double</code>, que es el objeto que envuelve al primitivo <code>double</code>.</li>
+            <li><strong>Parsing:</strong> El método estático <code>Double.valueOf()</code> es esencial cuando recibimos datos de fuentes externas como archivos de texto o entradas de usuario.</li>
+            <li><strong>Autoboxing/Unboxing:</strong> Java realiza la conversión entre el objeto y el primitivo de forma automática, permitiéndonos sumar un <code>Double</code> a una variable <code>double</code> sin necesidad de conversiones manuales.</li>
+        </ol>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../index.html" class="card-link">← Volver al Inicio</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>
