@@ -1,4 +1,4 @@
-package Tema4.ExamenTema4.src.Alquilervehiculos;
+/*package Tema4.ExamenTema4.src.Alquilervehiculos;
 
 class Vehiculo {
     String matricula;
@@ -37,4 +37,4 @@ class Vehiculo {
         int anioActual = 2026;
         return (anioActual - this.anioFabricacion) > 10;
     }
-}
+}*/

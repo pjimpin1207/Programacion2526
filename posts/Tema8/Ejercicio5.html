@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 5: Conjuntos y el Modificador Final</title>
+  <meta name="description" content="Solución al Ejercicio 5 del Tema 8: Uso de la interfaz Set, HashSet y análisis del modificador final en listas Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html" class="active">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 8 • Colecciones</div>
+      <h1>Ejercicio 5: Conjuntos (Set) y Modificador Final</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>En esta práctica exploraremos el comportamiento de los conjuntos en Java mediante la interfaz <code>Set</code> y su implementación <code>HashSet</code>. También analizaremos una de las dudas más comunes: ¿qué significa realmente que una colección sea <code>final</code>?</p>
+        
+        <h3>Tareas:</h3>
+        <ul>
+            <li>Crear un conjunto de enteros y comprobar si admite duplicados o valores nulos.</li>
+            <li>Trabajar con subconjuntos mediante el método <code>containsAll()</code>.</li>
+            <li>Crear una lista <code>final</code> a partir del conjunto y experimentar con su mutabilidad.</li>
+        </ul>
+
+        <h2>Solución</h2>
+        <p>A continuación se muestra la implementación del ejercicio, donde probamos las restricciones de los conjuntos y el uso de métodos de comparación entre colecciones.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema8.Ejercicios.ejercicio5;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+public class Ejercicio5 {
+    public static void main(String[] args) {
+        // 1. Crear conjunto y añadir los 5 primeros números naturales
+        Set&lt;Integer&gt; numeros = new HashSet&lt;&gt;();
+        numeros.add(1);
+        numeros.add(2);
+        numeros.add(3);
+        numeros.add(4);
+        numeros.add(5);
+
+        // Al imprimir, vemos los valores (HashSet tiene toString implementado)
+        System.out.println("Conjunto inicial: " + numeros);
+
+        // 2. ¿Permite duplicados? 
+        numeros.add(3); // Intentamos añadir el 3 otra vez
+        System.out.println("Tras intentar añadir el 3 repetido: " + numeros);
+
+        // 3. ¿Permite nulos?
+        numeros.add(null);
+        System.out.println("Tras añadir null: " + numeros);
+
+        // 4. Comprobar subconjuntos
+        Set&lt;Integer&gt; numerosPrimos = new HashSet&lt;&gt;();
+        numerosPrimos.add(2);
+        numerosPrimos.add(3);
+
+        // containsAll() verifica si el conjunto contiene todos los elementos del otro
+        boolean esSubconjunto = numeros.containsAll(numerosPrimos);
+        System.out.println("¿Es {2,3} un subconjunto?: " + esSubconjunto);
+
+        // 5. Lista con modificador final
+        numeros.remove(null); // Limpiamos el null para evitar problemas en la lista
+        final List&lt;Integer&gt; listaFinal = new ArrayList&lt;&gt;(numeros);
+        
+        // ¿Podemos modificarla?
+        listaFinal.add(100); 
+        System.out.println("Lista final tras añadir un elemento: " + listaFinal);
+    }
+}</code></pre>
+        </div>
+
+        <h2>Preguntas de reflexión</h2>
+        <div class="p-4 rounded-md" style="background-color: var(--card-bg); border-left: 4px solid var(--accent-color);">
+            <p><strong>1. ¿Imprime la referencia o el valor?</strong><br>
+            Imprime el valor porque las colecciones en Java sobrescriben el método <code>toString()</code> para mostrar su contenido de forma legible.</p>
+            
+            <p><strong>2. ¿Permite duplicados o nulos?</strong><br>
+            Un <code>HashSet</code> <strong>no permite duplicados</strong> (ignora el elemento si ya existe). Sí permite <strong>un único valor null</strong>.</p>
+
+            <p><strong>3. ¿Es la lista inmutable por ser "final"?</strong><br>
+            <strong>No.</strong> El modificador <code>final</code> en una variable de referencia significa que no puedes <em>reasignar</em> la variable a una nueva lista (<code>listaFinal = new ArrayList()</code> daría error). Sin embargo, <strong>el contenido del objeto sigue siendo mutable</strong>: puedes añadir, eliminar o modificar sus elementos sin problemas.</p>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../posts/Tema8/index.html" class="card-link">← Volver al Tema 8</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,4 +1,4 @@
-package Tema4.ExamenTema4.src.Alquilervehiculos;
+/* package Tema4.ExamenTema4.src.Alquilervehiculos;
 
 public class Main {
     public static void main(String[] args) {
@@ -21,4 +21,4 @@ public class Main {
         v4.mostrarDatos();
 
     }
-}
+}*/

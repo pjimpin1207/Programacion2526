@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 2: Listas Enlazadas (LinkedList)</title>
+  <meta name="description" content="Solución al Ejercicio 2 del Tema 8: Uso de LinkedList y manipulación de posiciones en Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html" class="active">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 8 • Ejercicios</div>
+      <h1>Ejercicio 2: Listas enlazadas (LinkedList)</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>En este ejercicio exploraremos la clase <code>LinkedList</code> y cómo interactúa con otras implementaciones de la interfaz <code>List</code>. El objetivo es aprender a migrar datos entre colecciones y manipular el orden de los elementos.</p>
+        
+        <h3>Requisitos:</h3>
+        <ul>
+            <li><strong>Reutilización:</strong> Partir de la lista de personas creada en el ejercicio anterior (ArrayList).</li>
+            <li><strong>Conversión:</strong> Copiar todos los elementos de la lista original a una nueva instancia de la clase <code>LinkedList</code>.</li>
+            <li><strong>Manipulación:</strong> Intercambiar los objetos de la primera y la última posición de la lista enlazada.</li>
+        </ul>
+
+        <p>A diferencia del ArrayList, una <strong>LinkedList</strong> almacena sus elementos como nodos conectados entre sí, lo que facilita ciertas operaciones de inserción y borrado.</p>
+
+        <h2>Solución</h2>
+        <p>Para esta solución, utilizamos el constructor de <code>LinkedList</code> que acepta otra colección como argumento y la clase de utilidad <code>Collections</code> para realizar el intercambio (swap) de forma eficiente.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema8.Ejercicios.ejercicio2;
+
+import Tema8.Ejercicios.ejercicio1.Persona;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
+public class Ejercicio2 {
+    public static void main(String[] args) {
+        // 1. Reutilizamos la lógica del ejercicio anterior creando la lista base
+        List&lt;Persona&gt; listaEjercicio1 = new ArrayList&lt;&gt;();
+        listaEjercicio1.add(new Persona("Ana", 25));
+        listaEjercicio1.add(new Persona("David", 20));
+        listaEjercicio1.add(new Persona("Juan", 34));
+
+        System.out.println("Lista original (ArrayList): " + listaEjercicio1);
+
+        // 2. Copiamos los elementos a una nueva LinkedList
+        // El constructor de LinkedList puede recibir cualquier Collection
+        List&lt;Persona&gt; listaEjercicio2 = new LinkedList&lt;&gt;(listaEjercicio1);
+        System.out.println("Nueva lista (LinkedList): " + listaEjercicio2);
+
+        // 3. Intercambiamos la primera y la última posición
+        // Usamos Collections.swap(lista, indice1, indice2)
+        Collections.swap(listaEjercicio2, 0, listaEjercicio2.size() - 1);
+        
+        System.out.println("Lista tras el intercambio: " + listaEjercicio2);
+    }
+}</code></pre>
+        </div>
+
+        <h2>Diferencias clave: ArrayList vs LinkedList</h2>
+        <p>Aunque ambas implementan la interfaz <code>List</code> y se usan de forma casi idéntica, sus diferencias internas son importantes:</p>
+        
+        <ul>
+            <li><strong>ArrayList:</strong> Es mejor para <strong>acceder</strong> a elementos rápidamente mediante un índice (acceso aleatorio).</li>
+            <li><strong>LinkedList:</strong> Es más eficiente para <strong>insertar o eliminar</strong> elementos al principio o al final de la lista, ya que no necesita desplazar el resto de elementos en memoria.</li>
+            <li><strong>Collections.swap:</strong> Es un método genérico que funciona con cualquier tipo de lista, ocultando la complejidad del intercambio manual.</li>
+        </ul>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../posts/Tema8/index.html" class="card-link">← Volver al Tema 8</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>
