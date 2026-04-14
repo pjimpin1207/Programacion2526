@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 6: Retos con Conjuntos (Set) | Programación</title>
+  <meta name="description" content="Solución al Ejercicio 6 del Tema 8: Tres retos prácticos para entender HashSet, TreeSet y LinkedHashSet en Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html" class="active">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 8 • Ejercicios</div>
+      <h1>Ejercicio 6: Tres Retos con Conjuntos (Set)</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>Para dominar las colecciones de tipo <code>Set</code>, vamos a resolver tres retos prácticos que demuestran las diferencias entre sus implementaciones principales: el orden aleatorio, el orden alfabético y el orden de inserción.</p>
+        
+        <h3>Reto 1: El Control de Aduanas (HashSet)</h3>
+        <p>Crea un programa que pida 5 nombres de países. Si el usuario repite uno, el programa debe avisar: <em>"¡Ese ya pasó por la frontera!"</em>. Al final, muestra cuántos países únicos hay.</p>
+
+        <h3>Reto 2: El Ranking de Videojuegos (TreeSet)</h3>
+        <p>Usa un <code>TreeSet</code> para guardar nombres de videojuegos. Pide 5 nombres y observa cómo aparecen ordenados alfabéticamente de forma automática.</p>
+
+        <h3>Reto 3: La Memoria de Pez (LinkedHashSet)</h3>
+        <p>Demuestra que <code>LinkedHashSet</code> "recuerda" exactamente el orden en el que escribiste los elementos, a diferencia de un HashSet normal.</p>
+
+        <h2>Solución: Reto 1 - Control de Aduanas</h2>
+        <p>Utilizamos <code>HashSet</code> porque no nos importa el orden, pero sí necesitamos que el método <code>add()</code> nos devuelva <code>false</code> si el elemento es un duplicado.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema8.Ejercicios.ejercicio6;
+
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Set;
+
+public class ControlAduanas {
+    public static void main(String[] args) {
+        Scanner teclado = new Scanner(System.in);
+        Set&lt;String&gt; paises = new HashSet&lt;&gt;();
+
+        while (paises.size() < 5) {
+            System.out.print("Introduce un país: ");
+            String pais = teclado.nextLine();
+
+            if (!paises.add(pais)) {
+                System.out.println("¡Ese ya pasó por la frontera!");
+            }
+        }
+        System.out.println("Total de países únicos registrados: " + paises.size());
+    }
+}</code></pre>
+        </div>
+
+        <h2>Solución: Reto 2 - Ranking de Videojuegos</h2>
+        <p>El <code>TreeSet</code> ordena los elementos según su <strong>orden natural</strong> (alfabético para Strings) al ser insertados.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema8.Ejercicios.ejercicio6;
+
+import java.util.Scanner;
+import java.util.Set;
+import java.util.TreeSet;
+
+public class RankingVideojuegos {
+    public static void main(String[] args) {
+        Scanner teclado = new Scanner(System.in);
+        Set&lt;String&gt; juegos = new TreeSet&lt;&gt;();
+
+        for (int i = 0; i < 5; i++) {
+            System.out.print("Introduce el nombre del juego: ");
+            juegos.add(teclado.nextLine());
+        }
+        System.out.println("Lista de juegos ordenada (A-Z): " + juegos);
+    }
+}</code></pre>
+        </div>
+
+        <h2>Solución: Reto 3 - La Memoria de Pez</h2>
+        <p>En este ejemplo, si usamos <code>LinkedHashSet</code>, Java mantendrá el orden cronológico de inserción.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema8.Ejercicios.ejercicio6;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+public class MemoriaDePez {
+    public static void main(String[] args) {
+        // Usamos LinkedHashSet para mantener el orden de inserción
+        Set&lt;String&gt; colores = new LinkedHashSet&lt;&gt;();
+        
+        colores.add("Amarillo");
+        colores.add("Rojo");
+        colores.add("Azul");
+        colores.add("Verde");
+
+        System.out.println("Orden que recuerda Java (inserción): " + colores);
+    }
+}</code></pre>
+        </div>
+
+        <h2>Resumen de Implementaciones</h2>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 2rem;">
+            <thead>
+                <tr style="background-color: var(--accent-glow); text-align: left;">
+                    <th style="padding: 1rem; border-bottom: 2px solid var(--accent-color);">Tipo de Set</th>
+                    <th style="padding: 1rem; border-bottom: 2px solid var(--accent-color);">Ordenación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);"><strong>HashSet</strong></td>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Sin orden garantizado (muy rápido).</td>
+                </tr>
+                <tr>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);"><strong>TreeSet</strong></td>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Orden natural o alfabético.</td>
+                </tr>
+                <tr>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);"><strong>LinkedHashSet</strong></td>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Orden según fueron añadidos.</td>
+                </tr>
+            </tbody>
+        </table>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../posts/Tema8/index.html" class="card-link">← Volver al Tema 8</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

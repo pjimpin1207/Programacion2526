@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 8: TreeSet | Programación</title>
+  <meta name="description" content="Solución al Ejercicio 8 del Tema 8: Uso de TreeSet en Java para la ordenación automática de elementos numéricos y cadenas.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html" class="active">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 8 • Colecciones</div>
+      <h1>Ejercicio 8: TreeSet</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>En este ejercicio practicaremos con la implementación <code>TreeSet</code>. A diferencia de <code>HashSet</code> (que usa una tabla hash) o <code>LinkedHashSet</code> (que usa una lista enlazada), el <code>TreeSet</code> utiliza una estructura de <strong>árbol binario de búsqueda</strong> (específicamente un árbol Rojo-Negro).</p>
+        
+        <h3>Requisitos:</h3>
+        <ul>
+            <li>Crear un conjunto que implemente un árbol binario.</li>
+            <li>Añadir números enteros en desorden y comprobar cómo se recuperan ordenados.</li>
+            <li>Realizar la misma operación con cadenas de texto (nombres de alumnos) para observar el orden alfabético.</li>
+        </ul>
+
+        <h2>Solución</h2>
+        <p>La clave de <code>TreeSet</code> es que garantiza que los elementos estarán ordenados de forma ascendente según su <strong>orden natural</strong> (numérico para enteros y lexicográfico para Strings).</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema8.Ejercicios.ejercicio8;
+
+import java.util.Set;
+import java.util.TreeSet;
+
+public class Ejercicio8 {
+    public static void main(String[] args) {
+
+        // 1. Creamos el TreeSet para números enteros
+        // Esta implementación ordena los elementos automáticamente
+        Set&lt;Integer&gt; numeros = new TreeSet&lt;&gt;();
+        
+        // Añadimos números en orden aleatorio
+        numeros.add(50);
+        numeros.add(10);
+        numeros.add(30);
+
+        // Recorrer e imprimir: saldrán como 10, 30, 50
+        System.out.println("Números ordenados automáticamente por el árbol:");
+        for (Integer n : numeros) {
+            System.out.println("- " + n);
+        }
+
+        // 2. Repetimos el proceso con nombres de alumnos (Strings)
+        Set&lt;String&gt; alumnos = new TreeSet&lt;&gt;();
+        alumnos.add("Zaira");
+        alumnos.add("Ana");
+        alumnos.add("Luis");
+
+        // El orden natural de String es el alfabético
+        System.out.println("\nAlumnos ordenados alfabéticamente:");
+        for (String nombre : alumnos) {
+            System.out.println("- " + nombre);
+        }
+    }
+}</code></pre>
+        </div>
+
+        <h2>Conclusión</h2>
+        <div class="p-4 rounded-md" style="background-color: var(--card-bg); border-left: 4px solid var(--accent-color);">
+            <p><strong>¿Cómo funciona el orden?</strong><br>
+            <code>TreeSet</code> requiere que los objetos almacenados implementen la interfaz <code>Comparable</code>. Como <code>Integer</code> y <code>String</code> ya la implementan, el conjunto sabe cómo compararlos para decidir su posición en el árbol.</p>
+            
+            <p><strong>Ventajas y desventajas:</strong><br>
+            La ventaja principal es tener los datos <strong>siempre ordenados</strong>. La desventaja es que las operaciones de inserción y borrado son ligeramente más lentas (<code>log(n)</code>) que en un <code>HashSet</code> (<code>O(1)</code>), ya que el árbol debe reequilibrarse tras cada cambio.</p>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../index.html" class="card-link">← Volver al Tema 8</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

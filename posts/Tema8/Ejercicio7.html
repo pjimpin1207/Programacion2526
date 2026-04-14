@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 7: LinkedHashSet| Programación</title>
+  <meta name="description" content="Solución al Ejercicio 7 del Tema 8: Uso de LinkedHashSet para mantener el orden de inserción en conjuntos Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html" class="active">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 8 • Colecciones</div>
+      <h1>Ejercicio 7: LinkedHashSet</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>En este ejercicio profundizamos en la variante <code>LinkedHashSet</code>. Aunque comparte la propiedad de no admitir duplicados con el resto de los <code>Set</code>, tiene una característica especial: <strong>mantiene el orden de inserción</strong>.</p>
+        
+        <h3>Objetivos:</h3>
+        <ul>
+            <li>Declarar un conjunto usando la interfaz <code>Set</code>.</li>
+            <li>Verificar el comportamiento ante duplicados y valores nulos.</li>
+            <li>Realizar un recorrido personalizado añadiendo prefijos.</li>
+            <li>Comparar el orden de salida frente a un <code>HashSet</code> convencional.</li>
+        </ul>
+
+        <h2>Solución</h2>
+        <p>Implementamos la lógica para gestionar una lista de alumnos. Observa cómo al final comparamos dos conjuntos con los mismos datos para ver cómo cambia el orden en consola.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema8.Ejercicios.ejercicio7;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
+import java.util.HashSet;
+
+public class Ejercicio7 {
+    public static void main(String[] args) {
+
+        // 1. Crear el conjunto usando la interfaz Set
+        // LinkedHashSet respeta el orden en que añadimos los elementos
+        Set&lt;String&gt; alumnos = new LinkedHashSet&lt;&gt;();
+
+        // 2. Agregar nombres de alumnos
+        alumnos.add("Fran");
+        alumnos.add("Ana");
+        alumnos.add("Luis");
+        alumnos.add("Marta");
+
+        // 3. Imprimir contenido
+        // ¿Referencia o valor? Imprime el valor (toString() sobreescrito)
+        System.out.println("Lista original (orden entrada): " + alumnos);
+
+        // 4. ¿Permite duplicados?
+        // Los Set nunca permiten elementos repetidos
+        alumnos.add("Fran");
+        System.out.println("Tras intentar repetir a Fran: " + alumnos);
+
+        // 5. ¿Permite nulos?
+        // Admite un valor nulo
+        alumnos.add(null);
+        System.out.println("Tras añadir un null: " + alumnos);
+
+        // 6. Recorrido con prefijo "D."
+        System.out.println("\nRecorrido ordenado (LinkedHashSet):");
+        for (String nombre : alumnos) {
+            if (nombre != null) {
+                System.out.println("D. " + nombre);
+            } else {
+                System.out.println("D. [Nulo]");
+            }
+        }
+
+        // 7. Comparación con HashSet
+        Set&lt;String&gt; alumnosHashSet = new HashSet&lt;&gt;();
+        alumnosHashSet.add("Fran");
+        alumnosHashSet.add("Ana");
+        alumnosHashSet.add("Luis");
+        alumnosHashSet.add("Marta");
+        alumnosHashSet.add(null);
+
+        // En HashSet el orden será impredecible (basado en el hash)
+        System.out.println("\nComparación con HashSet (Orden aleatorio):");
+        System.out.println(alumnosHashSet);
+    }
+}</code></pre>
+        </div>
+
+        <h2>Conclusiones del Ejercicio</h2>
+        <div class="p-4 rounded-md" style="background-color: var(--card-bg); border-left: 4px solid var(--accent-color);">
+            <p><strong>¿Por qué usar LinkedHashSet?</strong><br>
+            A veces necesitamos la velocidad de búsqueda de un conjunto y la restricción de no duplicados, pero queremos mostrar los datos al usuario en el mismo orden en que se registraron. Aquí es donde brilla esta implementación.</p>
+            
+            <p><strong>HashSet vs LinkedHashSet:</strong><br>
+            Mientras que <code>HashSet</code> utiliza una tabla hash pura (máximo rendimiento, orden caótico), <code>LinkedHashSet</code> añade una <strong>lista doblemente enlazada</strong> que recorre todos los elementos, manteniendo la cronología de entrada.</p>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../index.html" class="card-link">← Volver al Tema 8</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>
