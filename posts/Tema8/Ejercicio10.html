@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 10: Comparadores Personalizados (Comparator) | Programación</title>
+  <meta name="description" content="Solución al Ejercicio 10 del Tema 8: Implementación de la interfaz Comparator en Java para múltiples criterios de ordenación y manejo de nulos.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html" class="active">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 8 • Colecciones</div>
+      <h1>Ejercicio 10: Comparadores - Flexibilidad en la Ordenación</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>En el ejercicio anterior definimos el <em>orden natural</em> de una Persona (por nombre). Sin embargo, en aplicaciones reales solemos necesitar ordenar los mismos datos de diferentes formas según el contexto. Aquí es donde entra en juego la interfaz <code>Comparator</code>.</p>
+        
+        <h3>Requisitos:</h3>
+        <ul>
+            <li>Crear un comparador externo para ordenar por <strong>edad</strong>.</li>
+            <li>Crear otro comparador para ordenar por <strong>apellidos</strong>.</li>
+            <li>Implementar un <strong>comparador combinado</strong>: Apellidos &gt; Nombre &gt; Edad.</li>
+            <li><strong>Ampliación:</strong> Gestionar valores nulos para que las personas sin apellido aparezcan al principio de la lista.</li>
+        </ul>
+
+        <h2>Solución: Implementación de Comparadores</h2>
+        <p>A diferencia de <code>Comparable</code>, los comparadores se definen en clases independientes que implementan <code>Comparator&lt;T&gt;</code>, lo que permite tener infinitas formas de ordenar sin tocar el código de la clase Persona.</p>
+
+        <h3>1. Clases Comparadoras</h3>
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema8.Ejercicios.ejercicio10;
+
+import Tema8.Ejercicios.ejercicio9.Persona;
+import java.util.Comparator;
+
+// Estrategia 1: Comparar solo por edad
+class ComparadorEdad implements Comparator&lt;Persona&gt; {
+    @Override
+    public int compare(Persona p1, Persona p2) {
+        return Integer.compare(p1.getEdad(), p2.getEdad());
+    }
+}
+
+// Estrategia 2: Comparador Combinado con manejo de nulos (Ampliación)
+class ComparadorCombinado implements Comparator&lt;Persona&gt; {
+    @Override
+    public int compare(Persona p1, Persona p2) {
+        // Lógica para apellidos nulos: mandarlos al principio (-1)
+        if (p1.getApellidos() == null && p2.getApellidos() != null) return -1;
+        if (p1.getApellidos() != null && p2.getApellidos() == null) return 1;
+
+        int res = 0;
+        // Si ambos tienen apellido, comparamos alfabéticamente
+        if (p1.getApellidos() != null && p2.getApellidos() != null) {
+            res = p1.getApellidos().compareTo(p2.getApellidos());
+        }
+
+        // Si el apellido es idéntico o ambos nulos, pasamos al Nombre
+        if (res == 0) {
+            res = p1.getNombre().compareTo(p2.getNombre());
+        }
+
+        // Si el nombre también coincide, decidimos por Edad
+        if (res == 0) {
+            res = Integer.compare(p1.getEdad(), p2.getEdad());
+        }
+
+        return res;
+    }
+}</code></pre>
+        </div>
+
+        <h3>2. Método Main</h3>
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema8.Ejercicios.ejercicio10;
+
+import Tema8.Ejercicios.ejercicio9.Persona;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        List&lt;Persona&gt; lista = new ArrayList&lt;&gt;();
+        lista.add(new Persona("Fran", "Gomez", 30));
+        lista.add(new Persona("Ana", "Zaragoza", 25));
+        lista.add(new Persona("Luis", null, 40)); // Persona con apellido nulo
+
+        // Ordenación por edad usando Collections.sort
+        System.out.println("--- Orden por Edad ---");
+        Collections.sort(lista, new ComparadorEdad());
+        System.out.println(lista);
+
+        // Ordenación combinada (Apellidos > Nombre > Edad)
+        System.out.println("\n--- Orden Combinado (Nulos al principio) ---");
+        Collections.sort(lista, new ComparadorCombinado());
+        System.out.println(lista);
+    }
+}</code></pre>
+        </div>
+
+        <h2>Diferencias Fundamentales</h2>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+            <thead>
+                <tr style="background-color: var(--accent-glow); text-align: left;">
+                    <th style="padding: 1rem; border-bottom: 2px solid var(--accent-color);">Característica</th>
+                    <th style="padding: 1rem; border-bottom: 2px solid var(--accent-color);">Comparable</th>
+                    <th style="padding: 1rem; border-bottom: 2px solid var(--accent-color);">Comparator</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);"><strong>Ubicación</strong></td>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Dentro de la clase (this).</td>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Clase externa o anónima.</td>
+                </tr>
+                <tr>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);"><strong>Flexibilidad</strong></td>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Un solo criterio (Natural).</td>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Múltiples criterios personalizados.</td>
+                </tr>
+                <tr>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);"><strong>Método</strong></td>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);"><code>compareTo(obj)</code></td>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);"><code>compare(obj1, obj2)</code></td>
+                </tr>
+            </tbody>
+        </table>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../index.html" class="card-link">← Volver al Tema 8</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>
