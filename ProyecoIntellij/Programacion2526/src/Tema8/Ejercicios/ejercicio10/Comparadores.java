@@ -25,7 +25,7 @@ class ComparadorCombinado implements Comparator<Persona> {
     @Override
     public int compare(Persona p1, Persona p2) {
         // ampliacion apellidos nulos al principio
-        if (p1.getApellidos() == null && p2.getApellidos() != null)return -1;
+        if (p1.getApellidos() == null && p2.getApellidos() != null) return -1;
         if (p1.getApellidos() != null && p2.getApellidos() == null) return 1;
 
         // Si ambos existen o ambos son null, comparamos normal

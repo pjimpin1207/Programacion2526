@@ -7,8 +7,8 @@ public class Main {
     public static void main(String[] args) {
         // crear  lista para poder usar diferentes ordenaciones
         List<Persona> lista = new ArrayList<>();
-        lista.add(new Persona("Fran", "Gomez", 30));
-        lista.add(new Persona("Ana", "Zaragoza", 25));
+        lista.add(new Persona("Manuel", "Fuentes", 30));
+        lista.add(new Persona("Manuel", "Fuentes", 25));
         lista.add(new Persona("Luis", null, 40));
 
         // orden por edad
