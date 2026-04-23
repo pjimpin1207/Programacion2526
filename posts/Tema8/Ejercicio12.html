@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 12: ListIterator y Recorridos Bidireccionales | Programación</title>
+  <meta name="description" content="Solución al Ejercicio 12 del Tema 8: Uso de ListIterator en Java para recorridos hacia adelante y atrás, modificación y edición de listas.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html" class="active">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 8 • Colecciones</div>
+      <h1>Ejercicio 12: ListIterator - Potencia en la Iteración</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>En este ejercicio exploraremos <code>ListIterator</code>, una versión más potente del iterador tradicional que solo está disponible para clases que implementan <code>List</code>. A diferencia de un iterador normal, este nos permite movernos en ambas direcciones y modificar la lista mientras la recorremos.</p>
+        
+        <h3>Requisitos:</h3>
+        <ul>
+            <li>Inicializar un <code>ArrayList&lt;Integer&gt;</code> con 10 números.</li>
+            <li>Recorrer la lista hacia adelante mostrando los índices y multiplicando por 2 los valores mayores de 50.</li>
+            <li>Recorrer la lista hacia atrás e insertar el número 25 después de cualquier valor menor que 30.</li>
+            <li>Utilizar métodos como <code>nextIndex()</code>, <code>previousIndex()</code>, <code>set()</code> y <code>add()</code>.</li>
+        </ul>
+
+        <h2>Solución</h2>
+        <p>El uso de <code>ListIterator</code> es ideal cuando necesitamos realizar ediciones complejas sobre una lista sin los problemas de concurrencia que daría un bucle <code>for</code> tradicional.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema8.Ejercicios.ejercicio12;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
+
+public class Ejercicio12 {
+    public static void main(String[] args) {
+        // 1. Inicializar la lista con 10 números
+        List&lt;Integer&gt; numeros = new ArrayList&lt;&gt;();
+        for (int i = 10; i <= 100; i += 10) {
+            numeros.add(i);
+        }
+
+        System.out.println("Lista inicial: " + numeros);
+
+        // 2. Crear el ListIterator
+        ListIterator&lt;Integer&gt; it = numeros.listIterator();
+
+        // 3. Recorrido hacia adelante con modificación (set)
+        System.out.println("\n--- Recorriendo hacia adelante ---");
+        while (it.hasNext()) {
+            int indice = it.nextIndex();
+            Integer valor = it.next();
+
+            System.out.println("Índice " + indice + ": " + valor);
+
+            // Si el valor es mayor que 50, lo actualizamos en la lista
+            if (valor > 50) {
+                it.set(valor * 2); 
+            }
+        }
+        System.out.println("Lista tras multiplicar > 50 por 2: " + numeros);
+
+        // 4. Recorrido hacia atrás con inserción (add)
+        // El iterador ya está al final, así que podemos empezar a retroceder
+        System.out.println("\n--- Recorriendo hacia atrás ---");
+        while (it.hasPrevious()) {
+            int indice = it.previousIndex();
+            Integer valor = it.previous();
+
+            System.out.println("Índice " + indice + ": " + valor);
+
+            // Si el valor es menor que 30, añadimos el número 25
+            if (valor < 30) {
+                it.add(25); // Se añade en la posición actual
+                it.previous(); // Reposicionamos para no entrar en bucle infinito
+            }
+        }
+        System.out.println("Lista final: " + numeros);
+    }
+}</code></pre>
+        </div>
+
+        <h2>Diferencias entre Iterator y ListIterator</h2>
+        <div class="p-4 rounded-md" style="background-color: var(--card-bg); border-left: 4px solid var(--accent-color);">
+            <ul>
+                <li><strong>Dirección:</strong> <code>Iterator</code> solo va hacia adelante. <code>ListIterator</code> es bidireccional (<code>previous()</code>).</li>
+                <li><strong>Modificación:</strong> <code>Iterator</code> solo permite eliminar (<code>remove()</code>). <code>ListIterator</code> permite sustituir (<code>set()</code>) y añadir (<code>add()</code>).</li>
+                <li><strong>Índices:</strong> <code>ListIterator</code> puede decirnos en qué posición está en todo momento con <code>nextIndex()</code>.</li>
+                <li><strong>Ámbito:</strong> <code>Iterator</code> sirve para cualquier <code>Collection</code>. <code>ListIterator</code> es exclusivo de <code>List</code>.</li>
+            </ul>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="./index.html" class="card-link">← Volver al Tema 8</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>
