@@ -1,4 +1,5 @@
-package Ejercicios.ejercicio1;
+package Tema8.Ejercicios.ejercicio1;
+
 public class Persona {
     // Atributos privados (Encapsulación)
     private String nombre;

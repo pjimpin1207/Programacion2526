@@ -1,4 +1,4 @@
-package Ejercicios.ejercicio1;
+package Tema8.Ejercicios.ejercicio1;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +31,7 @@ public class Ejercicio1 {
 
         //Recorre la lista con un for clásico (usándo índice) imprimiendo el nombre de cada persona
         for (int i=0; i < lista.size(); i++) {
-            System.out.println(lista.get(i).getNombre());
+            //System.out.println(lista.get(i).getNombre());
         }
 
         //Crea una nueva persona, añádela a la lista y pregunta si la lista contiene a esa persona recien creada para confirmarlo
