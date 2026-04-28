@@ -10,7 +10,7 @@ public class Ejercicio14 {
         Map<String, Integer> alfabetico = new TreeMap<>();
 
         // crear los datos
-        String[] nombres = {"Andres", "Juan", "Ana", "Mario"};
+        String[] nombres = {"Zoe", "Bernat", "Ana", "Mario"};
         int[] notas = {85, 92, 78, 88};
 
         for (int i = 0; i < nombres.length; i++) {
