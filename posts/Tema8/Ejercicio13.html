@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 13: Map | Programación</title>
+  <meta name="description" content="Solución al Ejercicio 13 del Tema 8: Implementación de un inventario de frutería utilizando la interfaz Map y HashMap en Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html" class="active">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 8 • Colecciones</div>
+      <h1>Ejercicio 13: Map</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>En este ejercicio dejamos atrás las colecciones secuenciales para trabajar con <strong>Mapas</strong>. La interfaz <code>Map</code> representa un diccionario de datos basado en parejas de <strong>Clave - Valor</strong>.</p>
+        
+        <h3>Contexto:</h3>
+        <p>Imagina que eres el desarrollador de una frutería. El dueño necesita consultar existencias de forma instantánea. Usar una lista obligaría a buscar elemento por elemento, pero con un <code>Map</code> obtendremos una búsqueda directa y eficiente.</p>
+
+        <h2>Solución</h2>
+        <p>Implementamos la clase <code>InventarioFruteria</code> utilizando un <code>HashMap</code>, donde la clave es el nombre de la fruta (<code>String</code>) y el valor es su stock (<code>Integer</code>).</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema8.Ejercicios.ejercicio13;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+public class InventarioFruteria {
+    public static void main(String[] args) {
+        // 1. Crear el mapa (Clave: String, Valor: Integer)
+        Map&lt;String, Integer&gt; inventario = new HashMap&lt;&gt;();
+
+        // 2. Carga de datos inicial
+        inventario.put("Manzanas", 50);
+        inventario.put("Plátanos", 20);
+        inventario.put("Naranjas", 35);
+        inventario.put("Peras", 12);
+
+        // 3. Consulta directa por clave
+        System.out.println("Cantidad de naranjas: " + inventario.get("Naranjas"));
+
+        // 4. Actualización (Sobrescribir el valor de una clave existente)
+        inventario.put("Manzanas", 100);
+        System.out.println("Cantidad de manzanas actualizadas: " + inventario.get("Manzanas"));
+
+        // 5. Verificación de existencia
+        if (inventario.containsKey("Mangos")) {
+            System.out.println("Hay mangos en el inventario");
+        } else {
+            System.out.println("No se han encontrado mangos");
+        }
+
+        // 6. Recorrido usando keySet y un Iterador
+        System.out.println("\n--- Inventario Completo ---");
+        Iterator&lt;String&gt; itFrutas = inventario.keySet().iterator();
+        while (itFrutas.hasNext()) {
+            String fruta = itFrutas.next();
+            Integer cantidad = inventario.get(fruta);
+            System.out.println(fruta + ": " + cantidad);
+        }
+    }
+}</code></pre>
+        </div>
+
+        <h2>Preguntas de Reflexión</h2>
+        <div class="p-4 rounded-md" style="background-color: var(--card-bg); border-left: 4px solid var(--accent-color);">
+            <p><strong>1. Al actualizar "Manzanas", ¿aparecen dos entradas o se sobrescribe?</strong><br>
+            Se sobrescribe. En un <code>HashMap</code> las claves son únicas. Al usar <code>.put()</code> con una clave que ya existe, el mapa simplemente reemplaza el valor antiguo por el nuevo.</p>
+            
+            <p><strong>2. ¿Qué pasaría si usas un <code>int</code> como clave?</strong><br>
+            Daría un error de compilación. Las colecciones en Java solo trabajan con objetos. Deberíamos usar la clase envoltorio <code>Integer</code>.</p>
+
+            <p><strong>3. ¿Por qué es más eficiente un <code>Map</code> que un <code>ArrayList</code> aquí?</strong><br>
+            Por la velocidad de búsqueda. En un <code>ArrayList</code> $(O(n))$, el programa debe recorrer todos los elementos hasta encontrar el correcto. En un <code>Map</code> $(O(1))$, el programa va directamente a la posición de la clave gracias a su función hash.</p>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../posts/Tema8/index.html" class="card-link">← Volver al Tema 8</a>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

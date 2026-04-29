@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 14: Comparativa HashMap, LinkedHashMap y TreeMap | Programación</title>
+  <meta name="description" content="Solución al Ejercicio 14 del Tema 8: Análisis comparativo de las implementaciones de Map en Java y sus diferentes órdenes de salida.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html" class="active">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 8 • Colecciones</div>
+      <h1>Ejercicio 14: Comparativa de Mapas - El Ranking de Competición</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>¿Cuándo debemos usar un mapa u otro? En este ejercicio registraremos participantes de una competición de programación y compararemos cómo almacenan los datos un <code>HashMap</code>, un <code>LinkedHashMap</code> y un <code>TreeMap</code>.</p>
+        
+        <h3>Instrucciones:</h3>
+        <ul>
+            <li><strong>Crear las estructuras:</strong> Instanciar los tres tipos de mapas.</li>
+            <li><strong>Carga de datos:</strong> Insertar los mismos participantes ("Zoe", "Bernat", "Ana", "Mario") en el mismo orden.</li>
+            <li><strong>Recorrido con Iteradores:</strong> Implementar un método genérico que use <code>Iterator</code> sobre el <code>entrySet</code> del mapa para mostrar los resultados.</li>
+        </ul>
+
+        <h2>Solución</h2>
+        <p>A continuación, el código que demuestra cómo cada implementación organiza las llaves (nombres de participantes) de manera distinta según su lógica interna.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema8.Ejercicios.ejercicio14;
+
+import java.util.*;
+
+public class Ejercicio14 {
+    public static void main(String[] args) {
+        // 1. Creación de las tres estructuras diferentes
+        Map&lt;String, Integer&gt; aleatorio = new HashMap&lt;&gt;();
+        Map&lt;String, Integer&gt; insercion = new LinkedHashMap&lt;&gt;();
+        Map&lt;String, Integer&gt; alfabetico = new TreeMap&lt;&gt;();
+
+        // Datos para la competición
+        String[] nombres = {"Zoe", "Bernat", "Ana", "Mario"};
+        int[] notas = {85, 92, 78, 88};
+
+        // 2. Carga idéntica de datos en todos los mapas
+        for (int i = 0; i < nombres.length; i++) {
+            aleatorio.put(nombres[i], notas[i]);
+            insercion.put(nombres[i], notas[i]);
+            alfabetico.put(nombres[i], notas[i]);
+        }
+
+        // 3. Ejecución del método de visualización
+        mostrarMapa(aleatorio, "HASHMAP (Sin orden garantizado)");
+        mostrarMapa(insercion, "LINKEDHASHMAP (Orden de inserción)");
+        mostrarMapa(alfabetico, "TREEMAP (Orden natural/alfabético)");
+    }
+
+    // Método genérico para recorrer cualquier Map usando Iterator sobre entrySet
+    public static void mostrarMapa(Map&lt;String, Integer&gt; mapa, String tipo) {
+        System.out.println("\n--- " + tipo + " ---");
+
+        // Obtenemos el iterador del conjunto de entradas (clave-valor)
+        Iterator&lt;Map.Entry&lt;String, Integer&gt;&gt; it = mapa.entrySet().iterator();
+
+        while (it.hasNext()) {
+            Map.Entry&lt;String, Integer&gt; entrada = it.next();
+            System.out.println("Participante: " + entrada.getKey() + " | Puntos: " + entrada.getValue());
+        }
+    }
+}</code></pre>
+        </div>
+
+        <h2>Cuestionario de Observación</h2>
+        <div class="p-4 rounded-md" style="background-color: var(--card-bg); border-left: 4px solid var(--accent-color);">
+            <p><strong>1. ¿Qué ha pasado en el HashMap?</strong><br>
+            Los nombres aparecen en un orden aleatorio. Esto ocurre porque organiza los elementos según el <em>hashCode</em> de la clave para maximizar la velocidad.</p>
+            
+            <p><strong>2. ¿Qué ha pasado en el LinkedHashMap?</strong><br>
+            Se ha respetado fielmente el orden de llegada. Esta estructura utiliza una lista doblemente enlazada para "recordar" la secuencia de inserción.</p>
+
+            <p><strong>3. ¿Qué ha pasado en el TreeMap?</strong><br>
+            Los nombres están ordenados de la A a la Z. Al basarse en un árbol binario, ordena automáticamente las llaves por su orden natural.</p>
+
+            <p><strong>4. Caso práctico: Agenda telefónica</strong><br>
+            Elegiría el <strong>TreeMap</strong>. Es la opción ideal para una agenda ya que permite realizar búsquedas rápidas y garantiza que los contactos estén siempre ordenados alfabéticamente sin intervención manual.</p>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../posts/Tema8/index.html" class="card-link">← Volver al Tema 8</a>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

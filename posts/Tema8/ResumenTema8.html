@@ -4,13 +4,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Resumen Tema 8: Colecciones y TAD</title>
-  <meta name="description" content="Resumen completo de la Unidad 8: Tipos Abstractos de Datos (TAD) y Java Collections Framework (JCF). Listas, Conjuntos, Mapas y más.">
+  <title>Resumen Unidad 8: Colecciones y TAD | Programación</title>
+  <meta name="description" content="Resumen completo de la Unidad 8 sobre Tipos Abstractos de Datos y el Java Collections Framework.">
   <link rel="stylesheet" href="../../css/style.css">
 </head>
 
 <body>
 
+  <!-- ===== HEADER ===== -->
   <header class="header">
         <a href="../../index.html" class="brand-logo">Programación</a>
         <nav class="nav">
@@ -25,105 +26,94 @@
             <a href="../../posts/Tema8/index.html" class="active">Tema 8</a>
             <a href="../../posts/Tema9/index.html">Tema 9</a>
             <a href="../../posts/Tema10/index.html">Tema 10</a>
-            <a href="../../posts/ProyectoFinal/index.html">Proyecto Final</a>
         </nav>
         <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
             <span class="theme-icon">🌓</span>
         </button>
     </header>
 
+  <!-- ===== MAIN CONTENT ===== -->
   <main class="main-wrapper">
 
     <article class="post-content">
-      <div class="meta">Tema 8 • Resumen del tema Colecciones y TAD</div>
-      <h1>Resumen del Tema 8: Colecciones y Tipos Abstractos de Datos</h1>
+      <div class="meta">Teoría • Unidad Didáctica 8</div>
+      <h1>Resumen de la Unidad 8: Colecciones y TAD</h1>
 
       <div class="post-body">
-        <p>En este tema damos un paso enorme en la estructuración de la información. Pasamos de usar simples arrays a utilizar el <strong>Java Collections Framework (JCF)</strong>, un conjunto de herramientas muy potente para manejar grupos de objetos de forma eficiente.</p>
+        
+        <p>Esta unidad explora cómo Java permite modelar problemas complejos mediante el uso de <strong>Tipos Abstractos de Datos (TAD)</strong> y el potente <strong>Java Collections Framework (JCF)</strong>.</p>
 
-        <h2>1. Tipos Abstractos de Datos (TAD)</h2>
-        <p>Un TAD es un modelo definido para representar tipos abstractos (como una pila o un conjunto) creando un nuevo tipo de dato más avanzado[cite: 2847]. Se especifican mediante una interfaz y se definen mediante la implementación de esas interfaces[cite: 2860, 2861]. Algunos ejemplos clásicos son:</p>
+        <h2>1. Introducción a los TAD</h2>
+        <p>Un TAD es un modelo definido para representar tipos abstractos de datos (como una pila o un conjunto)[cite: 1]. Se caracteriza por definirse mediante una <strong>interfaz</strong> y contener tanto los datos como las operaciones (POO).</p>
         <ul>
-          <li><strong>Pilas (Stack):</strong> Colección de elementos que sigue la propiedad LIFO (Last In, First Out)[cite: 2870].</li>
-          <li><strong>Colas (Queue):</strong> Colección que sigue la propiedad FIFO (First In, First Out)[cite: 2871].</li>
-          <li><strong>Conjuntos (Set):</strong> Colección sin elementos duplicados[cite: 2872].</li>
-          <li><strong>Diccionarios (Map):</strong> Conjunto de asociaciones de clave y valor[cite: 2874].</li>
+            <li><strong>Ejemplos:</strong> Listas, Pilas (LIFO), Colas (FIFO), Conjuntos, Diccionarios y Grafos.</li>
         </ul>
 
-        <h2>2. Java Collections Framework: Jerarquía</h2>
-        <p>Las colecciones en Java están dentro del paquete <code>java.util.*</code>[cite: 2964]. La estructura principal se divide en dos grandes ramas:</p>
-        <ol>
-            <li><strong>Collection:</strong> Es la interfaz raíz de la que heredan <code>List</code>, <code>Set</code> y <code>Queue</code>[cite: 2941, 2942].</li>
-            <li><strong>Map:</strong> Es una interfaz independiente que representa diccionarios clave-valor[cite: 2938].</li>
-        </ol>
+        
 
-        <h2>3. Interfaz Set (Conjuntos)</h2>
-        <p>Los <code>Set</code> implementan conjuntos de elementos donde no se permiten duplicados[cite: 3000, 3003]. Sus implementaciones más comunes son:</p>
+        <h2>2. Java Collections Framework (JCF)</h2>
+        <p>Ubicado en el paquete <code>java.util.*</code>, este framework proporciona una arquitectura común para manejar grupos de objetos.</p>
+
+        <h3>2.1 Listas (Interface List)</h3>
+        <p>Colecciones secuenciales que permiten duplicados y mantienen el orden de inserción.</p>
         <ul>
-            <li><strong>HashSet:</strong> Almacena los elementos en una tabla hash. Su acceso es muy rápido $(O(1))$, pero no garantiza ningún orden[cite: 3031, 3032, 3338].</li>
-            <li><strong>LinkedHashSet:</strong> Similar al HashSet, pero los elementos se ordenan por su orden de inserción[cite: 3219].</li>
-            <li><strong>TreeSet:</strong> Utiliza una estructura de árbol binario. Mantiene los elementos ordenados de forma ascendente (orden natural) pero es ligeramente más lento $(O(\log n))$[cite: 3295, 3296, 3338].</li>
+            <li><strong>ArrayList:</strong> Arrays dinámicos ideales para lectura frecuente (acceso aleatorio).</li>
+            <li><strong>LinkedList:</strong> Lista doblemente enlazada, excelente para inserciones y eliminaciones constantes.</li>
         </ul>
 
-        <h2>4. Interfaz List (Listas)</h2>
-        <p>Las listas permiten el acceso a los elementos por su posición (índice), permiten duplicados y mantienen el orden de inserción[cite: 3521, 3522, 3523].</p>
-
-        <table style="width: 100%; border-collapse: collapse; margin-bottom: 2rem;">
-            <thead>
-                <tr style="background-color: var(--accent-glow); text-align: left;">
-                    <th style="padding: 1rem; border-bottom: 2px solid var(--accent-color);">Característica</th>
-                    <th style="padding: 1rem; border-bottom: 2px solid var(--accent-color);">ArrayList</th>
-                    <th style="padding: 1rem; border-bottom: 2px solid var(--accent-color);">LinkedList</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);"><strong>Estructura interna</strong></td>
-                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Array dinámico en memoria contigua[cite: 3549].</td>
-                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Lista doblemente enlazada mediante nodos[cite: 3665].</td>
-                </tr>
-                <tr>
-                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);"><strong>Acceso por índice <code>get(i)</code></strong></td>
-                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Muy rápido $(O(1))$[cite: 3740].</td>
-                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Más lento $(O(n))$[cite: 3740].</td>
-                </tr>
-                <tr>
-                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);"><strong>Inserción en medio</strong></td>
-                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Lenta (requiere mover elementos)[cite: 3740].</td>
-                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Rápida (sólo se ajustan los enlaces)[cite: 3740].</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <h2>5. Interfaz Map (Diccionarios)</h2>
-        <p>Asocia pares de valores (clave-valor). Las claves no se pueden repetir, pero los valores sí[cite: 3802, 3813, 3814]. Es ideal para casos como configuraciones de aplicaciones o gestión de inventarios[cite: 3826, 3832].</p>
+        <h3>2.2 Conjuntos (Interface Set)</h3>
+        <p>Estructuras que no permiten elementos duplicados.</p>
         <ul>
-            <li><strong>HashMap:</strong> Operaciones rápidas $(O(1))$, no garantiza orden[cite: 3905].</li>
-            <li><strong>LinkedHashMap:</strong> Mantiene el orden de inserción combinando una tabla hash con una lista enlazada[cite: 3909, 3966].</li>
-            <li><strong>TreeMap:</strong> Ordena las claves de forma natural o según un comparador personalizado[cite: 3907].</li>
+            <li><strong>HashSet:</strong> El más rápido, pero sin orden garantizado (caos total).</li>
+            <li><strong>LinkedHashSet:</strong> Mantiene el orden de llegada.</li>
+            <li><strong>TreeSet:</strong> Ordena los elementos de forma natural (alfabética o numérica) usando un árbol binario.</li>
         </ul>
 
-        <h2>6. Tipos Genéricos y Wrappers</h2>
-        <p>Los <strong>tipos genéricos <code>&lt;T&gt;</code></strong> permiten crear colecciones que operan con tipos de datos específicos, mejorando la seguridad del código y evitando errores en tiempo de ejecución[cite: 3077, 3078].</p>
-        <p>Las colecciones <strong>no admiten tipos primitivos</strong> (como <code>int</code> o <code>double</code>). Para usarlos, debemos emplear las <strong>clases envoltorio (Wrappers)</strong> como <code>Integer</code> o <code>Double</code>[cite: 3143, 3144]. Java realiza el <em>autoboxing</em> y <em>unboxing</em> automáticamente para convertir entre primitivos y sus objetos correspondientes[cite: 3109, 3111].</p>
-
-        <h2>7. Ordenación: Comparable, Comparator y Collections</h2>
-        <p>Para ordenar colecciones, Java nos proporciona dos interfaces clave:</p>
+        <h3>2.3 Mapas (Interface Map)</h3>
+        <p>Representan diccionarios de pares <strong>Clave - Valor</strong>. Las claves son únicas, pero los valores pueden repetirse.</p>
         <ul>
-            <li><strong>Comparable:</strong> Se implementa en la propia clase (ej: <code>Persona</code>) sobrescribiendo el método <code>compareTo(T o)</code> para definir el <strong>orden natural</strong> del objeto[cite: 3356, 3359]. Si se sobrescribe, debe tener concordancia con el método <code>equals()</code>[cite: 3366, 3380].</li>
-            <li><strong>Comparator:</strong> Se crea en clases aparte para establecer <strong>órdenes alternativos</strong> sobrescribiendo el método <code>compare(T o1, T o2)</code>[cite: 3400, 3415]. Muy útil con funciones lambda: <code>Comparator.comparing(Persona::getNombre)</code>[cite: 3449].</li>
+            <li><strong>HashMap:</strong> Rápido y sin orden específico.</li>
+            <li><strong>TreeMap:</strong> Ordena las claves de forma natural.</li>
+            <li><strong>LinkedHashMap:</strong> Respeta el orden de inserción.</li>
         </ul>
-        <p>Además, disponemos de la clase de utilidades <strong>Collections</strong> que ofrece métodos estáticos muy útiles como <code>sort()</code>, <code>reverse()</code>, <code>shuffle()</code>, <code>max()</code> o <code>min()</code>[cite: 4073, 4079, 4081].</p>
+
+        <h2>3. Conceptos Avanzados</h2>
+
+        <h3>Wrappers y Genéricos</h3>
+        <p>Las colecciones solo admiten objetos, por lo que usamos <strong>Wrappers</strong> (como <code>Integer</code> o <code>Double</code>) para envolver tipos primitivos. Los <strong>Tipos Genéricos</strong> (<code>&lt;T&gt;</code>) aportan seguridad de tipos y eliminan la necesidad de realizar <em>casts</em> manuales.</p>
+
+        <h3>Comparadores</h3>
+        <ul>
+            <li><strong>Comparable:</strong> Interfaz para establecer el orden natural de una clase (<code>compareTo</code>).</li>
+            <li><strong>Comparator:</strong> Permite definir órdenes alternativos mediante clases externas (<code>compare</code>).</li>
+        </ul>
+
+        <h3>Iteradores</h3>
+        <p>El <strong>Iterator</strong> es el TAD de Java diseñado específicamente para recorrer colecciones de forma segura, permitiendo eliminar elementos durante el recorrido sin errores estructurales.</p>
+
+        <h2>4. Clase de utilidad Collections</h2>
+        <p>A diferencia de la interfaz <em>Collection</em>, <code>Collections</code> es una clase utilitaria con métodos estáticos para operar sobre las listas:</p>
+        <ul>
+            <li><code>sort()</code>: Ordenar elementos.</li>
+            <li><code>shuffle()</code>: Barajar la lista aleatoriamente.</li>
+            <li><code>max() / min()</code>: Encontrar valores extremos.</li>
+            <li><code>frequency()</code>: Contar repeticiones de un objeto.</li>
+        </ul>
+
+        <div class="note-box">
+            <strong>Nota Importante:</strong> Programar siempre orientado a <strong>interfaces</strong> (ej. <code>List lista = new ArrayList()</code>) es una mejor práctica que usar las implementaciones directamente.
+        </div>
 
       </div>
 
       <div class="back-link">
-        <a href="../../posts/Tema8/index.html" class="card-link">← Volver al tema</a>
+        <a href="../../posts/Tema8/index.html" class="card-link">Volver al Tema 8</a>
       </div>
     </article>
 
   </main>
 
+  <!-- ===== FOOTER ===== -->
   <footer class="site-footer">
     <div class="footer-content">
       <div class="footer-brand">
@@ -147,4 +137,3 @@
 </body>
 
 </html>
-

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 15: Collections | Programación</title>
+  <meta name="description" content="Solución al Ejercicio 15 del Tema 8: Uso de la clase de utilidad Collections en Java para ordenar, barajar y encontrar valores extremos.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html" class="active">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 8 • Colecciones</div>
+      <h1>Ejercicio 15: Collections - Utilidades Imprescindibles</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>En este ejercicio final del tema, aprenderemos a utilizar la clase <strong>Collections</strong>. Es importante no confundirla con la interfaz <em>Collection</em>; <code>Collections</code> (con 's') es una clase de utilidad que contiene métodos estáticos para operar sobre nuestras colecciones.</p>
+        
+        <h3>Objetivos:</h3>
+        <ul>
+            <li>Gestionar una lista de puntuaciones numéricas[cite: 1].</li>
+            <li><strong>Ordenar:</strong> Clasificar los datos de menor a mayor de forma automática.</li>
+            <li><strong>Estadísticas:</strong> Obtener los valores extremos sin necesidad de bucles.</li>
+            <li><strong>Aleatoriedad:</strong> Barajar la lista para simular un sorteo.</li>
+        </ul>
+
+        <h2>Solución</h2>
+        <p>Utilizaremos una lista de enteros para poner a prueba los métodos más comunes de esta clase de utilidad. Observa cómo cambia la lista después de cada llamada a <code>Collections</code>.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema8.Ejercicios.ejercicio15;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class Ejercicio15 {
+    public static void main(String[] args) {
+        // 1. Crear lista con 6 puntuaciones desordenadas
+        List&lt;Integer&gt; puntuaciones = new ArrayList&lt;&gt;();
+        puntuaciones.add(450);
+        puntuaciones.add(1200);
+        puntuaciones.add(300);
+        puntuaciones.add(800);
+        puntuaciones.add(1500);
+        puntuaciones.add(100);
+
+        System.out.println("Lista inicial: " + puntuaciones);
+
+        // 2. Ordenar de menor a mayor usando Collections.sort()
+        Collections.sort(puntuaciones);
+        System.out.println("Lista ordenada: " + puntuaciones);
+
+        // 3. Buscar la puntuación más alta y la más baja (max y min)
+        int max = Collections.max(puntuaciones);
+        int min = Collections.min(puntuaciones);
+
+        System.out.println("Puntuación más alta: " + max);
+        System.out.println("Puntuación más baja: " + min);
+
+        // 4. Desordenar la lista (sorteo) usando Collections.shuffle()
+        Collections.shuffle(puntuaciones);
+        System.out.println("Lista tras el sorteo (shuffle): " + puntuaciones);
+    }
+}</code></pre>
+        </div>
+
+        <h2>Diferencia Clave</h2>
+        <div class="p-4 rounded-md" style="background-color: var(--card-bg); border-left: 4px solid var(--accent-color);">
+            <p><strong>Collection vs Collections:</strong><br>
+            Es un error común en los exámenes: <code>Collection</code> es la <strong>interfaz</strong> que define qué es una colección. En cambio, <code>Collections</code> es una <strong>clase de utilidades</strong> que proporciona "herramientas" (métodos estáticos) para trabajar con ellas, como ordenar o buscar.</p>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../posts/Tema8/index.html" class="card-link">← Volver al Tema 8</a>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>
