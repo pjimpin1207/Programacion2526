@@ -9,6 +9,7 @@ import java.util.List;
 public class Ejercicio14 {
     public static void main(String[] args) {
 
+        // crear mochila
         List<Item> mochila = new ArrayList<>();
         mochila.add(new Item("Manzanas", 2.3, 50));
         mochila.add(new Item("Pizza", 3.5, 25));
@@ -22,7 +23,6 @@ public class Ejercicio14 {
             ObjectOutputStream out = new ObjectOutputStream(fichero);
             out.writeObject(mochila);
             out.close();
-
 
         } catch (IOException e) {
             e.printStackTrace();

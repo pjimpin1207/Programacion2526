@@ -18,19 +18,25 @@ public class Item implements Serializable {
 
     // Getters y Setters
     public String getNombre() {
-        return nombre; }
+        return nombre;
+    }
     public void setNombre(String nombre) {
-        this.nombre = nombre; }
+        this.nombre = nombre;
+    }
 
     public double getPeso() {
-        return peso; }
+        return peso;
+    }
     public void setPeso(double peso) {
-        this.peso = peso; }
+        this.peso = peso;
+    }
 
     public int getValor() {
-        return valor; }
+        return valor;
+    }
     public void setValor(int valor) {
-        this.valor = valor; }
+        this.valor = valor;
+    }
 
     // Método toString para visualizar los datos fácilmente al recuperarlos
     @Override
