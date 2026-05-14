@@ -12,6 +12,8 @@ En la siguiente tabla encontrarás el acceso directo tanto al código fuente de 
 | **06. Interfaces** | [Ver carpeta](./Temas/Tema6) | [Ver en el blog](https://pjimpin1207.github.io/Programacion2526/posts/Tema6/index.html)) |
 | **07. Excepciones** | [Ver carpeta](./Temas/Tema7) | [Ver en el blog](https://pjimpin1207.github.io/Programacion2526/posts/Tema7/index.html)) |
 | **08. Colecciones y TAD** | [Ver carpeta](./Temas/Tema8) | [Ver en el blog](https://pjimpin1207.github.io/Programacion2526/posts/Tema8/index.html)) |
+| **09. Entrada y Salida** | [Ver carpeta](./Temas/Tema9) | [Ver en el blog](https://pjimpin1207.github.io/Programacion2526/posts/Tema9/index.html)) |
+| **10. Persistencia** | [Ver carpeta](./Temas/Tema10) | [Ver en el blog](https://pjimpin1207.github.io/Programacion2526/posts/Tema10/index.html)) |
 | **Proyecto Final** || [Ver en el blog](https://tu-blog.com/tema-06](https://pjimpin1207.github.io/Programacion2526/posts/ProyectoFinal/index.html)) |
 
 ## 🌐 Enlace del blog
