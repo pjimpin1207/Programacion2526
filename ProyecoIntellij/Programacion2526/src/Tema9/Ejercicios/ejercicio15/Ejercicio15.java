@@ -8,13 +8,12 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 
-public class Ejercicio5 {
+public class Ejercicio15 {
     public static void main(String[] args) {
         try {
             // 1. Crear la factoría y el constructor de documentos
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-
 
             // 2. Parsear el archivo XML
             File archivo = new File("config.xml");
