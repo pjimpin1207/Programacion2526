@@ -11,38 +11,39 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 
-
-
 public class Ejercicio16 {
     public static void main(String[] args) {
         try {
             // === FASE 1: Inicializar el documento vacío ===
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document documento = __________________ // Documento en blanco
+            // Creamos un documento en blanco en memoria
+            Document documento = builder.newDocument();
 
             // === FASE 2: Construir el árbol de Nodos/Elementos ===
 
-            // TODO: Crear el elemento raíz <videojuego>
+            // Creación del elemento raíz <videojuego>
+            Element raiz = documento.createElement("videojuego");
+            // Acoplamos la raíz directamente al nodo principal del documento
+            documento.appendChild(raiz);
 
+            // Creación del elemento <pantalla>
+            Element pantalla = documento.createElement("pantalla");
+            // Asignación de su atributo estructurado
+            pantalla.setAttribute("resolucion", "1920x1080");
+            // Inserción del texto interno del nodo
+            pantalla.setTextContent("true");
 
-            // TODO: Añadirlo al documento
-
-            // TODO: Crear el elemento <pantalla>
-
-            // TODO: asignarle atributo
-
-            // TODO: asignarle el texto interno
-
-            // ¡Crucial! Si no lo añades a la raíz, el nodo queda flotando en memoria
+            // ¡Crucial! Colgamos el nodo pantalla del elemento raíz
             raiz.appendChild(pantalla);
 
-            // TODO: Crear el elemento <audio>, asignarle atributo y texto interno
+            // Creación del elemento <audio>, asignarle atributo y texto interno
             Element audio = documento.createElement("audio");
             audio.setAttribute("volumen", "80");
             audio.setTextContent("false");
 
-            // TODO: Añadirlo al árbol en el lugar correcto
+            // Añadimos el nodo audio al árbol enganchándolo también a la raíz
+            raiz.appendChild(audio);
 
             // === FASE 3: El "Transformer" (Exportar memoria a archivo físico) ===
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -56,7 +57,8 @@ public class Ejercicio16 {
             DOMSource origen = new DOMSource(documento);
             StreamResult destino = new StreamResult(new File("juego_config.xml"));
 
-            // TODO: Serializar utilizando el método transform del transformer
+            // Serialización real del documento volcando los datos al archivo
+            transformer.transform(origen, destino);
 
             System.out.println("¡Archivo XML generado con éxito de manera estructurada!");
 
