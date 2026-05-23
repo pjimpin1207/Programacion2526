@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 17: Mapeo de Listas de Objetos a XML con DOM | Programación</title>
+  <meta name="description" content="Solución al Ejercicio 17 del Tema 9: Serialización estructurada de una colección List de objetos personalizados en un documento XML usando la API DOM de Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html" class="active">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 9 • Entrada y Salida</div>
+      <h1>Ejercicio 17: Serialización Colectiva — Exportación de Listas a Formato XML</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado y Objetivo</h2>
+        <p>En esta práctica subimos de nivel el uso de la API DOM. En lugar de generar etiquetas estáticas sueltas, aprenderemos a **mapear de forma dinámica una colección de datos de la memoria RAM (una lista de contactos)** para transformarla en un documento estructurado e intercambiable en formato XML.</p>
+        
+        <h3>Requisitos planteados:</h3>
+        <ul>
+            <li>Modelar una clase encapsulada <code>Persona</code> con los atributos básicos de localización: nombre, dirección y teléfono.</li>
+            <li>Instanciar en el método principal un <code>ArrayList</code> poblado con múltiples objetos de prueba.</li>
+            <li>Recorrer la lista de manera iterativa generando subárboles jerárquicos independientes para cada contacto y volcarlos al archivo físico <code>contactos_.xml</code>.</li>
+        </ul>
+
+        ---
+
+        <h2>Estructura del Código</h2>
+        
+        <h3>1. La Clase Modelo (Persona)</h3>
+        <p>Mantenemos el contrato de encapsulamiento e incluimos el soporte para <code>Serializable</code> junto con una redefinición limpia de <code>toString()</code> para auditar la información por la consola del sistema.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema9.Ejercicios.ejercicio17;
+
+import java.io.Serializable;
+
+public class Persona implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    private String nombre;
+    private String direccion;
+    private String telefono;
+
+    public Persona(String nombre, String direccion, String telefono) {
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.telefono = telefono;
+    }
+
+    public String getNombre() { return nombre; }
+    public String getDireccion() { return direccion; }
+    public String getTelefono() { return telefono; }
+
+    @Override
+    public String toString() {
+        return "Persona{nombre='" + nombre + "', direccion='" + direccion + "', telefono='" + telefono + "'}";
+    }
+}</code></pre>
+        </div>
+
+        <h3>2. Programa de Mapeo Estructural (Ejercicio17)</h3>
+        <p>Utilizamos un bucle <code>for-each</code> para procesar la lista. En cada iteración creamos un contenedor intermedio <code>&lt;persona&gt;</code>, le inyectamos los elementos hoja correspondientes con sus textos y los acoplamos al nodo raíz general.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema9.Ejercicios.ejercicio17;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Ejercicio17 {
+    public static void main(String[] args) {
+        // 1. Instanciar la base de datos volátil en memoria RAM (Lista de Contactos)
+        List&lt;Persona&gt; contactos = new ArrayList&lt;&gt;();
+        contactos.add(new Persona("Ana García López", "Calle Mayor 12, 29001 Málaga", "600111222"));
+        contactos.add(new Persona("Carlos Ruiz Pérez", "Avenida de Andalucía 45, 29004 Málaga", "611333444"));
+        contactos.add(new Persona("María Torres Sánchez", "Plaza de la Constitución 3, 29015 Málaga", "622555666"));
+        contactos.add(new Persona("Luis Fernández Mora", "Calle Larios 8, 29005 Málaga", "633777888"));
+        contactos.add(new Persona("Laura Martínez Díaz", "Paseo del Parque 2, 29016 Málaga", "644999000"));
+
+        try {
+            // 2. Inicializar el lienzo del árbol DOM estructurado
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.newDocument();
+
+            // 3. Crear el nodo de control raíz principal <contactos>
+            Element raiz = doc.createElement("contactos");
+            doc.appendChild(raiz);
+
+            // 4. Algoritmo de mapeo iterativo: Un nodo <persona> por cada objeto en la lista
+            for (Persona p : contactos) {
+                // Creamos el contenedor de entidad para el registro actual
+                Element persona = doc.createElement("persona");
+                raiz.appendChild(persona);
+
+                // Insertamos la propiedad encapsulada <nombre>
+                Element nombre = doc.createElement("nombre");
+                nombre.appendChild(doc.createTextNode(p.getNombre()));
+                persona.appendChild(nombre);
+
+                // Insertamos la propiedad encapsulada <direccion>
+                Element direccion = doc.createElement("direccion");
+                direccion.appendChild(doc.createTextNode(p.getDireccion()));
+                persona.appendChild(direccion);
+
+                // Insertamos la propiedad encapsulada <telefono>
+                Element telefono = doc.createElement("telefono");
+                telefono.appendChild(doc.createTextNode(p.getTelefono()));
+                persona.appendChild(telefono);
+            }
+            
+            // 5. Configurar el motor de transformación (Transformer) para el volcado físico
+            TransformerFactory tf = TransformerFactory.newInstance();
+            Transformer transformer = tf.newTransformer();
+
+            // Directivas estéticas y de control de codificación universal
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+
+            // Definimos el origen (nuestro árbol de memoria) y el destino (fichero contactos_.xml)
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(new File("contactos_.xml"));
+
+            // Consolidación de flujos binarios hacia el disco duro
+            transformer.transform(source, result);
+            System.out.println("Fichero estructurado 'contactos_.xml' generado correctamente.");
+
+            // 6. Auditoría visual de los datos procesados por consola
+            System.out.println("\nResumen de contactos salvaguardados:");
+            for (Persona p : contactos) {
+                System.out.println("  • " + p);
+            }
+
+        } catch (Exception e) {
+            System.err.println("Error al generar el documento XML: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+        </div>
+
+        <h2>Análisis Arquitectónico de la Solución</h2>
+        <div class="p-4 rounded-md" style="background-color: var(--card-bg); border-left: 4px solid var(--accent-color); margin: 1.5rem 0;">
+            <p><strong>Ventajas de la combinación de Listas con la API DOM:</strong></p>
+            <ul>
+                <li><strong>Flexibilidad del Modelo de Nodos:</strong> Al acoplar las llamadas a <code>createElement</code> dentro de estructuras iterativas (como los bucles <code>for</code>), el tamaño de nuestro archivo resultante es completamente elástico. Funcionará exactamente igual si la lista contiene 5 contactos o si se procesa un lote masivo de miles de registros procedentes de una base de datos externa.</li>
+                <li><strong>createTextNode frente a setTextContent:</strong> En este ejercicio hemos utilizado <code>doc.createTextNode(valor)</code> acoplado mediante <code>appendChild</code>. Aunque tiene un resultado idéntico a <code>setTextContent()</code> para valores simples de texto plano, la inserción de nodos de texto explícitos es más rigurosa desde el punto de vista arquitectónico y asegura que caracteres especiales (como los símbolos de las direcciones) se codifiquen de forma segura en las secuencias de escape nativas de XML (como <code>&amp;amp;</code> o <code>&amp;lt;</code>).</li>
+                <li><strong>Interoperabilidad total:</strong> Al subir el archivo resultante a un repositorio compartido como GitHub, cualquier otra plataforma o lenguaje de programación (ya sea un script en Python, una aplicación web en JavaScript o un sistema nativo en C#) podrá interpretar la información sin pérdidas, ya que XML actúa como un estándar universal de transferencia de datos.</li>
+            </ul>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../posts/Tema9/index.html" class="card-link">← Volver al Tema 9</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

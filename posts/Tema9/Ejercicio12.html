@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 12: Manipulación Avanzada con RandomAccessFile | Programación</title>
+  <meta name="description" content="Solución al Ejercicio 12 del Tema 9: Eliminación de ficheros, inserciones en posiciones específicas y filtrado de caracteres con acceso aleatorio en Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html" class="active">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 9 • Entrada y Salida</div>
+      <h1>Ejercicio 12: Lectura, Escritura y Mutación de Caracteres con Acceso Aleatorio</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>En esta práctica avanzada consolidamos el uso de la clase <code>RandomAccessFile</code> combinando operaciones de control físico, saltos dinámicos en el buffer mediante punteros e inspección iterativa byte por byte.</p>
+        
+        <h3>Pasos requeridos:</h3>
+        <ul>
+            <li>Crear un fichero (controlando que si ya existiese de una ejecución previa, lo elimine por completo).</li>
+            <li>Abrir un flujo interactivo e introducir la cadena inicial <code>"defg"</code>.</li>
+            <li>Añadir al principio del archivo la cadena <code>"abc"</code> y al final la cadena <code>"hij"</code>.</li>
+            <li>Recorrer el fichero resultante para sustituir de manera quirúrgica todas las vocales por el carácter comodín <code>"*"</code>.</li>
+        </ul>
+
+        ---
+
+        <h2>Solución Completa</h2>
+        <p>Hacemos uso del método <code>delete()</code> de la clase <code>File</code> para el reinicio del recurso, y de las propiedades de posicionamiento <code>seek(0)</code> y <code>seek(random.length())</code> para las mutaciones dinámicas de la cadena.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema9.Ejercicios.ejercicio12;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+
+public class Ejercicio12 {
+    public static void main(String[] args) {
+        File file = new File("datos.txt");
+
+        try {
+            // 1. Controlar la existencia y eliminar el fichero previo para limpiar la prueba
+            if (file.exists()) {
+                file.delete();
+            }
+
+            // 2. Acceso aleatorio inicial para introducir "defg"
+            try (RandomAccessFile random = new RandomAccessFile(file, "rw")) {
+                random.writeBytes("defg");
+            }
+
+            // Mostrar estado inicial
+            System.out.print("Contenido inicial: ");
+            imprimirFichero(file);
+
+            // 3. Añadir "abc" al principio y "hij" al final del flujo
+            try (RandomAccessFile random = new RandomAccessFile(file, "rw")) {
+                // Posicionamos al principio (índice 0)
+                random.seek(0); 
+                random.writeBytes("abc"); // Sobrescribe los bytes correspondientes
+
+                // Saltamos dinámicamente hasta el byte final actual del archivo
+                random.seek(random.length());
+                random.writeBytes("hij");
+            }
+
+            System.out.print("Contenido tras añadir: ");
+            imprimirFichero(file);
+
+            // 4. Algoritmo de filtrado: sustituir las vocales por "*"
+            try (RandomAccessFile random = new RandomAccessFile(file, "rw")) {
+                for (int i = 0; i < random.length(); i++) {
+                    random.seek(i); // Movemos el puntero al byte actual
+                    byte b = random.readByte(); // Lee el byte y avanza el puntero automáticamente
+                    char c = (char) b;
+
+                    // Si el carácter leído coincide con una vocal
+                    if ("aeiouAEIOU".indexOf(c) != -1) {
+                        random.seek(i); // Retrocedemos el puntero a la posición original para reescribir
+                        random.writeBytes("*");
+                    }
+                }
+            }
+
+            System.out.print("Contenido final (sin vocales): ");
+            imprimirFichero(file);
+
+        } catch (IOException e) {
+            System.err.println("Error de E/S: " + e.getMessage());
+        }
+    }
+
+    // Método utilitario para volcar todo el contenido del fichero por consola de forma segura
+    private static void imprimirFichero(File f) throws IOException {
+        try (RandomAccessFile random = new RandomAccessFile(f, "r")) {
+            random.seek(0);
+            byte[] contenido = new byte[(int) random.length()];
+            random.readFully(contenido);
+            System.out.println(new String(contenido));
+        }
+    }
+}</code></pre>
+        </div>
+
+        <h2>Análisis del Algoritmo de Sustitución</h2>
+        <div class="p-4 rounded-md" style="background-color: var(--card-bg); border-left: 4px solid var(--accent-color); margin: 1.5rem 0;">
+            <p><strong>El comportamiento del puntero en operaciones de lectura/escritura:</strong></p>
+            <p>Un error muy común al empezar a trabajar con <code>RandomAccessFile</code> dentro de bucles repetitivos es olvidar que las operaciones de lectura avanzan de manera automática el marcador.</p>
+            <ul>
+                <li>Cuando el bucle hace <code>random.readByte()</code> en la posición <code>i</code>, recupera el byte correspondiente, pero el puntero interno del archivo se desplaza de forma inmediata a la posición <code>i + 1</code>.</li>
+                <li>Si descubrimos que el carácter leído es una vocal e invocamos directamente a <code>writeBytes("*")</code>, estaríamos escribiendo el asterisco en la posición siguiente, corrompiendo la estructura de la palabra.</li>
+                <li><strong>La solución:</strong> Por eso es imperativo realizar un paso de reposicionamiento explícito invocando a <code>random.seek(i)</code> justo antes de ejecutar la escritura destructiva, obligando al marcador a retroceder a la celda de memoria que acabamos de validar.</li>
+            </ul>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../posts/Tema9/index.html" class="card-link">← Volver al Tema 9</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 10: Acceso Secuencial a Ficheros | Programación</title>
+  <meta name="description" content="Solución al Ejercicio 10 del Tema 9: Combinación de la clase File con flujos de acceso secuencial (FileReader y FileWriter) en modo append en Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html" class="active">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 9 • Entrada y Salida</div>
+      <h1>Ejercicio 10: Acceso Secuencial y Adición de Contenido</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>En este ejercicio consolidamos los flujos de <strong>acceso secuencial</strong> trabajando con archivos de texto plano. El objetivo es interactuar de forma segura con un fichero físico para añadir información sin destruir la ya existente y leer el resultado completo carácter por carácter.</p>
+        
+        <h3>Requisitos obligatorios:</h3>
+        <ul>
+            <li>Integrar la clase <code>File</code> para verificar la existencia del archivo (<code>ejercicio10.txt</code>) y validar que es un fichero correcto antes de abrir canales de comunicación.</li>
+            <li>Utilizar un flujo de salida que permita añadir contenido al final del archivo de texto plano de manera no destructiva (modo <em>append</em>).</li>
+            <li>Leer secuencialmente el contenido del archivo carácter por carácter controlando la marca del final del flujo (<code>-1</code>) y mostrarlo por la consola.</li>
+        </ul>
+
+        ---
+
+        <h2>Solución Completa</h2>
+        <p>Empleamos <code>FileWriter</code> pasando el parámetro booleano <code>true</code> para activar el modo de adición, y <code>FileReader</code> para el bucle secuencial de entrada de caracteres, todo gestionado con estructuras <strong>try-with-resources</strong>.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema9.Ejercicios.ejercicio10;
+
+import java.io.*;
+
+public class Ejercicio10 {
+    public static void main(String[] args) {
+        // 1. Instanciar la ruta abstracta del archivo
+        File archivo = new File("ejercicio10.txt");
+
+        // 2. Verificar la existencia y la validez estructural del recurso
+        if (archivo.exists() && archivo.isFile()) {
+            System.out.println("Archivo encontrado: " + archivo.getName());
+            System.out.println("Tamaño inicial: " + archivo.length() + " bytes");
+
+            // 3. Acceso secuencial de escritura (Modo Append)
+            // Pasamos 'true' como segundo argumento para añadir al final sin sobreescribir
+            try (FileWriter escritor = new FileWriter(archivo, true)) {
+                escritor.write("\nEsta línea usando acceso secuencial");
+                System.out.println("Contenido añadido correctamente.");
+            } catch (IOException e) {
+                System.err.println("Error al escribir: " + e.getMessage());
+            }
+
+            // 4. Acceso secuencial de lectura carácter por carácter
+            System.out.println("\n--- Contenido actual del fichero ---");
+            try (FileReader lector = new FileReader(archivo)) {
+                int caracter;
+                // El método read() consume un carácter y devuelve su valor entero ASCII
+                // Devuelve -1 de forma estricta al alcanzar el final del flujo (EOF)
+                while ((caracter = lector.read()) != -1) {
+                    System.out.print((char) caracter); // Casting explícito a tipo char
+                }
+                System.out.println("\n\nLectura finalizada. Tamaño actual: " + archivo.length() + " bytes");
+            } catch (IOException e) {
+                System.err.println("Error al leer: " + e.getMessage());
+            }
+
+        } else {
+            System.out.println("El archivo 'ejercicio10.txt' no existe o la ruta no es válida.");
+        }
+    }
+}</code></pre>
+        </div>
+
+        <h2>Análisis de Conceptos Clave</h2>
+        <div class="p-4 rounded-md" style="background-color: var(--card-bg); border-left: 4px solid var(--accent-color); margin: 1.5rem 0;">
+            <p><strong>Mecánica del Acceso Secuencial:</strong></p>
+            <ul>
+                <li><strong>El constructor en modo Append:</strong> Por defecto, si instanciamos un <code>new FileWriter("ruta.txt")</code>, Java asume que queremos crear un archivo nuevo o truncar el existente (borrando todo su contenido). Al añadir el parámetro opcional <code>true</code> (<code>new FileWriter(file, true)</code>), el puntero de escritura del sistema operativo se posiciona automáticamente al final del último byte registrado, permitiendo la concatenación.</li>
+                <li><strong>El Centinela -1:</strong> El método <code>read()</code> de la clase <code>FileReader</code> devuelve un tipo <code>int</code> en lugar de un <code>char</code> directamente. Esto se debe a que necesita un rango de valores extra para representar una condición especial: el **End of File (EOF)**, el cual está codificado universalmente en Java con el valor numérico <code>-1</code>.</li>
+                <li><strong>Garantía de flujos con try-with-resources:</strong> Al declarar los flujos de lectura y escritura entre los paréntesis de la sentencia <code>try</code>, nos aseguramos por contrato de que Java liberará de manera automática los canales de comunicación físicos invocando al método <code>close()</code>, ocurra o no un fallo en tiempo de ejecución.</li>
+            </ul>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../posts/Tema9/index.html" class="card-link">← Volver al Tema 9</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

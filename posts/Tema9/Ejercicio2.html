@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 2: El Experimento de la Memoria Intermedia (Flush) | Programación</title>
+  <meta name="description" content="Solución al Ejercicio 2 del Tema 9: Análisis del método flush, buffers temporales y close en el manejo de archivos en Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html" class="active">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 9 • Entrada y Salida</div>
+      <h1>Ejercicio 2</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>En este ejercicio analizamos el comportamiento interno de los flujos de salida mediante un experimento práctico controlado por tiempo utilizando la clase <code>FileWriter</code>.</p>
+
+        <h3>Código Base Planteado:</h3>
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">import java.io.FileWriter;
+
+public class ExperimentoFlush {
+    public static void main(String[] args) throws Exception {
+        // Creamos el escritor hacia un archivo
+        FileWriter escritor = new FileWriter("prueba.txt");
+        
+        // Escribimos algo
+        escritor.write("¿Donde está mi texto?");
+        
+        System.out.println("He escrito en el archivo... ¿o no?");
+        
+        // El programa se queda esperando aquí para que no termine
+        Thread.sleep(10000); // Espera 10 segundos
+        
+        // No hemos puesto ni flush() ni close()
+    }
+}</code></pre>
+        </div>
+
+        <h3>Cuestionario de Observación</h3>
+        <div class="p-4 rounded-md" style="background-color: var(--card-bg); border-left: 4px solid var(--accent-color); margin: 1.5rem 0;">
+            <p><strong>¿Se ha escrito algo en prueba.txt durante la ejecución? ¿Por qué?</strong></p>
+            <p><strong>No.</strong> Si abrimos el archivo <code>prueba.txt</code> mientras el programa está dormido en los 10 segundos de espera, veremos que está completamente vacío. Esto se debe a que Java no envía los caracteres directamente al disco físico con cada instrucción <code>write()</code>, sino que los almacena en la <strong>memoria temporal interna (buffer)</strong> del flujo para optimizar el rendimiento del sistema.</p>
+        </div>
+
+        <h2>Solución</h2>
+        <p>Para asegurar que los datos viajen de la memoria intermedia al disco duro de forma persistente, es obligatorio cerrar el flujo utilizando el método <code>close()</code> antes de pausar o finalizar el hilo de ejecución principal.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema9.Ejercicios.ejercicio2;
+
+import java.io.FileWriter;
+
+public class Ejercicio2 {
+    public static void main(String[] args) throws Exception {
+        // Inicializamos el descriptor del archivo
+        FileWriter escritor = new FileWriter("prueba.txt");
+
+        // Escribimos el mensaje en la memoria temporal del buffer
+        escritor.write("¿Donde está mi texto?");
+
+        // SOLUCIÓN: Al cerrar el flujo, forzamos de manera automática el volcado de datos (flush)
+        escritor.close();
+
+        // El hilo entra en pausa, pero los datos ya se grabaron físicamente en el disco
+        Thread.sleep(10000);
+    }
+}</code></pre>
+        </div>
+
+        <h2>Análisis de Conceptos Fundamentales</h2>
+        <ul>
+            <li><strong>Mecanismo de búfer:</strong> El acceso a operaciones de E/S físicas en disco es lento. Java utiliza buffers en RAM para agrupar los datos y realizar una única escritura consolidada en bloque.</li>
+            <li><strong>flush():</strong> Método explícito para vaciar los datos acumulados en la RAM hacia el destino final sin dar por cerrado el canal.</li>
+            <li><strong>close():</strong> Realiza un volcado estructural completo y libera los recursos del archivo en el Sistema Operativo. Intentar realizar una escritura tras cerrar el archivo producirá una excepción de tipo <code>IOException</code>.</li>
+        </ul>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../index.html" class="card-link">← Volver al Tema 9</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

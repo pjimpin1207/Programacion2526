@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resumen Unidad 9: Entrada y Salida de Información | Programación</title>
+  <meta name="description" content="Resumen completo de la Unidad 9 sobre flujos de datos (Streams), manejo de ficheros, serialización y procesamiento XML en Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html" class="active">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Teoría • Unidad Didáctica 9</div>
+      <h1>Resumen de la Unidad 9: Entrada y Salida de Información</h1>
+
+      <div class="post-body">
+        
+        <p>En esta unidad hemos estudiado cómo los programas en Java se comunican con el exterior (usuarios, discos duros, bases de datos o internet) utilizando un concepto fundamental de abstracción: los <strong>flujos de datos (Streams)</strong>.</p>
+
+        <h2>1. Naturaleza de los Flujos de Datos</h2>
+        <p>Un flujo es una secuencia ordenada de datos que se transmite en serie desde un origen hacia un destino. Java los clasifica bajo diferentes criterios:</p>
+
+        <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+            <thead>
+                <tr style="background-color: var(--accent-glow); text-align: left;">
+                    <th style="padding: 1rem; border-bottom: 2px solid var(--accent-color);">Criterio</th>
+                    <th style="padding: 1rem; border-bottom: 2px solid var(--accent-color);">Tipos Principales</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);"><strong>Según el Sentido</strong></td>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);"><strong>Entrada (Input):</strong> Se lee información.<br><strong>Salida (Output):</strong> Se escribe información.</td>
+                </tr>
+                <tr>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);"><strong>Según el Tipo de Dato</strong></td>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);"><strong>Bytes:</strong> Datos crudos o binarios (<code>InputStream</code> / <code>OutputStream</code>).<br><strong>Caracteres:</strong> Texto decodificado en Unicode/ASCII (<code>Reader</code> / <code>Writer</code>).</td>
+                </tr>
+                <tr>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);"><strong>Según el Acceso</strong></td>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);"><strong>Secuencial:</strong> Se lee elemento a elemento desde el inicio.<br><strong>Directo/Aleatorio:</strong> Permite saltar a una posición concreta.</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <h2>2. Flujos Estándar y Scanner</h2>
+        <p>Java mantiene abiertos algunos flujos predeterminados asociados a la consola del sistema operativo:</p>
+        <ul>
+            <li><code>System.out</code> y <code>System.err</code>: Flujos de salida estándar e impresión de errores.</li>
+            <li><code>System.in</code>: Flujo de entrada estándar vinculado al teclado.</li>
+        </ul>
+        <p>Para facilitar la lectura de la entrada estándar, usamos la clase <strong><code>Scanner</code></strong>, que proporciona una capa de abstracción para procesar datos primitivos y segmentar la información en "tokens" (palabras separadas por espacios).</p>
+
+
+        <h2>3. Ficheros y Acceso Directo</h2>
+        <p>Para lograr la persistencia de los datos, utilizamos archivos del sistema. La clase <code>java.io.File</code> representa la ruta o metadatos de un fichero o directorio, pero no lo abre ni lo crea directamente.</p>
+        
+        <h3>Acceso Aleatorio (RandomAccessFile)</h3>
+        <p>A diferencia del acceso secuencial con <code>FileReader</code> o <code>FileInputStream</code>, la clase <code>RandomAccessFile</code> trata el archivo como un inmenso array de bytes. Posee un puntero interno que se puede desplazar a voluntad utilizando el método <code>seek()</code>.</p>
+
+
+        <h2>4. Serialización de Objetos</h2>
+        <p>La serialización es el proceso mediante el cual convertimos el estado interno de un objeto (que vive en la memoria RAM volátil) en una secuencia de bytes para poder almacenarlo en un archivo o enviarlo por la red.</p>
+
+        <p><strong>Reglas estrictas de Serialización:</strong></p>
+        <ul>
+            <li>La clase debe implementar la interfaz marcadora <code>Serializable</code>.</li>
+            <li>Se recomienda definir un identificador de versión <code>serialVersionUID</code>.</li>
+            <li>Si un atributo contiene datos sensibles (como contraseñas) o información que no debe guardarse, se le aplica el modificador <code>transient</code>. Los atributos estáticos tampoco se serializan.</li>
+            <li>Utilizamos <code>ObjectOutputStream</code> para escribir el objeto y <code>ObjectInputStream</code> para leerlo y reconstruirlo.</li>
+        </ul>
+
+
+        <h2>5. Procesamiento de XML con DOM</h2>
+        <p>El XML es un lenguaje de marcado estandarizado que se utiliza para estructurar datos de forma independiente de la plataforma. Para manipularlo desde Java, la forma más habitual en archivos pequeños es utilizar la API <strong>DOM (Document Object Model)</strong>.</p>
+        
+        <p>DOM carga el documento XML completo en la memoria y lo convierte en un árbol jerárquico de nodos. Existen diferentes tipos de Nodos:</p>
+        <ul>
+            <li><strong>Document:</strong> La raíz conceptual del árbol completo.</li>
+            <li><strong>Element:</strong> Representa una etiqueta XML completa (con apertura y cierre).</li>
+            <li><strong>Text:</strong> El contenido textual que reside dentro de las etiquetas (o los saltos de línea y espacios en blanco).</li>
+        </ul>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../posts/Tema9/index.html" class="card-link">← Volver al Tema 9</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

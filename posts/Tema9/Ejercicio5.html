@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 5: Validación de Entradas con Scanner y Excepciones | Programación</title>
+  <meta name="description" content="Solución al Ejercicio 5 del Tema 9: Captura de cadenas completas y control de errores en la entrada de datos numéricos con InputMismatchException en Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html" class="active">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 9 • Entrada y Salida</div>
+      <h1>Ejercicio 5: Hola Mundo interactivo con control de errores</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>En este ejercicio volvemos a la clase de alto nivel <code>Scanner</code> para crear un flujo interactivo. Debemos solicitar al usuario su nombre completo y su edad, asegurando un control estricto de errores para evitar que la aplicación falle si se introduce un tipo de dato incorrecto.</p>
+        
+        <h3>Requisitos:</h3>
+        <ul>
+            <li>Capturar el nombre completo (incluyendo espacios).</li>
+            <li>Solicitar la edad controlando mediante excepciones que sea obligatoriamente un número entero.</li>
+            <li>Mantener al usuario en un bucle de repetición hasta que la entrada de la edad sea válida.</li>
+        </ul>
+
+        <h2>Solución Completa</h2>
+        <p>Para recuperar cadenas de texto con espacios usamos <code>nextLine()</code>, y para asegurar la integridad de los datos numéricos empleamos un bloque <code>try-catch</code> capturando la excepción <code>InputMismatchException</code>.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema9.Ejercicios.ejercicio5;
+
+import java.util.Scanner;
+import java.util.InputMismatchException;
+
+public class Ejercicio5 {
+    public static void main(String[] args) {
+        // Crea el objeto Scanner asociado a la entrada estándar de consola
+        Scanner sc = new Scanner(System.in);
+
+        // 1. Pedir nombre completo
+        System.out.println("Escribe tu nombre completo:");
+        // Uso nextLine() para capturar toda la frase hasta pulsar Enter (incluyendo espacios)
+        String nombre = sc.nextLine();
+
+        // Variables de control para la edad
+        int edad = 0;
+        boolean edadValida = false;
+
+        // 2. Pedir edad con control de errores en bucle
+        while (!edadValida) {
+            try {
+                System.out.println("Escribe tu edad (debe ser un número entero):");
+                // nextInt() lee el siguiente token como un número entero
+                edad = sc.nextInt();
+                edadValida = true; // Si llega aquí, la lectura fue correcta y rompe el bucle
+            } catch (InputMismatchException e) {
+                // Si el usuario introduce letras o decimales, se captura el error
+                System.out.println("Error: La edad debe ser un número entero válido.");
+                sc.next(); // IMPORTANTE: Limpia el token incorrecto del búfer para evitar bucle infinito
+            }
+        }
+
+        // 3. Salida final de datos procesados
+        System.out.println("¡Hola " + nombre + "!");
+        System.out.println("Tienes " + edad + " años.");
+        
+        sc.close();
+    }
+}</code></pre>
+        </div>
+
+        <h2>Análisis Técnico del Código</h2>
+        <div class="p-4 rounded-md" style="background-color: var(--card-bg); border-left: 4px solid var(--accent-color); margin: 1.5rem 0;">
+            <ul>
+                <li><strong>sc.nextLine() vs sc.next():</strong> El método <code>next()</code> detiene la lectura al encontrar el primer espacio en blanco (rompiendo nombres compuestos o apellidos). Usamos <code>nextLine()</code> porque absorbe todo el flujo de caracteres hasta que encuentra el salto de línea definitivo (<code>\n</code>).</li>
+                <li><strong>InputMismatchException:</strong> Es una excepción lanzada automáticamente por <code>Scanner</code> cuando el elemento recuperado del flujo de entrada no coincide con los patrones del tipo de datos esperado (por ejemplo, introducir "veinte" cuando se invoca a <code>nextInt()</code>).</li>
+                <li><strong>Limpieza del Búfer (sc.next()):</strong> Cuando <code>nextInt()</code> falla debido a una entrada incorrecta, el dato erróneo <em>no se elimina</em> de la memoria temporal. Si no se añade la instrucción de limpieza <code>sc.next()</code> dentro del bloque <code>catch</code>, el bucle volverá a leer el mismo dato incorrecto una y otra vez de forma indefinida, provocando un bucle infinito de errores.</li>
+            </ul>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../posts/Tema9/index.html" class="card-link">← Volver al Tema 9</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

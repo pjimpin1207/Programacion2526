@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 15: Procesamiento de Archivos XML con DOM | Programación</title>
+  <meta name="description" content="Solución al Ejercicio 15 del Tema 9: Lectura, análisis e inspección de nodos estructurales XML utilizando la API DOM (Document Object Model) en Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html" class="active">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 9 • Entrada y Salida</div>
+      <h1>Ejercicio 15: El Adivino del XML — Parseo y Árboles DOM</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado y Contexto</h2>
+        <p>Los archivos de configuración en formato <strong>XML</strong> son ampliamente utilizados en entornos de software. Para poder manipularlos desde Java, necesitamos procesar la cadena secuencial del archivo y transformarla en un <strong>árbol jerárquico de nodos en memoria</strong>. Para ello, emplearemos la API estándar de análisis <strong>DOM (Document Object Model)</strong>.</p>
+        
+        <h3>Estructura del archivo base (config.xml):</h3>
+        <p>Antes de ejecutar la aplicación, es necesario crear un documento llamado <code>config.xml</code> en la raíz del proyecto con las siguientes directivas de configuración de ejemplo:</p>
+        
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;configuracion&gt;
+    &lt;base-datos&gt;
+        &lt;host&gt;localhost&lt;/host&gt;
+        &lt;puerto&gt;5432&lt;/puerto&gt;
+        &lt;usuario&gt;admin&lt;/usuario&gt;
+    &lt;/base-datos&gt;
+&lt;/configuracion&gt;</code></pre>
+        </div>
+
+        ---
+
+        <h2>Solución Completa</h2>
+        <p>Implementamos las factorías de análisis estructural <code>DocumentBuilderFactory</code> para mapear las etiquetas y aplicamos un algoritmo de filtrado por tipo de nodo para aislar la información útil de los elementos.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema9.Ejercicios.ejercicio15;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.File;
+
+public class Ejercicio15 {
+    public static void main(String[] args) {
+        try {
+            // 1. Crear la factoría y el constructor de documentos estructurados
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+
+            // 2. Parsear el archivo XML físico cargándolo en la memoria interna
+            File archivo = new File("config.xml");
+            Document documento = builder.parse(archivo);
+
+            // Normaliza el árbol XML (elimina nodos de texto vacíos adyacentes de formateo)
+            documento.getDocumentElement().normalize();
+
+            // 3. Obtener el elemento raíz (&lt;configuracion&gt;)
+            Element raiz = documento.getDocumentElement();
+            System.out.println("Elemento raíz detectado: " + raiz.getNodeName());
+
+            // 4. Obtener los hijos lógicos del nodo de configuración &lt;base-datos&gt;
+            NodeList listaBaseDatos = documento.getElementsByTagName("base-datos");
+            // Tomamos el primer bloque contenedor que aparezca (índice 0)
+            Node nodoBaseDatos = listaBaseDatos.item(0);
+
+            // 5. Extraer y evaluar los hijos directos del bloque contenedor
+            NodeList hijos = nodoBaseDatos.getChildNodes();
+            System.out.println("\nNúmero total de hijos detectados en el búfer: " + hijos.getLength());
+
+            System.out.println("--- Listando hijos del Árbol ---");
+            for (int i = 0; i < hijos.getLength(); i++) {
+                Node hijo = hijos.item(i);
+
+                // FILTRADO CRÍTICO: Evaluamos si el nodo inspeccionado es una etiqueta real
+                if (hijo.getNodeType() == Node.ELEMENT_NODE) {
+                    Element elemento = (Element) hijo; // Casting de Node general a Element
+                    System.out.println("ELEMENTO REAL -&gt; Nombre: " + elemento.getNodeName() +
+                            " | Valor: " + elemento.getTextContent());
+                } else {
+                    // Muestra los nodos fantasmas (espacios en blanco, tabulaciones y saltos de línea)
+                    System.out.println("Hijo " + i + " -&gt; Tipo: " + hijo.getNodeType() +
+                            " (TEXT_NODE Oculto) | Nombre: " + hijo.getNodeName());
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+        </div>
+
+        <h2>Preguntas de Reflexión y Análisis Técnico</h2>
+        <div class="p-4 rounded-md" style="background-color: var(--card-bg); border-left: 4px solid var(--accent-color); margin: 1.5rem 0;">
+            <p><strong>¿Cuántos hijos detecta realmente el programa en el bloque y por qué?</strong></p>
+            <p>Al ejecutar el código sin filtrar, descubriremos que el método <code>getChildNodes().getLength()</code> devuelve un número de hijos significativamente mayor al número de etiquetas reales que escribimos (detecta 7 hijos en lugar de las 3 etiquetas de configuración de base de datos).</p>
+            
+            <p>Esto ocurre porque el analizador DOM de Java interpreta <strong>absolutamente todo</strong> lo que está dentro del archivo:</p>
+            <ul>
+                <li>Cada salto de línea al terminar de escribir una directiva y cada espacio en blanco o tabulación que usamos para sangrar (indenter) el código es considerado por la API como un nodo de texto fantasma de tipo implícito bajo el nombre de <strong><code>#text</code></strong> (<code>Node.TEXT_NODE</code>).</li>
+                <li><strong>Los verdaderos elementos:</strong> Los únicos nodos operativos de utilidad real para la lógica de negocio son aquellos cuyo tipo coincide exactamente con la constante estructurada de validación <strong><code>Node.ELEMENT_NODE</code></strong> (como <code>&lt;host&gt;</code>, <code>&lt;puerto&gt;</code> y <code>&lt;usuario&gt;</code>).</li>
+                <li>Por este motivo, siempre que se recorra un documento mediante un analizador de tipo jerárquico tradicional, es imperativo establecer la condicional de control de tipo de nodo antes de extraer los datos mediante <code>getTextContent()</code>.</li>
+            </ul>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../posts/Tema9/index.html" class="card-link">← Volver al Tema 9</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

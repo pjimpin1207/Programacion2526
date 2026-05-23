@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 4: Lectura en Bloque con un Buffer de Bytes | Programación</title>
+  <meta name="description" content="Solución al Ejercicio 4 del Tema 9: Análisis del método System.in.read(byte[]) y la conversión de arrays de bytes a String en Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html" class="active">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 9 • Entrada y Salida</div>
+      <h1>Ejercicio 4: Análisis de lectura en bloque (System.in.read)</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>A partir del fragmento de código proporcionado en la actividad, el objetivo es deducir y comprobar experimentalmente el comportamiento de la lectura de flujos cuando se utiliza un array de bytes como almacén intermedio o búfer de entrada.</p>
+
+        <h3>Código Base Planteado:</h3>
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">public static void main(String args[]) {
+    byte b[] = new byte[5];
+    try {
+        System.in.read(b);
+    } catch (IOException ioe) {
+        System.out.println(ioe);
+    }
+    String s = new String(b);
+    System.out.println(s);
+}</code></pre>
+        </div>
+        
+        <h2>Solución Completa</h2>
+        <p>A continuación se muestra el código listo para compilar, asegurando la importación de la excepción de entrada y salida (<code>IOException</code>) requerida para gestionar el bloque de control de errores.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema9.Ejercicios.ejercicio4;
+
+import java.io.IOException;
+
+public class Ejercicio4 {
+    public static void main(String args[]) {
+        // 1. Declaramos un array de bytes de tamaño fijo (5 posiciones)
+        byte b[] = new byte[5];
+        
+        try {
+            // 2. Lee un bloque de bytes de la consola y los almacena en el array
+            System.in.read(b);
+        } catch (IOException ioe) {
+            // Control de posibles excepciones de E/S
+            System.out.println(ioe);
+        }
+        
+        // 3. Convertimos el array de bytes resultante en una cadena de texto legible
+        String s = new String(b);
+        
+        // 4. Imprimimos el resultado obtenido
+        System.out.println(s);
+    }
+}</code></pre>
+        </div>
+
+        <h2>¿Qué hace exactamente este código?</h2>
+        <div class="p-4 rounded-md" style="background-color: var(--card-bg); border-left: 4px solid var(--accent-color); margin: 1.5rem 0;">
+            <p>Este programa lee una secuencia de datos por teclado de una sola vez, pero con un límite físico estricto determinado por el tamaño del array (en este caso, <strong>5 bytes</strong>).</p>
+            
+            <ul>
+                <li><strong>Si introduces menos de 5 caracteres</strong> (por ejemplo: <em>"Hola"</em> y pulsas Intro): El array capturará las letras 'H', 'o', 'l', 'a' junto con el carácter oculto del salto de línea (<code>\n</code>), rellenando las posiciones restantes del bloque de memoria de forma íntegra.</li>
+                <li><strong>Si introduces exactamente 5 caracteres</strong> (por ejemplo: <em>"12345"</em>): El array se llenará por completo con dichos caracteres, dejando el salto de línea flotando en el flujo de entrada para la siguiente lectura.</li>
+                <li><strong>Si introduces más de 5 caracteres</strong> (por ejemplo: <em>"Estructura"</em>): El método <code>read(b)</code> truncará la entrada. Solo absorberá los primeros 5 bytes (<em>"Estru"</em>) y descartará o dejará en espera el resto de la palabra en el búfer del sistema.</li>
+            </ul>
+        </div>
+
+        <h2>Análisis de los Métodos Utilizados</h2>
+        <ul>
+            <li><strong>System.in.read(byte[] b):</strong> A diferencia de su versión sobrecargada sin parámetros (que lee un único carácter a la vez), esta variante lee múltiples bytes del flujo de entrada y los vuelca directamente en el array proporcionado como argumento, devolviendo un entero con el número real de bytes leídos.</li>
+            <li><strong>new String(byte[] bytes):</strong> Es un constructor especial de la clase <code>String</code> que decodifica los bytes de la memoria RAM utilizando el juego de caracteres por defecto del sistema operativo, transformando el array binario original en caracteres de texto legibles.</li>
+        </ul>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../posts/Tema9/index.html" class="card-link">← Volver al Tema 9</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

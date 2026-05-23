@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 6: El Adivino Digital y el Salto de Línea | Programación</title>
+  <meta name="description" content="Solución al Ejercicio 6 del Tema 9: Combinación de flujos de texto y numéricos con Scanner en Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html" class="active">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 9 • Entrada y Salida</div>
+      <h1>Ejercicio 6: El Adivino Digital</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>En esta divertida práctica de flujos de consola, implementamos un programa interactivo de "predicción" humorística. El objetivo es consolidar el uso combinado de lecturas de texto completo mediante tokens y tipos de datos numéricos enteros.</p>
+        
+        <h3>Misión:</h3>
+        <ul>
+            <li>El programa debe preguntar primero: <em>"¿Cuál es tu nombre?"</em> utilizando <code>nextLine()</code>.</li>
+            <li>A continuación, preguntará: <em>"¿Cuántos años crees que vivirás?"</em> utilizando <code>nextInt()</code>.</li>
+            <li>Finalmente, devolverá una respuesta profética calculando una fecha de fallecimiento basada en la expectativa sumándole 10 años adicionales.</li>
+        </ul>
+
+        <h2>Solución Completa</h2>
+        <p>A continuación se detalla el código fuente de la clase. Observa cómo realizamos la operación aritmética directamente antes de mostrar la salida formateada por consola.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema9.Ejercicios.ejercicio6;
+
+import java.util.Scanner;
+
+public class Ejercicio6 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // 1. Preguntar y capturar el nombre
+        System.out.println("¿Cuál es tu nombre?");
+        String nombre = sc.nextLine();
+
+        // 2. Preguntar y capturar la expectativa de años
+        System.out.println("¿Cuántos años crees que vivirás?");
+        int añosExpectativa = sc.nextInt();
+
+        // 3. Lógica del "adivino" y salida final
+        int añosMuerte = añosExpectativa + 10;
+        System.out.println("Hola " + nombre + ", los astros dicen que morirás a los "
+                + añosMuerte + " por culpa de un café frío.");
+
+        sc.close();
+    }
+}</code></pre>
+        </div>
+
+        <h2>Análisis del Comportamiento de los Flujos</h2>
+        <div class="p-4 rounded-md" style="background-color: var(--card-bg); border-left: 4px solid var(--accent-color); margin: 1.5rem 0;">
+            <p><strong>El orden de los factores sí altera el búfer:</strong></p>
+            <p>En este ejercicio la estructura funciona de manera perfecta debido a que invocamos primero a <code>nextLine()</code> y luego a <code>nextInt()</code>. Sin embargo, hay que recordar una regla de oro en Java para futuros proyectos:</p>
+            <ul>
+                <li>Si solicitáramos primero el dato numérico con <code>nextInt()</code> y justo después el texto con <code>nextLine()</code>, el programa <strong>"saltaría"</strong> la pregunta del nombre sin dejar escribir al usuario.</li>
+                <li>Eso ocurre porque <code>nextInt()</code> lee el número entero pero deja el salto de línea (<code>\n</code>) flotando en el búfer de entrada. Al invocar inmediatamente a <code>nextLine()</code>, este absorbe ese salto de línea residual interpretando que el usuario pulsó Enter con una cadena vacía.</li>
+                <li><strong>Solución cuando eso pasa:</strong> Colocar un <code>sc.nextLine()</code> vacío para "limpiar" el búfer justo después de consumir cualquier dato numérico.</li>
+            </ul>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../posts/Tema9/index.html" class="card-link">← Volver al Tema 9</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 13: Serialización de Objetos y Persistencia | Programación</title>
+  <meta name="description" content="Solución al Ejercicio 13 del Tema 9: Aprendiendo a serializar y deserializar instancias de objetos en ficheros binarios utilizando Java IO.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html" class="active">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 9 • Entrada y Salida</div>
+      <h1>Ejercicio 13: Serialización y Deserialización de Objetos</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>La <strong>serialización</strong> es el proceso de transformar el estado de un objeto en una secuencia de bytes para poder almacenarlo en un archivo físico o transmitirlo a través de una red. La operación inversa, reconstruir el objeto original en memoria a partir de esos bytes, se denomina <strong>deserialización</strong>.</p>
+        
+        <h3>Misión planteada:</h3>
+        <ul>
+            <li>Crear una clase molde llamada <code>Persona</code> que sea apta para ser congelada en el disco.</li>
+            <li>Instanciar un objeto con el nombre de un personaje famoso (en nuestro caso, <em>"Ronaldo"</em>) y guardarlo de forma binaria en un archivo <code>persona.dat</code>.</li>
+            <li>Implementar la lógica complementaria de lectura para deserializar el fichero, recuperando el objeto original y desvelando la identidad del personaje por consola.</li>
+        </ul>
+
+        ---
+
+        <h2>Estructura del Código</h2>
+        
+        <h3>1. La Clase de Datos (Persona)</h3>
+        <p>Para que un objeto sea serializable en Java, su clase debe implementar obligatoriamente la interfaz marcadora <code>Serializable</code>. También es una buena práctica declarar un <code>serialVersionUID</code> para garantizar la compatibilidad durante la reconstrucción.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema9.Ejercicios.ejercicio13;
+
+import java.io.Serializable;
+
+public class Persona implements Serializable {
+    // Identificador único de versión de la clase para el proceso de deserialización
+    private static final long serialVersionUID = 1L;
+
+    private String nombre;
+
+    public Persona(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+}</code></pre>
+        </div>
+
+        <h3>2. Programa Principal (Ejercicio13)</h3>
+        <p>Aquí realizamos ambas fases. Primero abrimos un flujo de salida para guardar el objeto y, acto seguido, un flujo de entrada para leerlo y comprobar que la información se ha recuperado intacta en memoria.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema9.Ejercicios.ejercicio13;
+
+import java.io.*;
+
+public class Ejercicio13 {
+    public static void main(String[] args) throws FileNotFoundException {
+        // Creamos la instancia con el personaje famoso misterioso
+        Persona famoso = new Persona("Ronaldo");
+
+        // FASE 1: Serialización (Escritura del Objeto en Fichero)
+        try {
+            // Mantenemos las declaraciones separadas para mayor claridad del flujo de datos
+            FileOutputStream fichero = new FileOutputStream("persona.dat");
+            ObjectOutputStream out = new ObjectOutputStream(fichero);
+            
+            // Escribimos el objeto completo en el canal binario
+            out.writeObject(famoso);
+            
+            // Cerramos el flujo superior (cierra automáticamente el FileOutputStream asociado)
+            out.close();
+            System.out.println("Objeto personaje serializado correctamente en 'persona.dat'");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // FASE 2: Deserialización (Lectura y Reconstrucción del Objeto)
+        try {
+            // Vinculamos el descriptor del archivo binario
+            FileInputStream fichero = new FileInputStream("persona.dat");
+            ObjectInputStream in = new ObjectInputStream(fichero);
+            
+            // Leemos los bytes y aplicamos un casting explícito al tipo de la clase molde
+            Persona personaDeserializada = (Persona) in.readObject();
+            
+            in.close();
+            
+            // Mostramos el resultado recuperado por pantalla
+            System.out.println("¡Objeto deserializado con éxito!");
+            System.out.println("Nombre desvelado: " + personaDeserializada.getNombre());
+
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+        </div>
+
+        <h2>Análisis de los Mecanismos de Flujo Binario</h2>
+        <div class="p-4 rounded-md" style="background-color: var(--card-bg); border-left: 4px solid var(--accent-color); margin: 1.5rem 0;">
+            <p><strong>¿Cómo interactúan estas clases especiales?</strong></p>
+            <ul>
+                <li><strong>La interfaz Serializable:</strong> No contiene métodos que programar; actúa simplemente como una directiva o "bandera" para la Máquina Virtual de Java (JVM). Si intentamos pasar un objeto por <code>writeObject()</code> cuya clase no tiene este marcador, el programa lanzará inmediatamente una excepción <code>NotSerializableException</code>.</li>
+                <li><strong>Flujos de bajo nivel vs. alto nivel:</strong> 
+                    <ul>
+                        <li><code>FileOutputStream</code> y <code>FileInputStream</code> son flujos orientados a bytes planos encargados de la conexión directa de tuberías con los archivos del disco duro.</li>
+                        <li><code>ObjectOutputStream</code> y <code>ObjectInputStream</code> son envoltorios avanzados de procesamiento que traducen la estructura lógica del grafo de objetos de la memoria RAM a formato binario y viceversa.</li>
+                    </ul>
+                </li>
+                <li><strong>ClassNotFoundException:</strong> Al deserializar un archivo externo (por ejemplo, el que comparta un compañero), es indispensable que nuestro proyecto tenga acceso al archivo de la clase molde (<code>Persona.class</code>). Si la estructura del paquete o la clase no existe en el entorno receptor, el programa fallará al no saber cómo modelar los bytes leídos.</li>
+            </ul>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../posts/Tema9/index.html" class="card-link">← Volver al Tema 9</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

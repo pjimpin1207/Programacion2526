@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 14: Serialización de Colecciones (El Problema de la Mochila) | Programación</title>
+  <meta name="description" content="Solución al Ejercicio 14 del Tema 9: Serialización y deserialización de estructuras de datos completas utilizando listas y Object Streams en Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html" class="active">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 9 • Entrada y Salida</div>
+      <h1>Ejercicio 14: Serialización y Recuperación de Colecciones Dinámicas</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>En este ejercicio avanzamos en el uso de flujos de objetos. En lugar de persistir una única instancia independiente, aprenderemos a congelar y restaurar una estructura de datos completa (un <code>ArrayList</code>) que almacena múltiples objetos de nuestro propio tipo personalizado.</p>
+        
+        <h3>Fases del reto:</h3>
+        <ul>
+            <li><strong>Crear:</strong> Diseñar una clase modelo llamada <code>Item</code> con las propiedades nombre, peso y valor que implemente el contrato <code>Serializable</code>.</li>
+            <li><strong>Guardar:</strong> Generar una lista con 5 elementos guardándola íntegramente en un archivo binario indexado denominado <code>mochila.bin</code>.</li>
+            <li><strong>Recuperar:</strong> Crear un programa independiente que lea el archivo, reconstruyendo la estructura y calculando iterativamente el valor total acumulado de los elementos.</li>
+        </ul>
+
+        ---
+
+        <h2>Estructura de Clases de la Solución</h2>
+        
+        <h3>1. La Clase Molde (Item)</h3>
+        <p>Definimos los atributos encapsulados y redefinimos el método estándar <code>toString()</code> para que, al volcar la lista por consola durante la recuperación, los datos se presenten de manera amigable.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema9.Ejercicios.ejercicio14;
+
+import java.io.Serializable;
+
+public class Item implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    private String nombre;
+    private Double peso;
+    private int valor;
+
+    public Item(String nombre, double peso, int valor) {
+        this.nombre = nombre;
+        this.peso = peso;
+        this.valor = valor;
+    }
+
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
+
+    public double getPeso() { return peso; }
+    public void setPeso(double peso) { this.peso = peso; }
+
+    public int getValor() { return valor; }
+    public void setValor(int valor) { this.valor = valor; }
+
+    @Override
+    public String toString() {
+        return "Item [Nombre: " + nombre + ", Peso: " + peso + "kg, Valor: " + valor + " monedas]";
+    }
+}</code></pre>
+        </div>
+
+        <h3>2. Programa de Grabación (Ejercicio14)</h3>
+        <p>Instanciamos nuestra colección dinámica y pasamos el objeto <code>List</code> completo al método <code>writeObject()</code>. Al ser las colecciones nativas de Java (como <code>ArrayList</code>) clases serializables por defecto, guardarán automáticamente todos los elementos que contengan.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema9.Ejercicios.ejercicio14;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Ejercicio14 {
+    public static void main(String[] args) {
+        // Creamos la mochila y añadimos 5 ítems de inventario
+        List&lt;Item&gt; mochila = new ArrayList&lt;&gt;();
+        mochila.add(new Item("Manzanas", 2.3, 50));
+        mochila.add(new Item("Pizza", 3.5, 25));
+        mochila.add(new Item("Patatas", 7.5, 7));
+        mochila.add(new Item("Macarrones", 1.2, 3));
+        mochila.add(new Item("Queso", 0.4, 10));
+
+        try {
+            // Inicialización de flujos manteniendo las declaraciones en líneas separadas
+            FileOutputStream fichero = new FileOutputStream("mochila.bin");
+            ObjectOutputStream out = new ObjectOutputStream(fichero);
+            
+            // Serializamos la lista completa con un único método
+            out.writeObject(mochila);
+            
+            out.close();
+            System.out.println("Colección de la mochila serializada en 'mochila.bin'");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+        </div>
+
+        <h3>3. Programa de Extracción (RecuperarMochila)</h3>
+        <p>Leemos el flujo binario aplicando el correspondiente moldeo o casting estructural a la lista genérica y sumamos las propiedades numéricas mediante un bucle <code>for-each</code>.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema9.Ejercicios.ejercicio14;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.List;
+
+public class RecuperarMochila {
+    public static void main(String[] args) {
+        try {
+            // Vinculamos y abrimos el canal de lectura binaria
+            FileInputStream fichero = new FileInputStream("mochila.bin");
+            ObjectInputStream in = new ObjectInputStream(fichero);
+            
+            // Reconstruimos el objeto completo recuperando la estructura de la lista
+            @SuppressWarnings("unchecked")
+            List&lt;Item&gt; mochilaRecuperada = (List&lt;Item&gt;) in.readObject();
+            in.close();
+
+            // Recorremos la lista recuperada para auditar su valor económico total
+            int valorTotal = 0;
+            for (Item i : mochilaRecuperada) {
+                valorTotal += i.getValor();
+            }
+            
+            System.out.println("--- Contenido de la Mochila Recuperada ---");
+            System.out.println(mochilaRecuperada);
+            System.out.println("\nValor total de la mochila: " + valorTotal + " monedas.");
+
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+        </div>
+
+        ---
+
+        <h2>Pregunta de Reflexión Teórica</h2>
+        <div class="p-4 rounded-md" style="background-color: var(--card-bg); border-left: 4px solid var(--accent-color); margin: 1.5rem 0;">
+            <p><strong>¿Qué pasa si intentas guardar un objeto de una clase que NO es Serializable?</strong></p>
+            <p>Si la clase <code>Item</code> no tuviera el marcador implícito <code>implements Serializable</code>, el compilador de Java no mostraría ningún error previo. Sin embargo, en tiempo de ejecución, en el instante exacto en que el flujo invoque a <code>out.writeObject(mochila)</code>, el programa fallará de forma abrupta lanzando una excepción de tipo <strong><code>java.io.NotSerializableException</code></strong>.</p>
+            <p>Esto ocurre porque Java protege la seguridad y consistencia del entorno, denegando de forma estricta el volcado a disco de cualquier objeto que no haya dado su autorización explícita a ser transformado en flujos binarios.</p>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../posts/Tema9/index.html" class="card-link">← Volver al Tema 9</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

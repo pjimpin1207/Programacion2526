@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 8: Buffers de Lectura y Rebobinado de Flujos | Programación</title>
+  <meta name="description" content="Solución al Ejercicio 8 del Tema 9: Uso de BufferedReader en Java junto con los métodos mark() y reset() para la relectura de datos en flujos de caracteres.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html" class="active">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 9 • Entrada y Salida</div>
+      <h1>Ejercicio 8: Lectura Avanzada con BufferedReader (Mark y Reset)</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>A partir de un fichero de texto plano (como por ejemplo <code>nota.txt</code>), el objetivo de esta práctica es implementar un lector de alto nivel capaz de manipular la posición del puntero de lectura mediante buffers, permitiendo releer líneas de datos sin necesidad de cerrar y volver a abrir el flujo.</p>
+
+        ---
+
+        <h2>Solución Completa</h2>
+        <p>Hacemos uso del bloque moderno <strong>try-with-resources</strong> para asegurar la apertura e inserción segura de los flujos de datos de caracteres, controlando dinámicamente si el flujo soporta el mecanismo de marcas del buffer.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema9.Ejercicios.ejercicio8;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class Ejercicio8 {
+    public static void main(String[] args) {
+        // Uso de try-with-resources para garantizar el cierre automático de los descriptores de archivo
+        try (BufferedReader br = new BufferedReader(new FileReader("nota.txt"))) {
+            
+            // 1. Validamos de forma condicional si la implementación del flujo admite marcas
+            if (br.markSupported()) {
+                // 2. Fijamos un punto de restauración en la posición actual del buffer (límite de 100 caracteres)
+                br.mark(100); 
+                
+                System.out.println("Primera línea: " + br.readLine());
+                
+                // 3. Rebobinamos el flujo volviendo al punto de control previamente guardado
+                br.reset(); 
+                
+                // 4. Repetimos la lectura para comprobar que se extraen de nuevo los mismos datos
+                System.out.println("Repetimos línea: " + br.readLine());
+            }
+            
+        } catch (IOException e) { 
+            e.printStackTrace(); 
+        }
+    }
+}</code></pre>
+        </div>
+
+        <h2>Análisis de la Mecánica de Buffers</h2>
+        <div class="p-4 rounded-md" style="background-color: var(--card-bg); border-left: 4px solid var(--accent-color); margin: 1.5rem 0;">
+            <p><strong>El poder del almacenamiento intermedio:</strong></p>
+            <p>Por norma general, un flujo de datos (<i>stream</i> o <i>reader</i>) es secuencial y unidireccional: un carácter consumido se pierde del canal de entrada y el lector avanza hacia adelante de manera indefinida.</p>
+            
+            <ul>
+                <li><strong>BufferedReader:</strong> Envuelve un flujo plano como <code>FileReader</code> y precarga bloques de texto en la memoria RAM del sistema. Gracias a esto, expone métodos utilitarios de alto rendimiento como <code>readLine()</code>.</li>
+                <li><strong>mark(int readAheadLimit):</strong> Le indica al búfer que retenga internamente en memoria los caracteres que se lean a partir de este instante. El parámetro numérico determina cuántos caracteres máximos podemos leer antes de que la marca quede invalidada por el recolector de basura.</li>
+                <li><strong>reset():</strong> Regresa el puntero lógico de lectura a la posición exacta donde se invocó <code>mark()</code>, permitiendo "repetir" la lectura de datos de manera idéntica y transparente.</li>
+            </ul>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../posts/Tema9/index.html" class="card-link">← Volver al Tema 9</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

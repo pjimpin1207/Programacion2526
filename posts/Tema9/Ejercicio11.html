@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 11: Acceso Aleatorio con RandomAccessFile | Programación</title>
+  <meta name="description" content="Solución al Ejercicio 11 del Tema 9: Uso de RandomAccessFile y el método seek() para modificar posiciones específicas de un archivo en Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html" class="active">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 9 • Entrada y Salida</div>
+      <h1>Ejercicio 11: Acceso Aleatorio (Modificación de Puntos Específicos)</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>A diferencia del acceso secuencial (donde debemos leer un archivo desde el principio hasta el final), el <strong>acceso aleatorio</strong> nos permite posicionarnos en cualquier byte del documento de forma instantánea para leer o escribir información.</p>
+        
+        <h3>Requisitos del ejercicio:</h3>
+        <ul>
+            <li>Crear un fichero llamado <code>record.txt</code> que contenga el texto inicial: <code>Nivel:001</code>.</li>
+            <li>Hacer un programa en Java que salte directamente a la posición del número y lo cambie por <code>005</code> sin alterar la palabra fija.</li>
+            <li>Pedir al usuario por consola qué nivel desea establecer y actualizar dicha posición de memoria directamente.</li>
+        </ul>
+
+        ---
+
+        <h2>Solución Completa</h2>
+        <p>Para lograrlo, utilizamos la clase de utilidad avanzada <code>RandomAccessFile</code> en modo de lectura/escritura (<code>"rw"</code>), manipulando el puntero del archivo mediante el método estructural <code>seek()</code>.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema9.Ejercicios.ejercicio11;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.util.Scanner;
+
+public class Ejercicio11 {
+    public static void main(String[] args) {
+        String nombreFichero = "record.txt";
+        Scanner sc = new Scanner(System.in);
+
+        try {
+            // 1. Inicializamos el archivo de persistencia con el valor base Nivel:001
+            archivoInicial(nombreFichero);
+
+            // 2. Acceso directo para cambiar el nivel a 005 de forma estricta
+            try (RandomAccessFile random = new RandomAccessFile(nombreFichero, "rw")) {
+                // Saltamos las letras 'N','i','v','e','l',':' (índices del 0 al 5). Nos ponemos en el byte 6.
+                random.seek(6);
+                random.writeBytes("005");
+                System.out.println("Nivel actualizado a 005");
+            }
+
+            // 3. Actualización dinámica interactiva por parte del usuario
+            System.out.println("¿Qué nivel quieres ponerte?");
+            String nuevoNivel = sc.next();
+
+            try (RandomAccessFile random = new RandomAccessFile(nombreFichero, "rw")) {
+                // Volvemos a saltar el prefijo estático de control "Nivel:"
+                random.seek(6);
+                random.writeBytes(nuevoNivel);
+            }
+
+            System.out.println("Archivo 'record.txt' actualizado correctamente.");
+
+        } catch (IOException e) {
+            System.err.println("Error de E/S: " + e.getMessage());
+        } finally {
+            sc.close();
+        }
+    }
+
+    // Método de soporte para crear la estructura limpia del archivo inicial
+    private static void archivoInicial(String ruta) throws IOException {
+        File archivo = new File(ruta);
+        try (java.io.FileWriter fw = new java.io.FileWriter(archivo)) {
+            fw.write("Nivel:001");
+        }
+        System.out.println("Archivo inicial creado con Nivel:001");
+    }
+}</code></pre>
+        </div>
+
+        <h2>Análisis de la Mecánica de Acceso Aleatorio</h2>
+        <div class="p-4 rounded-md" style="background-color: var(--card-bg); border-left: 4px solid var(--accent-color); margin: 1.5rem 0;">
+            <p><strong>¿Por qué es tan importante RandomAccessFile?</strong></p>
+            <ul>
+                <li><strong>El puntero del archivo:</strong> Imagina que el archivo es un array gigante de bytes en el disco duro. Cuando abres un flujo normal de lectura, el puntero se sitúa en el índice 0 y avanza secuencialmente. <code>RandomAccessFile</code> se comporta como una estructura libre que permite desplazar ese puntero a la posición que tú quieras.</li>
+                <li><strong>random.seek(long pos):</strong> Desplaza el puntero del archivo el número de bytes indicado desde el inicio del documento. En nuestra cadena <code>"Nivel:001"</code>, los caracteres ocupan las siguientes posiciones:
+                    <table style="width: auto; margin-top: 0.5rem; border-collapse: collapse;">
+                        <tr style="background: var(--accent-glow);">
+                            <td style="padding: 0.3rem 0.6rem; border: 1px solid var(--border-color);"><b>N</b></td>
+                            <td style="padding: 0.3rem 0.6rem; border: 1px solid var(--border-color);"><b>i</b></td>
+                            <td style="padding: 0.3rem 0.6rem; border: 1px solid var(--border-color);"><b>v</b></td>
+                            <td style="padding: 0.3rem 0.6rem; border: 1px solid var(--border-color);"><b>e</b></td>
+                            <td style="padding: 0.3rem 0.6rem; border: 1px solid var(--border-color);"><b>l</b></td>
+                            <td style="padding: 0.3rem 0.6rem; border: 1px solid var(--border-color);"><b>:</b></td>
+                            <td style="padding: 0.3rem 0.6rem; border: 1px solid var(--border-color); background: #ffa50033;"><b>0</b></td>
+                            <td style="padding: 0.3rem 0.6rem; border: 1px solid var(--border-color);"><b>0</b></td>
+                            <td style="padding: 0.3rem 0.6rem; border: 1px solid var(--border-color);"><b>1</b></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.3rem 0.6rem; border: 1px solid var(--border-color); font-size:0.8rem;">0</td>
+                            <td style="padding: 0.3rem 0.6rem; border: 1px solid var(--border-color); font-size:0.8rem;">1</td>
+                            <td style="padding: 0.3rem 0.6rem; border: 1px solid var(--border-color); font-size:0.8rem;">2</td>
+                            <td style="padding: 0.3rem 0.6rem; border: 1px solid var(--border-color); font-size:0.8rem;">3</td>
+                            <td style="padding: 0.3rem 0.6rem; border: 1px solid var(--border-color); font-size:0.8rem;">4</td>
+                            <td style="padding: 0.3rem 0.6rem; border: 1px solid var(--border-color); font-size:0.8rem;">5</td>
+                            <td style="padding: 0.3rem 0.6rem; border: 1px solid var(--border-color); font-size:0.8rem; font-weight:bold;">6</td>
+                            <td style="padding: 0.3rem 0.6rem; border: 1px solid var(--border-color); font-size:0.8rem;">7</td>
+                            <td style="padding: 0.3rem 0.6rem; border: 1px solid var(--border-color); font-size:0.8rem;">8</td>
+                        </tr>
+                    </table>
+                    Al hacer <code>seek(6)</code>, colocamos el marcador justo al inicio de los datos numéricos, sobrescribiendo lo que haya a continuación sin mutar el prefijo.</li>
+                <li><strong>Modo "rw":</strong> Es el parámetro por contrato que indica que abriremos el canal en modo de lectura (<i>Read</i>) y escritura (<i>Write</i>) simultánea.</li>
+            </ul>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../posts/Tema9/index.html" class="card-link">← Volver al Tema 9</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 7: Exploración de Archivos con la Clase File | Programación</title>
+  <meta name="description" content="Solución al Ejercicio 7 del Tema 9: Uso de la clase File en Java para comprobar metadatos, rutas y permisos de archivos del sistema.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html" class="active">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 9 • Entrada y Salida</div>
+      <h1>Ejercicio 7: Control y Metadatos de Archivos (Clase File)</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado teórico e Investigación</h2>
+        <p>El enunciado nos propone realizar una investigación profunda sobre la jerarquía de flujos en Java (paquete <code>java.io</code>), dividiéndose en dos grandes bloques según la naturaleza de los datos:</p>
+        
+        <ul>
+            <li><strong>Flujos Orientados a Bytes (Streams):</strong> Clases como <code>FileInputStream</code>, <code>FileOutputStream</code>, <code>BufferedInputStream</code>, <code>DataInputStream</code> o <code>PrintStream</code>. Trabajan con datos binarios crudos de 8 bits (ideales para imágenes, audios o archivos ejecutables).</li>
+            <li><strong>Flujos Orientados a Caracteres (Readers/Writers):</strong> Clases como <code>FileReader</code>, <code>FileWriter</code>, <code>BufferedReader</code> o <code>PrintWriter</code>. Manejan caracteres Unicode de 16 bits, adaptándose automáticamente al juego de caracteres (codificación) del sistema, optimizados para archivos de texto plano.</li>
+        </ul>
+
+        <p>Antes de abrir cualquier flujo de lectura o escritura sobre un soporte físico, es una excelente práctica de desarrollo verificar el estado, existencia y permisos del archivo. Para ello, Java nos proporciona la clase <code>File</code>.</p>
+
+        ---
+
+        <h2>Solución Práctica</h2>
+        <p>A continuación se presenta el código de la aplicación que inspecciona las propiedades y metadatos del archivo <code>prueba.txt</code> en el disco duro antes de lanzar operaciones de manipulación de flujos de datos.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema9.Ejercicios.ejercicio7;
+
+import java.io.File;
+
+public class Ejercicio7 {
+    public static void main(String[] args) {
+        // 1. Definimos la ruta relativa del archivo objetivo
+        File archivo = new File("prueba.txt");
+
+        // 2. Comprobar si el archivo existe físicamente en el disco
+        if (archivo.exists()) {
+            System.out.println("--- Información del Archivo ---");
+
+            // Nombre del fichero con su extensión
+            System.out.println("Nombre: " + archivo.getName());
+
+            // Ruta absoluta completa dentro del sistema operativo
+            System.out.println("Ruta absoluta: " + archivo.getAbsolutePath());
+
+            // Tamaño físico ocupado en el espacio de almacenamiento
+            System.out.println("Tamaño: " + archivo.length() + " bytes");
+
+            // Validación de los permisos de acceso de seguridad del sistema
+            System.out.println("¿Se puede leer?: " + (archivo.canRead() ? "Sí" : "No"));
+            System.out.println("¿Se puede escribir?: " + (archivo.canWrite() ? "Sí" : "No"));
+
+            // 3. Verificar de manera condicional si es un fichero o un directorio
+            if (archivo.isFile()) {
+                System.out.println("Tipo: Es un fichero.");
+            } else if (archivo.isDirectory()) {
+                System.out.println("Tipo: Es un directorio.");
+            }
+
+        } else {
+            System.out.println("El archivo no existe en la ruta especificada.");
+        }
+    }
+}</code></pre>
+        </div>
+
+        <h2>Análisis de la Clase File</h2>
+        <div class="p-4 rounded-md" style="background-color: var(--card-bg); border-left: 4px solid var(--accent-color); margin: 1.5rem 0;">
+            <p><strong>¿Qué representa realmente un objeto File?</strong></p>
+            <p>Es muy común pensar que al instanciar <code>new File("prueba.txt")</code> estamos creando o cargando el contenido de un documento en memoria. Esto es una concepción errónea:</p>
+            <ul>
+                <li>La clase <code>File</code> representa únicamente una <strong>ruta de acceso abstracta</strong> (un camino lógico o <i>path</i>) hacia un archivo o directorio en el disco duro del sistema, independientemente de si existe o no en la realidad.</li>
+                <li>Actúa como un objeto puente necesario para realizar consultas operativas básicas (metadatos) antes de inicializar flujos pesados de bytes como <code>FileInputStream</code> o caracteres como <code>FileReader</code>.</li>
+                <li><strong>Métodos mark() y reset():</strong> Mencionados en la investigación teórica, son característicos de flujos avanzados como <code>BufferedReader</code>. El método <code>mark(readAheadLimit)</code> guarda la posición actual del flujo de lectura, y <code>reset()</code> permite volver a dicha posición guardada para releer los datos, siempre que no hayamos superado el límite de bytes especificado de búfer en memoria.</li>
+            </ul>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../posts/Tema9/index.html" class="card-link">← Volver al Tema 9</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 16: Creación y Exportación de Archivos XML con DOM | Programación</title>
+  <meta name="description" content="Solución al Ejercicio 16 del Tema 9: Construcción de árboles DOM desde cero en memoria y volcado a archivos físicos estructurados con Transformer en Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html" class="active">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 9 • Entrada y Salida</div>
+      <h1>Ejercicio 16: Escritura de Archivos XML con la API DOM</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>En este ejercicio exploraremos el proceso inverso al parseo: la **creación desde cero de un documento estructurado XML**. El objetivo es diseñar un generador automático para el fichero de configuración de un videojuego denominado <code>juego_config.xml</code>.</p>
+        
+        <h3>Estructura del archivo objetivo:</h3>
+        <p>La aplicación debe generar de manera física un archivo en la raíz del proyecto que replique fielmente el siguiente árbol de marcas indentado:</p>
+        
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-xml">&lt;videojuego&gt;
+    &lt;pantalla resolucion="1920x1080"&gt;true&lt;/pantalla&gt;
+    &lt;audio volumen="80"&gt;false&lt;/audio&gt;
+&lt;/videojuego&gt;</code></pre>
+        </div>
+
+        ---
+
+        <h2>Solución Completa</h2>
+        <p>El desarrollo se divide en tres fases lógicas: inicializar un lienzo en blanco en la RAM, ensamblar la jerarquía de nodos colgándolos de sus respectivos padres y, finalmente, invocar a la clase de transformación <code>Transformer</code> para volcar el árbol lógico al disco duro.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema9.Ejercicios.ejercicio16;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.File;
+
+public class Ejercicio16 {
+    public static void main(String[] args) {
+        try {
+            // === FASE 1: Inicializar el documento vacío en memoria RAM ===
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            // Creamos una instancia de objeto Document en blanco
+            Document documento = builder.newDocument();
+
+            // === FASE 2: Construir el árbol de Nodos y Elementos ===
+
+            // 1. Creación del elemento raíz <videojuego>
+            Element raiz = documento.createElement("videojuego");
+            // Acoplamos la raíz directamente al nodo principal del documento
+            documento.appendChild(raiz);
+
+            // 2. Creación del elemento secundario <pantalla>
+            Element pantalla = documento.createElement("pantalla");
+            // Asignación de su atributo estructurado llave-valor
+            pantalla.setAttribute("resolucion", "1920x1080");
+            // Inserción de la información de texto interna del nodo
+            pantalla.setTextContent("true");
+            
+            // ¡Crucial! Colgamos el nodo pantalla del elemento raíz para que no flote en memoria
+            raiz.appendChild(pantalla);
+
+            // 3. Creación del elemento secundario <audio>
+            Element audio = documento.createElement("audio");
+            audio.setAttribute("volumen", "80");
+            audio.setTextContent("false");
+
+            // Añadimos el nodo audio al árbol enganchándolo también a la raíz
+            raiz.appendChild(audio);
+
+            // === FASE 3: El "Transformer" (Exportar la memoria a un archivo físico) ===
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+
+            // Configuración de propiedades de salida: Activar la indentación estética
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+
+            // Definir el origen de los datos (nuestro árbol DOM) y el destino físico (File)
+            DOMSource origen = new DOMSource(documento);
+            StreamResult destino = new StreamResult(new File("juego_config.xml"));
+
+            // Serialización y volcado físico de los flujos de datos al archivo de salida
+            transformer.transform(origen, destino);
+
+            System.out.println("¡Archivo 'juego_config.xml' generado con éxito de manera estructurada!");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+        </div>
+
+        <h2>Análisis y Conceptos Fundamentales de la Creación DOM</h2>
+        <div class="p-4 rounded-md" style="background-color: var(--card-bg); border-left: 4px solid var(--accent-color); margin: 1.5rem 0;">
+            <p><strong>La importancia del enlazado de ramas (appendChild):</strong></p>
+            <ul>
+                <li><strong>documento.createElement(String name):</strong> Este método actúa como una fábrica de etiquetas virtuales. Instancia el elemento en la memoria volátil, pero de manera aislada. Si nos limitamos a crear elementos sin invocar a <code>appendChild()</code>, los nodos se quedarán "flotando" en la memoria RAM desvinculados del documento final.</li>
+                <li><strong>Estructura en árbol:</strong> El orden de enlazado determina la jerarquía. La etiqueta raíz se cuelga directamente del objeto base (<code>documento.appendChild(raiz)</code>), mientras que las etiquetas de configuración específicas se cuelgan de la raíz (<code>raiz.appendChild(pantalla)</code>).</li>
+                <li><strong>La API Transformer:</strong> Por diseño, el DOM solo sabe gestionar estructuras abstractas en memoria. Para traducir ese árbol de objetos a una secuencia de texto legible que un disco duro entienda, recurrimos a un motor de transformación (<code>Transformer</code>).</li>
+                <li><strong>El truco de la indentación:</strong> Por defecto, un exportador transforma los nodos en una única línea masiva de texto comprimido para ahorrar espacio. Al activar la propiedad de salida <code>OutputKeys.INDENT</code> junto con la directiva específica de sangrado a 4 espacios de Apache, forzamos al sistema a formatear el archivo con saltos de línea estéticos, haciéndolo legible para los seres humanos.</li>
+            </ul>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../posts/Tema9/index.html" class="card-link">← Volver al Tema 9</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>
