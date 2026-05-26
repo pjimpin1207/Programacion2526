@@ -6,7 +6,7 @@ En la siguiente tabla encontrarás el acceso directo tanto al código fuente de 
 | :--- | :--- | :--- |
 | **01. Introducción a la Programación** | [Ver carpeta](./Temas/Tema1) | [Ver en el blog](https://pjimpin1207.github.io/Programacion2526/posts/Tema1/index.html) |
 | **02. Arrays y Cadenas en Python** | [Ver carpeta](./Temas/Tema2) | [Ver en el blog](https://pjimpin1207.github.io/Programacion2526/posts/Tema2/index.html) |
-| **03. Funciones y Modularidad** | [Ver carpeta](./Temas/Tema3) | [Ver en el blog](https://pjimpin1207.github.io/Programacion2526/posts/Tema3/index.html)) |
+| **03. Funciones y Modularidad** | [Ver carpeta](./Temas/Tema3) | [Ver en el blog](https://pjimpin1207.github.io/Programacion2526/posts/Tema3/index.html) |
 | **04. Clases y objetos** | [Ver carpeta](./Temas/Tema4) | [Ver en el blog](https://pjimpin1207.github.io/Programacion2526/posts/Tema4/index.html) |
 | **05. Principios de la POO** | [Ver carpeta](./Temas/Tema5) | [Ver en el blog](https://pjimpin1207.github.io/Programacion2526/posts/Tema5/index.html) |
 | **06. Interfaces** | [Ver carpeta](./Temas/Tema6) | [Ver en el blog](https://pjimpin1207.github.io/Programacion2526/posts/Tema6/index.html) |
