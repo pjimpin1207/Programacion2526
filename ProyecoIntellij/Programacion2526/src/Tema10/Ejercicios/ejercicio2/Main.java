@@ -1,16 +1,19 @@
 package Tema10.Ejercicios.ejercicio2;
 
-import Tema10.Ejercicios.ejercicio2.Ejercicio2;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+
 public class Main {
     public static void main(String[] args) {
-        // crear instancia usando el constructor con parámetros
-        Ejercicio2 concierto = new Ejercicio2("Puro Latino", LocalDate.of(2026, 7, 15), new BigDecimal("1250450.75"));
+        // Instanciamos el evento listo para simular su persistencia
+        Ejercicio2 festival = new Ejercicio2(1L, "Puro Latino", LocalDate.of(2026, 6, 28), new BigDecimal("3450000.00"), GeneroMusical.ROCK
+        );
 
-        // Mostramos los datos por consola
-        System.out.println(concierto);
+        // añadir artistas
+        festival.addArtista(new Artista("Ghost", 8));
+        festival.addArtista(new Artista("Slipknot", 9));
+
+        System.out.println(festival);
     }
 }

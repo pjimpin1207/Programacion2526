@@ -1,35 +1,38 @@
-package Tema10.Ejercicios.ejercicio2;
+package Tema10.Ejercicios.ejercicio3;
+
+import Tema10.Ejercicios.ejercicio2.Artista;
+import Tema10.Ejercicios.ejercicio2.GeneroMusical;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Ejercicio2 {
-    // Clave primaria necesaria para persistir en BD
-    private Long id;
+public class Ejercicio3 {
 
+    // Clave primaria que se incrementa de 10 en 10
+    private Long id;
     private String nombre;
     private LocalDate fecha;
     private BigDecimal recaudacion;
-
-    // Campo restringido mediante el uso de la enumeración
     private GeneroMusical genero;
-
-    // lista clase Artista
     private List<Artista> artistasConfirmados = new ArrayList<>();
 
-    // constructor vacio
-    public Ejercicio2() {
+    // Variable de control para la lógica interna del programa.
+    private transient int control;
+
+    // POJO
+    public Ejercicio3() {
     }
 
     // Constructor
-    public Ejercicio2 (Long id, String nombre, LocalDate fecha, BigDecimal recaudacion, GeneroMusical genero) {
+    public Ejercicio3(Long id, String nombre, LocalDate fecha, BigDecimal recaudacion, GeneroMusical genero, int control) {
         this.id = id;
         this.nombre = nombre;
         this.fecha = fecha;
         this.recaudacion = recaudacion;
         this.genero = genero;
+        this.control = control;
     }
 
     // Getters y Setters
@@ -57,6 +60,7 @@ public class Ejercicio2 {
     public BigDecimal getRecaudacion() {
         return recaudacion;
     }
+
     public void setRecaudacion(BigDecimal recaudacion) {
         this.recaudacion = recaudacion;
     }
@@ -75,14 +79,20 @@ public class Ejercicio2 {
         this.artistasConfirmados = artistasConfirmados;
     }
 
-    // Método para añadir artistas de forma cómoda
+    public int getControl() {
+        return control;
+    }
+    public void setControl(int control) {
+        this.control = control;
+    }
+
     public void addArtista(Artista artista) {
         this.artistasConfirmados.add(artista);
     }
 
     @Override
     public String toString() {
-        return "EventoMusical [ID=" + id + ", Nombre=" + nombre + ", Género=" + genero +
-                ", Fecha=" + fecha + ", Recaudación=" + recaudacion + "€\n Artistas=" + artistasConfirmados + "]";
+        return "EventoMusical [ID (Incrementos de 10)=" + id + ", Nombre=" + nombre + ", Género=" + genero +
+                ", Fecha=" + fecha + ", Recaudación=" + recaudacion + "€ | (Variable interna 'control'=" + control + ")]";
     }
 }
