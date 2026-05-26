@@ -20,9 +20,7 @@ public class RecuperarMochila {
             for (Item i : mochilaRecuperada) {
                 valorTotal += i.getValor();
             }
-
             System.out.println(mochilaRecuperada);
-
 
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
