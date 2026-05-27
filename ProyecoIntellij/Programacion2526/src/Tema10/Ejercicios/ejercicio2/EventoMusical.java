@@ -1,11 +1,14 @@
 package Tema10.Ejercicios.ejercicio2;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Ejercicio2 {
+public class EventoMusical implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     // Clave primaria necesaria para persistir en BD
     private Long id;
 
@@ -20,11 +23,11 @@ public class Ejercicio2 {
     private List<Artista> artistasConfirmados = new ArrayList<>();
 
     // constructor vacio
-    public Ejercicio2() {
+    public EventoMusical() {
     }
 
     // Constructor
-    public Ejercicio2 (Long id, String nombre, LocalDate fecha, BigDecimal recaudacion, GeneroMusical genero) {
+    public EventoMusical(Long id, String nombre, LocalDate fecha, BigDecimal recaudacion, GeneroMusical genero) {
         this.id = id;
         this.nombre = nombre;
         this.fecha = fecha;

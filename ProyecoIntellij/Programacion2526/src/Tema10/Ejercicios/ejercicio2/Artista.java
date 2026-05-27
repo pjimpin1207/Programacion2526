@@ -1,11 +1,16 @@
 package Tema10.Ejercicios.ejercicio2;
 
-public class Artista {
+import java.io.Serializable;
+
+public class Artista implements Serializable {
+    private static  final long serialVersionUID = 1L;
+
     private String nombreArtistico;
     private int numeroIntegrantes;
 
     // Constructor vacío requerido
     public Artista() {
+        super();
     }
 
     public Artista(String nombreArtistico, int numeroIntegrantes) {

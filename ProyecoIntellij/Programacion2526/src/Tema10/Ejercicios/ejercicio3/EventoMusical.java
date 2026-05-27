@@ -3,14 +3,18 @@ package Tema10.Ejercicios.ejercicio3;
 import Tema10.Ejercicios.ejercicio2.Artista;
 import Tema10.Ejercicios.ejercicio2.GeneroMusical;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Ejercicio3 {
+public class EventoMusical {
 
     // Clave primaria que se incrementa de 10 en 10
+    @Id
+    @GeneratedValue(generator = "Secuencia10en10", strategy =  GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "Secuencia10en10", allocationSize = 10)
     private Long id;
     private String nombre;
     private LocalDate fecha;
@@ -22,11 +26,12 @@ public class Ejercicio3 {
     private transient int control;
 
     // POJO
-    public Ejercicio3() {
+    public EventoMusical() {
+        super();
     }
 
     // Constructor
-    public Ejercicio3(Long id, String nombre, LocalDate fecha, BigDecimal recaudacion, GeneroMusical genero, int control) {
+    public EventoMusical(Long id, String nombre, LocalDate fecha, BigDecimal recaudacion, GeneroMusical genero, int control) {
         this.id = id;
         this.nombre = nombre;
         this.fecha = fecha;
