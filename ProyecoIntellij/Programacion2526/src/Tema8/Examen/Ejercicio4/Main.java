@@ -1,4 +1,4 @@
-package Tema8.Examen.Ejercicio4;
+/*package Tema8.Examen.Ejercicio4;
 
 
 import java.util.ArrayList;
@@ -24,4 +24,4 @@ public class Main {
         Collections.sort(lista, new CompararPorPrecio());
         System.out.println("Orden por precio: " + lista);
     }
-}
+}*/

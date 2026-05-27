@@ -1,6 +1,6 @@
-package biblioteca.model;
+package Tema5.Examen.biblioteca.model;
 
-import biblioteca.util.ContadorItems;
+import Tema5.Examen.biblioteca.util.ContadorItems;
 
 public abstract class ItemBiblioteca {
     protected String id;

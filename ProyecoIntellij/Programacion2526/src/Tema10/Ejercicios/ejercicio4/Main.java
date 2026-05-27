@@ -1,7 +1,12 @@
-package Tema10.Ejercicios.ejercicio3;
+package Tema10.Ejercicios.ejercicio4;
 
 import Tema10.Ejercicios.ejercicio2.Artista;
 import Tema10.Ejercicios.ejercicio2.GeneroMusical;
+import Tema10.Ejercicios.ejercicio4.EventoMusical;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -27,5 +32,24 @@ public class Main {
 
         System.out.println(festival2);
         System.out.println("Lista de artistas: " + festival2.getArtistasConfirmados());
+
+        // crear conexion base de datos
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("objectdb:$objectdb/db/eventos.odb");
+        EntityManager em = emf.createEntityManager();
+
+        // iniciar la transacción
+        em.getTransaction().begin();
+
+        // operaciones
+        em.persist(festival1);
+        em.persist(festival2);
+
+        // confirmar la transacción
+        em.getTransaction().commit();
+
+        // cerrar la conexión
+        em.close();
+        emf.close();
+
     }
 }
