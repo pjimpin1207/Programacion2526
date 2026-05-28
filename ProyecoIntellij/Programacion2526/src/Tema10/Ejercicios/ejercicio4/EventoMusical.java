@@ -4,12 +4,15 @@ import Tema10.Ejercicios.ejercicio2.Artista;
 import Tema10.Ejercicios.ejercicio2.GeneroMusical;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventoMusical {
+@Entity
+public class EventoMusical implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     // Clave primaria que se incrementa de 10 en 10
     @Id
@@ -17,9 +20,11 @@ public class EventoMusical {
     @SequenceGenerator(name = "Secuencia10en10", allocationSize = 10)
     private Long id;
     private String nombre;
+    @Temporal(TemporalType.DATE)
     private LocalDate fecha;
     private BigDecimal recaudacion;
     private GeneroMusical genero;
+    @ElementCollection
     private List<Artista> artistasConfirmados = new ArrayList<>();
 
     // Variable de control para la lógica interna del programa.
@@ -27,7 +32,6 @@ public class EventoMusical {
 
     // POJO
     public EventoMusical() {
-        super();
     }
 
     // Constructor

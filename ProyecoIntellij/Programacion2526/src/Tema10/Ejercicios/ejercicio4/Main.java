@@ -2,7 +2,6 @@ package Tema10.Ejercicios.ejercicio4;
 
 import Tema10.Ejercicios.ejercicio2.Artista;
 import Tema10.Ejercicios.ejercicio2.GeneroMusical;
-import Tema10.Ejercicios.ejercicio4.EventoMusical;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

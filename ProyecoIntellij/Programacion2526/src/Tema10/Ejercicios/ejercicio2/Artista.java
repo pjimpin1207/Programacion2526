@@ -1,7 +1,9 @@
 package Tema10.Ejercicios.ejercicio2;
 
+import javax.persistence.Embeddable;
 import java.io.Serializable;
 
+@Embeddable
 public class Artista implements Serializable {
     private static  final long serialVersionUID = 1L;
 
