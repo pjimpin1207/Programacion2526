@@ -26,7 +26,7 @@ public class Ejercicio11 {
 
             con.setAutoCommit(false);
 
-            stmt.addBatch("DELETE FROM producto"); [cite: 683]
+            stmt.addBatch("DELETE FROM producto");
             stmt.addBatch("INSERT INTO producto VALUES ('1', 'manzana', 'Manzanas golden', 50, 'Francia')");
             stmt.addBatch("INSERT INTO producto VALUES ('2', 'pera', 'Peras conferencia', 20, 'Espana')");
             stmt.addBatch("INSERT INTO producto VALUES ('3', 'uva', 'Uvas groumet', 30, 'Espana')");
