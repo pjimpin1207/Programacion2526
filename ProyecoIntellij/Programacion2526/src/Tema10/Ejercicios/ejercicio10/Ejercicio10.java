@@ -15,14 +15,21 @@ public class Ejercicio10 {
 
             // borrar registros existentes
             stmt.executeUpdate("DELETE FROM producto");
+            System.out.println("Registro borrado:" + stmt.getUpdateCount());
+
 
             // insertar 3 nuevos registros
             stmt.executeUpdate("INSERT INTO producto VALUES ('1', 'manzana', 'Manzanas golden', 50, 'Francia')");
             stmt.executeUpdate("INSERT INTO producto VALUES ('2', 'pera', 'Peras conferencia', 25, 'Espana')");
             stmt.executeUpdate("INSERT INTO producto VALUES ('3', 'uva', 'Uvas groumet', 30, 'Espana')");
+            System.out.println("Registros insertados:" + stmt.getUpdateCount());
+
 
             // cambiar el precio de la pera a 20 centimos
             stmt.executeUpdate("UPDATE producto SET precio = 20 WHERE id = '2'");
+            System.out.println("Registros actualizados:" + stmt.getUpdateCount());
+
+
 
             stmt.close();
             con.close();

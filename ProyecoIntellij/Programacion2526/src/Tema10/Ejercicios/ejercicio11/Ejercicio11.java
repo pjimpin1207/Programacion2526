@@ -23,9 +23,7 @@ public class Ejercicio11 {
             }
 
             // Ejecutar lote con consultas anteriores
-
             con.setAutoCommit(false);
-
             stmt.addBatch("DELETE FROM producto");
             stmt.addBatch("INSERT INTO producto VALUES ('1', 'manzana', 'Manzanas golden', 50, 'Francia')");
             stmt.addBatch("INSERT INTO producto VALUES ('2', 'pera', 'Peras conferencia', 20, 'Espana')");
