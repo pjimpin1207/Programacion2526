@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 7: Clonación de Entidades y Eliminación con em.remove y JPQL | Programación</title>
+  <meta name="description" content="Solución al Ejercicio 7 del Tema 10: Duplicación de objetos, eliminación por ciclo de vida con em.remove y sentencias DELETE masivas en JPQL.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html" class="active">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 10 • Tipos de Datos Avanzados</div>
+      <h1>Ejercicio 7: Clonación y Eliminación de Entidades (Ciclo de Vida y Sentencias DELETE)</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>En este ejercicio cerramos las operaciones CRUD fundamentales de JPA explorando la eliminación de registros. El reto exige realizar un borrado de seguridad copiando previamente un elemento original a un registro nuevo, para luego proceder a limpiar datos concretos por clave primaria y mediante consultas masivas de tipo <code>DELETE</code> en JPQL.</p>
+        
+        <h3>Misiones requeridas:</h3>
+        <ul>
+            <li>Buscar el primer evento (ID 10) y generar una copia idéntica con un nuevo identificador autoincremental antes de destruirlo.</li>
+            <li>Eliminar el primer evento original utilizando su identificador mediante métodos directos del gestor de persistencia.</li>
+            <li>Eliminar el segundo evento (ID 20) utilizando una <strong>Query JPQL Dinámica</strong> de tipo <code>DELETE</code>.</li>
+            <li>Eliminar de nuevo de forma controlada el segundo evento valiéndose de una <strong>Query JPQL Estática</strong> declarada mediante <code>@NamedQuery</code>.</li>
+        </ul>
+
+        <h2>Solución Completa</h2>
+
+        <h3>1. La Entidad con Consultas de Eliminación Nombradas (EventoMusical)</h3>
+        <p>Declaramos de manera estática tanto la query de consulta como la de eliminación dentro de la anotación multi-consulta <strong><code>@NamedQueries</code></strong> en el encabezado de nuestra clase de entidad.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema10.Ejercicios.ejercicio7;
+
+import Tema10.Ejercicios.ejercicio2.Artista;
+import Tema10.Ejercicios.ejercicio2.GeneroMusical;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@NamedQueries({
+        @NamedQuery(name = "buscarEventoPorIdEstatico", query = "SELECT e FROM EventoMusical e WHERE e.id = :idParam"),
+        @NamedQuery(name = "borrarEventoEstatico", query = "DELETE FROM EventoMusical e WHERE e.id = :idParam")
+})
+public class EventoMusical implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(generator = "SecuenciaEj7", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "SecuenciaEj7", allocationSize = 10)
+    private Long id;
+    
+    private String nombre;
+    @Temporal(TemporalType.DATE)
+    private LocalDate fecha;
+    private BigDecimal recaudacion;
+    private GeneroMusical genero;
+    
+    @ElementCollection
+    private List&lt;Artista&gt; artistasConfirmados = new ArrayList&lt;&gt;();
+
+    private transient int control;
+
+    public EventoMusical() {
+    }
+
+    public EventoMusical(Long id, String nombre, LocalDate fecha, BigDecimal recaudacion, GeneroMusical genero, int control) {
+        this.id = id;
+        this.nombre = nombre;
+        this.fecha = fecha;
+        this.recaudacion = recaudacion;
+        this.genero = genero;
+        this.control = control;
+    }
+
+    // Getters y Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
+
+    public LocalDate getFecha() { return fecha; }
+    public void setFecha(LocalDate fecha) { this.fecha = fecha; }
+
+    public BigDecimal getRecaudacion() { return recaudacion; }
+    public void setRecaudacion(BigDecimal recaudacion) { this.recaudacion = recaudacion; }
+
+    public GeneroMusical getGenero() { return genero; }
+    public void setGenero(GeneroMusical genero) { this.genero = genero; }
+
+    public List&lt;Artista&gt; getArtistasConfirmados() { return artistasConfirmados; }
+    public void setArtistasConfirmados(List&lt;Artista&gt; artistasConfirmados) { this.artistasConfirmados = artistasConfirmados; }
+
+    public int getControl() { return control; }
+    public void setControl(int control) { this.control = control; }
+
+    public void addArtista(Artista artista) {
+        this.artistasConfirmados.add(artista);
+    }
+
+    @Override
+    public String toString() {
+        return "EventoMusical [ID (Incrementos de 10)=" + id + ", Nombre=" + nombre + ", Género=" + genero +
+                ", Fecha=" + fecha + ", Recaudación=" + recaudacion + "€ | (Variable interna 'control'=" + control + ")]";
+    }
+}</code></pre>
+        </div>
+
+        <h3>2. Programa de Procesamiento Aislado (BorrarEventos)</h3>
+        <p>Al igual que ocurre con las modificaciones estipuladas en la lección anterior, los borrados estructurales alteran el mapa físico de la base de datos y exigen de manera estricta ejecutarse dentro de transacciones acotadas.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema10.Ejercicios.ejercicio7;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+import java.util.ArrayList;
+
+public class BorrarEventos {
+    public static void main(String[] args) {
+        // Inicializar la factoría apuntando al fichero local eventos.odb
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("objectdb:$objectdb/db/eventos.odb");
+        EntityManager em = emf.createEntityManager();
+
+        // FASE 1: Buscar, Duplicar como Backup y Eliminar mediante Identificador
+        em.getTransaction().begin();
+
+        // Extraemos la entidad en estado Gestionado (Managed)
+        EventoMusical primerEvento = em.find(EventoMusical.class, 10L);
+
+        // Instanciamos un nuevo objeto pasando 'null' en el ID para que la secuencia le asigne uno nuevo
+        EventoMusical copiaEvento = new EventoMusical(
+                null,
+                primerEvento.getNombre() + " (Copia)",
+                primerEvento.getFecha(),
+                primerEvento.getRecaudacion(),
+                primerEvento.getGenero(),
+                primerEvento.getControl()
+        );
+        // Clonamos la lista de artistas confirmados en una nueva instancia de colección para romper referencias
+        copiaEvento.setArtistasConfirmados(new ArrayList&lt;&gt;(primerEvento.getArtistasConfirmados()));
+
+        // Guardamos la copia de respaldo en el motor
+        em.persist(copiaEvento);
+
+        // Eliminamos de forma física la entidad original a través de su puntero de control
+        em.remove(primerEvento);
+
+        em.getTransaction().commit();
+        System.out.println("Primer evento copiado y eliminado mediante identificador con éxito.");
+
+        // FASE 2: Eliminación masiva mediante JPQL Dinámico (ID 20L)
+        em.getTransaction().begin();
+        Query queryDinamica = em.createQuery("DELETE FROM EventoMusical e WHERE e.id = 20");
+        int eliminadosDin = queryDinamica.executeUpdate(); // Devuelve el número de registros afectados
+        em.getTransaction().commit();
+        System.out.println("Registros eliminados con JPQL Dinámica: " + eliminadosDin);
+
+        // FASE 3: Eliminación masiva mediante JPQL Estático (NamedQuery)
+        em.getTransaction().begin();
+        Query queryEstatica = em.createNamedQuery("borrarEventoEstatico");
+        queryEstatica.setParameter("idParam", 20L);
+        int eliminadosEst = queryEstatica.executeUpdate();
+        em.getTransaction().commit();
+        System.out.println("Registros eliminados con JPQL Estática: " + eliminadosEst);
+
+        // Cierre y liberación de flujos de comunicación con la base de datos
+        em.close();
+        emf.close();
+    }
+}</code></pre>
+        </div>
+
+        <h2>Análisis de la Mecánica de Eliminación en JPA</h2>
+        <div class="p-4 rounded-md" style="background-color: var(--card-bg); border-left: 4px solid var(--accent-color); margin: 1.5rem 0;">
+            <p><strong>Claves de diseño en la destrucción de información persistente:</strong></p>
+            <ul>
+                <li><strong>Desvinculación en la clonación (ID null):</strong> Al duplicar un objeto persistente, si pasáramos el ID original (<code>10L</code>) a la copia, JPA interpretaría que queremos actualizar el registro existente en lugar de crear uno nuevo. Al asignarle <code>null</code>, la anotación <code>@GeneratedValue</code> entra en juego de forma automática solicitando un nuevo valor a la secuencia, logrando el duplicado de seguridad de forma limpia.</li>
+                <li><strong>El método em.remove():</strong> Este método exige de forma obligatoria que el argumento proporcionado sea una entidad en estado **Managed (Gestionada)**. Por este motivo, siempre realizamos un paso previo de búsqueda con <code>em.find()</code>. Invocar a <code>em.remove()</code> sobre un objeto construido manualmente con <code>new</code> producirá un fallo de tipo <code>IllegalArgumentException</code> (<i>Removing a detached instance</i>).</li>
+                <li><strong>Eliminaciones en lote (Bulk Delete):</strong> Al igual que con las sentencias <code>UPDATE</code> estudiadas en la lección anterior, los comandos <code>DELETE FROM...</code> de JPQL se ejecutan directamente en el motor de base de datos mediante **<code>executeUpdate()</code>**. Esta vía es extremadamente eficiente si se desea realizar una limpieza masiva por criterios lógicos (por ejemplo, borrar todos los eventos pasados de fecha) sin incurrir en el costoso proceso de cargar miles de objetos a la memoria RAM de la aplicación uno a uno.</li>
+            </ul>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../posts/Tema10/index.html" class="card-link">← Volver al Tema 10</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

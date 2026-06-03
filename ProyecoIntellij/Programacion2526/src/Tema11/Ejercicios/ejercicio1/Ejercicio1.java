@@ -8,10 +8,6 @@ public class Ejercicio1 {
         frame.setSize(300, 200);
         frame.setVisible(true);
 
-        // campo de texto para escribir
-        TextField texto = new TextField("Escribe algo..");
-        frame.add(texto);
-
 
         // crear boton para enviar
         Button boton = new Button("Salir");
@@ -21,6 +17,10 @@ public class Ejercicio1 {
         Button botonLimpiar = new Button("Limpiar");
         frame.add(botonLimpiar);
         frame.setLayout(new FlowLayout());
+
+        // campo de texto para escribir
+        TextField texto = new TextField("Escribe algo..");
+        frame.add(texto);
 
 
     }

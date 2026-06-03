@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 6: Actualización de Entidades y Consultas de Modificación | Programación</title>
+  <meta name="description" content="Solución al Ejercicio 6 del Tema 10: Actualización de estados mediante el Contexto de Persistencia y sentencias UPDATE con JPQL estático y dinámico en Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html" class="active">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 10 • Tipos de Datos Avanzados</div>
+      <h1>Ejercicio 6: Modificación de Datos (Dirty Checking y Sentencias UPDATE en JPQL)</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>El objetivo de esta práctica es dominar los dos mecanismos fundamentales que ofrece la API de JPA para mutar o actualizar información en la base de datos: la sincronización implícita por estados de memoria y la ejecución explícita de comandos de actualización masiva mediante el lenguaje de consultas orientado a objetos JPQL.</p>
+        
+        <h3>Misiones requeridas:</h3>
+        <ul>
+            <li>Modificar el nombre del primer concierto (ID 10) para transformarlo a mayúsculas utilizando el acceso directo por identificador y mutación de propiedades (setters).</li>
+            <li>Modificar el nombre del segundo concierto (ID 20) a mayúsculas empleando una <strong>Query JPQL Dinámica</strong> de tipo <code>UPDATE</code>.</li>
+            <li>Realizar la misma acción sobre el segundo concierto pero valiéndose de una <strong>Query JPQL Estática</strong> precargada con la anotación <code>@NamedQuery</code>.</li>
+        </ul>
+
+
+        <h2>Estructura de la Solución</h2>
+
+        <h3>1. La Entidad con Grupo de Consultas Nombradas (EventoMusical)</h3>
+        <p>Hacemos uso de la anotación contenedora <strong><code>@NamedQueries</code></strong> para agrupar de manera limpia múltiples definiciones estáticas. Observa la estructura del comando de actualización: operamos directamente sobre la clase y sus atributos.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema10.Ejercicios.ejercicio6;
+
+import Tema10.Ejercicios.ejercicio2.Artista;
+import Tema10.Ejercicios.ejercicio2.GeneroMusical;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@NamedQueries({
+        @NamedQuery(name = "buscarEventoPorIdEstatico", query = "SELECT e FROM EventoMusical e WHERE e.id = :idParam"),
+        @NamedQuery(name = "actualizarNombreEstatico", query = "UPDATE EventoMusical e SET e.nombre = :nombreMayus WHERE e.id = :idParam")
+})
+public class EventoMusical implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(generator = "SecuenciaEj6", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "SecuenciaEj6", allocationSize = 10)
+    private Long id;
+
+    private String nombre;
+    @Temporal(TemporalType.DATE)
+    private LocalDate fecha;
+    private BigDecimal recaudacion;
+    private GeneroMusical genero;
+    @ElementCollection
+    private List&lt;Artista&gt; artistasConfirmados = new ArrayList&lt;&gt;();
+
+    private transient int control;
+
+    public EventoMusical() {
+    }
+
+    public EventoMusical(Long id, String nombre, LocalDate fecha, BigDecimal recaudacion, GeneroMusical genero, int control) {
+        this.id = id;
+        this.nombre = nombre;
+        this.fecha = fecha;
+        this.recaudacion = recaudacion;
+        this.genero = genero;
+        this.control = control;
+    }
+
+    // Getters y Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
+
+    public LocalDate getFecha() { return fecha; }
+    public void setFecha(LocalDate fecha) { this.fecha = fecha; }
+
+    public BigDecimal getRecaudacion() { return recaudacion; }
+    public void setRecaudacion(BigDecimal recaudacion) { this.recaudacion = recaudacion; }
+
+    public GeneroMusical getGenero() { return genero; }
+    public void setGenero(GeneroMusical genero) { this.genero = genero; }
+
+    public List&lt;Artista&gt; getArtistasConfirmados() { return artistasConfirmados; }
+    public void setArtistasConfirmados(List&lt;Artista&gt; artistasConfirmados) { this.artistasConfirmados = artistasConfirmados; }
+
+    public int getControl() { return control; }
+    public void setControl(int control) { this.control = control; }
+
+    public void addArtista(Artista artista) {
+        this.artistasConfirmados.add(artista);
+    }
+
+    @Override
+    public String toString() {
+        return "EventoMusical [ID (Incrementos de 10)=" + id + ", Nombre=" + nombre + ", Género=" + genero +
+                ", Fecha=" + fecha + ", Recaudación=" + recaudacion + "€ | (Variable interna 'control'=" + control + ")]";
+    }
+}</code></pre>
+        </div>
+
+        <h3>2. Programa de Modificación de Lotes (ActualizarEventos)</h3>
+        <p>A diferencia de las consultas de lectura pura del tema anterior, <strong>todas</strong> las operaciones que alteran el estado físico de los datos requieren una transacción activa (<code>begin()</code> / <code>commit()</code>). Para disparar las consultas de modificación masiva en JPQL empleamos de forma obligatoria el método <strong><code>executeUpdate()</code></strong>.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema10.Ejercicios.ejercicio6;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+
+public class ActualizarEventos {
+    public static void main(String[] args) {
+        // Conexión segura al almacén de objetos de ObjectDB
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("objectdb:$objectdb/db/eventos.odb");
+        EntityManager em = emf.createEntityManager();
+
+        // FASE 1: Modificación implícita del primer evento mediante el Identificador
+        em.getTransaction().begin();
+        EventoMusical primerEvento = em.find(EventoMusical.class, 10L);
+        // Al alterar el atributo de una entidad gestionada dentro de una transacción, JPA detecta el cambio automáticamente
+        primerEvento.setNombre(primerEvento.getNombre().toUpperCase());
+        em.getTransaction().commit();
+        System.out.println("Primer evento actualizado mediante identificador (Sincronización Automática).");
+
+        // FASE 2: Modificación del segundo evento utilizando JPQL Dinámico
+        em.getTransaction().begin();
+        String nombreActual = em.find(EventoMusical.class, 20L).getNombre().toUpperCase();
+
+        // Ensamblado e inyección de parámetros en la sentencia dinámica de actualización
+        Query queryDinamica = em.createQuery("UPDATE EventoMusical e SET e.nombre = :nombreMayus WHERE e.id = 20");
+        queryDinamica.setParameter("nombreMayus", nombreActual);
+        queryDinamica.executeUpdate(); // IMPORTANTE: Ejecuta la sentencia bulk de actualización
+        em.getTransaction().commit();
+        System.out.println("Segundo evento actualizado mediante JPQL Dinámica.");
+
+        // FASE 3: Modificación del segundo evento utilizando JPQL Estático (NamedQuery)
+        em.getTransaction().begin();
+        Query queryEstatica = em.createNamedQuery("actualizarNombreEstatico");
+        queryEstatica.setParameter("idParam", 20L);
+        queryEstatica.setParameter("nombreMayus", em.find(EventoMusical.class, 20L).getNombre().toUpperCase());
+        queryEstatica.executeUpdate(); // Consolidación en lote
+        em.getTransaction().commit();
+        System.out.println("Segundo evento actualizado mediante JPQL Estática.");
+
+        // Liberación absoluta de recursos
+        em.close();
+        emf.close();
+    }
+}</code></pre>
+        </div>
+
+        <h2>Análisis de Mecánicas Internas de JPA</h2>
+        <div class="p-4 rounded-md" style="background-color: var(--card-bg); border-left: 4px solid var(--accent-color); margin: 1.5rem 0;">
+            <p><strong>Comprendiendo cómo viajan los datos mutados al almacenamiento físico:</strong></p>
+            <ul>
+                <li><strong>El milagro del Dirty Checking (Fase 1):</strong> Observa que para el primer evento (ID 10) nunca invocamos a un método como <code>em.update()</code> o <code>em.persist()</code> tras cambiar su nombre. Esto se debe a que al extraer el objeto con <code>em.find()</code>, este queda en estado <strong>Managed (Gestionado)</strong> dentro del mapa de control del <code>EntityManager</code>. Al hacer <code>commit()</code>, el framework ejecuta una inspección de cambios (<i>Dirty Checking</i>) y, si detecta discrepancias entre la RAM y el disco, lanza de forma automática el comando SQL/ODB necesario para actualizarlo.</li>
+                <li><strong>Consultas Bulk con executeUpdate() (Fases 2 y 3):</strong> Cuando operamos con sentencias directas de tipo <code>UPDATE</code> o <code>DELETE</code> en JPQL, el comportamiento cambia. No estamos modificando una instancia concreta en memoria, sino emitiendo una orden de mutación directa hacia la base de datos. Por este motivo, el estándar JPA exige invocar de forma estricta al método <strong><code>executeUpdate()</code></strong> (que devuelve un entero indicando el número de filas o registros modificados), fallando de forma abrupta si intentáramos invocar a <code>getSingleResult()</code> o <code>getResultList()</code>.</li>
+                <li><strong>El peligro de desincronización de la caché:</strong> Las consultas de modificación masiva aplicadas mediante <code>executeUpdate()</code> viajan de forma directa a la base de datos sin actualizar las instancias de objetos que ya estuvieran cargadas previamente en la memoria RAM del programa. Es una excelente regla de diseño limpiar el contexto de persistencia mediante <code>em.clear()</code> o refrescar las entidades con <code>em.refresh()</code> si se planea seguir operando con ellas tras un proceso masivo en lote.</li>
+            </ul>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../posts/Tema10/index.html" class="card-link">← Volver al Tema 10</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

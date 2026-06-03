@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 3:  | Programación</title>
+  <meta name="description" content="Solución al Ejercicio 3 del Tema 10: Configuración de generadores de secuencia personalizados y uso de variables transient en JPA con Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html" class="active">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 10 • Tipos de Datos Avanzados</div>
+      <h1>Ejercicio 3:</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>Continuamos dotando a nuestra capa de persistencia de herramientas avanzadas. En este ejercicio personalizaremos la estrategia de asignación automática de nuestra clave primaria e introduciremos variables operativas de control que deben quedar completamente aisladas de la base de datos.</p>
+        
+        <h3>Requisitos:</h3>
+        <ul>
+            <li>Configurar el campo identificador (ID) de la entidad para que utilice una secuencia cuyo incremento automático progrese de 10 en 10.</li>
+            <li>Introducir una variable de control numérica de tipo primitivo <code>int</code> llamada <code>control</code>.</li>
+            <li>Asegurar que dicha variable solo sirva para la lógica en memoria del programa y **no se refleje o mapee como columna** en el almacenamiento físico de la base de datos.</li>
+        </ul>
+
+
+        <h2>Solución Completa</h2>
+        <p>Para configurar incrementos a medida en JPA empleamos las anotaciones <code>@SequenceGenerator</code> y <code>@GeneratedValue</code>. Para excluir la variable de la base de datos hacemos uso de la palabra clave nativa de Java <code>transient</code>.</p>
+
+        <h3>1. Clase de Entidad (EventoMusical)</h3>
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema10.Ejercicios.ejercicio3;
+
+import Tema10.Ejercicios.ejercicio2.Artista;
+import Tema10.Ejercicios.ejercicio2.GeneroMusical;
+
+import javax.persistence.*;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+public class EventoMusical {
+
+    // 1. Configuración de clave primaria con estrategia de incremento de 10 en 10
+    @Id
+    @GeneratedValue(generator = "Secuencia10en10", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "Secuencia10en10", allocationSize = 10)
+    private Long id;
+
+    private String nombre;
+    private LocalDate fecha;
+    private BigDecimal recaudacion;
+    private GeneroMusical genero;
+    private List&lt;Artista&gt; artistasConfirmados = new ArrayList&lt;&gt;();
+
+    // 2. Variable de control interna excluida explícitamente de la base de datos
+    private transient int control;
+
+    // Constructor vacío POJO
+    public EventoMusical() {
+    }
+
+    // Constructor parametrizado completo
+    public EventoMusical(Long id, String nombre, LocalDate fecha, BigDecimal recaudacion, GeneroMusical genero, int control) {
+        this.id = id;
+        this.nombre = nombre;
+        this.fecha = fecha;
+        this.recaudacion = recaudacion;
+        this.genero = genero;
+        this.control = control;
+    }
+
+    // Getters y Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
+
+    public LocalDate getFecha() { return fecha; }
+    public void setFecha(LocalDate fecha) { this.fecha = fecha; }
+
+    public BigDecimal getRecaudacion() { return recaudacion; }
+    public void setRecaudacion(BigDecimal recaudacion) { this.recaudacion = recaudacion; }
+
+    public GeneroMusical getGenero() { return genero; }
+    public void setGenero(GeneroMusical genero) { this.genero = genero; }
+
+    public List&lt;Artista&gt; getArtistasConfirmados() { return artistasConfirmados; }
+    public void setArtistasConfirmados(List&lt;Artista&gt; artistasConfirmados) { this.artistasConfirmados = artistasConfirmados; }
+
+    public int getControl() { return control; }
+    public void setControl(int control) { this.control = control; }
+
+    public void addArtista(Artista artista) {
+        this.artistasConfirmados.add(artista);
+    }
+
+    @Override
+    public String toString() {
+        return "EventoMusical [ID (Incrementos de 10)=" + id + ", Nombre=" + nombre + ", Género=" + genero +
+                ", Fecha=" + fecha + ", Recaudación=" + recaudacion + "€ | (Variable interna 'control'=" + control + ")]";
+    }
+}</code></pre>
+        </div>
+
+        <h3>2. Clase Main</h3>
+        <p>Instanciamos dos objetos simulando el salto indexado automático de las claves primarias (10 y 20) y asignamos valores operativos a la propiedad transitoria.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema10.Ejercicios.ejercicio3;
+
+import Tema10.Ejercicios.ejercicio2.Artista;
+import Tema10.Ejercicios.ejercicio2.GeneroMusical;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+public class Main {
+    public static void main(String[] args) {
+        // Instancia del primer festival (ID de base 10)
+        EventoMusical festival1 = new EventoMusical(10L, "Resurrection Fest", LocalDate.of(2026, 6, 26), new BigDecimal("2450000.50"), GeneroMusical.LATINO, 1);
+        festival1.addArtista(new Artista("Anuel", 1));
+        festival1.addArtista(new Artista("Myke Towers", 1));
+
+        // Instancia del segundo festival (ID de salto a 20)
+        EventoMusical festival2 = new EventoMusical(20L, "CocaCola Music Festival", LocalDate.of(2026, 7, 18), new BigDecimal("1890000.00"), GeneroMusical.POP, 2);
+        festival2.addArtista(new Artista("Aitana", 1));
+
+        // Volcado de auditoría por consola para contrastar los incrementos
+        System.out.println(festival1);
+        System.out.println("Lista de artistas: " + festival1.getArtistasConfirmados());
+        System.out.println();
+
+        System.out.println(festival2);
+        System.out.println("Lista de artistas: " + festival2.getArtistasConfirmados());
+    }
+}</code></pre>
+        </div>
+
+        <h2>Análisis de Conceptos Avanzados</h2>
+        <div class="p-4 rounded-md" style="background-color: var(--card-bg); border-left: 4px solid var(--accent-color); margin: 1.5rem 0;">
+            <p><strong>1. Generadores de Secuencia Personalizados</strong></p>
+            <p>Por defecto, estrategias como <code>GenerationType.IDENTITY</code> incrementan el ID de uno en uno confiando en la columna autoincremental de motores como MySQL. Al utilizar <strong><code>GenerationType.SEQUENCE</code></strong>, vinculamos un motor de secuencias independiente (típico en PostgreSQL u Oracle). El atributo clave es <strong><code>allocationSize = 10</code></strong>, que determina cuántos valores reserva el framework en memoria por cada consulta física a la base de datos, forzando la progresión de 10 en 10 requerida.</p>
+            
+            <p><strong>2. El Modificador transient (Exclusión)</strong></p>
+            <p>La palabra reservada <strong><code>transient</code></strong> es una directiva de seguridad y arquitectura que cumple una doble función en Java:</p>
+            <ul>
+                <li><strong>En serialización nativa:</strong> Indica al flujo <code>ObjectOutputStream</code> que ignore el atributo al congelar el objeto, por lo que su valor se destruye al volcar los bytes al disco duro.</li>
+                <li><strong>En persistencia ORM (JPA/Hibernate):</strong> Actúa de la misma forma que la anotación <code>@Transient</code>, indicando de forma explícita al mapeador que no cree una columna para esta variable en la tabla relacional, permitiéndonos disponer de banderas lógicas en memoria RAM sin sobrecargar nuestro esquema físico de base de datos.</li>
+            </ul>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../posts/Tema10/index.html" class="card-link">← Volver al Tema 10</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

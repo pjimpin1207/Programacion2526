@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resumen Unidad 10: Persistencia de Datos (OODB, JPA y JDBC) | Programación</title>
+  <meta name="description" content="Resumen teórico y práctico de la Unidad 10 sobre bases de datos orientadas a objetos (ObjectDB), estándar JPA y conectividad relacional con JDBC y MariaDB en Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html" class="active">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Teoría • Unidad Didáctica 10</div>
+      <h1>Resumen de la Unidad 10: Persistencia en Bases de Datos</h1>
+
+      <div class="post-body">
+        
+        <p>En esta unidad didáctica hemos explorado las metodologías fundamentales para asegurar la <strong>persistencia permanente</strong> de la información en aplicaciones Java, evolucionando desde el almacenamiento nativo en motores orientados a objetos hasta la manipulación clásica y optimizada de sistemas relacionales SQL mediante conectores físicos.</p>
+
+        <h2>1. Bases de Datos Orientadas a Objetos (OODB)</h2>
+        <p>A diferencia de las bases de datos relacionales tradicionales, las <strong>OODB</strong> (como <strong>ObjectDB</strong>) representan e introducen la información guardando directamente el grafo de objetos binarios de la memoria RAM, eliminando por completo la necesidad de realizar un mapeo o traducción de tablas.</p>
+
+        <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+            <thead>
+                <tr style="background-color: var(--accent-glow); text-align: left;">
+                    <th style="padding: 1rem; border-bottom: 2px solid var(--accent-color);">Modelo Relacional (RDB)</th>
+                    <th style="padding: 1rem; border-bottom: 2px solid var(--accent-color);">Modelo de Objetos (OODB)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Relación (Tabla)</td>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Clase (Class)</td>
+                </tr>
+                <tr>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Tupla (Fila / Registro)</td>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Instancia (Objeto)</td>
+                </tr>
+                <tr>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Columna (Campo)</td>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Atributo (Attribute)</td>
+                </tr>
+                <tr>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Procedimiento Almacenado</td>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Método (Method)</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <h2>2. El Estándar JPA (Java Persistence API)</h2>
+        <p><strong>JPA</strong> es la especificación estándar de Java encargada de gestionar el ciclo de vida de los objetos que queremos persistir. Se fundamenta en requisitos estrictos de diseño y en el uso de metadatos mediante anotaciones:</p>
+        
+        <ul>
+            <li><strong>@Entity:</strong> Marca una clase estándar (POJO) como una entidad persistente que tendrá su reflejo directo en el motor de base de datos.</li>
+            <li><strong>Clave Primaria (@Id):</strong> Es obligatorio por contrato definir un atributo único y no nulo indexado para identificar de forma inequívoca cada registro de la tabla. Se puede automatizar su incremento por secuencias con <code>@GeneratedValue</code>.</li>
+            <li><strong>@Embeddable:</strong> Indica que una clase secundaria se integrará como columnas dentro de la entidad principal contenedora, optimizando el rendimiento al evitar la creación de tablas huérfanas o cruzados complejos.</li>
+            <li><strong>@Transient / transient:</strong> Palabra clave y directiva utilizada para indicar al motor que ignore un atributo específico de la clase, sirviendo únicamente para banderas lógicas en memoria de la aplicación.</li>
+        </ul>
+
+        <h3>El Lenguaje JPQL</h3>
+        <p>Para interaccionar de forma avanzada con las entidades, JPA implementa <strong>JPQL</strong>. A diferencia de SQL, JPQL no realiza consultas sobre elementos físicos del disco, sino sobre **las clases de objetos y sus atributos encapsulados** en Java. Se pueden disparar de forma estática (<code>@NamedQuery</code>) o dinámica (<code>em.createQuery</code>).</p>
+
+        <h2>3. Conectividad Relacional Clásica con JDBC</h2>
+        <p><strong>JDBC (Java Database Connectivity)</strong> representa la API de bajo nivel nativa de Java encargada de abrir canales de comunicación directa y enviar código SQL crudo hacia motores de bases de datos relacionales (como MariaDB).</p>
+
+        <p>El ecosistema de JDBC se fundamenta en las siguientes interfaces del paquete estructurado <code>java.sql</code>:</p>
+        <ul>
+            <li><strong>DriverManager:</strong> Clase factoría utilitaria encargada de registrar y cargar los controladores o drivers específicos de red facilitados por cada fabricante.</li>
+            <li><strong>Connection:</strong> Representa el socket lógico o puente de comunicación de red abierto con el servidor de base de datos.</li>
+            <li><strong>Statement:</strong> Canal descriptor encargado de portar y ejecutar las sentencias SQL hacia la base de datos.</li>
+            <li><strong>ResultSet:</strong> Cursor de datos estructurado en celdas encargado de retener los resultados devueltos por una consulta <code>SELECT</code>, permitiendo avanzar fila por fila mediante el método <code>next()</code>.</li>
+        </ul>
+
+        <h2>4. Optimización y Metadatos Avanzados en JDBC</h2>
+        
+        <h3>Procesamiento por Lotes (Batch Processing)</h3>
+        <p>Dado que cada petición SQL individual penaliza el rendimiento por la latencia de Entrada/Salida a nivel de red, JDBC incorpora las funciones <strong><code>addBatch()</code></strong> y <strong><code>executeBatch()</code></strong>. Esto permite acumular decenas de instrucciones en un búfer local de la memoria RAM y enviarlas al servidor de forma masiva en un único viaje de datos, optimizando el rendimiento de forma radical. Requiere la desactivación del guardado automático con <code>con.setAutoCommit(false)</code>.</p>
+
+        <h3>La clase DatabaseMetaData</h3>
+        <p>Mediante la invocación de <code>con.getMetaData()</code>, Java proporciona una herramienta potente de introspección estructural. Permite a la aplicación auto-inspeccionar de forma dinámica el catálogo del Sistema Gestor, extrayendo en tiempo de ejecución los nombres de las tablas, los tipos de columnas o la versión del motor SQL sin necesidad de conocer los esquemas de antemano.</p>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../posts/Tema10/index.html" class="card-link">← Volver al Tema 10</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 1: Creación de un POJO | Programación</title>
+  <meta name="description" content="Solución al Ejercicio 1 del Tema 10: Creación de un POJO en Java utilizando LocalDate y BigDecimal con respuestas teóricas sobre tipos de datos.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html" class="active">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 10 • Tipos de Datos Avanzados</div>
+      <h1>Ejercicio 1: Creación de un POJO</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>El objetivo de este ejercicio es diseñar un objeto de transferencia de datos puro o <strong>POJO (Plain Old Java Object)</strong> que represente un evento musical. Se deben seleccionar minuciosamente los tipos de datos más adecuados para garantizar la precisión aritmética del dinero y la integridad temporal de la fecha.</p>
+        
+        <h3>Requisitos:</h3>
+        <ul>
+            <li>Campos para almacenar: nombre del evento, fecha y recaudación económica.</li>
+            <li>Implementar un método de prueba <code>main</code> que instancie y audite un evento de ejemplo.</li>
+            <li>Responder a cuestiones teóricas sobre el uso de <code>BigInteger</code> y las clases clásicas de tiempo en Java.</li>
+        </ul>
+
+
+        <h2>Solución Completa</h2>
+        
+        <h3>1. La Clase de Entidad (EventoMusical / EventoMusical)</h3>
+        <p>Para la recaudación utilizamos <code>BigDecimal</code> debido a que los tipos de punto flotante primitivos (<code>double</code> o <code>float</code>) provocan errores de redondeo impredecibles en operaciones financieras. Para la fecha, optamos por la API moderna de tiempo <code>LocalDate</code>.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema10.Ejercicios.EventoMusical;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+public class EventoMusical {
+    private String nombre;
+    private LocalDate fecha;
+    private BigDecimal recaudacion;
+
+    // Constructor vacío por defecto (Requisito POJO)
+    public EventoMusical() {
+    }
+
+    // Constructor completo parametrizado
+    public EventoMusical(String nombre, LocalDate fecha, BigDecimal recaudacion) {
+        this.nombre = nombre;
+        this.fecha = fecha;
+        this.recaudacion = recaudacion;
+    }
+
+    // Getters y Setters
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public LocalDate getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
+    }
+
+    public BigDecimal getRecaudacion() {
+        return recaudacion;
+    }
+
+    public void setRecaudacion(BigDecimal recaudacion) {
+        this.recaudacion = recaudacion;
+    }
+
+    @Override
+    public String toString() {
+        return "EventoMusical [Nombre: " + nombre + ", Fecha: " + fecha + ", Recaudación: " + recaudacion + "€]";
+    }
+}</code></pre>
+        </div>
+
+        <h3>2. Clase de Prueba (Main)</h3>
+        <p>Instanciamos el concierto utilizando el constructor explícito y pasamos la recaudación como una cadena de texto al constructor de <code>BigDecimal</code> para evitar cualquier pérdida de precisión inicial.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema10.Ejercicios.EventoMusical;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+public class Main {
+    public static void main(String[] args) {
+        // Creamos la instancia del evento con datos simulados precisos
+        EventoMusical concierto = new EventoMusical("Puro Latino", LocalDate.of(2026, 7, 15), new BigDecimal("1250450.75"));
+
+        // Mostramos el resultado formateado por la consola
+        System.out.println(concierto);
+    }
+}</code></pre>
+        </div>
+
+        <h2>Cuestionario de Reflexión Teórica</h2>
+        <div class="p-4 rounded-md" style="background-color: var(--card-bg); border-left: 4px solid var(--accent-color); margin: 1.5rem 0;">
+            <p><strong>1. ¿Cuándo conviene usar BigInteger en lugar de Integer o Long?</strong><br>
+            Conviene utilizar <code>BigInteger</code> cuando necesitemos almacenar o realizar operaciones aritméticas con números enteros que **superen los límites físicos** de los tipos primitivos de Java. Mientras que un <code>long</code> tiene un valor máximo de $2^{63}-1$ (aproximadamente 9 trillones), <code>BigInteger</code> no tiene un límite fijo y se expande dinámicamente según la memoria RAM disponible. Es muy utilizado en criptografía y computación científica.</p>
+            
+            <p><strong>2. ¿Para qué sirve cada uno de los tipos clásicos: Date, Time, Timestamp y Calendar?</strong></p>
+            <ul>
+                <li><strong>Date (<code>java.util.Date</code> o <code>java.sql.Date</code>):</strong> Tradicionalmente representaba un instante específico en el tiempo con precisión de milisegundos. En su vertiente SQL, se limita únicamente a almacenar año, mes y día (sin hora).</li>
+                <li><strong>Time (<code>java.sql.Time</code>):</strong> Diseñado exclusivamente para almacenar información de horas, minutos y segundos (el reloj), ignorando por completo la fecha del calendario.</li>
+                <li><strong>Timestamp (<code>java.sql.Timestamp</code>):</strong> Es un envoltorio que extiende de <code>java.util.Date</code> adaptado para bases de datos relacionales, capaz de almacenar fecha y hora combinadas con una precisión extrema añadida de nanosegundos.</li>
+                <li><strong>Calendar (<code>java.util.Calendar</code>):</strong> Clase abstracta introducida para subsanar los problemas de internacionalización de <code>Date</code>. Permite realizar operaciones aritméticas complejas con el tiempo (añadir días, retroceder meses, cambiar husos horarios) convirtiendo un instante en campos específicos de calendario.</li>
+            </ul>
+            <p><i>Nota: Actualmente, se prefiere el uso de la API moderna <code>java.time</code> (LocalDate, LocalTime, LocalDateTime) introducida en Java 8 frente a estos tipos clásicos debido a su inmutabilidad y seguridad frente a hilos (Thread-Safety).</i></p>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../posts/Tema10/index.html" class="card-link">← Volver al Tema 10</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

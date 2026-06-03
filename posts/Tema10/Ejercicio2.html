@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 2: Restricciones de Persistencia y Tipos Embebidos | Programación</title>
+  <meta name="description" content="Solución al Ejercicio 2 del Tema 10: Modelado avanzado de un POJO para persistencia en bases de datos relacionales y de objetos utilizando enums y clases embeddables en Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html" class="active">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 10 • Tipos de Datos Avanzados</div>
+      <h1>Ejercicio 2: Preparando un POJO para la Persistencia en Base de Datos</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>A partir del POJO básico del ejercicio anterior, vamos a refinar y dotar a nuestro modelo de dominio de las restricciones estructurales necesarias para que pueda ser almacenado y mapeado de manera directa en una base de datos relacional (JPA) o de objetos (ObjectDB).</p>
+        
+        <h3>Requisitos y Ampliaciones:</h3>
+        <ul>
+            <li>Implementar el contrato de serialización e incluir un identificador (ID) único de tipo <code>Long</code> que actúe como clave primaria en la base de datos.</li>
+            <li>Restringir el campo del género musical mediante el uso explícito de un **Tipo Enumerado (Enum)**.</li>
+            <li>Gestionar una lista interna de artistas confirmados utilizando una clase puente independiente de soporte (<code>Artista</code>) marcada como **objeto embebido**, evitando que genere una tabla huérfana en la persistencia.</li>
+        </ul>
+
+        <h2>Estructura del Código</h2>
+        <p>Dividimos el diseño de la solución en cuatro archivos fuente para mantener un desacoplamiento de componentes limpio y escalable.</p>
+
+        <h3>1. Tipo Enumerado (GeneroMusical)</h3>
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema10.Ejercicios.ejercicio2;
+
+public enum GeneroMusical {
+    ROCK, POP, RAP, TRAP, TECHNO, INDIE, RECCAE, LATINO
+}</code></pre>
+        </div>
+
+        <h3>2. Clase de Componente Embebido (Artista)</h3>
+        <p>Utilizamos la anotación estándar <code>@Embeddable</code> para indicar a los motores de base de datos que los campos de esta clase deben integrarse directamente como columnas embebidas dentro de la entidad contenedora.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema10.Ejercicios.ejercicio2;
+
+import javax.persistence.Embeddable;
+import java.io.Serializable;
+
+@Embeddable
+public class Artista implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    private String nombreArtistico;
+    private int numeroIntegrantes;
+
+    // Constructor vacío obligatorio por convenio JavaBean / JPA
+    public Artista() {
+        super();
+    }
+
+    public Artista(String nombreArtistico, int numeroIntegrantes) {
+        this.nombreArtistico = nombreArtistico;
+        this.numeroIntegrantes = numeroIntegrantes;
+    }
+
+    // Getters y Setters
+    public String getNombreArtistico() { return nombreArtistico; }
+    public void setNombreArtistico(String nombreArtistico) { this.nombreArtistico = nombreArtistico; }
+
+    public int getNumeroIntegrantes() { return numeroIntegrantes; }
+    public void setNumeroIntegrantes(int numeroIntegrantes) { this.numeroIntegrantes = numeroIntegrantes; }
+
+    @Override
+    public String toString() {
+        return nombreArtistico + " (" + numeroIntegrantes + " miembros)";
+    }
+}</code></pre>
+        </div>
+
+        <h3>3. Clase de Entidad Principal (EventoMusical)</h3>
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema10.Ejercicios.ejercicio2;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+public class EventoMusical implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    // Clave primaria esencial indexada para identificar el registro en la BD
+    private Long id;
+
+    private String nombre;
+    private LocalDate fecha;
+    private BigDecimal recaudacion;
+
+    // Acoplamos la enumeración restrictiva de tipos de género
+    private GeneroMusical genero;
+
+    // Colección de elementos embebidos de tipo Artista
+    private List&lt;Artista&gt; artistasConfirmados = new ArrayList&lt;&gt;();
+
+    public EventoMusical() {
+    }
+
+    public EventoMusical(Long id, String nombre, LocalDate fecha, BigDecimal recaudacion, GeneroMusical genero) {
+        this.id = id;
+        this.nombre = nombre;
+        this.fecha = fecha;
+        this.recaudacion = recaudacion;
+        this.genero = genero;
+    }
+
+    // Getters y Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
+
+    public LocalDate getFecha() { return fecha; }
+    public void setFecha(LocalDate fecha) { this.fecha = fecha; }
+
+    public BigDecimal getRecaudacion() { return recaudacion; }
+    public void setRecaudacion(BigDecimal recaudacion) { this.recaudacion = recaudacion; }
+
+    public GeneroMusical getGenero() { return genero; }
+    public void setGenero(GeneroMusical genero) { this.genero = genero; }
+
+    public List&lt;Artista&gt; getArtistasConfirmados() { return artistasConfirmados; }
+    public void setArtistasConfirmados(List&lt;Artista&gt; artistasConfirmados) { this.artistasConfirmados = artistasConfirmados; }
+
+    // Método utilitario helper para añadir artistas de forma controlada a la colección
+    public void addArtista(Artista artista) {
+        this.artistasConfirmados.add(artista);
+    }
+
+    @Override
+    public String toString() {
+        return "EventoMusical [ID=" + id + ", Nombre=" + nombre + ", Género=" + genero +
+                ", Fecha=" + fecha + ", Recaudación=" + recaudacion + "€\n Artistas=" + artistasConfirmados + "]";
+    }
+}</code></pre>
+        </div>
+
+        <h3>4. Clase Main</h3>
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema10.Ejercicios.ejercicio2;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+public class Main {
+    public static void main(String[] args) {
+        // Instanciamos la entidad pasándole un tipo Long para el ID (sufijo L)
+        EventoMusical festival = new EventoMusical(1L, "Puro Latino", LocalDate.of(2026, 6, 28), new BigDecimal("3450000.00"), GeneroMusical.LATINO);
+
+        // Añadimos las instancias de los artistas mediante el método helper
+        festival.addArtista(new Artista("Anuel", 8));
+        festival.addArtista(new Artista("Myke Towers", 9));
+
+        // Auditamos el resultado final estructurado en consola
+        System.out.println(festival);
+    }
+}</code></pre>
+        </div>
+
+
+        <h2>Conceptos de Persistencia Clave</h2>
+        <div class="p-4 rounded-md" style="background-color: var(--card-bg); border-left: 4px solid var(--accent-color); margin: 1.5rem 0;">
+            <ul>
+                <li><strong>El Wrapper Long para IDs:</strong> Se prefiere la clase envoltorio <code>Long</code> en lugar del tipo primitivo <code>long</code> para representar la clave primaria debido a que permite el uso de valores nulos (<code>null</code>). Un ID nulo es la señal universal que usan los frameworks ORM (como Hibernate) para detectar que un objeto es una entidad nueva que aún no ha sido persistida en disco.</li>
+                <li><strong>Garantía Estructural con Enums:</strong> Declarar el género como <code>GeneroMusical</code> en lugar de un simple <code>String</code> bloquea en tiempo de compilación la inserción de texto inválido o erratas ortográficas, asegurando que la base de datos solo almacene estados de dominios válidos de manera unificada.</li>
+                <li><strong>Concepto de Objeto Embebido (@Embeddable):</strong> Según el enunciado, cada artista no debe suponer una entidad independiente. Al marcar la clase como embebible, le indicamos al motor que los campos <code>nombreArtistico</code> y <code>numeroIntegrantes</code> se inyectarán de forma integrada dentro de la tabla del propio evento, ahorrando costosas operaciones de cruzado de tablas (<i>JOINS</i>) y simplificando el mapa relacional del esquema de la base de datos.</li>
+            </ul>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../posts/Tema10/index.html" class="card-link">← Volver al Tema 10</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 11: Ejecución Genérica y Procesamiento por Lotes (Batch) | Programación</title>
+  <meta name="description" content="Solución al Ejercicio 11 del Tema 10: Uso del método execute(), gestión de ResultSet condicionales y procesamiento transaccional por lotes (Batch) con JDBC en Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html" class="active">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 10 • Conectividad de Bases de Datos</div>
+      <h1>Ejercicio 11: Consultas Flexibles (execute) y Optimización por Lotes (Batch Processing)</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>En esta práctica avanzada de JDBC trabajaremos con dos herramientas clave para mejorar la versatilidad y el rendimiento de nuestras aplicaciones relacionales:</p>
+        
+        <h3>Objetivos del reto:</h3>
+        <ul>
+            <li>Investigar y aplicar el método genérico <code>execute()</code> para extraer de forma condicional los productos cuyo país de origen sea 'Espana'.</li>
+            <li>Agrupar las consultas de inicialización del ejercicio anterior en un único lote de ejecución atómica (Batch).</li>
+            <li>Ejecutar un segundo lote de procesamiento secuencial para insertar un nuevo conjunto de productos (kiwi, perito y plátano) controlando la transaccionalidad manual.</li>
+        </ul>
+
+
+        <h2>Solución Completa</h2>
+        <p>Desactivamos el modo <code>autoCommit</code> para tomar el control de la transacción y utilizamos los métodos <code>addBatch()</code> y <code>executeBatch()</code> para enviar las instrucciones agrupadas al servidor en un solo viaje de red.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema10.Ejercicios.ejercicio11;
+
+import java.sql.*;
+
+public class Ejercicio11 {
+    public static void main(String[] args) throws Exception {
+        try {
+            // 1. Establecer la conexión con el servidor relacional de MariaDB
+            Connection con = DriverManager.getConnection("jdbc:mariadb://localhost:3306/tienda", "fran", "Fr4n");
+            Statement stmt = con.createStatement();
+
+            System.out.println("Conexión establecida");
+
+            // 2. USO DE EXECUTE(): Método genérico que sirve para cualquier tipo de sentencia SQL
+            boolean tieneResultSet = stmt.execute("SELECT * FROM producto WHERE pais = 'Espana'");
+
+            // Si devuelve true, significa que la consulta generó un cursor de lectura (ResultSet)
+            if (tieneResultSet) {
+                ResultSet rs = stmt.getResultSet();
+                System.out.println("\n--- Productos Españoles usando execute() ---");
+                while (rs.next()) {
+                    System.out.println("- " + rs.getString("nombre") + " (" + rs.getString("descripcion") + ")");
+                }
+                rs.close(); // Cierre del cursor intermedio
+            }
+
+            // 3. PRIMER LOTE (BATCH): Agrupación de consultas estructurales anteriores
+            // Desactivamos el auto-commit para gestionar la transacción de forma manual y segura
+            con.setAutoCommit(false);
+            
+            stmt.addBatch("DELETE FROM producto");
+            stmt.addBatch("INSERT INTO producto VALUES ('1', 'manzana', 'Manzanas golden', 50, 'Francia')");
+            stmt.addBatch("INSERT INTO producto VALUES ('2', 'pera', 'Peras conferencia', 20, 'Espana')");
+            stmt.addBatch("INSERT INTO producto VALUES ('3', 'uva', 'Uvas groumet', 30, 'Espana')");
+
+            // Enviamos todo el bloque consolidado en un único viaje de Entrada/Salida
+            stmt.executeBatch();
+            con.commit(); // Confirmamos los cambios de manera persistente en disco
+
+            // 4. SEGUNDO LOTE (BATCH): Inserción del nuevo catálogo de productos solicitados
+            stmt.addBatch("INSERT INTO producto VALUES ('4', 'kiwi', 'Zaspri gold', 120, 'Nueva Zelanda')");
+            stmt.addBatch("INSERT INTO producto VALUES ('5', 'perito', 'Peritos de Tavizna', 18, 'Espana')");
+            stmt.addBatch("INSERT INTO producto VALUES ('6', 'plátano', 'Plátano canario', 40, 'Espana')");
+
+            // Ejecución y confirmación del segundo bloque de transacciones
+            stmt.executeBatch();
+            con.commit();
+
+            System.out.println("\nTodos los lotes transaccionales se han procesado de manera correcta.");
+
+            // 5. LIBERACIÓN: Cierre formal de descriptores operativos
+            stmt.close();
+            con.close();
+
+        } catch (SQLException e) {
+            System.err.println("Ocurrió un error en la transacción o enlace con MariaDB: " + e.getMessage());
+        }
+    }
+}</code></pre>
+        </div>
+
+        <h2>Análisis de Conceptos Avanzados de JDBC</h2>
+        <div class="p-4 rounded-md" style="background-color: var(--card-bg); border-left: 4px solid var(--accent-color); margin: 1.5rem 0;">
+            <p><strong>Comprendiendo la flexibilidad y la optimización de flujos:</strong></p>
+            <ul>
+                <li><strong>El comportamiento del método execute():</strong> A diferencia de <code>executeQuery()</code> (que solo acepta lecturas) y de <code>executeUpdate()</code> (que solo acepta modificaciones), el método <strong><code>execute()</code></strong> es polimórfico y puede procesar cualquier instrucción SQL. Su valor de retorno es un booleano:
+                    <ul>
+                        <li>Devuelve <code>true</code> si la sentencia es de tipo consulta (<code>SELECT</code>). Para extraer los datos, debemos invocar a continuación a <code>stmt.getResultSet()</code>.</li>
+                        <li>Devuelve <code>false</code> si la sentencia es de tipo actualización o inserción (DML). Para auditar las filas afectadas, invocaríamos a <code>stmt.getUpdateCount()</code>.</li>
+                    </ul>
+                </li>
+                <li><strong>Procesamiento por Lotes (Batch Processing):</strong> En los ejercicios previos, cada llamada a un método de ejecución obligaba a la aplicación a abrir una trama de red, enviarla al servidor de MariaDB, esperar la respuesta del motor y cerrar el canal de retorno. Este comportamiento ralentiza drásticamente las operaciones masivas. Al utilizar <strong><code>addBatch()</code></strong>, las sentencias se acumulan en un búfer local de la memoria RAM. Al invocar a <strong><code>executeBatch()</code></strong>, se empaquetan todas las instrucciones juntas y se envían en un único viaje de Entrada/Salida, minimizando la latencia de red de forma radical.</li>
+                <li><strong>Control de Transaccionalidad (con.setAutoCommit(false)):</strong> El procesamiento por lotes exige apagar el modo de confirmación automática. Si lo dejáramos activado, el lote perdería su naturaleza atómica. Al gestionarlo de forma manual con <code>con.commit()</code>, aseguramos que o bien se aplican todas las inserciones del lote con éxito, o bien se descartan por completo si una de ellas falla, manteniendo la integridad referencial de nuestra base de datos.</li>
+            </ul>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../posts/Tema10/index.html" class="card-link">← Volver al Tema 10</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 12: Extracción de Metadatos del SGBD con DatabaseMetaData | Programación</title>
+  <meta name="description" content="Solución al Ejercicio 12 del Tema 10: Uso de DatabaseMetaData en JDBC para leer la estructura de tablas, columnas y propiedades del servidor MariaDB en Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html" class="active">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 10 • Conectividad de Bases de Datos</div>
+      <h1>Ejercicio 12: Descubrimiento de Estructuras mediante Metadatos en JDBC</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>Hasta ahora hemos interactuado con las tablas asumiendo que conocemos perfectamente su existencia, sus nombres y el tipo de sus columnas. Sin embargo, en el desarrollo de software profesional (como en la creación de ORMs o herramientas de administración), los programas deben ser capaces de <strong>auto-inspeccionar la base de datos</strong>. El objetivo de esta práctica es extraer de forma dinámica toda la información estructural del catálogo <code>tienda</code>.</p>
+        
+        <h3>Metadatos a recuperar:</h3>
+        <ul>
+            <li>Listado completo de las tablas registradas en el catálogo de la base de datos.</li>
+            <li>Listado detallado de todas las columnas de la tabla <code>producto</code>, exponiendo su nombre, tipo de dato y longitud física.</li>
+            <li>Información de auditoría de sesión: nombre del usuario autenticado y la URL JDBC utilizada.</li>
+            <li>Información del entorno: nombre y versión tanto del driver del conector como del Sistema Gestor de Base de Datos (SGBD).</li>
+        </ul>
+
+¡
+        <h2>Solución Completa</h2>
+        <p>Para inspeccionar las propiedades del entorno relacional, solicitamos el objeto descriptor del puente de conexión invocando al método <code>con.getMetaData()</code>, el cual nos provee de una instancia de la interfaz <strong><code>DatabaseMetaData</code></strong>.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema10.Ejercicios.ejercicio12;
+
+import java.sql.*;
+
+public class Ejercicio12 {
+    public static void main(String[] args) throws Exception {
+        try {
+            // 1. Establecer la conexión con el motor relacional de MariaDB
+            Connection con = DriverManager.getConnection("jdbc:mariadb://localhost:3306/tienda", "fran", "Fr4n");
+            Statement stmt = con.createStatement();
+
+            System.out.println("Conexión establecida");
+
+            // 2. EXTRACCIÓN DE METADATOS: Obtenemos el objeto inspector de la base de datos
+            DatabaseMetaData meta = con.getMetaData();
+
+            // 3. Imprimir información general y de auditoría de la sesión
+            System.out.println("\n--- Información de Auditoría General ---");
+            System.out.println("Usuario conectado: " + meta.getUserName());
+            System.out.println("URL de conexión: " + meta.getURL());
+            System.out.println("Driver utilizado: " + meta.getDriverName() + " | Versión: " + meta.getDriverVersion());
+            System.out.println("SGBD detectado: " + meta.getDatabaseProductName() + " | Versión: " + meta.getDatabaseProductVersion());
+
+            // 4. INSPECCIÓN DE TABLAS: Extraer las tablas del catálogo 'tienda'
+            System.out.println("\n--- Tablas de la base de datos tienda ---");
+            // Filtramos pasando el catálogo "tienda" y un array restrictivo con el tipo "TABLE"
+            ResultSet tablas = meta.getTables("tienda", null, "%", new String[]{"TABLE"});
+            while (tablas.next()) {
+                System.out.println("- " + tablas.getString("TABLE_NAME"));
+            }
+            tablas.close(); // Cerramos el cursor de tablas intermedio
+
+            // 5. INSPECCIÓN DE COLUMNAS: Extraer la estructura de la tabla 'producto'
+            System.out.println("\n--- Columnas de la tabla producto ---");
+            // Pasamos el catálogo, el esquema (null) y el nombre exacto de la tabla objetivo
+            ResultSet columnas = meta.getColumns("tienda", null, "producto", "%");
+            while (columnas.next()) {
+                String nombreColumna = columnas.getString("COLUMN_NAME");
+                String tipoColumna = columnas.getString("TYPE_NAME");
+                int tamañoColumna = columnas.getInt("COLUMN_SIZE");
+
+                System.out.println("Campo: " + nombreColumna + " | Tipo: " + tipoColumna + " | Tamaño: " + tamañoColumna + "px");
+            }
+            columnas.close(); // Cerramos el cursor de columnas intermedio
+
+            // 6. LIBERACIÓN: Cierre formal de los canales de comunicación principales
+            stmt.close();
+            con.close();
+
+        } catch (SQLException e) {
+            System.err.println("No se pudo conectar o extraer los metadatos estructurales: " + e.getMessage());
+        }
+    }
+}</code></pre>
+        </div>
+
+        <h2>Análisis de la API de Metadatos de JDBC</h2>
+        <div class="p-4 rounded-md" style="background-color: var(--card-bg); border-left: 4px solid var(--accent-color); margin: 1.5rem 0;">
+            <p><strong>Comprendiendo el potencial del descubrimiento dinámico de esquemas:</strong></p>
+            <ul>
+                <li><strong>La Interfaz DatabaseMetaData:</strong> Es un objeto complejo provisto de cientos de métodos que consultan de forma interna las tablas de diccionario del sistema del propio motor SQL (como el <code>INFORMATION_SCHEMA</code> en MariaDB/MySQL). Nos permite escribir código adaptativo que puede cambiar su comportamiento dependiendo de la versión o del tipo de base de datos a la que se acople.</li>
+                <li><strong>El filtrado de recursos mediante patrones (%):</strong> Tanto el método <code>getTables()</code> como <code>getColumns()</code> aceptan argumentos de filtrado con caracteres comodín propios de SQL. Al pasar la cadena <code>"%"</code> en el parámetro del patrón de búsqueda, le estamos indicando al driver que recupere <em>"cualquier elemento que coincida con el criterio sin importar su nombre"</em>.</li>
+                <li><strong>Estructura de Retorno en ResultSet:</strong> Es fascinante observar que los métodos de metadatos no devuelven listas o colecciones tradicionales de Java, sino objetos <strong><code>ResultSet</code></strong> estándar. Esto significa que la estructura de la información estructural de las columnas o tablas se procesa con la misma sintaxis de cursores secuenciales (<code>next()</code>) y capturas de texto (<code>getString("TABLE_NAME")</code> o <code>getString("COLUMN_NAME")</code>) que estudiamos en las consultas de datos ordinarias.</li>
+            </ul>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../posts/Tema10/index.html" class="card-link">← Volver al Tema 10</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

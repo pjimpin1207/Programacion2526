@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 10: Operaciones de Modificación Masiva e Inserción con JDBC | Programación</title>
+  <meta name="description" content="Solución al Ejercicio 10 del Tema 10: Vaciado de tablas, inserción por lotes y auditoría de filas afectadas con getUpdateCount() en Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html" class="active">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 10 • Conectividad de Bases de Datos</div>
+      <h1>Ejercicio 10: Modificación Estructural de Tablas (Vaciado, Inserción y Auditoría)</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>En este ejercicio práctico realizaremos un script completo de inicialización y actualización de datos sobre la tabla de productos de la base de datos <code>tienda</code>. El programa debe automatizar de manera secuencial tres operaciones críticas de manipulación de datos (DML):</p>
+        
+        <h3>Acciones requeridas:</h3>
+        <ul>
+            <li>Limpiar de forma absoluta la tabla eliminando todos los registros antiguos existentes.</li>
+            <li>Realizar un volcado de inserción con un lote de tres nuevos productos (manzana, pera y uva) con sus respectivas propiedades y países de origen.</li>
+            <li>Actualizar de manera controlada el precio de uno de los productos (la pera) para fijarlo en un nuevo valor monetario.</li>
+            <li>Auditar en cada paso el número real de filas que han sido afectadas en el servidor de MariaDB.</li>
+        </ul>
+
+
+        <h2>Solución Completa</h2>
+        <p>Para lanzar sentencias de manipulación destructiva o de inserción masiva en JDBC empleamos el método <code>executeUpdate()</code>, y para recuperar el número de filas modificadas por el motor recurrimos a la función <code>getUpdateCount()</code>.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema10.Ejercicios.ejercicio10;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class Ejercicio10 {
+    public static void main(String[] args) throws Exception {
+        try {
+            // 1. Conexión segura con el servidor local relacional de MariaDB
+            Connection con = DriverManager.getConnection("jdbc:mariadb://localhost:3306/tienda", "fran", "Fr4n");
+            Statement stmt = con.createStatement();
+
+            System.out.println("Conexión establecida");
+
+            // 2. VACIADO SEGURO: Borrar todos los registros preexistentes en la tabla producto
+            stmt.executeUpdate("DELETE FROM producto");
+            // getUpdateCount() nos devuelve el número total de filas eliminadas en este paso
+            System.out.println("Registros borrados en la limpieza: " + stmt.getUpdateCount());
+
+            // 3. INSERCIÓN EN LOTE: Insertar los 3 nuevos registros solicitados por el enunciado
+            stmt.executeUpdate("INSERT INTO producto VALUES ('1', 'manzana', 'Manzanas golden', 50, 'Francia')");
+            stmt.executeUpdate("INSERT INTO producto VALUES ('2', 'pera', 'Peras conferencia', 25, 'Espana')");
+            stmt.executeUpdate("INSERT INTO producto VALUES ('3', 'uva', 'Uvas groumet', 30, 'Espana')");
+            // Muestra las filas afectadas por la última instrucción ejecutada en el canal
+            System.out.println("Registros insertados en el lote: " + stmt.getUpdateCount());
+
+            // 4. ACTUALIZACIÓN: Cambiar el precio del artículo 'pera' (ID 2) a 20 céntimos
+            stmt.executeUpdate("UPDATE producto SET precio = 20 WHERE id = '2'");
+            System.out.println("Registros actualizados de forma quirúrgica: " + stmt.getUpdateCount());
+
+            // 5. LIBERACIÓN: Cierre absoluto de los canales descriptores y del socket de red
+            stmt.close();
+            con.close();
+
+        } catch (SQLException e) {
+            System.err.println("Ocurrió un error en la conexión o ejecución DML: " + e.getMessage());
+        }
+    }
+}</code></pre>
+        </div>
+
+        <h2>Análisis Técnico de Operaciones DML en JDBC</h2>
+        <div class="p-4 rounded-md" style="background-color: var(--card-bg); border-left: 4px solid var(--accent-color); margin: 1.5rem 0;">
+            <p><strong>Diferencias críticas entre consultas de lectura y sentencias de modificación:</strong></p>
+            <ul>
+                <li><strong>El método executeUpdate():</strong> A diferencia de las consultas de extracción (<code>SELECT</code>) que devuelven un cursor envuelto en un <code>ResultSet</code> tras invocar a <code>executeQuery()</code>, las sentencias de manipulación de datos o DML (<code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>) se disparan de forma obligatoria mediante <strong><code>executeUpdate()</code></strong>. Este método procesa la orden y devuelve de forma directa un entero que representa la cantidad de filas afectadas en la tabla.</li>
+                <li><strong>La propiedad getUpdateCount():</strong> Es un método utilitario de la interfaz <code>Statement</code>. Almacena temporalmente el impacto de la última instrucción ejecutada con éxito en ese canal de comunicación. Es una excelente herramienta de auditoría para verificar en tiempo real si una cláusula restrictiva (como el <code>WHERE id = '2'</code>) ha localizado e interactuado de forma correcta con el registro objetivo.</li>
+                <li><strong>Estrategia de Transaccionalidad implícita:</strong> Por defecto, las conexiones JDBC operan bajo un modelo denominado <i>Auto-commit</i> activado en <code>true</code>. Esto significa que cada invocación a <code>executeUpdate()</code> consolida y graba el cambio de forma persistente en el disco instantáneamente. En entornos de producción con alta carga de datos, se suele desactivar mediante <code>con.setAutoCommit(false)</code> para agrupar todas las operaciones en un bloque atómico y consolidarlas al final con una única llamada a <code>con.commit()</code>, optimizando el rendimiento drásticamente.</li>
+            </ul>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../posts/Tema10/index.html" class="card-link">← Volver al Tema 10</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

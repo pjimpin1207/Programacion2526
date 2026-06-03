@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 8: Conectividad de Bases de Datos con JDBC y MariaDB | Programación</title>
+  <meta name="description" content="Solución al Ejercicio 8 del Tema 10: Configuración de drivers JDBC, establecimiento de conexiones con MariaDB y gestión elemental de errores de SQL en Java.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html" class="active">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 10 • Conectividad de Bases de Datos</div>
+      <h1>Ejercicio 8: Primera Conexión Relacional mediante JDBC</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>Dejamos atrás la persistencia en bases de datos orientadas a objetos (ObjectDB) para adentrarnos en el estándar del mercado relacional. El objetivo de esta práctica es integrar el conector de sistema (driver) de MariaDB en nuestro entorno de desarrollo y crear un script básico de enlace capaz de verificar la comunicación con el servidor local o capturar de forma defensiva cualquier fallo en la autenticación.</p>
+        
+        <h3>Requisitos y pasos:</h3>
+        <ul>
+            <li>Descargar e incorporar las dependencias del conector o driver `.jar` de MariaDB en el Build Path del proyecto.</li>
+            <li>Implementar un programa que intente abrir una conexión utilizando el administrador de drivers genérico con las credenciales de acceso asignadas de la base de datos (<code>tienda</code>).</li>
+            <li>Si el enlace tiene éxito, mostrar por consola el mensaje informativo: <em>“Conexión establecida”</em> y liberar los descriptores abiertos.</li>
+            <li>Si el enlace es denegado o el servidor está caído, capturar el error mostrando de forma amigable el mensaje: <em>“No se pudo conectar”</em>.</li>
+        </ul>
+
+
+        <h2>Solución Completa</h2>
+        <p>Para interactuar con motores SQL recurrimos al paquete estándar <code>java.sql</code>, utilizando la clase factoría <code>DriverManager</code> y construyendo una URI de conexión estructurada con el protocolo JDBC.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema10.Ejercicios.ejercicio8;
+
+import java.sql.*;
+
+public class Ejercicio8 {
+    public static void main(String[] args) {
+        try {
+            // 1. Establecer la conexión física utilizando la URI de conexión JDBC
+            // Formato estándar: jdbc:motor://servidor:puerto/nombre_bd
+            Connection con = DriverManager.getConnection("jdbc:mariadb://localhost:3306/tienda", "fran", "Fr4n");
+            
+            // 2. Crear un canal descriptor de sentencias SQL (Statement)
+            Statement stmt = con.createStatement();
+
+            // Si el flujo llega a esta línea sin saltar al bloque catch, la conexión ha sido un éxito
+            System.out.println("Conexión establecida");
+
+            // 3. LIBERACIÓN OBLIGATORIA: Cerramos primero el canal de sentencias y luego la conexión de red
+            stmt.close();
+            con.close();
+
+        } catch (SQLException e) {
+            // 4. CONTROL DEFENSIVO: Captura de errores de red, base de datos inexistente o credenciales inválidas
+            System.err.println("No se pudo conectar");
+        }
+    }
+}</code></pre>
+        </div>
+
+        <h2>Análisis de la Arquitectura JDBC</h2>
+        <div class="p-4 rounded-md" style="background-color: var(--card-bg); border-left: 4px solid var(--accent-color); margin: 1.5rem 0;">
+            <p><strong>Comprendiendo la capa de abstracción de conectividad de Java:</strong></p>
+            <ul>
+                <li><strong>¿Qué es JDBC (Java Database Connectivity)?</strong> Es una API estándar incluida en el núcleo de Java que define una serie de interfaces abstractas comunes para operar con bases de datos. Gracias a esto, los métodos que utilizamos (como <code>getConnection()</code> o <code>createStatement()</code>) son exactamente iguales sin importar si nos conectamos a MariaDB, Oracle, MySQL o PostgreSQL.</li>
+                <li><strong>El rol del Conector o Driver:</strong> Dado que cada fabricante de bases de datos utiliza su propio protocolo de comunicación binario propietario a nivel de red, necesitamos descargar un archivo `.jar` intermedio. El driver actúa como el "traductor" encargado de implementar de forma real las interfaces abstractas de JDBC para un motor específico.</li>
+                <li><strong>Desglose de la URI JDBC:</strong> La cadena de conexión funciona de forma análoga a una URL web pero segmentada por propiedades fijas:
+                    <ul>
+                        <li><code>jdbc:</code> Protocolo base de inicialización del subsistema.</li>
+                        <li><code>mariadb:</code> Subprotocolo que le indica a Java qué driver del mapa interno debe activar.</li>
+                        <li><code>//localhost:3306/</code> Dirección IP o dominio del servidor de alojamiento seguido del puerto de escucha asignado por defecto a MariaDB/MySQL.</li>
+                        <li><code>tienda:</code> El catálogo o base de datos concreta sobre la que solicitamos privilegios de sesión.</li>
+                    </ul>
+                </li>
+                <li><strong>Gestión de Excepciones (SQLException):</strong> Las operaciones de red sobre servidores externos son entornos propensos a fallos imprevistos fuera del control de nuestro programa. Es obligatorio por contrato envolver estas llamadas en bloques <code>try-catch</code> capturando la excepción chequeada <code>SQLException</code> para evitar el cierre abrupto de la aplicación.</li>
+            </ul>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../posts/Tema10/index.html" class="card-link">← Volver al Tema 10</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 4: Persistencia de Objetos con ObjectDB y JPA | Programación</title>
+  <meta name="description" content="Solución al Ejercicio 4 del Tema 10: Conexión, gestión de transacciones e inserción de entidades en una base de datos ObjectDB (.odb) utilizando la API de JPA.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html" class="active">Tema 10</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 10 • Tipos de Datos Avanzados</div>
+      <h1>Ejercicio 4: Persistencia Física en Base de Datos Orientada a Objetos (ObjectDB)</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>El objetivo de esta práctica es conectar nuestra aplicación Java con una base de datos real orientada a objetos (fichero con extensión <code>.odb</code>). Para ello, añadiremos los marcadores de metadatos de persistencia a nuestro POJO e inicializaremos el gestor de entidades para insertar los registros de manera persistente.</p>
+        
+        <h3>Requisitos del reto:</h3>
+        <ul>
+            <li>Marcar la clase <code>EventoMusical</code> como una entidad persistente gestionable.</li>
+            <li>Asegurar el mapeo correcto de la lista de objetos embebidos (artistas) utilizando las directivas de JPA.</li>
+            <li>Crear una base de datos local llamada <code>eventos.odb</code>.</li>
+            <li>Abrir una transacción segura, guardar físicamente dos eventos musicales completos con sus respectivos artistas y consolidar los cambios en el disco duro.</li>
+        </ul>
+
+
+        <h2>Estructura del Código</h2>
+
+        <h3>1. La Entidad Mapeada (EventoMusical)</h3>
+        <p>Añadimos la anotación fundamental <code>@Entity</code> a nivel de clase. Además, para la lista de artistas (que al ser <code>@Embeddable</code> no tiene una tabla independiente), utilizamos la directiva <strong><code>@ElementCollection</code></strong> para indicarle al proveedor de persistencia que almacene la colección en una tabla subordinada de elementos.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema10.Ejercicios.ejercicio4;
+
+import Tema10.Ejercicios.ejercicio2.Artista;
+import Tema10.Ejercicios.ejercicio2.GeneroMusical;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+public class EventoMusical implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    // Clave primaria secuencial indexada de 10 en 10
+    @Id
+    @GeneratedValue(generator = "Secuencia10en10", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "Secuencia10en10", allocationSize = 10)
+    private Long id;
+    
+    private String nombre;
+    
+    @Temporal(TemporalType.DATE)
+    private LocalDate fecha;
+    
+    private BigDecimal recaudacion;
+    private GeneroMusical genero;
+    
+    // ANOTACIÓN CLAVE: Define colecciones de elementos embebidos o tipos primitivos
+    @ElementCollection
+    private List&lt;Artista&gt; artistasConfirmados = new ArrayList&lt;&gt;();
+
+    // Variable transitoria (Excluida por completo de la persistencia)
+    private transient int control;
+
+    // Constructor POJO por defecto
+    public EventoMusical() {
+    }
+
+    // Constructor completo
+    public EventoMusical(Long id, String nombre, LocalDate fecha, BigDecimal recaudacion, GeneroMusical genero, int control) {
+        this.id = id;
+        this.nombre = nombre;
+        this.fecha = fecha;
+        this.recaudacion = recaudacion;
+        this.genero = genero;
+        this.control = control;
+    }
+
+    // Getters y Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
+
+    public LocalDate getFecha() { return fecha; }
+    public void setFecha(LocalDate fecha) { this.fecha = fecha; }
+
+    public BigDecimal getRecaudacion() { return recaudacion; }
+    public void setRecaudacion(BigDecimal recaudacion) { this.recaudacion = recaudacion; }
+
+    public GeneroMusical getGenero() { return genero; }
+    public void setGenero(GeneroMusical genero) { this.genero = genero; }
+
+    public List&lt;Artista&gt; getArtistasConfirmados() { return artistasConfirmados; }
+    public void setArtistasConfirmados(List&lt;Artista&gt; artistasConfirmados) { this.artistasConfirmados = artistasConfirmados; }
+
+    public int getControl() { return control; }
+    public void setControl(int control) { this.control = control; }
+
+    public void addArtista(Artista artista) {
+        this.artistasConfirmados.add(artista);
+    }
+
+    @Override
+    public String toString() {
+        return "EventoMusical [ID (Incrementos de 10)=" + id + ", Nombre=" + nombre + ", Género=" + genero +
+                ", Fecha=" + fecha + ", Recaudación=" + recaudacion + "€ | (Variable interna 'control'=" + control + ")]";
+    }
+}</code></pre>
+        </div>
+
+        <h3>2. Clase de Conexión y Gestión de Transacciones (Main)</h3>
+        <p>Iniciamos el ciclo de vida de la persistencia. Construimos la factoría apuntando al fichero de base de datos local de ObjectDB (<code>eventos.odb</code>), abrimos una transacción aislando las operaciones críticas de base de datos con <code>persist()</code> y consolidamos con <code>commit()</code>.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema10.Ejercicios.ejercicio4;
+
+import Tema10.Ejercicios.ejercicio2.Artista;
+import Tema10.Ejercicios.ejercicio2.GeneroMusical;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+public class Main {
+    public static void main(String[] args) {
+        // 1. Instanciamos las entidades de prueba en memoria RAM
+        EventoMusical festival1 = new EventoMusical(10L, "Resurrection Fest", LocalDate.of(2026, 6, 26), new BigDecimal("2450000.50"), GeneroMusical.LATINO, 1);
+        festival1.addArtista(new Artista("Anuel", 1));
+        festival1.addArtista(new Artista("Myke Towers", 1));
+
+        EventoMusical festival2 = new EventoMusical(20L, "CocaCola Music Festival", LocalDate.of(2026, 7, 18), new BigDecimal("1890000.00"), GeneroMusical.POP, 2);
+        festival2.addArtista(new Artista("Aitana", 1));
+
+        // Auditamos visualmente los datos iniciales por consola
+        System.out.println(festival1);
+        System.out.println("Lista de artistas: " + festival1.getArtistasConfirmados() + "\n");
+        System.out.println(festival2);
+        System.out.println("Lista de artistas: " + festival2.getArtistasConfirmados() + "\n");
+
+        // 2. Crear la factoría y abrir la conexión con la base de datos ObjectDB (.odb)
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("objectdb:$objectdb/db/eventos.odb");
+        EntityManager em = emf.createEntityManager();
+
+        // 3. AISLAMIENTO SEGURO: Iniciar la transacción de datos
+        em.getTransaction().begin();
+
+        // 4. OPERACIONES DE PERSISTENCIA: Registramos las entidades en el mapa de control de JPA
+        em.persist(festival1);
+        em.persist(festival2);
+
+        // 5. CONSOLIDACIÓN: Confirmar la transacción forzando la escritura física en disco
+        em.getTransaction().commit();
+
+        // 6. LIBERACIÓN: Cerrar los descriptores de conexión para evitar fugas de recursos (Memory Leaks)
+        em.close();
+        emf.close();
+
+        System.out.println("¡Base de datos 'eventos.odb' generada e inserciones completadas con éxito!");
+    }
+}</code></pre>
+        </div>
+
+
+        <h2>Análisis de la Arquitectura JPA en Motores de Objetos</h2>
+        <div class="p-4 rounded-md" style="background-color: var(--card-bg); border-left: 4px solid var(--accent-color); margin: 1.5rem 0;">
+            <p><strong>Mecánica del Ciclo de Vida de las Entidades:</strong></p>
+            <ul>
+                <li><strong>@Entity:</strong> Esta anotación le indica al motor de persistencia que la clase tiene un reflejo directo en el almacenamiento permanente. En bases de datos relacionales tradicionales (como MariaDB) crearía una tabla, mientras que en una orientada a objetos (como ObjectDB) almacena directamente el grafo binario de la instancia.</li>
+                <li><strong>@ElementCollection:</strong> Es obligatoria por contrato cuando mapeamos una lista (<code>List</code>) de objetos que no son entidades independientes (es decir, que no tienen su propio id ni anotación <code>@Entity</code>), como nuestra clase de utilidad <code>Artista</code>. Esto permite que los artistas se almacenen vinculados directamente al ciclo de vida del evento musical contenedor.</li>
+                <li><strong>EntityManager y Transacciones:</strong> Cualquier operación de mutación, actualización o escritura (<code>persist</code>, <code>remove</code>, <code>merge</code>) exige obligatoriamente ser ejecutada dentro de un entorno acotado por <code>begin()</code> y <code>commit()</code>. Si el programa sufriese una caída o un corte de energía a mitad del proceso de persistencia, el motor ejecutaría un <i>rollback</i> automático, dejando la base de datos intacta y libre de datos corruptos o escrituras parciales.</li>
+            </ul>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../posts/Tema10/index.html" class="card-link">← Volver al Tema 10</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2025 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>
