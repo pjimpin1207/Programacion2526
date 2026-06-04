@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 2: Diseño de Interfaces con Posicionamiento Absoluto | Programación</title>
+  <meta name="description" content="Solución al Ejercicio 2 del Tema 11: Aprendiendo a maquetar componentes visuales en posiciones fijas usando setBounds() y anulando el Layout Manager en Java AWT.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+            <a href="../../posts/Tema11/index.html" class="active">Tema 11</a>
+            <a href="../../posts/ProyectoFinal/index.html">Proyecto Final</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 11 • Interfaces Gráficas de Usuario</div>
+      <h1>Ejercicio 2: Diseño de Interfaces con Posicionamiento Absoluto</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado</h2>
+        <p>En esta práctica tomamos el control total del lienzo visual. El objetivo es crear una interfaz gráfica básica donde situaremos una etiqueta de texto descriptiva (<code>Label</code>) y un botón interactivo (<code>Button</code>) en coordenadas de pantalla totalmente arbitrarias elegidas por nosotros mediante el uso explícito de píxeles.</p>
+        
+        <h3>Pregunta de reflexión:</h3>
+        <p>Al situar componentes de forma manual definiendo sus coordenadas exactas de ancho, alto y margen sin restricciones automáticas, <strong>¿qué tipo de posicionamiento estamos utilizando?</strong></p>
+
+
+        <h2>Solución</h2>
+        <p>Para desactivar los comportamientos automáticos de ajuste elástico, debemos forzar al administrador de diseño a un estado nulo (<code>setLayout(null)</code>) y configurar la geometría de cada componente mediante el método de acotación <code>setBounds()</code>.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema11.Ejercicios.ejercicio2;
+
+import java.awt.Button;
+import java.awt.Frame;
+import java.awt.Label;
+
+public class Ejercicio2 {
+    public static void main(String[] args) {
+
+        // 1. Inicializar la ventana contenedora principal
+        Frame frame = new Frame("Posicionamiento Absoluto");
+        frame.setSize(400, 300);
+
+        // REGLA FUNDAMENTAL: Anulamos el Layout Manager para tomar el control por píxeles
+        frame.setLayout(null);
+
+        // 2. Instanciar los componentes gráficos
+        Label etiqueta = new Label("Posición personalizada en píxeles:");
+        Button boton = new Button("¡Púlsame!");
+
+        // 3. POSICIONAR QUIRÚRGICAMENTE MEDIANTE COORDENADAS COORDENADAS (X, Y, Ancho, Alto)
+        // Colocamos la etiqueta a 50px de la izquierda, 80px de arriba, con 250px de ancho y 30px de alto
+        etiqueta.setBounds(50, 80, 250, 30);
+
+        // Colocamos el botón a 100px del borde izquierdo y 150px del superior, con un tamaño de 120x40px
+        boton.setBounds(100, 150, 120, 40);
+
+        // 4. Acoplar los componentes al lienzo de la ventana
+        frame.add(etiqueta);
+        frame.add(boton);
+
+        // 5. Renderizar la interfaz visual en la pantalla
+        frame.setVisible(true);
+    }
+}</code></pre>
+        </div>
+
+        <h2>Respuesta a las preguntas</h2>
+        <div style="background-color: var(--card-bg); border-left: 4px solid var(--accent-color); margin: 1.5rem 0;">
+            <p>El tipo de maquetación que estamos implementando se denomina <strong>Posicionamiento Absoluto (o Layout Nulo)</strong>.</p>
+            <p>Se caracteriza por las siguientes mecánicas técnicas:</p>
+            <ul>
+                <li><strong>Desactivación del Layout Manager:</strong> Al invocar a <code>frame.setLayout(null)</code>, indicamos de forma explícita a la Máquina Virtual de Java que apague cualquier algoritmo de redistribución automática (como <code>FlowLayout</code> o <code>BorderLayout</code>).</li>
+                <li><strong>El método setBounds(int x, int y, int width, int height):</strong> Pasa a ser obligatorio para cada componente. Este método define un rectángulo delimitador exacto en el espacio bidimensional de la ventana:
+                    <ul>
+                        <li><code>x</code>: Distancia en píxeles desde el borde izquierdo del Frame hacia el componente.</li>
+                        <li><code>y</code>: Distancia en píxeles desde el borde superior de la barra de título del Frame hacia abajo.</li>
+                        <li><code>width</code> y <code>height</code>: Dimensiones horizontales y verticales fijas del componente.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <h2>Ventajas y Riesgos del Diseño Absoluto</h2>
+        <p>Aunque el posicionamiento absoluto ofrece una libertad total para posicionar los elementos de forma milimétrica en nuestras pruebas iniciales, **está fuertemente desaconsejado en entornos de producción profesional** debido a las siguientes carencias operacionales:</p>
+        <ol>
+            <li><strong>Falta de Responsividad (Rigidez):</strong> Si el usuario maximiza o estira la ventana en su monitor, los botones y etiquetas mantendrán de forma fija sus coordenadas primitivas, dejando inmensos espacios vacíos y rompiendo la estética visual de la aplicación.</li>
+            <li><strong>Dependencia de la Plataforma (Multiplataforma rota):</strong> Java AWT renderiza los componentes delegando en las librerías nativas de cada Sistema Operativo. El tamaño exacto de la fuente de una etiqueta o el borde de un botón varía entre Windows, macOS y Linux. Un espaciado en píxeles calculado perfectamente para Windows puede provocar que el texto se corte o los componentes se solapen al ejecutarse bajo otra plataforma.</li>
+        </ol>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../posts/Tema11/index.html" class="card-link">← Volver al Tema 11</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2026 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>
