@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 5: Construcción de Menús Desplegables con MenuBar | Programación</title>
+  <meta name="description" content="Solución al Ejercicio 5 del Tema 11: Implementación de barras de menús (MenuBar), pestañas (Menu) y opciones (MenuItem) en Java AWT.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+            <a href="../../posts/Tema11/index.html" class="active">Tema 11</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 11 • Interfaces Gráficas de Usuario</div>
+      <h1>Ejercicio 5: Creación de Menús de Edición con la API AWT</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado y Objetivos</h2>
+        <p>Las aplicaciones profesionales de escritorio organizan sus acciones complejas a través de un sistema de navegación superior. El objetivo de este ejercicio es diseñar la estructura visual de menús desplegables para simular las herramientas de formato básicas de un procesador de textos.</p>
+        
+        <h3>Requisitos del sistema:</h3>
+        <ul>
+            <li>Crear una ventana provista de una etiqueta central (<code>Label</code>) con alineación justificada que contenga el mensaje <em>"Texto de prueba"</em>.</li>
+            <li>Diseñar e inyectar una barra de menú superior (<code>MenuBar</code>).</li>
+            <li>Implementar la pestaña desplegable <strong>"Estilo"</strong> con las opciones interactivas <em>"Negrita"</em> y <em>"Normal"</em>.</li>
+            <li>Implementar la pestaña desplegable <strong>"Color"</strong> provista de los botones de selección <em>"Rojo"</em>, <em>"Azul"</em> y <em>"Negro"</em>.</li>
+        </ul>
+
+        ---
+
+        <h2>Solución Completa</h2>
+        <p>Para ensamblar menús en Java AWT, debemos seguir una jerarquía estricta de herencia: las opciones individuales (<code>MenuItem</code>) se añaden a los contenedores desplegables (<code>Menu</code>), los cuales a su vez se acoplan a la barra contenedora principal (<code>MenuBar</code>) vinculada al marco mediante <code>setMenuBar()</code>.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema11.Ejercicios.ejercicio5;
+
+import java.awt.*;
+import java.awt.event.*;
+
+public class Ejercicio5 {
+    public static void main(String[] args) {
+
+        // 1. Inicializar la ventana contenedora principal
+        Frame frame = new Frame("Editor de Texto");
+        frame.setSize(400, 300);
+        frame.setLayout(new BorderLayout()); // Usamos BorderLayout para centrar la etiqueta
+
+        // 2. Creación y acoplamiento de la etiqueta de texto central
+        Label lblTexto = new Label("Texto de prueba", Label.CENTER);
+        frame.add(lblTexto, BorderLayout.CENTER);
+
+        // 3. ESTRUCTURA DE MENÚS: Instanciar la barra de herramientas superior
+        MenuBar barraMenu = new MenuBar();
+
+        // 4. Configuración de la pestaña desplegable "Estilo"
+        Menu menuEstilo = new Menu("Estilo");
+        MenuItem itemNegrita = new MenuItem("Negrita");
+        MenuItem itemNormal = new MenuItem("Normal");
+        
+        // Colgamos las opciones hijas del menú padre Estilo
+        menuEstilo.add(itemNegrita);
+        menuEstilo.add(itemNormal);
+
+        // 5. Configuración de la pestaña desplegable "Color"
+        Menu menuColor = new Menu("Color");
+        MenuItem itemRojo = new MenuItem("Rojo");
+        MenuItem itemAzul = new MenuItem("Azul");
+        MenuItem itemNegro = new MenuItem("Negro");
+        
+        // Colgamos las opciones hijas del menú padre Color
+        menuColor.add(itemRojo);
+        menuColor.add(itemAzul);
+        menuColor.add(itemNegro);
+
+        // 6. Enlazar los menús desplegables a la barra principal superior
+        barraMenu.add(menuEstilo);
+        barraMenu.add(menuColor);
+
+        // 7. Acoplar de forma física la barra de menús estructurada al marco de la ventana
+        frame.setMenuBar(barraMenu);
+        
+        // Renderizar la interfaz gráfica
+        frame.setVisible(true);
+    }
+}</code></pre>
+        </div>
+
+        <h2>Análisis Jerárquico de Componentes de Menú</h2>
+        <div class="p-4 rounded-md" style="background-color: var(--card-bg); border-left: 4px solid var(--accent-color); margin: 1.5rem 0;">
+            <p><strong>Comprendiendo la arquitectura de contenedores superiores en AWT:</strong></p>
+            <p>Un error conceptual común al empezar a maquetar menús es tratar la barra de herramientas como si fuera un componente común (como un botón o una etiqueta) e intentar inyectarla mediante <code>frame.add()</code>. En Java, los menús siguen una línea de herencia especial al margen de la clase <code>Component</code>:</p>
+            <ul>
+                <li><strong>MenuBar:</strong> Representa el lienzo o la franja horizontal física que se posiciona de forma fija inmediatamente debajo de la barra de título de la ventana. Solo puede existir una instancia de <code>MenuBar</code> asociada a cada <code>Frame</code>, y su acoplamiento se realiza mediante el método específico <strong><code>frame.setMenuBar(barraMenu)</code></strong>.</li>
+                <li><strong>Menu:</strong> Representa los bloques o pestañas de texto que se sitúan sobre la barra (como <i>"Estilo"</i> o <i>"Color"</i>). Su comportamiento nativo consiste en desplegar una lista vertical flotante al hacer clic sobre ellos.</li>
+                <li><strong>MenuItem:</strong> Representa los elementos finales u hojas de la jerarquía. Son las opciones clicables sobre las que el usuario interactúa para desencadenar acciones en el programa (como <i>"Negrita"</i> o <i>"Rojo"</i>).</li>
+            </ul>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../posts/Tema11/index.html" class="card-link">← Volver al Tema 11</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2026 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

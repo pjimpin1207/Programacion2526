@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resumen Unidad 11: Interfaces Gráficas de Usuario (AWT) | Programación</title>
+  <meta name="description" content="Resumen teórico y práctico de la Unidad 11 sobre el desarrollo de interfaces de escritorio con Java AWT: componentes, contenedores, layouts, menús y eventos.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+            <a href="../../posts/Tema11/index.html" class="active">Tema 11</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Teoría • Unidad Didáctica 11</div>
+      <h1>Resumen de la Unidad 11: Interfaces Gráficas de Usuario (AWT)</h1>
+
+      <div class="post-body">
+        
+        <p>En esta unidad didáctica hemos abandonado el paradigma tradicional de las aplicaciones en línea de comandos (CUI) para adentrarnos en el desarrollo de <strong>Interfaces Gráficas de Usuario (GUI)</strong>. Hemos aprendido cómo estructurar aplicaciones de escritorio interactivas utilizando la biblioteca estándar y nativa de Java: <strong>AWT (Abstract Window Toolkit)</strong>.</p>
+
+        <h2>1. Arquitectura y Jerarquía de Componentes</h2>
+        <p>En el ecosistema AWT, cualquier elemento visual que se renderiza en la pantalla se denomina genéricamente <strong>Componente</strong> (clase <code>Component</code>). Los componentes se dividen en dos categorías lógicas esenciales:</p>
+        
+        <ul>
+            <li><strong>Contenedores (Containers):</strong> Componentes de infraestructura diseñados exclusivamente para albergar y organizar otros subcomponentes dentro de sí mismos (como <code>Frame</code>, <code>Panel</code>, o <code>Dialog</code>).</li>
+            <li><strong>Controles (Controls):</strong> Componentes interactivos u hojas encargados de interactuar con el usuario o realizar acciones concretas (como <code>Button</code>, <code>TextField</code>, o <code>Label</code>).</li>
+        </ul>
+
+        <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+            <thead>
+                <tr style="background-color: var(--accent-glow); text-align: left;">
+                    <th style="padding: 1rem; border-bottom: 2px solid var(--accent-color);">Componente AWT</th>
+                    <th style="padding: 1rem; border-bottom: 2px solid var(--accent-color);">Descripción Técnica y Propósito</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);"><strong><code>Frame</code></strong></td>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Contenedor de ventana independiente de nivel superior provisto de barra de título, bordes y botones nativos del sistema operativo.</td>
+                </tr>
+                <tr>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);"><strong><code>Panel</code></strong></td>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Contenedor subordinado invisible utilizado para segmentar, agrupar o aplicar sub-diseños de layouts dentro de una ventana.</td>
+                </tr>
+                <tr>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);"><strong><code>Dialog</code></strong></td>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Ventana emergente secundaria flotante, frecuentemente parametrizada como modal para bloquear la interacción de fondo.</td>
+                </tr>
+                <tr>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);"><strong><code>TextField</code></strong></td>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-color);">Campo de control que habilita la inserción e introducción de texto editable en una sola línea.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        ---
+
+        <h2>2. Modos de Distribución: Layout Managers</h2>
+        <p>Para posicionar y ajustar las dimensiones de los elementos dentro de las ventanas de forma elástica, responsiva y multiplataforma, Java delega la tarea en los <strong>Layout Managers</strong>. Disponemos de dos metodologías de maquetación:</p>
+
+        <ul>
+            <li><strong>Posicionamiento Absoluto (Manual):</strong> Forzado mediante la llamada <code>setLayout(null)</code>. Obliga a definir de forma milimétrica la posición fija de cada control mediante coordenadas de píxeles con el método <code>setBounds(X, Y, Ancho, Alto)</code>. Es rígido y propenso a desconfigurarse según la plataforma.</li>
+            <li><strong>Distribución Automática (Gestores):</strong> Implementaciones de software que adaptan dinámicamente la geometría de la interfaz:
+                <ul>
+                    <li><code>FlowLayout</code>: Organiza los componentes horizontalmente en una sola fila respetando su tamaño, saltando de línea automáticamente cuando no hay espacio físico.</li>
+                    <li><code>BorderLayout</code>: Divide la pantalla en cuatro regiones cardinales (Norte, Sur, Este, Oeste) y un área Central elástica que absorbe todo el espacio restante.</li>
+                    <li><code>GridLayout</code>: Organiza la interfaz en una cuadrícula simétrica rígida de filas y columnas idénticas, estirando los componentes uniformemente.</li>
+                    <li><code>CardLayout</code>: Estructura los componentes en forma de pila de cartas, donde solo un lienzo permanece visible y se alternan de manera dinámica.</li>
+                </ul>
+            </li>
+        </ul>
+
+        ---
+
+        <h2>3. Arquitectura Jerárquica de Menús</h2>
+        <p>Los menús superiores de AWT no heredan de la clase <code>Component</code> común, sino de <code>MenuComponent</code>, estructurándose de forma obligatoria de abajo hacia arriba:</p>
+        <ol>
+            <li><strong><code>MenuItem</code>:</strong> Las opciones finales clicables que disparan las acciones de negocio (ej: <i>"Guardar"</i>, <i>"Salir"</i>).</li>
+            <li><strong><code>Menu</code>:</strong> Las pestañas o bloques desplegables principales que cuelgan verticalmente al hacer clic sobre ellos (ej: <i>"Archivo"</i>, <i>"Color"</i>). Almacenan los <code>MenuItem</code>.</li>
+            <li><strong><code>MenuBar</code>:</strong> La barra o franja horizontal física de control superior anclada fijamente debajo de la barra de título. Alberga las pestañas de los menús y se vincula mediante <code>frame.setMenuBar()</code>.</li>
+        </ol>
+
+        ---
+
+        <h2>4. El Modelo de Gestión de Eventos</h2>
+        <p>Un evento es un suceso que ocurre durante la ejecución del programa (como un clic del ratón, presionar una tecla o cerrar una ventana). Java implementa un mecanismo estructurado de <strong>Delegación de Eventos</strong> (basado en el patrón de diseño <i>Observer</i>), compuesto por tres actores fundamentales:</p>
+        
+        <ol>
+            <li><strong>La Fuente (Source):</strong> El componente gráfico emisor que sufre la acción y origina el suceso (ej: un <code>Button</code>).</li>
+            <li><strong>El Objeto Evento (Event):</strong> La instancia de datos (como <code>ActionEvent</code> o <code>WindowEvent</code>) que encapsula de forma segura los metadatos de la acción ocurrida.</li>
+            <li><strong>El Oyente (Listener):</strong> La interfaz de escucha (como <code>ActionListener</code>) encargada de implementar el método callback de resolución (<code>actionPerformed()</code>) para interceptar el evento.</li>
+        </ol>
+
+        <p>Para dotar de vida a la aplicación, registramos el oyente en el objeto fuente mediante la llamada <code>addXXXListener()</code>. Dentro del controlador, podemos unificar escuchadores sobre múltiples botones utilizando el método discriminador <strong><code>e.getSource()</code></strong> para evaluar dinámicamente la referencia en memoria del componente disparador.</p>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../index.html" class="card-link">← Volver al Inicio</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2026 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

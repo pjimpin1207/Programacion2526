@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 6: Gestión de Eventos Compartidos con ActionListener | Programación</title>
+  <meta name="description" content="Solución al Ejercicio 6 del Tema 11: Implementación de escuchadores de eventos interactivos, uso de e.getSource() y control de ventanas en Java AWT.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+            <a href="../../posts/Tema11/index.html" class="active">Tema 11</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 11 • Interfaces Gráficas de Usuario</div>
+      <h1>Ejercicio 6: Introducción a Eventos — El Contador Interactivo</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado y Objetivos</h2>
+        <p>Una interfaz gráfica estática carece de utilidad operativa si no es capaz de reaccionar ante los estímulos del usuario. En este ejercicio aprenderemos a capturar las pulsaciones del ratón aplicando el patrón **Delegación de Eventos** de Java, utilizando un único objeto controlador centralizado para gestionar múltiples botones simultáneamente.</p>
+        
+        <h3>Requisitos del programa:</h3>
+        <ul>
+            <li>Diseñar una ventana interactiva estructurada con una distribución elástica de tipo <code>FlowLayout</code>.</li>
+            <li>Añadir de forma secuencial tres componentes fijos: un botón de decremento (<code>"-1"</code>), una etiqueta numérica inicializada en <code>"0"</code> y un botón de incremento (<code>"+1"</code>).</li>
+            <li>Enlazar ambos botones al mismo escuchador de eventos lógicos de la clase actual (<code>this</code>).</li>
+            <li><strong>Ampliación:</strong> Evaluar dinámicamente dentro del método de callback qué botón físico ha disparado la acción mediante la función <code>e.getSource()</code>.</li>
+        </ul>
+
+        ---
+
+        <h2>Solución Completa</h2>
+        <p>Hacemos que nuestra propia clase contenedora extienda de <code>Frame</code> e implemente formalmente el contrato de la interfaz <code>ActionListener</code>. Además, acoplamos un adaptador de ventana (<code>WindowAdapter</code>) para habilitar el cierre físico del programa al pulsar la cruz del marco.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema11.Ejercicios.ejercicio6;
+
+import java.awt.*;
+import java.awt.event.*;
+
+public class Ejercicio6 extends Frame implements ActionListener {
+
+    // Declarar los componentes y variables de estado a nivel de clase (ámbito global)
+    private Button btnRestar;
+    private Button btnSumar;
+    private Label lblNumero;
+    private int contador;
+
+    // Constructor encargado de ensamblar e inicializar el lienzo gráfico
+    public Ejercicio6() {
+        super("Contador Interactivo");
+        this.contador = 0; // Estado inicial del modelo de datos
+
+        // Configurar la distribución secuencial fluida
+        setLayout(new FlowLayout());
+        setSize(300, 100);
+
+        // Instanciar los elementos gráficos
+        btnRestar = new Button("-1");
+        lblNumero = new Label("0", Label.CENTER);
+        btnSumar = new Button("+1");
+
+        // REGISTRO DE EVENTOS: Conectamos los botones al escuchador centralizado (this)
+        btnRestar.addActionListener(this);
+        btnSumar.addActionListener(this);
+
+        // Añadir componentes respetando el orden secuencial del enunciado
+        add(btnRestar);
+        add(lblNumero);
+        add(btnSumar);
+
+        // CONTROL EXTRA: Evento utilitario para cerrar el proceso de la JVM al pulsar la "X"
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                System.exit(0);
+            }
+        });
+
+        // Mostrar la ventana terminada al usuario
+        setVisible(true);
+    }
+
+    // MÉTODO INTERCEPTOR (Callback): Se dispara automáticamente al interactuar con un botón
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // e.getSource() devuelve la referencia en memoria del objeto exacto que provocó el evento
+        if (e.getSource() == btnRestar) {
+            contador--; // Lógica de decremento
+        } else if (e.getSource() == btnSumar) {
+            contador++; // Lógica de incremento
+        }
+
+        // Sincronizamos la vista mutando el int a String de forma segura
+        lblNumero.setText(String.valueOf(contador));
+    }
+
+    // Método de arranque de la aplicación
+    public static void main(String[] args) {
+        // Instanciamos el constructor anónimo para inicializar el hilo de la interfaz
+        new Ejercicio6();
+    }
+}</code></pre>
+        </div>
+
+        <h2>Análisis Técnico de la Delegación de Eventos</h2>
+        <div class="p-4 rounded-md" style="background-color: var(--card-bg); border-left: 4px solid var(--accent-color); margin: 1.5rem 0;">
+            <p><strong>Comprendiendo el flujo interno de las señales lógicas en Java:</strong></p>
+            <ul>
+                <li><strong>El Contrato ActionListener:</strong> Es una interfaz abstracta que exige la redefinición obligatoria del método <code>actionPerformed(ActionEvent e)</code>. Actúa como un "interceptor" que permanece a la escucha esperando a que el sistema operativo capture un clic del usuario sobre el componente registrado.</li>
+                <li><strong>¿Por qué pasamos el argumento `this`?</strong> Al invocar <code>btnSumar.addActionListener(this)</code>, le estamos indicando al botón que el objeto encargado de procesar su evento es la propia instancia de la clase <code>Ejercicio6</code> en la que se encuentra integrado, unificando el control.</li>
+                <li><strong>La magia de e.getSource():</strong> Cuando compartimos un mismo escuchador para múltiples emisores, necesitamos un mecanismo de discriminación. El objeto <code>ActionEvent</code> porta metadatos del suceso. Al compararlo directamente mediante un condicional de identidad (<code>==</code>) frente a las variables globales <code>btnRestar</code> o <code>btnSumar</code>, aislamos quirúrgicamente la lógica de negocio sin necesidad de instanciar clases anónimas independientes para cada botón, ahorrando memoria y simplificando la legibilidad del código fuente.</li>
+            </ul>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../posts/Tema11/index.html" class="card-link">← Volver al Tema 11</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2026 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>

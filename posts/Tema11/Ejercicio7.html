@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 7: Interfaz Completa de Login, Diálogos Modales y FileDialog | Programación</title>
+  <meta name="description" content="Solución al Ejercicio 7 del Tema 11: Creación de un formulario de login con contraseñas ocultas, ventanas de diálogo modales y selector de archivos en Java AWT.">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>
+
+  <header class="header">
+        <a href="../../index.html" class="brand-logo">Programación</a>
+        <nav class="nav">
+            <a href="../../index.html">Inicio</a>
+            <a href="../../posts/Tema1/index.html">Tema 1</a>
+            <a href="../../posts/Tema2/index.html">Tema 2</a>
+            <a href="../../posts/Tema3/index.html">Tema 3</a>
+            <a href="../../posts/Tema4/index.html">Tema 4</a>
+            <a href="../../posts/Tema5/index.html">Tema 5</a>
+            <a href="../../posts/Tema6/index.html">Tema 6</a>
+            <a href="../../posts/Tema7/index.html">Tema 7</a>
+            <a href="../../posts/Tema8/index.html">Tema 8</a>
+            <a href="../../posts/Tema9/index.html">Tema 9</a>
+            <a href="../../posts/Tema10/index.html">Tema 10</a>
+            <a href="../../posts/Tema11/index.html" class="active">Tema 11</a>
+        </nav>
+        <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+  <main class="main-wrapper">
+
+    <article class="post-content">
+      <div class="meta">Publicado en Tema 11 • Interfaces Gráficas de Usuario</div>
+      <h1>Ejercicio 7: Formulario de Login Avanzado con Diálogos Modales y Selector de Archivos</h1>
+
+      <div class="post-body">
+        
+        <h2>Enunciado y Requisitos</h2>
+        <p>En esta práctica consolidamos todo lo aprendido sobre maquetación absoluta y control distributed de eventos. Construiremos un panel de autenticación de usuario (Login) completamente funcional que cumpla con los estándares operativos de seguridad e interacción secundaria.</p>
+        
+        <h3>Especificaciones técnicas obligatorias:</h3>
+        <ul>
+            <li><strong>Entrada segura:</strong> Campos para usuario y clave (ocultando los caracteres de la contraseña mediante una máscara visual).</li>
+            <li><strong>Control de Ventana:</strong> Habilitar el cierre nativo del contenedor principal.</li>
+            <li><strong>Limpieza en cascada:</strong> Restablecer de manera automática el texto de todo el formulario pulsando un botón dedicado.</li>
+            <li><strong>Flujo modal:</strong> Validar los datos de entrada al pulsar "Aceptar" y levantar un cuadro de diálogo secundario de tipo modal que dé la bienvenida personalizada al usuario.</li>
+            <li><strong>Misión Opcional (Ampliación):</strong> Incorporar un disparador que invoque al explorador de archivos nativo del sistema, capturando y mostrando la ruta absoluta del fichero seleccionado.</li>
+        </ul>
+
+        ---
+
+        <h2>Solución Completa</h2>
+        <p>Combinamos el uso de <code>setEchoChar('*')</code> para la protección de la clave, la clase <code>Dialog</code> parametrizada en <code>true</code> para el bloqueo modal de la interfaz, y la clase utilitaria <code>FileDialog</code> para interactuar de forma directa con los ficheros del sistema operativo.</p>
+
+        <div style="position: relative;">
+            <button class="copy-btn">Copiar</button>
+            <pre><code class="language-java">package Tema11.Ejercicios.ejercicio7;
+
+import java.awt.*;
+import java.awt.event.*;
+
+public class Ejercicio7 extends Frame implements ActionListener {
+
+    // Declaración de componentes globales de la vista
+    private TextField txtUsuario;
+    private TextField txtPass;
+    private Button btnAceptar;
+    private Button btnLimpiar;
+    private Button btnFichero;
+    private Label lblRuta;
+
+    public Ejercicio7() {
+        super("Pantalla de Login");
+
+        // Desactivamos el gestor automático para posicionar de forma milimétrica por píxeles
+        setLayout(null);
+        setSize(400, 320);
+
+        // 1. Zona de Usuario
+        Label lblUsuario = new Label("Usuario:");
+        lblUsuario.setBounds(50, 50, 80, 30);
+        txtUsuario = new TextField();
+        txtUsuario.setBounds(140, 50, 180, 30);
+
+        // 2. Zona de Contraseña (Segura)
+        Label lblPass = new Label("Contraseña:");
+        lblPass.setBounds(50, 100, 80, 30);
+        txtPass = new TextField();
+        txtPass.setEchoChar('*'); // Enmascara el texto introducido sustituyendo las letras por asteriscos
+        txtPass.setBounds(140, 100, 180, 30);
+
+        // 3. Botonera de Control
+        btnAceptar = new Button("Aceptar");
+        btnAceptar.setBounds(50, 160, 100, 30);
+
+        btnLimpiar = new Button("Limpiar");
+        btnLimpiar.setBounds(160, 160, 100, 30);
+
+        // 4. Zona de Ampliación (Explorador de Archivos)
+        btnFichero = new Button("Seleccionar Fichero");
+        btnFichero.setBounds(50, 210, 150, 30);
+
+        lblRuta = new Label("Ningún fichero seleccionado");
+        lblRuta.setBounds(50, 250, 320, 30);
+
+        // REGISTRO DE ESCUCHADORES: Enlazamos los tres disparadores al gestor unificado 'this'
+        btnAceptar.addActionListener(this);
+        btnLimpiar.addActionListener(this);
+        btnFichero.addActionListener(this);
+
+        // Controlador defensivo para la destrucción del proceso al cerrar la ventana
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                System.exit(0);
+            }
+        });
+
+        // Acoplamiento secuencial de elementos al lienzo principal
+        add(lblUsuario);
+        add(txtUsuario);
+        add(lblPass);
+        add(txtPass);
+        add(btnAceptar);
+        add(btnLimpiar);
+        add(btnFichero);
+        add(lblRuta);
+
+        // Centrar ventana en la pantalla y renderizar
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
+
+    // INTERCEPTOR DE ACCIONES: Enrutamiento lógico según el emisor del evento
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        
+        // CASO A: Pulsación en "Aceptar" -> Inicializar el Diálogo de Bienvenida
+        if (e.getSource() == btnAceptar) {
+            String usuarioStr = txtUsuario.getText();
+
+            // CONTRATO MODAL: Instanciamos el diálogo pasando (VentanaPadre, Título, Modal=true)
+            // Al ser modal (true), congela y bloquea la ventana de Login de fondo hasta que se destruya
+            Dialog dialogoBienvenida = new Dialog(this, "Mensaje", true);
+            dialogoBienvenida.setLayout(new FlowLayout());
+            dialogoBienvenida.setSize(250, 100);
+
+            // Componentes internos del contenedor flotante
+            Label lblMensaje = new Label("¡Bienvenido, " + usuarioStr + "!");
+            Button btnCerrarDialogo = new Button("OK");
+
+            // Evento embebido: El botón OK libera y destruye la tarjeta de memoria del diálogo
+            btnCerrarDialogo.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
+                    dialogoBienvenida.dispose(); // Cierra el diálogo y desbloquea el login
+                }
+            });
+
+            dialogoBienvenida.add(lblMensaje);
+            dialogoBienvenida.add(btnCerrarDialogo);
+            dialogoBienvenida.setLocationRelativeTo(this); // Sincroniza la posición sobre el padre
+            dialogoBienvenida.setVisible(true);
+        }
+
+        // CASO B: Pulsación en "Limpiar" -> Vaciado inmediato de buffers
+        else if (e.getSource() == btnLimpiar) {
+            txtUsuario.setText("");
+            txtPass.setText("");
+        }
+
+        // CASO C: Pulsación en "Seleccionar Fichero" -> Invocar ventana nativa del S.O.
+        else if (e.getSource() == btnFichero) {
+            FileDialog fd = new FileDialog(this, "Elige un archivo", FileDialog.LOAD);
+            fd.setVisible(true); // Se bloquea aquí el hilo hasta que el usuario elija o cancele
+
+            // Validamos que el usuario no haya cerrado el explorador sin escoger nada
+            if (fd.getFile() != null) {
+                String rutaCompleta = fd.getDirectory() + fd.getFile();
+                lblRuta.setText("Archivo: " + rutaCompleta);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        new Ejercicio7();
+    }
+}</code></pre>
+        </div>
+
+        <h2>Análisis de Componentes Avanzados de Interacción</h2>
+        <div class="p-4 rounded-md" style="background-color: var(--card-bg); border-left: 4px solid var(--accent-color); margin: 1.5rem 0;">
+            <p><strong>Claves de diseño e ingeniería de interfaces aplicadas en esta solución:</strong></p>
+            <ul>
+                <li><strong>Seguridad en formularios (setEchoChar):</strong> Por diseño, los campos <code>TextField</code> muestran los caracteres en texto plano. Invocar a <code>setEchoChar('*')</code> reconfigura el comportamiento del búfer visual del sistema de ventanas, ocultando los caracteres de entrada frente a miradas indiscretas, manteniendo el texto íntegro al leerlo con <code>getText()</code>.</li>
+                <li><strong>El concepto de Ventana Modal (Dialog):</strong> Al pasar el parámetro booleano en <code>true</code> dentro del constructor <code>new Dialog(this, "Título", true)</code>, creamos una ventana modal de bloqueo. Esto congela de forma inmediata la cola de eventos de la ventana de login subyacente. El usuario no podrá hacer clic, rellenar campos o mover la pantalla principal hasta que atienda y descarte el diálogo (ejecutando <code>dispose()</code>), asegurando el flujo secuencial de la aplicación.</li>
+                <li><strong>Interoperabilidad con FileDialog:</strong> A diferencia de maquetar un explorador manualmente, la clase <code>FileDialog</code> de AWT es un componente de "peso pesado" (<i>Heavyweight component</i>). Delega la llamada directamente en el núcleo del Sistema Operativo host. Mostrará la ventana de navegación nativa de Windows, macOS o Linux según donde se ejecute, capturando de forma segura las cadenas de texto del directorio (<code>getDirectory()</code>) y del archivo (<code>getFile()</code>).</li>
+            </ul>
+        </div>
+
+      </div>
+
+      <div class="back-link">
+        <a href="../../posts/Tema11/index.html" class="card-link">← Volver al Tema 11</a>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Pablo Jiménez</h3>
+        <p>Desarrollo de Aplicaciones Web (DAW)</p>
+        <p>&#169; 2026 Programación</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/pjimpin1207" target="_blank" class="footer-btn">
+          <span>GitHub &#8599;</span>
+        </a>
+        <a href="https://pjimpin1207.github.io/DIWEB/" target="_blank" class="footer-btn">
+          <span>Blog DIWEB &#8599;</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+
+</body>
+
+</html>
